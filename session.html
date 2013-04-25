@@ -1,0 +1,49 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Selectable - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+ 
+  <style>
+  #feedback { font-size: 1.4em; }
+  #selectable .ui-selected { background: #009E0F;; color: white; }
+  #selectable { list-style-type: none; margin: auto; padding: 0; width: 50%; }
+  #selectable li { text-align:center; margin: 9px; padding: 0.4em; font-size: 2em; height: 60px; border-color:#666666; border-radius: 10px}
+  
+  </style>
+  <script>
+  $(function() {
+    $( "#selectable" ).selectable({
+      stop: function() {
+        var result = $( "#select-result" ).empty();
+        $( ".ui-selected", this ).each(function() {
+          var index = $( "#selectable li" ).index( this );
+          result.append( " #" + ( index + 1 ) );
+        });
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+ <p id="feedback">
+<span>You've selected:</span> <span id="select-result">none</span>.
+</p>
+<ol id="selectable">
+  <li class="ui-widget-content">Réponse 1</li>
+  <li class="ui-widget-content">Réponse 2</li>
+  <li class="ui-widget-content">Réponse 3</li>
+  <li class="ui-widget-content">Réponse 4</li>
+  <li class="ui-widget-content">Réponse 5</li>
+  <li class="ui-widget-content">Réponse 6</li>
+  <li class="ui-widget-content">Réponse 7</li>
+</ol>
+ 
+ 
+</body>
+</html>
