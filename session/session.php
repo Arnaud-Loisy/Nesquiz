@@ -25,12 +25,13 @@
     });
   });
   </script>
-  <?php	
-  	include '../accueil/menu.php';
-  ?>
+  
 </head>
 <body>
 	<div id='page'>
+		<?php	
+  	include '../accueil/menu.php';
+  ?>
 	
 <h1 class="question">Que veux dire le sigle ARP ? :</h1>
 <ol id="selectable">
