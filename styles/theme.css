@@ -9,7 +9,7 @@
 	width: 80%;
 }
 #selectable li {
-	text-align: left;
+	text-align: center;
 	margin: 10px;
 	padding: 4px;
 	font-size: 35px;
@@ -44,12 +44,15 @@
 	padding: 0;
 	border-right: 1px solid #ffffff;
 }
+#menu li:last-child {
+	border-right:none;
+}
 #menu li a {
 	display: block;
 	float: left;
 	color: #ffffff;
 	text-decoration: none;
-	padding: 12px 20px 0 20px;
+	padding: 20px 10px 0 10px;
 	height: 60px;
 }
 #menu li a:hover {
