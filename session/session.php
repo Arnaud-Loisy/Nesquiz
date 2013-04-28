@@ -40,10 +40,8 @@
   <li class="ui-widget-content">Addressing Resolution Protocol</li> 
 </ol>
 
-<ol id="bouton">
-	<li><a href='#'>Précédent</a></li>
-	<li><a href='#'>Suivant</a></li>
-</ol> 
+     <input class="bouton" type="submit" value="Précédent" />
+     <input class="bouton" type="submit" value="Suivant" />
  </div>
 </body>
 </html>
