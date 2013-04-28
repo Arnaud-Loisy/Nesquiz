@@ -3222,6 +3222,7 @@ $.widget("ui.selectable", $.ui.mouse, {
 		distance: 0,
 		filter: "*",
 		tolerance: "touch",
+		multi_no_key: true,
 
 		// callbacks
 		selected: null,
@@ -3305,26 +3306,30 @@ $.widget("ui.selectable", $.ui.mouse, {
 			this.refresh();
 		}
 
-		this.selectees.filter(".ui-selected").each(function() {
-			var selectee = $.data(this, "selectable-item");
-			selectee.startselected = true;
-			if (!event.metaKey && !event.ctrlKey) {
-				selectee.$element.removeClass("ui-selected");
-				selectee.selected = false;
-				selectee.$element.addClass("ui-unselecting");
-				selectee.unselecting = true;
-				// selectable UNSELECTING callback
-				that._trigger("unselecting", event, {
-					unselecting: selectee.element
-				});
-			}
-		});
+		this.selectees.filter('.ui-selected').each(function() {
+        var selectee = $.data(this, "selectable-item");
+        selectee.startselected = true;
+        if (!event.metaKey && options.multi_no_key == false) {
+            selectee.$element.removeClass('ui-selected');
+            selectee.selected = false;
+            selectee.$element.addClass('ui-unselecting');
+            selectee.unselecting = true;
+            // selectable UNSELECTING callback
+            self._trigger("unselecting", event, {
+                unselecting: selectee.element
+            });
+        }
+    });
 
 		$(event.target).parents().addBack().each(function() {
 			var doSelect,
 				selectee = $.data(this, "selectable-item");
 			if (selectee) {
-				doSelect = (!event.metaKey && !event.ctrlKey) || !selectee.$element.hasClass("ui-selected");
+				var doSelect;
+if(!options.multi_no_key)
+    doSelect = !event.metaKey || !selectee.$element.hasClass('ui-selected');
+else
+    doSelect = !selectee.$element.hasClass('ui-selected');
 				selectee.$element
 					.removeClass(doSelect ? "ui-unselecting" : "ui-selected")
 					.addClass(doSelect ? "ui-selecting" : "ui-unselecting");
