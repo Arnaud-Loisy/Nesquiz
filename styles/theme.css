@@ -1,21 +1,51 @@
-#bouton-selectable .ui-selected {
+#selectable .ui-selected {
 	background: #009E0F;
 	color: white;
 }
-#bouton-selectable {
+#selectable {
 	list-style-type: none;
 	margin: auto;
 	padding: 0;
-	width: 50%;
+	width: 30%;
+	font-family: 'Earthbound',Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
-#bouton-selectable li {
+#selectable li {
+	text-align: left;
+	margin: 10px;
+	padding: 4px;
+	font-size: 35px;
+	height: auto;
+	border-color: #666666;
+	border-radius: 10px;
+}
+
+#bouton li{
+	background:#2B78E4;
+	border: solid;
+	border-width:1px;
+	
+	list-style-type: none;
 	text-align: center;
-	margin: 9px;
-	padding: 0.4em;
-	font-size: 2em;
+	margin-left: 20%;
+	margin-right: 10%;
+	
+	padding: 0;
+	font-size: 48px;
 	height: 60px;
 	border-color: #666666;
 	border-radius: 10px;
+	width: 14%;
+	display:block;
+	float:left;
+	font-family: 'Earthbound',Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+#bouton li a{
+	display:block;	
+	text-align: center;
+	color:#ffffff;
+	text-decoration:none;
+	
 }
 
 #menu{
