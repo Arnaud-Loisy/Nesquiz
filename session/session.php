@@ -25,26 +25,26 @@
     });
   });
   </script>
-  <?php
-	include ('..\accueil\menu.php');
-
-?>
-
+  <?php	
+  	include '../accueil/menu.php';
+  ?>
 </head>
 <body>
+	<div id='page'>
+	
 <h1 class="question">Que veux dire le sigle ARP ? :</h1>
 <ol id="selectable">
-  <li class="ui-widget-content">A : Address Research Protocol</li>
-  <li class="ui-widget-content">B : Address Resolution Protocol</li>
-  <li class="ui-widget-content">C : Addressing Research Protocol</li>
-  <li class="ui-widget-content">D : Addressing Resolution Protocol</li> 
+  <li class="ui-widget-content">Address Research Protocol</li>
+  <li class="ui-widget-content">Address Resolution Protocol</li>
+  <li class="ui-widget-content">Addressing Research Protocol</li>
+  <li class="ui-widget-content">Addressing Resolution Protocol</li> 
 </ol>
 
 <ol id="bouton">
 	<li><a href='#'>Précédent</a></li>
 	<li><a href='#'>Suivant</a></li>
 </ol> 
- 
+ </div>
 </body>
 </html>
 
