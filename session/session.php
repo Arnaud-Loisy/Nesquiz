@@ -29,6 +29,23 @@
 		<div id='page'>
 			<?php
 			include '../accueil/menu.php';
+			include '../admin/secret.php';
+			$dbcon=pg_connect("host=$host user=$login password=$password");
+
+			if(!$dbcon){
+ 				echo "connection failed<br>";
+			}else
+				echo "connection not failed<br>";
+
+			$result = pg_query($dbcon, "SELECT questions.idquestion, questions.libellequestion, reponses.idreponse, reponses.libellereponse, questions.tempsquestion 
+			FROM   quiz, questions, inclu, reponses, sessions
+			WHERE 	  quiz.idquiz = inclu.idquiz 
+			AND	  inclu.idquestion = questions.idquestion 
+			AND	  reponses.idquestion = questions.idquestion 
+			AND	  sessions.idquiz = inclu.idquiz 
+			AND	  sessions.datesession = $session;");
+			
+			
 			?>
 			<span id="select-result"></span>.
 			
