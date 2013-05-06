@@ -22,20 +22,23 @@ if(!$dbcon){
 
 if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 	
-	$result_etu= pg_query($dbcon, "SELECT idEtudiant, mdpEtudiant FROM Etudiants;");
+	$result_etu= pg_query($dbcon, "SELECT idEtudiant, mdpEtudiant, nomEtudiant, prenomEtudiant FROM Etudiants;");
         $arr = pg_fetch_array($result_etu);
-        $result_adm = pg_query($dbcon, "SELECT idAdminProf, mdpAdminProf, Admin FROM AdminProfs;");
+        $result_adm = pg_query($dbcon, "SELECT idAdminProf, mdpAdminProf, Admin, nomAdminProf, prenomAdminProf FROM AdminProfs;");
         $tab = pg_fetch_array($result_adm);
-	if($_POST["login"]==$arr[0] && $_POST["mdp"]==$arr[1]){
+	if($_POST["login"]==$arr["idEtudiant"] && $_POST["mdp"]==$arr["mdpEtudiant"]){
             $_SESSION["id"] = $_POST["login"];
             $_SESSION["statut"]="etu";
-          
+            $_SESSION["nom"]=$arr["nomEtudiant"];
+            $_SESSION["prenom"]=$arr["prenomEtudiant"];
 		header("Location: http://nesquiz.fr/accueil.php");
 	}
-	else{if($_POST["login"]==$tab[0] && $_POST["mdp"]==$tab[1]){
+	else{if($_POST["login"]==$tab["idAdminProf"] && $_POST["mdp"]==$tab["mdpAdminProf"]){
 		$_SESSION["id"] = $_POST["login"];
-                if($tab[2]==1){
-                $_SESSION["statut"] = $tab[2];}
+                $_SESSION["nom"]=$tab["nomAdminProf"];
+                $_SESSION["prenom"]=$tab["prenomAdminProf"];
+                if($tab["Admin"]==1){
+                $_SESSION["statut"] = "admin";}
                 else{
                    $_SESSION["statut"]="prof";
                 }

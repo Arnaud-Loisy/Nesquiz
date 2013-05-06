@@ -10,9 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
+    <div id="page">
+        
+   
 <form action='traitement.php' method='POST'>
-	Login : <input name="login" type="text"><br>
+	Login : <input name="login" type="text" ><br>
 	Password : <input name="mdp" type ="password"><br>
-	<input value="Connexion" type="submit"> 
+	<input class="bouton" value="Connexion" type="submit"> 
+    </div>
 </body>
 <html>
