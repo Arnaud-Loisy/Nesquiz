@@ -9,9 +9,9 @@
 </head>
 <body>
     <?php
-    
+    session_start();
     include '../accueil/menu.php';
-    
+    echo"Bonjour".$_SESSION['prenom'].$_SESSION['nom'];
     
     ?>
     <div id="page">

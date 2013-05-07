@@ -49,8 +49,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
         
         else {
 		$_SESSION["erreur_log"]=1;
-                
-                
+                 
 		header('Location:./accueil_non_co.php');
 	}
         }
