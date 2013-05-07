@@ -22,10 +22,11 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
         $arr = pg_fetch_array($result_etu);
  if ($arr==false){
      if($mdp==$cmdp){
-          pg_query($dbcon,"INSERT INTO Etudiants VALUES (".$numero_etu.", ".$nom.", ".$prenom.", ".$mdp.", ".$promotion.", ".$langue.";");
+          pg_query($dbcon,"INSERT INTO Etudiants VALUES (".$numero_etu.", '".$nom."', '".$prenom."', '".$mdp."', ".$promotion.", '".$langue."');");
              $_SESSION["nom"]=$_POST["nom"];
              $_SESSION["prenom"]=$_POST["prenom"];
              $_SESSION["statut"]="etu";
+             $_SESSION["id"]=$_POST["numero_etu"];
          header('Location:./accueil.php');
      }
      else {
