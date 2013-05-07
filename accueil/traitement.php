@@ -34,7 +34,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
             $_SESSION["nom"]=$arr["nomEtudiant"];
             $_SESSION["prenom"]=$arr["prenomEtudiant"];
            
-		header("Location:./accueil.php");
+		//header("Location:./accueil.php");
 	}
 	else{if($_POST["login"]==$tab["idAdminProf"] && $_POST["mdp"]==$tab["mdpAdminProf"]){
 		$_SESSION["id"] = $_POST["login"];
@@ -46,13 +46,13 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
                 else{
                    $_SESSION["statut"]="prof";
                 }
-		header('Location:./accueil.php');
+		//header('Location:./accueil.php');
 	}
         
         else {
 		$_SESSION["erreur_log"]=1;
                  
-		header('Location:./accueil_non_co.php');
+		//header('Location:./accueil_non_co.php');
 	}
         }
 }
