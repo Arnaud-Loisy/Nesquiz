@@ -14,7 +14,7 @@
     <?php
     session_start();
     include '../accueil/menu.php';
-    if($_SESSION["erreur_log"]==1){
+    if($_SESSION["erreur_log"]===1){
         echo"Erreur de connexion";
     }
   
