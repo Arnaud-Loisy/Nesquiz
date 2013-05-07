@@ -23,7 +23,7 @@
     
     
     ?>
-    <div id="page">
+   
         
    
 <form action='traitement.php' method='POST'>
