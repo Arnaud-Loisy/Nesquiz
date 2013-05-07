@@ -31,12 +31,14 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
             $_SESSION["statut"]="etu";
             $_SESSION["nom"]=$arr["nomEtudiant"];
             $_SESSION["prenom"]=$arr["prenomEtudiant"];
+            $_SESSION["erreur_log"]=0;
 		header("Location:./accueil.php");
 	}
 	else{if($_POST["login"]==$tab["idAdminProf"] && $_POST["mdp"]==$tab["mdpAdminProf"]){
 		$_SESSION["id"] = $_POST["login"];
                 $_SESSION["nom"]=$tab["nomAdminProf"];
                 $_SESSION["prenom"]=$tab["prenomAdminProf"];
+                $_SESSION["erreur_log"]=0;
                 if($tab["Admin"]==1){
                 $_SESSION["statut"] = "admin";}
                 else{
@@ -46,8 +48,8 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 	}
         
         else {
-		echo "erreur de connexion";
-                sleep(3);
+		$_SESSION["erreur_log"]=1;
+                
                 
 		header('Location:./accueil_non_co.php');
 	}

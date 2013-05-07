@@ -10,9 +10,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
+    <div id="page">
     <?php
-    
+    session_start();
     include '../accueil/menu.php';
+    if($_SESSION["erreur_log"]==1){
+        echo"Erreur de connexion";
+    }
+  
     
     
     ?>
