@@ -44,13 +44,14 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
                 }
 		header('Location:./accueil.php');
 	}
+        
         else {
-		
-                sleep(10);
-                echo "erreur de connexion";
+		echo "erreur de connexion";
+                sleep(3);
+                
 		header('Location:./accueil_non_co.php');
 	}
-}
+        }
 }
  ?>
 
