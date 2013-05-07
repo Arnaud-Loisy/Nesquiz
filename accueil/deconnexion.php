@@ -6,5 +6,5 @@ unset($_SESSION["nom"]);
 unset($_SESSION["prenom"]);
 unset($_SESSION["erreur_log"]);
 
-header('Location:./accueil_non_co.php');
+header('Location:../index.php');
 ?>

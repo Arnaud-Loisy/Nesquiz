@@ -3,7 +3,7 @@
 <html>
     
 <head>
-     <link rel="stylesheet" href="..\styles\theme.css" />
+     <link rel="stylesheet" href=".\styles\theme.css" />
     <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
 <title>Accueil</title>
@@ -13,7 +13,7 @@
     <div id="page">
     <?php
     session_start();
-    include '../accueil/menu.php';
+    include './accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
         echo"Erreur de connexion";
         unset($_SESSION["erreur_log"]);  
@@ -22,7 +22,7 @@
    
         
    
-<form action='traitement.php' method='POST'>
+<form action='accueil\traitement.php' method='POST'>
 	Login : <input name="login" type="text" ><br>
 	Password : <input name="mdp" type ="password"><br>
 	<input class="bouton" value="Connexion" type="submit"> 
