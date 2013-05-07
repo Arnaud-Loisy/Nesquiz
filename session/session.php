@@ -43,7 +43,8 @@
 			WHERE 	  quiz.idquiz = inclu.idquiz 
 			AND	  inclu.idquestion = questions.idquestion 
 			AND	  reponses.idquestion = questions.idquestion 
-			AND	  sessions.idquiz = inclu.idquiz;");
+			AND	  sessions.idquiz = inclu.idquiz 
+			AND	  sessions.datesession = $session;");
 			
 			
 			$array = pg_fetch_array($result);
@@ -51,6 +52,7 @@
 			<form method="post" action="session.php">
 				<h1 class="question">Que veux dire le sigle ARP ? :</h1>
 				<ol id="selectable">'
+				
 			?>
 			
 					<li class="ui-widget-content">Address Research Protocol</li>
