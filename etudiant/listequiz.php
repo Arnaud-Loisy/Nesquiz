@@ -25,7 +25,9 @@ $requete="SELECT libelleQuiz
 	AND Sessions.etatsession=1;";
 $result = pg_query($dbcon,$requete);
 while($tableauquiz = pg_fetch_array($result)){
-	echo $tableauquiz['libellequiz']."<br>";
+	echo '<input class="bouton" type="submit" value="';
+	echo $tableauquiz['libellequiz'];
+	echo '"/><br>';
 }
 
 	
