@@ -46,7 +46,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 	}
         else {
 		echo "erreur de connexion";
-		header("Location: http://nesquiz.fr/index.php");
+		header("Location: http://nesquiz.fr/acceuil_non_co.php");
 	}
 }
 }
