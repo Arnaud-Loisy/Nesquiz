@@ -43,8 +43,7 @@
 			WHERE 	  quiz.idquiz = inclu.idquiz 
 			AND	  inclu.idquestion = questions.idquestion 
 			AND	  reponses.idquestion = questions.idquestion 
-			AND	  sessions.idquiz = inclu.idquiz 
-			AND	  sessions.datesession = 111111;");
+			AND	  sessions.idquiz = inclu.idquiz;");
 			
 			
 			$array = pg_fetch_array($result);
