@@ -16,13 +16,13 @@ include '../admin/secret.php';
 
 $dbcon=pg_connect("host=$host user=$login password=$password");
 if(!$dbcon){
- 				echo "connection échouée à la BDD<br>";
+ 				echo "<br><br>connection échouée à la BDD<br>";
 			}else
-				echo "connection réussie à la BDD<br>";
+				echo "<br><br>connection réussie à la BDD<br>";
 $requete="SELECT libelleQuiz
 	FROM Sessions, Quiz
 	WHERE Sessions.idQuiz = Quiz.idQuiz
-	AND Sessions.etat=1;";
+	AND Sessions.etatsession=1;";
 $result = pg_query($dbcon,$requete);
 while($tableauquiz = pg_fetch_array($result)){
 	echo $tableauquiz['libellequiz']."<br>";
