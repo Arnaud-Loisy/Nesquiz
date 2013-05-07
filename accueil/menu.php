@@ -1,5 +1,5 @@
 <?php
-if(isset($_SESSION['id']) && ($_SESSION['statut']==admin))
+if(isset($_SESSION['id']) && ($_SESSION['statut']=="admin"))
 {
 	echo"
 <div id='menu'>
@@ -13,7 +13,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut']==admin))
    <li><a href='#'>Déconnexion</a></li>
 </ul>
 </div>";
-}elseif(isset($_SESSION['id']) && ($_SESSION['statut']==prof))
+}elseif(isset($_SESSION['id']) && ($_SESSION['statut']=="prof"))
 	{
 		echo"
 <div id='menu'>
@@ -25,7 +25,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut']==admin))
 </ul>
 </div>";
 	}
-elseif (isset($_SESSION['id']) && ($_SESSION['statut']==etu)) 
+elseif (isset($_SESSION['id']) && ($_SESSION['statut']=="etu")) 
 {
 	echo"
 <div id='menu'>
