@@ -30,6 +30,7 @@
 			<?php
 			include '../accueil/menu.php';
 			include '../admin/secret.php';
+			$session=11111111;
 			$dbcon=pg_connect("host=$host user=$login password=$password");
 
 			if(!$dbcon){
@@ -43,15 +44,16 @@
 			AND	  inclu.idquestion = questions.idquestion 
 			AND	  reponses.idquestion = questions.idquestion 
 			AND	  sessions.idquiz = inclu.idquiz 
-			AND	  sessions.datesession = $session;");
+			AND	  sessions.datesession = 111111;");
 			
 			
-			?>
-			<span id="select-result"></span>.
-			
+			$array = pg_fetch_array($result);
+			echo '<span id="select-result"></span>.
 			<form method="post" action="session.php">
 				<h1 class="question">Que veux dire le sigle ARP ? :</h1>
-				<ol id="selectable">
+				<ol id="selectable">'
+			?>
+			
 					<li class="ui-widget-content">Address Research Protocol</li>
 					<li class="ui-widget-content">Address Resolution Protocol</li>
 					<li class="ui-widget-content">Addressing Research Protocol</li>
