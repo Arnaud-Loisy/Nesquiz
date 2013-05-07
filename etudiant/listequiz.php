@@ -21,10 +21,10 @@ if(!$dbcon){
 $requete="SELECT libelleQuiz
 	FROM Sessions, Quiz
 	WHERE Sessions.idQuiz = Quiz.idQuiz
-	AND Sessions.etat=1;"
+	AND Sessions.etat=1;";
 $result = pg_query($dbcon,$requete);
 while($tableauquiz = pg_fetch_array($result)){
-	echo "$tableauquiz['libellequiz']"."<br>";
+	echo $tableauquiz['libellequiz']."<br>";
 }
 
 	
