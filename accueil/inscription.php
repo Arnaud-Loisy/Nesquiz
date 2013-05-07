@@ -3,7 +3,7 @@
 <html>
     
 <head>
-     <link rel="stylesheet" href="..\styles\theme.css" />
+     <link rel="stylesheet" href="../styles/theme.css" />
     <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
 <title>Inscription</title>
@@ -23,6 +23,7 @@
             unset( $_SESSION["erreur_inscription_numero_etu"]);
         }
         ?>
+        <br>
         <br>
         <form action='trait_inscri.php' method='POST'>
 	Nom : <input name="nom" type="text" ><br>
