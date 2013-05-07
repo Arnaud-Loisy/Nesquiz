@@ -26,6 +26,7 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
              $_SESSION["nom"]=$_POST["nom"];
              $_SESSION["prenom"]=$_POST["prenom"];
              $_SESSION["statut"]="etu";
+             $_SESSION["id"]=$_POST["numero_etu"];
          header('Location:./accueil.php');
      }
      else {
