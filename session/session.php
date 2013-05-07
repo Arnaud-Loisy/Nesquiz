@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Session</title>
-		<link rel="stylesheet" href="..\styles\jquery-ui.css" />
-		<script src="..\scripts\jquery-2.0.0.js"></script>
-		<script src="..\scripts\jquery-ui.js"></script>
-		<link rel="stylesheet" href="..\styles\theme.css" />
+		<link rel="stylesheet" href="../styles/jquery-ui.css" />
+		<script src="../scripts/jquery-2.0.0.js"></script>
+		<script src="../scripts/jquery-ui.js"></script>
+		<link rel="stylesheet" href="../styles/theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
 		<script>
