@@ -1,17 +1,8 @@
-<!doctype html>
-<html>
-		
-<head>
-    <link rel="stylesheet" href="..\styles\theme.css" />
-    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
-<title>Traitement</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body>
 <?php
 include '../admin/secret.php';
 session_start();
+$trouver=false;
 $dbcon=pg_connect("host=$host user=$login password=$password");
 
 if(!$dbcon){
@@ -22,26 +13,28 @@ if(!$dbcon){
 
 if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 	
-	$result_etu= pg_query($dbcon, "SELECT idEtudiant, mdpEtudiant, nomEtudiant, prenomEtudiant FROM Etudiants;");
-        $arr = pg_fetch_array($result_etu);
-        $result_adm = pg_query($dbcon, "SELECT idAdminProf, mdpAdminProf, Admin, nomAdminProf, prenomAdminProf FROM AdminProfs;");
-        $tab = pg_fetch_array($result_adm);
-        var_dump($arr);
-        var_dump($tab);
-	if($_POST["login"]==$arr["idEtudiant"] && $_POST["mdp"]==$arr["mdpEtudiant"]){
+	$result_etu= pg_query($dbcon, "SELECT idetudiant, mdpetudiant, nometudiant, prenometudiant FROM etudiants;");
+       while($arr = pg_fetch_array($result_etu)){
+           if($_POST["login"]==$arr["idetudiant"] && $_POST["mdp"]==$arr["mdpetudiant"]){
             $_SESSION["id"] = $_POST["login"];
             $_SESSION["statut"]="etu";
-            $_SESSION["nom"]=$arr["nomEtudiant"];
-            $_SESSION["prenom"]=$arr["prenomEtudiant"];
-           
+            $_SESSION["nom"]=$arr["nometudiant"];
+            $_SESSION["prenom"]=$arr["prenometudiant"];
+            $trouver=true;
 		header("Location:./accueil.php");
-	}
-	else{if($_POST["login"]==$tab["idAdminProf"] && $_POST["mdp"]==$tab["mdpAdminProf"]){
+       }
+       }
+        $result_adm = pg_query($dbcon, "SELECT idadminprof, mdpadminprof, admin, nomadminprof, prenomadminprof FROM adminprofs;");
+       
+        while($tab = pg_fetch_array($result_adm)){
+           
+       
+      if($_POST["login"]==$tab["idadminprof"] && $_POST["mdp"]==$tab["mdpadminprof"]){
 		$_SESSION["id"] = $_POST["login"];
-                $_SESSION["nom"]=$tab["nomAdminProf"];
-                $_SESSION["prenom"]=$tab["prenomAdminProf"];
-                
-                if($tab["Admin"]==1){
+                $_SESSION["nom"]=$tab["nomadminprof"];
+                $_SESSION["prenom"]=$tab["prenomadminprof"];
+                $trouver=true;
+                if($tab["admin"]=="t"){
                 $_SESSION["statut"] = "admin";}
                 else{
                    $_SESSION["statut"]="prof";
@@ -49,15 +42,16 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 		header('Location:./accueil.php');
 	}
         
-        else {
+        
+        }
+	
+	if(!$trouver){
+        
+	
 		$_SESSION["erreur_log"]=1;
                  
 		header('Location:./accueil_non_co.php');
 	}
-        }
 }
+
  ?>
-
-</body>
-
-</html>

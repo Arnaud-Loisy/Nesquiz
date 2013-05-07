@@ -15,7 +15,7 @@
     <?php
     session_start();
     include '../accueil/menu.php';
-    echo"<br><h1> Bonjour".$_SESSION["prenom"].$_SESSION["nom"]."</h1>";
+    echo"<br><h1> Bonjour ".$_SESSION["prenom"]." ".$_SESSION["nom"]."</h1>";
     
     ?>
       </div>
