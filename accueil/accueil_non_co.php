@@ -16,12 +16,8 @@
     include '../accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
         echo"Erreur de connexion";
-        unset($_SESSION["erreur_log"]);
-                
-       }
-  
-    
-    
+        unset($_SESSION["erreur_log"]);  
+       }    
     ?>
    
         

@@ -26,6 +26,8 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
         $arr = pg_fetch_array($result_etu);
         $result_adm = pg_query($dbcon, "SELECT idAdminProf, mdpAdminProf, Admin, nomAdminProf, prenomAdminProf FROM AdminProfs;");
         $tab = pg_fetch_array($result_adm);
+        var_dump($arr);
+        var_dump($tab);
 	if($_POST["login"]==$arr["idEtudiant"] && $_POST["mdp"]==$arr["mdpEtudiant"]){
             $_SESSION["id"] = $_POST["login"];
             $_SESSION["statut"]="etu";
