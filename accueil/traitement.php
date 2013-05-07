@@ -41,7 +41,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
                 $_SESSION["nom"]=$tab["nomadminprof"];
                 $_SESSION["prenom"]=$tab["prenomadminprof"];
                 
-                if($tab["admin"]==t){
+                if($tab["admin"]=="t"){
                 $_SESSION["statut"] = "admin";}
                 else{
                    $_SESSION["statut"]="prof";
