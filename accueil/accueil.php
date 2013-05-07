@@ -8,15 +8,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
+       <div id="page">
+        
+ 
+
     <?php
     session_start();
     include '../accueil/menu.php';
     echo"Bonjour".$_SESSION['prenom'].$_SESSION['nom'];
     
     ?>
-    <div id="page">
-        
-    </div>
+      </div>
 
 </body>
 <html>
