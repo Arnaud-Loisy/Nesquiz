@@ -25,6 +25,7 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
           pg_query($dbcon,"INSERT INTO Etudiants VALUES ($numero_etu, $nom, $prenom, $mdp, $promo, $langue");
              $_SESSION["nom"]=$_POST["nom"];
              $_SESSION["prenom"]=$_POST["prenom"];
+             $_SESSION["statut"]="etu";
          header('Location:./accueil.php');
      }
      else {
