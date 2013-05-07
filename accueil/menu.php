@@ -4,6 +4,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut']=="admin"))
 	echo"
 <div id='menu'>
 <ul>
+   <li><a href='../index.php'>Accueil</a></li>
    <li><a href='../admin/compte.php'>".$_SESSION['prenom']." ".$_SESSION['nom']."</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
    <li><a href='../admin/gestioncompte.php'>Comptes<br>Utilisateurs</a></li>
@@ -18,6 +19,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut']=="admin"))
 		echo"
 <div id='menu'>
 <ul>
+  <li><a href='../index.php'>Accueil</a></li>
    <li><a href='../admin/compte.php'>".$_SESSION['prenom']." ".$_SESSION['nom']."</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
@@ -30,6 +32,7 @@ elseif (isset($_SESSION['id']) && ($_SESSION['statut']=="etu"))
 	echo"
 <div id='menu'>
 <ul>
+	<li><a href='../index.php'>Accueil</a></li>
    <li><a href='../admin/compte.php'>".$_SESSION['prenom']." ".$_SESSION['nom']."</a></li>
    <li><a href='../etudiant/listequiz.php'>Quiz</a></li>
    <li><a href='../etudiant/notes.php'>Notes</a></li> 
