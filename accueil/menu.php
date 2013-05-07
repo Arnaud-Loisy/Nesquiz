@@ -10,7 +10,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut']=="admin"))
    <li><a href='#'>Historique</a></li>
    <li><a href='#'>Matières</a></li>
    <li><a href='#'>Statistiques</a></li>   
-   <li><a href='#'>Déconnexion</a></li>
+   <li><a href='..\accueil\deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
 }elseif(isset($_SESSION['id']) && ($_SESSION['statut']=="prof"))
@@ -21,7 +21,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut']=="admin"))
    <li><a href='#'>".$_SESSION['prenom']." ".$_SESSION['nom']."</a></li>
    <li><a href='#'>Quiz</a></li>
    <li><a href='#'>Statistiques</a></li>   
-   <li><a href='#'>Déconnexion</a></li>
+   <li><a href='..\accueil\deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
 	}
@@ -33,7 +33,7 @@ elseif (isset($_SESSION['id']) && ($_SESSION['statut']=="etu"))
    <li><a href='#'>".$_SESSION['prenom']." ".$_SESSION['nom']."</a></li>
    <li><a href='#'>Quiz</a></li>
    <li><a href='#'>Notes</a></li> 
-   <li><a href='#'>Déconnexion</a></li>
+   <li><a href='..\accueil\deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
 }
