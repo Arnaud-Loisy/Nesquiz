@@ -45,6 +45,16 @@
 #menu li:last-child {
 	border-right: none;
 }
+#menu li:last-child a:hover {
+    background: none repeat-x scroll #2B78E4;
+    border-radius: 10px 10px 10px 10px;
+    height: 60px;
+    width: 116px;
+    padding: 20px 10px 0 4px;
+    float: left;
+    display: block;
+    text-decoration: none;
+}
 #menu li a {
 	display: block;
 	float: left;
