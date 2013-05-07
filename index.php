@@ -19,7 +19,7 @@
         unset($_SESSION["erreur_log"]);  
        }    
     if (isset($_SESSION["id"])){
-      header("Location:./accueil.php");
+      header("Location:accueil/accueil.php");
     }
     ?>
    

@@ -11,6 +11,10 @@
 </head>
 <body>
     <div id="page">
+        <?php
+            include '../accueil/menu.php';
+        ?>
+        
         <form action='trait_inscri.php' method='POST'>
 	Nom : <input name="nom" type="text" ><br>
         Prénom : <input name="prenom" type="text" ><br>
