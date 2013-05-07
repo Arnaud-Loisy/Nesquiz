@@ -12,9 +12,18 @@
 <body>
     <div id="page">
         <?php
-            include '../accueil/menu.php';
+        session_start();
+        include '../accueil/menu.php';
+        if(isset( $_SESSION["erreur_inscription_mdp"])){
+            echo"Erreur:Le mot de passe et sa confirmation sont différents.<br>";
+            unset( $_SESSION["erreur_inscription_mdp"]);
+        }
+         if(isset( $_SESSION["erreur_inscription_numero_etu"])){
+            echo"Erreur:Ce numéro étudiant possède déjà un compte.<br>";
+            unset( $_SESSION["erreur_inscription_numero_etu"]);
+        }
         ?>
-        
+        <br>
         <form action='trait_inscri.php' method='POST'>
 	Nom : <input name="nom" type="text" ><br>
         Prénom : <input name="prenom" type="text" ><br>

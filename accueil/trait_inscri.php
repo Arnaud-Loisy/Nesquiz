@@ -28,15 +28,13 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
          header('Location:./accueil.php');
      }
      else {
-         echo "Erreur:le mot de passe et sa confirmation sont différents";
-         sleep(10);
+         $_SESSION["erreur_inscription_mdp"]=1;
          header('Location:./inscription.php');
      }
  }
  else{
-   echo"Un compte avec ce numéro d'étudiant existe déjà";
-   sleep(10);
-    header('Location:./inscription.php');
+       $_SESSION["erreur_inscription_numero_etu"]=1;
+       header('Location:./inscription.php');
 }
 }
 ?>
