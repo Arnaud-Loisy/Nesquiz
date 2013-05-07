@@ -26,7 +26,7 @@
         
    <br>
         <br>
-<form action='accueil\traitement.php' method='POST'>
+<form action='accueil/traitement.php' method='POST'>
 	Login : <input name="login" type="text" ><br>
 	Password : <input name="mdp" type ="password"><br>
 	<input class="bouton" value="Connexion" type="submit"> 
