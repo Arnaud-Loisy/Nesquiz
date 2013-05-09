@@ -30,7 +30,7 @@
         while($arr = pg_fetch_array($result_matiere)){
             echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
         }
-        echo "<input type='submit' value='Afficher quiz associés'>";
+        echo "<input class='bouton' type='submit' value='Afficher les quiz associés'>";
         echo "</form>";
         
         if(isset($_POST["idmatiere"])){
@@ -42,8 +42,8 @@
                         AND Matieres.idMatiere =".$_POST["idmatiere"].";";
             
              $result_quiz = pg_query($dbcon,$request) or die("Echec de la requête");
-                echo"<form action='trait.php' method='POST'>";
-                echo"<br><br> Quiz disponibles : <br>";
+                echo"<form action='trait_pub.php' method='POST'>";
+                echo"<br>Quiz disponibles : <br>";
                 while($arr = pg_fetch_array($result_quiz)){
                     echo "<input type='radio' name='idmatiere' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
                 }
