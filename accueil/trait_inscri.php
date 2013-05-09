@@ -17,12 +17,14 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
     $mdp=$_POST["mdp"];
     $cmdp=$_POST["cmdp"];
     $langue=$_POST["langue"];
- 
+    
+    $mdph=md5($mdp);
+    
     $result_etu= pg_query($dbcon," SELECT idEtudiant FROM Etudiants WHERE idEtudiant =".$numero_etu);
         $arr = pg_fetch_array($result_etu);
  if ($arr==false){
      if($mdp==$cmdp){
-          pg_query($dbcon,"INSERT INTO Etudiants VALUES (".$numero_etu.", '".$nom."', '".$prenom."', '".$mdp."', ".$promotion.", '".$langue."');");
+          pg_query($dbcon,"INSERT INTO Etudiants VALUES (".$numero_etu.", '".$nom."', '".$prenom."', '".$mdph."', ".$promotion.", '".$langue."');");
              $_SESSION["nom"]=$_POST["nom"];
              $_SESSION["prenom"]=$_POST["prenom"];
              $_SESSION["statut"]="etu";

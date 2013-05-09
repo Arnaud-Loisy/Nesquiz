@@ -14,8 +14,10 @@ if(!$dbcon){
 if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 	
 	$result_etu= pg_query($dbcon, "SELECT idetudiant, mdpetudiant, nometudiant, prenometudiant FROM etudiants;");
+        
        while($arr = pg_fetch_array($result_etu)){
-           if($_POST["login"]==$arr["idetudiant"] && $_POST["mdp"]==$arr["mdpetudiant"]){
+           $mdphco=md5($_POST["mdp"]);
+           if($_POST["login"]==$arr["idetudiant"] && $mdphco==$arr["mdpetudiant"]){
             $_SESSION["id"] = $_POST["login"];
             $_SESSION["statut"]="etu";
             $_SESSION["nom"]=$arr["nometudiant"];
@@ -28,8 +30,8 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
        
         while($tab = pg_fetch_array($result_adm)){
            
-       
-      if($_POST["login"]==$tab["idadminprof"] && $_POST["mdp"]==$tab["mdpadminprof"]){
+       $mdphco=md5($_POST["mdp"]);
+      if($_POST["login"]==$tab["idadminprof"] &&  $mdphco==$tab["mdpadminprof"]){
 		$_SESSION["id"] = $_POST["login"];
                 $_SESSION["nom"]=$tab["nomadminprof"];
                 $_SESSION["prenom"]=$tab["prenomadminprof"];
