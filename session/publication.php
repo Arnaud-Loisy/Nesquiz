@@ -45,7 +45,7 @@
                 echo"<form action='trait_pub.php' method='POST'>";
                 echo"<br>Quiz disponibles : <br>";
                 while($arr = pg_fetch_array($result_quiz)){
-                    echo "<input type='radio' name='idmatiere' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
+                    echo "<input type='radio' name='idquiz' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
                 }
         }
 
