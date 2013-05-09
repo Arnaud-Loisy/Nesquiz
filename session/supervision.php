@@ -25,15 +25,15 @@
             $request = "INSERT INTO sessions VALUES ('".time()."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
             pg_query($dbcon,$request) or die("Echec de la requête");
 
-            echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession);
+            echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
 
             $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
                         FROM Repond, Etudiants, Sessions, Participe
                         WHERE Repond.idEtudiant = Etudiants.idEtudiant
                         AND Sessions.dateSession = Participe.dateSession
                         AND Participe.idEtudiant = Etudiants.idEtudiant
-                        AND Sessions.dateSession='".$dateSession."'
-                        GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
+                        AND Sessions.dateSession='1'".           //".$dateSession."'
+                        "GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
             $result=pg_query($dbcon,$request) or die("Echec de la requête");
             
             
