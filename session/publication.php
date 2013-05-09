@@ -30,8 +30,6 @@
         while($arr = pg_fetch_array($result_matiere)){
             echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
         }
-        
-        echo "<br> Liste des Quiz : <br>";
         echo "<input type='submit' value='Afficher quiz associés'>";
         echo "</form>";
         
