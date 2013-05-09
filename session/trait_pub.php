@@ -16,7 +16,7 @@
     include '../admin/secret.php';
     $dbcon = pg_connect("host=$host user=$login password=$password");
     
-    $request = "INSERT INTO sessions VALUES ('".time()."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."';";
+    $request = "INSERT INTO sessions VALUES ('".time()."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
     pg_query($dbcon,$request) or die("Echec de la requête");
     
     echo "Nous somme le".date('d/m/Y', $dateSession)." et il est ".date('H:i:s', $dateSession);
