@@ -47,7 +47,7 @@
                 while($arr = pg_fetch_array($result_quiz)){
                     echo "<input type='radio' name='idquiz' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
                 }
-        }
+        
 
             
         
@@ -57,6 +57,7 @@
         echo"    <br> Mot de passe de la session :";
         echo "   <input type='text' name='mdpSession'> <br>";
         echo"    <input class='bouton' type='submit' value='Démarrer'>";
+        }
         ?>
         </form>
     </div>
