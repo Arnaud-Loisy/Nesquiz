@@ -29,7 +29,7 @@
 
             $request = "SELECT DISTINCT nomEtudiant, prenomEtudiant, COUNT(idQuestion) AS nbQuest
                         FROM Repond, Etudiants, Sessions
-                        WHERE Repond.idEtudiant = Etudiant.idEtudiant
+                        WHERE Repond.idEtudiant = Etudiants.idEtudiant
                         AND Sessions.dateSession = Participe.dateSession
                         AND dateSession=".$dateSession.";";
             $result=pg_query($dbcon,$request) or die("Echec de la requête");
