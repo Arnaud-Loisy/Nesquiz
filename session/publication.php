@@ -42,7 +42,7 @@
                         AND Matieres.idMatiere =".$_POST["idmatiere"].";";
             
              $result_quiz = pg_query($dbcon,$request) or die("Echec de la requête");
-                echo"<form action='attente_session.php' method='POST'>";
+                echo"<form action='supervision.php' method='POST'>";
                 echo"<br>Quiz disponibles : <br>";
                 while($arr = pg_fetch_array($result_quiz)){
                     echo "<input type='radio' name='idquiz' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
