@@ -25,23 +25,33 @@
         $result_matiere = pg_query($dbcon,$request) or die("Echec de la requête");
         
         
-        echo"<form action='xxx.php' method='POST'>";
+        echo"<form method='POST'>";
         echo"<br><br> Mes matières : <br>";
         while($arr = pg_fetch_array($result_matiere)){
-            echo "<input type='radio' name='matiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
+            echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
         }
-        ?>
         
-         
-         
-  
-        <br> Liste des Quiz : <br>
-        <?/*
-            $idQuiz = 0;
-            $libelleQuiz = "Quiz de la mort qui tue";
+        echo "<br> Liste des Quiz : <br>";
+        echo "<input type='submit' value='Afficher quiz associés'>";
+        echo "</form>";
+        
+        if(isset($_POST["idmatiere"])){
+            $request="  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+                        FROM Quiz, Inclu, Questions, Matieres
+                        WHERE Quiz.idQuiz = Inclu.idQuiz
+                        AND Questions.idQuestion = Inclu.idQuestion
+                        AND Questions.idMatiere = Matieres.idMatiere
+                        AND Matieres.idMatiere =".$_POST["idmatiere"].";";
+            
+             $result_quiz = pg_query($dbcon,$request) or die("Echec de la requête");
+                echo"<form action='trait.php' method='POST'>";
+                echo"<br><br> Quiz disponibles : <br>";
+                while($arr = pg_fetch_array($result_quiz)){
+                    echo "<input type='radio' name='idmatiere' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
+                }
+        }
 
-            for($idQuiz;$idQuiz<3;$idQuiz++)
-                echo "<input type='radio' name='quiz' value='".$idQuiz."'> ".$libelleQuiz." <br>";*/
+            
         ?>
             <br> Mode de publication : <br>
             <input type="radio" name="mode" value="1"> Question par Question<br>
