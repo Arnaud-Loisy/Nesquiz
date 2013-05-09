@@ -28,7 +28,7 @@
             echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession);
 
             $request = "SELECT DISTINCT nomEtudiant, prenomEtudiant, COUNT(idQuestion) AS nbQuest
-                        FROM Repond, Etudiant, Sessions
+                        FROM Repond, Etudiants, Sessions
                         WHERE Repond.idEtudiant = Etudiant.idEtudiant
                         AND Sessions.dateSession = Participe.dateSession
                         AND dateSession=".$dateSession.";";
