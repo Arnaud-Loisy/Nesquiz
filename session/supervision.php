@@ -13,7 +13,7 @@
             if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
             }
-            $dateSession=time();
+            $dateSession=time()+6*3600;
             $modeFonctionnement=$_POST["mode"];
             $mdpSession=$_POST["mdpSession"];
             $idquiz=$_POST["idquiz"];
