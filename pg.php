@@ -1,6 +1,5 @@
 <?php
 include 'admin/secret.php';
-echo "zoubidou bidouu!";
 $dbcon=pg_connect("host=$host user=$login password=$password");
 
 if(!$dbcon){
