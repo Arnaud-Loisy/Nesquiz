@@ -32,8 +32,8 @@
                         WHERE Repond.idEtudiant = Etudiants.idEtudiant
                         AND Sessions.dateSession = Participe.dateSession
                         AND Participe.idEtudiant = Etudiants.idEtudiant
-                        AND Sessions.dateSession='1'".           //".$dateSession."'
-                        "GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
+                        AND Sessions.dateSession='".$dateSession."'
+                        GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
             $result=pg_query($dbcon,$request) or die("Echec de la requête");
             
             
