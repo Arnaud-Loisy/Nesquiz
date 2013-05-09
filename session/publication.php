@@ -50,13 +50,14 @@
         }
 
             
+        
+        echo "   <br> Mode de publication : <br>";
+        echo "   <input type='radio' name='mode' value='1'> Question par Question<br>";
+        echo "   <input type='radio' name='mode' value='2'> Quiz entier<br>";
+        echo"    <br> Mot de passe de la session :";
+        echo "   <input type='text' name='mdpSession'> <br>";
+        echo"    <input class='bouton' type='submit' value='Démarrer'>";
         ?>
-            <br> Mode de publication : <br>
-            <input type="radio" name="mode" value="1"> Question par Question<br>
-            <input type="radio" name="mode" value="2"> Quiz entier<br>
-            <br> Mot de passe de la session :
-            <input type="text" name="mdpSession"> <br>
-            <input class="bouton" type="submit" value="Démarrer">
         </form>
     </div>
 </body>
