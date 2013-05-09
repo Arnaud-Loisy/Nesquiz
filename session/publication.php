@@ -22,28 +22,26 @@
             
         $dbcon = pg_connect("host=$host user=$login password=$password");
         $request = "SELECT * FROM Matieres, AdminProfs, Enseigne WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf AND Matieres.idMatiere = Enseigne.idMatiere AND AdminProfs.idAdminProf = ".$idAdminProf.";";
-        $result = pg_query($dbcon,$request) or die("Echec de la requête");
-            
+        $result_matiere = pg_query($dbcon,$request) or die("Echec de la requête");
+        
+        
+        echo"<form action='xxx.php' method='POST'>";
+        echo"<br><br> Mes matières : <br>";
+        while($arr = pg_fetch_array($result_matiere)){
+            echo "<input type='radio' name='matiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
+        }
         ?>
-        <form action="xxx.php" method="POST">
-        <br><br> Mes matières : <br>
-        <?php
-         $idMatiere = 1;
-         $libelleMatiere="matiere courante";
+        
          
          
-         
-       //     for($idMatiere;$idMatiere<5;$idMatiere++)
-                echo "<input type='radio' name='matiere' value='".$idMatiere."'> ".$libelleMatiere." <br>";
-        ?>
-
+  
         <br> Liste des Quiz : <br>
-        <?
+        <?/*
             $idQuiz = 0;
             $libelleQuiz = "Quiz de la mort qui tue";
 
             for($idQuiz;$idQuiz<3;$idQuiz++)
-                echo "<input type='radio' name='quiz' value='".$idQuiz."'> ".$libelleQuiz." <br>";
+                echo "<input type='radio' name='quiz' value='".$idQuiz."'> ".$libelleQuiz." <br>";*/
         ?>
             <br> Mode de publication : <br>
             <input type="radio" name="mode" value="1"> Question par Question<br>
