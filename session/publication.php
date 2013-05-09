@@ -17,7 +17,7 @@
         $dbcon = pg_connect("host=$host user=$login password=$password");
         $request = "SELECT * FROM Matières, AdminProfs, Enseigne WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf AND Matieres.idMatiere = Enseigne.idMatiere AND AdminProfs.idAdminProf = $idAdminProf;";
         $result = pg_query($dbcon,$request) or die("Echec de la requête");
-
+        // bonjour!
             
         ?>
         <form action="xxx.php" method="POST">
