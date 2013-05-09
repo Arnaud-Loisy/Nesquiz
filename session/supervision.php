@@ -27,11 +27,13 @@
 
             echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession);
 
-            $request = "SELECT DISTINCT nomEtudiant, prenomEtudiant, COUNT(idQuestion) AS nbQuest
-                        FROM Repond, Etudiants, Sessions
+            $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
+                        FROM Repond, Etudiants, Sessions, Participe
                         WHERE Repond.idEtudiant = Etudiants.idEtudiant
                         AND Sessions.dateSession = Participe.dateSession
-                        AND dateSession=".$dateSession.";";
+                        AND Participe.idEtudiant = Etudiants.idEtudiant
+                        AND Sessions.dateSession='".$dateSession."'
+                        GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
             $result=pg_query($dbcon,$request) or die("Echec de la requête");
             
             
