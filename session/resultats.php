@@ -102,7 +102,7 @@
                  if($nbRepFauxEtu[0]==0)
                      $noteQuestion = 0;
                  else
-                     $noteQuestion = $nbRepTotalEtu/$nbRepJustes;
+                     $noteQuestion = $nbRepTotalEtu[0]/$nbRepJustes[0];
                      
                 // Stocker la note
                  echo "question ".$listeQuestions["idquestion"]." : ".$noteQuestion."<br>";
