@@ -18,8 +18,10 @@
       include '../accueil/menu.php';
       include '../admin/secret.php';
     
-      
-      echo $_POST["idquiz"];
+      if(isset($_POST["idquiz"]))
+        echo $_POST["idquiz"];
+      else
+          echo "et non, ça marche pas !";
     
     ?>
     </div>
