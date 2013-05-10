@@ -5,9 +5,11 @@
 		<meta charset="utf-8" />
 		<title>Publication d'un quiz</title>
                 <link rel="stylesheet" href="..\styles\theme.css" />
+                <link rel="stylesheet" href="../styles/jquery-ui.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
                 <script src="../scripts/jquery-2.0.0.js"></script>
 		<script src="../scripts/jquery-ui.js"></script>
+                
         </head>
         
         <script>
@@ -46,12 +48,12 @@
         
         echo"<form method='POST'>";
         echo"<br><br> Mes matières : <br>";
-        echo "<ol id='selectable'>";
+       // echo "<ol id='selectable'>";
         while($arr = pg_fetch_array($result_matiere)){
-            //echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
-            echo "<li class='ui-widget-content' value='".$arr["idmatiere"]."' name='idmatiere'> ".$arr["libellematiere"]."</li>";  
+            echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
+            //echo "<li class='ui-widget-content' value='".$arr["idmatiere"]."' name='idmatiere'> ".$arr["libellematiere"]."</li>";  
         }
-        echo "<input class='bouton' type='submit' value='Afficher les quiz associés'>";
+        //echo "<br><input class='bouton' type='submit' value='Afficher Quiz'>";
         echo "</form>";
         
         if(isset($_POST["idmatiere"])){
