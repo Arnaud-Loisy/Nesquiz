@@ -123,7 +123,8 @@
            
            echo 1/2;
            $noteQuiz=$scoreTotal/$nbQuestions[0];
-           echo "Score total : ".$noteQuiz."<br>";
+           echo "score total : ".$scoreTotal."<br>";
+           echo "Note quiz : ".$noteQuiz."<br>";
        }
        
     ?>
