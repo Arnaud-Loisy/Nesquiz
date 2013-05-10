@@ -63,7 +63,7 @@
        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
        $tabNotes = array();
        while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
-           echo "<tr>";
+           echo "<table>";
            echo "<tr> <td> ".$listeEtudiants["nometudiant"]."</td> <td> ".$listeEtudiants["prenometudiant"]."</td> ";
            
            $tabNotes=array($listeEtudiants["idetudiant"]=>array());
@@ -125,9 +125,9 @@
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            
            // Afficher la note
-           echo "<td> ". round($noteQuiz*100 , 0) ."<td> </tr>";
+           echo "<td> ". round($noteQuiz*100 , 0) ." % <td> </tr>";
        }
-       
+       echo "</table>";
     ?>
     </div>
 </body>
