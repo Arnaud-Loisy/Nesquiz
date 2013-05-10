@@ -57,7 +57,7 @@
            echo "<tr> <td> ".$listeEtudiants["nometudiant"]."</td> <td> ".$listeEtudiants["prenometudiant"]."</td>";
            
            $tabNotes=array($listeEtudiants["idetudiant"]=>array());
-           
+           $scoreTotal=0;
            // calculer la note pour chaque question
            while($listeQuestions = pg_fetch_array($res_listeQuestions)){                  
                 
@@ -114,19 +114,20 @@
                  $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
                  echo $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
                  echo "<br> ****** stockage effectué *****<br>";
+                 
+                 $scoreTotal+=$noteQuestion;
            }
 
            // calculer la note du quiz
-           $scoreTotal=0;
-           while($listeQuestions = pg_fetch_array($res_listeQuestions)){
+           
+           /*while($listeQuestions = pg_fetch_array($res_listeQuestions)){
                 $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
                 echo "Remplissage du tableau : ".$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]."<br><br>";
-           }
-           
-           echo 1/2;
+           }*/
+
            $noteQuiz=$scoreTotal/$nbQuestions[0];
-           echo "score total : ".$scoreTotal."<br>";
-           echo "Note quiz : ".$noteQuiz."<br>";
+           echo "Score total en nb points : ".$scoreTotal."<br>";
+           echo "Note quiz : ". $noteQuiz*100 ."%<br>";
        }
        
     ?>
