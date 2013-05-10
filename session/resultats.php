@@ -114,12 +114,12 @@
                  $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
                  
            }
-           echo "note index 0 du tableau :".$tabNotes[$listeEtudiants["idetudiant"][0]]."<br>";
+           echo "note index 0 du tableau :".$tabNotes[$listeEtudiants["idetudiant"]][0]."<br>";
            // calculer la note du quiz
            $scoreTotal=0;
            
            for($i=0;$i<$nbQuestions[0];$i++){
-               $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"][$i]];
+               $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]][$i];
            }
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            echo "Score total : ".$noteQuiz."<br>";
