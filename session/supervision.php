@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Publication d'un quiz</title>
+		<title>Supervision d'une session</title>
                 <link rel="stylesheet" href="..\styles\theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
         </head>
@@ -42,7 +42,11 @@
                echo "<tr>";
                echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr["nbQuest"]."</td> </tr>";
             }
-        ?>
+            
+            echo "<form method='POST' action='resultats.php'>";
+            echo "<input class='bouton' type='submit' value='Arrêter'>";
+            echo "</form>"
+            ?>
         
     </div>
 </body>
