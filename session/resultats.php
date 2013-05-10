@@ -121,8 +121,8 @@
                 $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
            }
            
+           echo 1/2;
            $noteQuiz=$scoreTotal/$nbQuestions[0];
-           
            echo "Score total : ".$noteQuiz."<br>";
        }
        
