@@ -13,6 +13,9 @@
             if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
             }
+            if(!(isset($_POST["mode"])) || !(isset($_POST["mdpSession"])) || !(isset($_POST["idquiz"]))){
+                header('Location:publication.php');
+            }
             $dateSession=time()+6*3600;
             $modeFonctionnement=$_POST["mode"];
             $mdpSession=$_POST["mdpSession"];
