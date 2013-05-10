@@ -53,7 +53,7 @@
             echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
             //echo "<li class='ui-widget-content' value='".$arr["idmatiere"]."' name='idmatiere'> ".$arr["libellematiere"]."</li>";  
         }
-        //echo "<br><input class='bouton' type='submit' value='Afficher Quiz'>";
+        echo "<br><input class='bouton' type='submit' value='Afficher Quiz'>";
         echo "</form>";
         
         if(isset($_POST["idmatiere"])){
