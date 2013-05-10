@@ -111,7 +111,7 @@
                      
                 // Stocker la note
                  echo "question ".$listeQuestions["idquestion"]." : ".$noteQuestion."<br>";
-                // $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
+                 $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
 
            }
            
