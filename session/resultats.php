@@ -112,7 +112,8 @@
                 // Stocker la note
                  echo "question ".$listeQuestions["idquestion"]." : ".$noteQuestion."<br>";
                  $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
-                 
+                 echo $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
+                 echo "<br> ****** stockage effectué *****<br>";
            }
 
            // calculer la note du quiz
