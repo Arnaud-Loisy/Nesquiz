@@ -22,7 +22,8 @@
       // mettre session à l'état 3
       
       // récupérer datesession
-      $dateSession = $_SESSION["datesession"];
+     // $dateSession = $_SESSION["datesession"];
+      $dateSession = 1;
       unset($_SESSION["datesession"]);
       
       // récupérer liste des étudiants participant à la session
