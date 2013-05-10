@@ -114,14 +114,15 @@
                  $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
                  
            }
-           echo "note index 0 du tableau :".$tabNotes[$listeEtudiants["idetudiant"]][0]."<br>";
+
            // calculer la note du quiz
            $scoreTotal=0;
-           
-           for($i=0;$i<$nbQuestions[0];$i++){
-               $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]][$i];
+           while($listeQuestions = pg_fetch_array($res_listeQuestions)){
+                $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
            }
+           
            $noteQuiz=$scoreTotal/$nbQuestions[0];
+           
            echo "Score total : ".$noteQuiz."<br>";
        }
        
