@@ -17,6 +17,7 @@
       }
       include '../accueil/menu.php';
       include '../admin/secret.php';
+      $dbcon = pg_connect("host=$host user=$login password=$password");
       
       // mettre session à l'état 3
       
