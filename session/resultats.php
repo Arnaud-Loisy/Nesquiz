@@ -119,6 +119,7 @@
            $scoreTotal=0;
            while($listeQuestions = pg_fetch_array($res_listeQuestions)){
                 $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
+                echo "Remplissage du tableau : ".$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]."<br><br>";
            }
            
            echo 1/2;
