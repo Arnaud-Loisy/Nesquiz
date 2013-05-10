@@ -122,7 +122,8 @@
            // Calcul de la note du quiz de l'étudiant
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            echo "Score total en nb points : ".$scoreTotal."<br>";
-           echo "Note quiz : ". round($noteQuiz*100, 2) ."%<br>";
+           echo "Note quiz (%) : ". round($noteQuiz*100, 0) ."%<br>";
+           echo "Note quiz (/20) : ". round($noteQuiz*20, 2) ."%<br>";
        }
        
     ?>
