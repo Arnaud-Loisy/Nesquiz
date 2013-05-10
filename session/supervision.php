@@ -18,7 +18,11 @@
             $mdpSession=$_POST["mdpSession"];
             $idquiz=$_POST["idquiz"];
             $etatsession=1;
-
+            
+            $_SESSION["datesession"]=$dateSession;
+            $_SESSION["idquiz"]=$idquiz;
+            
+            
             include '../admin/secret.php';
             $dbcon = pg_connect("host=$host user=$login password=$password");
 
