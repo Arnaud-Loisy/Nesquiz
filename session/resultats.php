@@ -26,7 +26,7 @@
       unset($_SESSION["datesession"]);
       
       // récupérer liste des étudiants participant à la session
-      $request="SELECT nomEtudiant, prenomEtudiant, idEtudiant
+      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
 	FROM Etudiants, Participe, Sessions
 	WHERE Sessions.dateSession = Participe.dateSession
 	AND Etudiants.idEtudiant = Participe.idEtudiant
@@ -43,7 +43,7 @@
        $nbQuestions = pg_fetch_array($res_nbQuestions);
        
        // récupérer la liste des questions du quiz
-       $request="SELECT libelleQuestion, Questions.idQuestion
+       $request="SELECT Questions.libelleQuestion, Questions.idQuestion
 	FROM Quiz, Questions, Inclu
 	WHERE Quiz.idQuiz = Inclu.idQuiz
 	AND Questions.idQuestion = Inclu.idQuestion
