@@ -63,6 +63,7 @@
        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
        $tabNotes = array();
        while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
+           echo "<tr>";
            echo "<tr> <td> ".$listeEtudiants["nometudiant"]."</td> <td> ".$listeEtudiants["prenometudiant"]."</td> ";
            
            $tabNotes=array($listeEtudiants["idetudiant"]=>array());
