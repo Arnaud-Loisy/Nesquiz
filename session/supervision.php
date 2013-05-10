@@ -43,10 +43,10 @@
             
             echo "<tr> <td> Nom </td> <td> Prénom </td> <td> nb questions </td> </tr> ";
             while($arr = pg_fetch_array($result)){
-               echo "<tr>";
+               echo "<table>";
                echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr["nbQuest"]."</td> </tr>";
             }
-            
+            echo "</table>";
             echo "<form method='POST' action='resultats.php'>";
             echo "<input class='bouton' type='submit' value='Arrêter'>";
             echo "</form>"

@@ -125,7 +125,7 @@
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            
            // Afficher la note
-           echo "<td> ". round($noteQuiz*100 , 0) ." % <td> </tr>";
+           echo "<td> ". round($noteQuiz*100 , 2) ." % <td> </tr>";
        }
        echo "</table>";
     ?>
