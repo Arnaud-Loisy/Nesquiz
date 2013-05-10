@@ -69,6 +69,8 @@
         	AND Questions.idQuestion ='".$listeQuestions["idquestion"]."';";
                 $res_nbRepJustes = pg_query($dbcon,$request) or die("Echec de la requête");
                 $nbRepJustes = pg_fetch_array($res_nbRepJustes);
+                echo $nbRepJustes[0];
+                echo "<br>";
                 
                 // récupérer le nb de réponses fausses répondues par l'élève pour la question
                 $request="  SELECT COUNT(*)
@@ -83,6 +85,8 @@
                             AND Reponses.valide = FALSE;";
                  $res_nbRepFauxEtu = pg_query($dbcon,$request) or die("Echec de la requête");
                  $nbRepFauxEtu = pg_fetch_array($res_nbRepFauxEtu);
+                 echo $nbRepFauxEtu[0];
+                 echo "<br>";
                  
                  // récupérer le nb de réponses totales répondues par l'élève pour la question
                 $request="  SELECT COUNT(*)
@@ -97,7 +101,9 @@
                             AND Reponses.valide = FALSE;";
                  $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
                  $nbRepTotalEtu = pg_fetch_array($res_nbRepFauxEtu);
-                 
+                
+                 echo $nbRepTotalEtu[0];
+                 echo "<br>";
                  // Calculer la note de l'étudiant pour la question
                  if($nbRepFauxEtu[0]!=0)
                      $noteQuestion = 0;
