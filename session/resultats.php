@@ -50,15 +50,17 @@
 	AND Questions.idQuestion = Inclu.idQuestion
 	AND Quiz.idQuiz ='".$_SESSION["idquiz"]."';";
        $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
-
+       
+       $tabNotes = array();
        while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
            echo "<tr>";
            echo "<tr> <td> ".$listeEtudiants["nometudiant"]."</td> <td> ".$listeEtudiants["prenometudiant"]."</td>";
            
-           $listeEtudiants["notes"]=array();
+           $tabNotes=array($listeEtudiants["idetudiant"]=>array());
            
-           while($listeQuestions = pg_fetch_array($res_listeQuestions)){
-                              
+           // calculer la note pour chaque question
+           while($listeQuestions = pg_fetch_array($res_listeQuestions)){                  
+                
                 // récupérer le nb de réponses justes pour la question
                $request="SELECT COUNT(*)
                 FROM Reponses, Questions
@@ -102,16 +104,17 @@
                  else
                      $noteQuestion = $nbRepTotalEtu/$nbRepJustes;
                 
-                // Stocker la note ! (ici l'afficher pour l'instant...)
-                echo "<td>".$noteQuestion."</td>";
-                 
-           
-    
-                   
-               
-               
+                // Stocker la note
+                 $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
+
            }
-           echo "</tr>";
+           // calculer la note du quiz
+           $scoreTotal=0;
+           for($i=0;$i<sizeof($tabNotes[$listeEtudiants["idetudiant"]]);$i++)  
+                $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"][$i]];
+           
+           $noteQuiz=$scoreTotal/$nbQuestions[0];
+           echo "Score total : ".$noteQuiz."<br>";
        }
        
     ?>
