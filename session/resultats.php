@@ -98,7 +98,7 @@
                             AND Etudiants.idEtudiant = '".$listeEtudiants["idetudiant"]."'
                             AND Sessions.dateSession = '".$dateSession."'
                             AND Questions.idQuestion = '".$listeQuestions["idquestion"]."'
-                            AND Reponses.valide = FALSE;";
+                            ";
                  $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
                  $nbRepTotalEtu = pg_fetch_array($res_nbRepFauxEtu);
                 
