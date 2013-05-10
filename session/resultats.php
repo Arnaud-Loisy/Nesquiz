@@ -103,7 +103,7 @@
                      $noteQuestion = $nbRepTotalEtu/$nbRepJustes;
                 
                 // Stocker la note ! (ici l'afficher pour l'instant...)
-                echo "<td>".$noteQuestion."</td><br>";
+                echo "<td>".$noteQuestion."</td>";
                  
            
     
