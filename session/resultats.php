@@ -99,7 +99,7 @@
                  $nbRepTotalEtu = pg_fetch_array($res_nbRepFauxEtu);
                  
                  // Calculer la note de l'étudiant pour la question
-                 if($nbRepFauxEtu[0]==0)
+                 if($nbRepFauxEtu[0]!=0)
                      $noteQuestion = 0;
                  else
                      $noteQuestion = $nbRepTotalEtu[0]/$nbRepJustes[0];
