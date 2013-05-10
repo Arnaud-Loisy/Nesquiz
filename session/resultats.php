@@ -115,19 +115,14 @@
                  echo $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
                  echo "<br> ****** stockage effectué *****<br>";
                  
+                 // Ajout au cumul de note
                  $scoreTotal+=$noteQuestion;
            }
 
-           // calculer la note du quiz
-           
-           /*while($listeQuestions = pg_fetch_array($res_listeQuestions)){
-                $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]];
-                echo "Remplissage du tableau : ".$tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]."<br><br>";
-           }*/
-
+           // Calcul de la note du quiz de l'étudiant
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            echo "Score total en nb points : ".$scoreTotal."<br>";
-           echo "Note quiz : ". $noteQuiz*100 ."%<br>";
+           echo "Note quiz : ". round($noteQuiz*100, 2) ."%<br>";
        }
        
     ?>
