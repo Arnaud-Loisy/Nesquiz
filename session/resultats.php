@@ -111,16 +111,16 @@
                      
                 // Stocker la note
                  echo "question ".$listeQuestions["idquestion"]." : ".$noteQuestion."<br>";
-                 $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
+                // $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
 
            }
            // calculer la note du quiz
-           $scoreTotal=0;
+          /* $scoreTotal=0;
            echo sizeof($tabNotes[$listeEtudiants["idetudiant"]]);
            for($i=0;$i<sizeof($tabNotes[$listeEtudiants["idetudiant"]]);$i++){
                echo "listing des scores :".$tabNotes[$listeEtudiants["idetudiant"][$i]]."<br>";
                 $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"][$i]];
-           }
+           } */
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            echo "Score total : ".$noteQuiz."<br>";
        }
