@@ -103,8 +103,9 @@
                      $noteQuestion = 0;
                  else
                      $noteQuestion = $nbRepTotalEtu/$nbRepJustes;
-                
+                     
                 // Stocker la note
+                 echo "question ".$listeQuestions["idquestion"]." : ".$noteQuestion."<br>";
                  $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
 
            }
