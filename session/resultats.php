@@ -116,9 +116,10 @@
            }
            // calculer la note du quiz
            $scoreTotal=0;
-           for($i=0;$i<sizeof($tabNotes[$listeEtudiants["idetudiant"]]);$i++)  
+           for($i=0;$i<sizeof($tabNotes[$listeEtudiants["idetudiant"]]);$i++){
+               echo "listing des scores :".$tabNotes[$listeEtudiants["idetudiant"][$i]]."<br>";
                 $scoreTotal+=$tabNotes[$listeEtudiants["idetudiant"][$i]];
-           
+           }
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            echo "Score total : ".$noteQuiz."<br>";
        }
