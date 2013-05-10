@@ -9,6 +9,9 @@
         </head>
 <body>
     <div id='page'>
+        <br> 
+        <tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> <tr>
+        
     <?php
       session_start();
       if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu") || !(isset($_SESSION["datesession"])) || !(isset($_SESSION["idquiz"]))){
@@ -119,7 +122,7 @@
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            
            // Afficher la note
-           echo "<td> ". round($noteQuiz*100 , 0) ."<td></tr>";
+           echo "<td> ". round($noteQuiz*100 , 0) ."<td> </tr>";
        }
        
     ?>
