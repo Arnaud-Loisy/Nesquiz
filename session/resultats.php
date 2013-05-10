@@ -38,7 +38,7 @@
 	FROM Questions, Inclu, Quiz
 	WHERE	Questions.idQuestion = Inclu.idQuestion
 	AND Quiz.idQuiz = Inclu.idQuiz
-	AND Quiz.idQuiz ='".$idquiz."';"; 
+	AND Quiz.idQuiz ='".$_SESSION["idquiz"]."';"; 
        $res_nbQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
        $nbQuestions = pg_fetch_array($res_nbQuestions);
        
