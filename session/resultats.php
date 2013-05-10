@@ -74,8 +74,6 @@
         	AND Questions.idQuestion ='".$listeQuestions["idquestion"]."';";
                 $res_nbRepJustes = pg_query($dbcon,$request) or die("Echec de la requête");
                 $nbRepJustes = pg_fetch_array($res_nbRepJustes);
-                echo "<br> nb rep justes questions :".$nbRepJustes[0];
-                echo "<br>";
                 
                 // récupérer le nb de réponses fausses répondues par l'élève pour la question
                 $request="  SELECT COUNT(*)
@@ -90,8 +88,6 @@
                             AND Reponses.valide = FALSE;";
                  $res_nbRepFauxEtu = pg_query($dbcon,$request) or die("Echec de la requête");
                  $nbRepFauxEtu = pg_fetch_array($res_nbRepFauxEtu);
-                 echo "nb rep fausse etu :".$nbRepFauxEtu[0];
-                 echo "<br>";
                  
                  // récupérer le nb de réponses totales répondues par l'élève pour la question
                 $request="  SELECT COUNT(*)
