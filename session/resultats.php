@@ -81,10 +81,11 @@
                             AND Repond.idEtudiant = Etudiants.idEtudiant	
                             AND Etudiants.idEtudiant = '".$listeEtudiants["idetudiant"]."'
                             AND Sessions.dateSession = '".$dateSession."'
-                            AND Questions.idQuestion = '".$listeQuestions["idquestion"]."';";
+                            AND Questions.idQuestion = '".$listeQuestions["idquestion"]."'
+                            AND Reponses.valide = FALSE;";
                  $res_nbRepFauxEtu = pg_query($dbcon,$request) or die("Echec de la requête");
                  $nbRepFauxEtu = pg_fetch_array($res_nbRepFauxEtu);
-                 echo "nb rep fausse etu : ".$nbRepFauxEtu[0];
+                 echo "nb rep fausse etu :".$nbRepFauxEtu[0];
                  echo "<br>";
                  
                  // récupérer le nb de réponses totales répondues par l'élève pour la question
@@ -98,7 +99,7 @@
                             AND Sessions.dateSession = '".$dateSession."'
                             AND Questions.idQuestion = '".$listeQuestions["idquestion"]."';";
                  $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
-                 $nbRepTotalEtu = pg_fetch_array($res_nbRepFauxEtu);
+                 $nbRepTotalEtu = pg_fetch_array($res_nbRepTotalEtu);
                 
                  echo "nb rep totale etu :".$nbRepTotalEtu[0];
                  echo "<br>";
