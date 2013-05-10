@@ -6,7 +6,23 @@
 		<title>Publication d'un quiz</title>
                 <link rel="stylesheet" href="..\styles\theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
+                <script src="../scripts/jquery-2.0.0.js"></script>
+		<script src="../scripts/jquery-ui.js"></script>
         </head>
+        
+        <script>
+            $(function() {
+                $( "#selectable" ).selectable({
+                  stop: function() {
+                    var result = $( "#select-result" ).empty();
+                    $( ".ui-selected", this ).each(function() {
+                      var index = $( "#selectable li" ).index( this );
+                      result.append( " #" + ( index ) );
+                    });
+                  }
+                });
+              });
+	</script>
 <body>
     <div id='page'>
         <?php 
@@ -21,14 +37,19 @@
         $idAdminProf=$_SESSION["id"];
             
         $dbcon = pg_connect("host=$host user=$login password=$password");
-        $request = "SELECT * FROM Matieres, AdminProfs, Enseigne WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf AND Matieres.idMatiere = Enseigne.idMatiere AND AdminProfs.idAdminProf = ".$idAdminProf.";";
-        $result_matiere = pg_query($dbcon,$request) or die("Echec de la requête");
         
+        $request = "SELECT * FROM Matieres, AdminProfs, Enseigne 
+                    WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf 
+                    AND Matieres.idMatiere = Enseigne.idMatiere 
+                    AND AdminProfs.idAdminProf = ".$idAdminProf.";";
+        $result_matiere = pg_query($dbcon,$request) or die("Echec de la requête");
         
         echo"<form method='POST'>";
         echo"<br><br> Mes matières : <br>";
+        echo "<ol id='selectable'>";
         while($arr = pg_fetch_array($result_matiere)){
-            echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
+            //echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
+            echo "<li class='ui-widget-content' value='".$arr["idmatiere"]."' name='idmatiere'> ".$arr["libellematiere"]."</li>";  
         }
         echo "<input class='bouton' type='submit' value='Afficher les quiz associés'>";
         echo "</form>";
