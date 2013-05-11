@@ -70,8 +70,9 @@
                             AND Etudiants.idEtudiant = Participe.idEtudiant
                             AND Sessions.dateSession = '".$dateSession."';";       
                 $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
-                
+                /*
                 while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
+                    $idEtu=$listeEtudiants["idetudiant"];
                         // récupérer le nb de réponses totales répondues par l'élève pour la question
                          $request="  SELECT COUNT(*)
                                      FROM Repond, Questions, Reponses, Sessions, Etudiants
@@ -81,7 +82,7 @@
                                      AND Repond.idEtudiant = Etudiants.idEtudiant	
                                      AND Etudiants.idEtudiant = '".$listeEtudiants["idetudiant"]."'
                                      AND Sessions.dateSession = '".$dateSession."'
-                                     AND Questions.idQuestion = '".$idQuestionEnCours."';";
+                                     AND Questions.idQuestion = '".$idQuestion."';";
                           $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
                           $nbRepTotalEtu = pg_fetch_array($res_nbRepTotalEtu);
                           
@@ -92,7 +93,7 @@
                               // afficher score
                           }
             
-                }
+                }*/
             }
             
             // afficher bouton "arreter le quiz"
