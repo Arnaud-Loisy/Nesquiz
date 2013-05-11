@@ -29,8 +29,8 @@
     <div id='page'>
         <?php 
 
-         session_start();
-         if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
+        session_start();
+        if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
              header('Location:../index.php');
          }
         include '../accueil/menu.php';
@@ -40,6 +40,7 @@
             
         $dbcon = pg_connect("host=$host user=$login password=$password");
         
+        // afficher les matières du prof
         $request = "SELECT * FROM Matieres, AdminProfs, Enseigne 
                     WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf 
                     AND Matieres.idMatiere = Enseigne.idMatiere 
@@ -56,6 +57,7 @@
         echo "<br><input class='bouton' type='submit' value='Afficher Quiz'>";
         echo "</form>";
         
+        // sélectionner le quiz, le mode et le mdp de la session après avoir selectionné la matiere
         if(isset($_POST["idmatiere"])){
             $request="  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
                         FROM Quiz, Inclu, Questions, Matieres
