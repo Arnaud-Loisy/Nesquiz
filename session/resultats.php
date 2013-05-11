@@ -33,7 +33,14 @@
               WHERE dateSession='".$dateSession."';"; 
       pg_query($dbcon,$request) or die("Echec de la requête");*/
             
-      
+      // récupérer id du quiz correspondant à la session
+            $request= "SELECT idquiz
+                        FROM Sessions
+                        WHERE dateSession='".$dateSession."';";
+            $res_idquiz = pg_query($dbcon,$request) or die("Echec de la requête");
+            $tab_idquiz = pg_fetch_array($res_idquiz);
+            $idquiz=$tab_idquiz[0];
+            
       // récupérer liste des étudiants participant à la session
       $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
 	FROM Etudiants, Participe, Sessions
