@@ -50,7 +50,7 @@
                             GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
                            $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
-                //affichage des étudiants participants et nb questions auxquelles ils ont répondus
+                // affichage des étudiants participants et nb questions auxquelles ils ont répondus
                 echo "<tr> <td> Nom </td> <td> Prénom </td> <td> nb questions </td> </tr> ";
                 while($arr = pg_fetch_array($result)){
                    echo "<table>";
@@ -58,16 +58,20 @@
                 }
                 echo "</table>";
             }
+            
             // si mode Question/question
             else
             {
-                
+ 
             }
             
             // afficher bouton "arreter le quiz"
             echo "<form method='POST' action='resultats.php'>";
             echo "<input class='bouton' type='submit' value='Arrêter'>";
-            echo "</form>"
+            echo "</form>";
+            
+            header("refresh: 5 url=mapage.php" );
+
             ?>
         
     </div>
