@@ -33,7 +33,7 @@
             include '../admin/secret.php';
             $dbcon = pg_connect("host=$host user=$login password=$password");
             
-            // Créa de la session
+            // Créa de la session, en attente des élèves
             $request = "INSERT INTO sessions VALUES ('".time()."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
             pg_query($dbcon,$request) or die("Echec de la requête");
             
@@ -41,6 +41,9 @@
             
             // si mode quiz entier
             if ($modeFonctionnement==2){
+                echo "<form method='POST' action='supervision.php'>";
+                echo "<input class='bouton' type='submit' value='Demarrer'>";
+                echo "</form>";
                 
                 // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
                 $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
@@ -61,7 +64,7 @@
                 echo "</table>";
             }
             // si mode Question/question
-            else
+            /*else
             {
                 // récupérer la liste des élèves participants
                  $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
@@ -70,7 +73,7 @@
                             AND Etudiants.idEtudiant = Participe.idEtudiant
                             AND Sessions.dateSession = '".$dateSession."';";       
                 $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
-                /*
+                
                 while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
                     $idEtu=$listeEtudiants["idetudiant"];
                         // récupérer le nb de réponses totales répondues par l'élève pour la question
@@ -93,8 +96,8 @@
                               // afficher score
                           }
             
-                }*/
-            }
+                }
+            }*/
             
             // afficher bouton "arreter le quiz"
             echo "<form method='POST' action='resultats.php'>";
