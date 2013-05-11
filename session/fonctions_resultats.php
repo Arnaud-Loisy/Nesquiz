@@ -1,7 +1,7 @@
 <?php
     
     // Retourne la note d'un étudiant, pour une session, pour une question 
-    function calculNoteQuestion($idEtu, $dateSession, $idQuestion){
+    function noteQuestion($idEtu, $dateSession, $idQuestion){
         include '../admin/secret.php';
         $dbcon = pg_connect("host=$host user=$login password=$password");
         
@@ -51,8 +51,8 @@
     }
     
     // Retourne la note générale d'un étudiant, pour une session donnée
-    // cette note est un rapport compris entre 0 et 1
-    function calculNoteQuiz($idEtu, $dateSession){
+    // cette note est exprimée en pourcent
+    function noteQuiz($idEtu, $dateSession){
         include '../admin/secret.php';
         $dbcon = pg_connect("host=$host user=$login password=$password");
             // récupérer id du quiz correspondant à la session
@@ -89,9 +89,11 @@
            // Calcul de la note moyenne du quiz de l'étudiant
            $noteQuiz=$scoreTotal/$nbQuestions[0];
            
-           return $noteQuiz;
+           return round($noteQuiz*100,2);
     }
 
+    // Retourne la note moyenne des étudiants de la session
+    // cette note est exprimée en pourcent
     function moyenneSession($dateSession){
         include '../admin/secret.php';
         $dbcon = pg_connect("host=$host user=$login password=$password");
@@ -112,6 +114,6 @@
       }
       $moyenne=$cumul/$i;
       
-      return $moyenne;
+      return round($moyenne*100,2);
     }
     ?>
