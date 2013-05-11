@@ -9,6 +9,7 @@
 <body>
     <div id='page'>
         <?php
+            header("refresh: 5; url=supervision.php");
             session_start();
             if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
@@ -70,7 +71,7 @@
             echo "<input class='bouton' type='submit' value='Arrêter'>";
             echo "</form>";
             
-            header("refresh: 5; url=supervision.php");
+           
 
             ?>
         
