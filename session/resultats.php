@@ -58,7 +58,7 @@
              $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
              
         // Calculer et afficher les notes  
-       echo "Moyenne de la session : ".moyenneSession($dateSession)."<br>";
+       echo "Moyenne de la session : ".moyenneSession($dateSession)." %<br>";
        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
        $tabNotes = array();
        while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
