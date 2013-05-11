@@ -9,7 +9,7 @@
 <body>
     <div id='page'>
         <?php
-            
+            http://www.nesquiz.fr/session/supervision.php?idquiz=1&mode=2&mdpSession=dfdf
             session_start();
             if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
@@ -18,7 +18,7 @@
                 header('Location:publication.php');
             }
             
-            header("refresh: 5; url=supervision.php");
+           
             
 // Récup des variables
             $dateSession= 1;//time()+6*3600;
@@ -30,6 +30,7 @@
             $_SESSION["datesession"]=$dateSession;
             $_SESSION["idquiz"]=$idquiz;
             
+            header("refresh: 5; url=supervision.php?idquiz=".$idquiz."&mode=".$modeFonctionnement."&mdpSession=".$mdpSession);
             // connexion à la BD
             include '../admin/secret.php';
             $dbcon = pg_connect("host=$host user=$login password=$password");
