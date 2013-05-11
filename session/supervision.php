@@ -54,7 +54,7 @@
                 echo "<tr> <td> Nom </td> <td> Prénom </td> <td> nb questions </td> </tr> ";
                 while($arr = pg_fetch_array($result)){
                    echo "<table>";
-                   echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr["nbQuest"]."</td> </tr>";
+                   echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr["count"]."</td> </tr>";
                 }
                 echo "</table>";
             }
