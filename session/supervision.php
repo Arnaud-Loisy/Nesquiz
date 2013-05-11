@@ -9,20 +9,22 @@
 <body>
     <div id='page'>
         <?php
-            header("refresh: 5; url=supervision.php");
+            
             session_start();
             if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
             }
-            if(!(isset($_POST["mode"])) || !(isset($_POST["idquiz"]))){
+            if(!(isset($_GET["mode"])) || !(isset($_GET["idquiz"]))){
                 header('Location:publication.php');
             }
             
-            // Récup des variables
+            header("refresh: 5; url=supervision.php");
+            
+// Récup des variables
             $dateSession= 1;//time()+6*3600;
-            $modeFonctionnement=$_POST["mode"];
-            $mdpSession=$_POST["mdpSession"];
-            $idquiz=$_POST["idquiz"];
+            $modeFonctionnement=$_GET["mode"];
+            $mdpSession=$_GET["mdpSession"];
+            $idquiz=$_GET["idquiz"];
             $etatsession=1;
             
             $_SESSION["datesession"]=$dateSession;
