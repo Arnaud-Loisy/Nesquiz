@@ -70,7 +70,7 @@
             echo "<input class='bouton' type='submit' value='Arrêter'>";
             echo "</form>";
             
-            header("refresh: 5 url=mapage.php" );
+            header("refresh: 5; url=supervision.php");
 
             ?>
         
