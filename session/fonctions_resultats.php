@@ -2,6 +2,9 @@
     
     // Retourne la note d'un étudiant, pour une session, pour une question 
     function calculNoteQuestion($idEtu, $dateSession, $idQuestion){
+        include '../admin/secret.php';
+        $dbcon = pg_connect("host=$host user=$login password=$password");
+        
        // récupérer le nb de réponses justes pour la question
                $request="SELECT COUNT(*)
                         FROM Reponses, Questions
@@ -50,6 +53,8 @@
     // Retourne la note générale d'un étudiant, pour une session donnée
     // cette note est un rapport compris entre 0 et 1
     function calculNoteQuiz($idEtu, $dateSession){
+        include '../admin/secret.php';
+        $dbcon = pg_connect("host=$host user=$login password=$password");
             // récupérer id du quiz correspondant à la session
             $request= "SELECT idquiz
                         FROM Sessions
