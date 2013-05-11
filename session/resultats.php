@@ -72,7 +72,7 @@
            $tabNotes=array($idEtu=>array());
            while($listeQuestions = pg_fetch_array($res_listeQuestions)){                    
                $idQuestion=$listeQuestions["idquestion"];
-               $tabNotes[$idEtu["'".$idQuestion."'"]]=calculNoteQuestion($idEtu, $dateSession, $idQuestion);
+               $tabNotes[$idEtu[$idQuestion]]=calculNoteQuestion($idEtu, $dateSession, $idQuestion);
            }
            
            // Afficher la note du quiz
