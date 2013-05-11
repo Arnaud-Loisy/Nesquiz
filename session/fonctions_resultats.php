@@ -114,6 +114,6 @@
       }
       $moyenne=$cumul/$i;
       
-      return round($moyenne*100,2);
+      return round($moyenne,2);
     }
     ?>
