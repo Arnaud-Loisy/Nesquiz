@@ -91,4 +91,27 @@
            
            return $noteQuiz;
     }
-?>
+
+    function moyenneSession($dateSession){
+        include '../admin/secret.php';
+        $dbcon = pg_connect("host=$host user=$login password=$password");
+
+        // récupérer la liste des étudiants participant à la session
+      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
+	FROM Etudiants, Participe, Sessions
+	WHERE Sessions.dateSession = Participe.dateSession
+	AND Etudiants.idEtudiant = Participe.idEtudiant
+	AND Sessions.dateSession = '".$dateSession."';";       
+      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+      
+      $cumul=0; $i=0;
+      while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
+          $idEtu = $listeEtudiants["idetudiant"];
+          $cumul+=calculNoteQuiz($idEtu, $dateSession);
+          $i++;
+      }
+      $moyenne=$cumul/$i;
+      
+      return $moyenne;
+    }
+    ?>
