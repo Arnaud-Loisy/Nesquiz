@@ -19,6 +19,7 @@
       }
       include '../accueil/menu.php';
       include '../admin/secret.php';
+      include 'fonctions_resultats.php';
       $dbcon = pg_connect("host=$host user=$login password=$password");
      
       // récupérer datesession
@@ -41,91 +42,34 @@
 	AND Sessions.dateSession = '".$dateSession."';";       
       $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
       
-        // récupérer nb questions du quiz
-       $request="SELECT COUNT(*)
-	FROM Questions, Inclu, Quiz
-	WHERE	Questions.idQuestion = Inclu.idQuestion
-	AND Quiz.idQuiz = Inclu.idQuiz
-	AND Quiz.idQuiz ='".$_SESSION["idquiz"]."';"; 
-       $res_nbQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
-       $nbQuestions = pg_fetch_array($res_nbQuestions);
-       
-       // récupérer la liste des questions du quiz
-       $request="SELECT Questions.libelleQuestion, Questions.idQuestion
-	FROM Quiz, Questions, Inclu
-	WHERE Quiz.idQuiz = Inclu.idQuiz
-	AND Questions.idQuestion = Inclu.idQuestion
-	AND Quiz.idQuiz ='".$_SESSION["idquiz"]."';";
-       $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
-       
-       // Calculer et afficher les notes
-       
+        // récupérer la liste des questions du quiz
+             $request="SELECT Questions.libelleQuestion, Questions.idQuestion
+                        FROM Quiz, Questions, Inclu
+                        WHERE Quiz.idQuiz = Inclu.idQuiz
+                        AND Questions.idQuestion = Inclu.idQuestion
+                        AND Quiz.idQuiz ='".$idquiz."';";
+             $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
+             
+        // Calculer et afficher les notes  
        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
        $tabNotes = array();
        while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
+           $idEtu = $listeEtudiants["idetudiant"];
+           $nomEtu = $listeEtudiants["nometudiant"];
+           $prenomEtu = $listeEtudiants["prenometudiant"];
+           
            echo "<table>";
-           echo "<tr> <td> ".$listeEtudiants["nometudiant"]."</td> <td> ".$listeEtudiants["prenometudiant"]."</td> ";
-           
-           $tabNotes=array($listeEtudiants["idetudiant"]=>array());
-           $scoreTotal=0;
-           
-           // calculer la note pour chaque question
-           while($listeQuestions = pg_fetch_array($res_listeQuestions)){                  
-                
-                // récupérer le nb de réponses justes pour la question
-               $request="SELECT COUNT(*)
-                FROM Reponses, Questions
-                WHERE Reponses.idQuestion = Questions.idQuestion
-                AND Reponses.valide=TRUE
-        	AND Questions.idQuestion ='".$listeQuestions["idquestion"]."';";
-                $res_nbRepJustes = pg_query($dbcon,$request) or die("Echec de la requête");
-                $nbRepJustes = pg_fetch_array($res_nbRepJustes);
-                
-                // récupérer le nb de réponses fausses répondues par l'élève pour la question
-                $request="  SELECT COUNT(*)
-                            FROM Repond, Questions, Reponses, Sessions, Etudiants
-                            WHERE Repond.idReponse = Reponses.idReponse
-                            AND Repond.idQuestion = Questions.idQuestion
-                            AND Repond.dateSession = Sessions.dateSession
-                            AND Repond.idEtudiant = Etudiants.idEtudiant	
-                            AND Etudiants.idEtudiant = '".$listeEtudiants["idetudiant"]."'
-                            AND Sessions.dateSession = '".$dateSession."'
-                            AND Questions.idQuestion = '".$listeQuestions["idquestion"]."'
-                            AND Reponses.valide = FALSE;";
-                 $res_nbRepFauxEtu = pg_query($dbcon,$request) or die("Echec de la requête");
-                 $nbRepFauxEtu = pg_fetch_array($res_nbRepFauxEtu);
-                 
-                 // récupérer le nb de réponses totales répondues par l'élève pour la question
-                $request="  SELECT COUNT(*)
-                            FROM Repond, Questions, Reponses, Sessions, Etudiants
-                            WHERE Repond.idReponse = Reponses.idReponse
-                            AND Repond.idQuestion = Questions.idQuestion
-                            AND Repond.dateSession = Sessions.dateSession
-                            AND Repond.idEtudiant = Etudiants.idEtudiant	
-                            AND Etudiants.idEtudiant = '".$listeEtudiants["idetudiant"]."'
-                            AND Sessions.dateSession = '".$dateSession."'
-                            AND Questions.idQuestion = '".$listeQuestions["idquestion"]."';";
-                 $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
-                 $nbRepTotalEtu = pg_fetch_array($res_nbRepTotalEtu);
-                 
-                 // Calculer la note de l'étudiant pour la question
-                 if($nbRepFauxEtu[0]!=0)
-                     $noteQuestion = 0;
-                 else
-                     $noteQuestion = $nbRepTotalEtu[0]/$nbRepJustes[0];
-                     
-                // Stocker la note
-                 $tabNotes[$listeEtudiants["idetudiant"]["'".$listeQuestions["idquestion"]."'"]]=$noteQuestion;
-                 
-                 // Ajout au cumul de note
-                 $scoreTotal+=$noteQuestion;
+           echo "<tr> <td> ".$nomEtu."</td> <td> ".$prenomEtu."</td> ";
+          
+           // Stocker la note pour chaque question, pour chaque élève dans un tableau
+           $tabNotes=array($idEtu=>array());
+           while($listeQuestions = pg_fetch_array($res_listeQuestions)){                    
+               $idQuestion=$listeQuestions["idquestion"];
+               $tabNotes[$idEtu["'".$idQuestion."'"]]=calculNoteQuestion($idEtu, $dateSession, $idquestion);
            }
-
-           // Calcul de la note du quiz de l'étudiant
-           $noteQuiz=$scoreTotal/$nbQuestions[0];
            
-           // Afficher la note
-           echo "<td> ". round($noteQuiz*100 , 2) ." % <td> </tr>";
+           // Afficher la note du quiz
+           echo "<td> ". round(calculNoteQuiz($idEtu, $dateSession)*100 , 2) ." % <td> </tr>";
        }
        echo "</table>";
     ?>

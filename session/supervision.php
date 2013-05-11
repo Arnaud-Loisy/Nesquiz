@@ -18,19 +18,17 @@
                 header('Location:publication.php');
             }
             
-           
-            
-// Récup des variables
+            // Récup des variables
             $dateSession= 1;//time()+6*3600;
             $modeFonctionnement=$_GET["mode"];
             $mdpSession=$_GET["mdpSession"];
             $idquiz=$_GET["idquiz"];
             $etatsession=1;
             
+            // transmission des variables utiles à la page "resultats.php"
             $_SESSION["datesession"]=$dateSession;
             $_SESSION["idquiz"]=$idquiz;
-            
-            header("refresh: 5; url=supervision.php?idquiz=".$idquiz."&mode=".$modeFonctionnement."&mdpSession=".$mdpSession);
+          
             // connexion à la BD
             include '../admin/secret.php';
             $dbcon = pg_connect("host=$host user=$login password=$password");
@@ -62,11 +60,39 @@
                 }
                 echo "</table>";
             }
-            
             // si mode Question/question
             else
             {
- 
+                // récupérer la liste des élèves participants
+                 $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
+                            FROM Etudiants, Participe, Sessions
+                            WHERE Sessions.dateSession = Participe.dateSession
+                            AND Etudiants.idEtudiant = Participe.idEtudiant
+                            AND Sessions.dateSession = '".$dateSession."';";       
+                $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+                
+                while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
+                        // récupérer le nb de réponses totales répondues par l'élève pour la question
+                         $request="  SELECT COUNT(*)
+                                     FROM Repond, Questions, Reponses, Sessions, Etudiants
+                                     WHERE Repond.idReponse = Reponses.idReponse
+                                     AND Repond.idQuestion = Questions.idQuestion
+                                     AND Repond.dateSession = Sessions.dateSession
+                                     AND Repond.idEtudiant = Etudiants.idEtudiant	
+                                     AND Etudiants.idEtudiant = '".$listeEtudiants["idetudiant"]."'
+                                     AND Sessions.dateSession = '".$dateSession."'
+                                     AND Questions.idQuestion = '".$idQuestionEnCours."';";
+                          $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
+                          $nbRepTotalEtu = pg_fetch_array($res_nbRepTotalEtu);
+                          
+                          // si l'élève a repondu à la question
+                          if($nbRepTotalEtu[0]!=0){
+                              // calculer score
+                              
+                              // afficher score
+                          }
+            
+                }
             }
             
             // afficher bouton "arreter le quiz"
@@ -74,8 +100,8 @@
             echo "<input class='bouton' type='submit' value='Arrêter'>";
             echo "</form>";
             
-           
-
+            // refresh automatique
+            header("refresh: 5; url=supervision.php?idquiz=".$idquiz."&mode=".$modeFonctionnement."&mdpSession=".$mdpSession);
             ?>
         
     </div>
