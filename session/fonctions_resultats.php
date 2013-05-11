@@ -83,7 +83,7 @@
              // Cumul des notes de chaque question
              $scoreTotal=0;
              while($listeQuestions = pg_fetch_array($res_listeQuestions)){
-                   $scoreTotal+=calculNoteQuestion($idEtu, $dateSession, $listeQuestions["idquestion"]);
+                   $scoreTotal+=noteQuestion($idEtu, $dateSession, $listeQuestions["idquestion"]);
               }
               
            // Calcul de la note moyenne du quiz de l'étudiant
@@ -109,7 +109,7 @@
       $cumul=0; $i=0;
       while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
           $idEtu = $listeEtudiants["idetudiant"];
-          $cumul+=calculNoteQuiz($idEtu, $dateSession);
+          $cumul+=noteQuiz($idEtu, $dateSession);
           $i++;
       }
       $moyenne=$cumul/$i;
