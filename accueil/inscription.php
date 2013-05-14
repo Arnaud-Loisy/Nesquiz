@@ -32,7 +32,7 @@
 		<tr>
         		<td>Prénom :</td> <td> <input name="prenom" type="text" > </td> </tr>
         	<tr>	
-        		<td>N°Etudiant :</td> <input name="numero_etu" type="text" > </td> </tr>
+        		<td>N°Etudiant :</td> <td><input name="numero_etu" type="text" > </td> </tr>
         	<tr>
         		<td>Promotion :</td> <td> <input name="promotion" type="text" > </td> </tr>
         	<tr>
