@@ -11,15 +11,15 @@
         <?php
 
             session_start();
-            if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
+            /*if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
             }
             if(!(isset($_GET["mode"])) || !(isset($_GET["idquiz"]))){
                 header('Location: publication.php');
-            }
+            }*/
             
             // Récup des variables
-            $dateSession= 99;//time()+6*3600;
+            $dateSession= 1;//time()+6*3600;
             $modeFonctionnement=$_GET["mode"];
             $mdpSession=$_GET["mdpSession"];
             $idquiz=$_GET["idquiz"];
@@ -36,7 +36,7 @@
             $dbcon = pg_connect("host=$host user=$login password=$password");
             
             // Créa de la session, en attente des élèves
-            $request = "INSERT INTO sessions VALUES ('".time()."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
+            $request = "INSERT INTO sessions VALUES ('".$dateSession."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
             pg_query($dbcon,$request) or die("Echec de la requête");
             
             header('Location: supervision.php');
