@@ -2,14 +2,14 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Supervision d'une session</title>
+		<title>Traitement publication</title>
                 <link rel="stylesheet" href="..\styles\theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
         </head>
 <body>
     <div id='page'>
         <?php
-            http://www.nesquiz.fr/session/supervision.php?idquiz=1&mode=2&mdpSession=dfdf
+
             session_start();
             if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
