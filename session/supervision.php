@@ -17,17 +17,17 @@
          if(!(isset($_SESSION["idquiz"])) || !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
                 header('Location: publication.php');
          }
-            
+          // connexion à la BD
+            include '../admin/secret.php';
+            $dbcon = pg_connect("host=$host user=$login password=$password");
+   
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
          $etatsession=$_SESSION["etatSession"];
          unset($_SESSION["mode"]);
          unset($_SESSION["dateSession"]);
          
-         // connexion à la BD
-            include '../admin/secret.php';
-            $dbcon = pg_connect("host=$host user=$login password=$password");
-         
+                 
          echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
         
                 // si mode quiz entier
