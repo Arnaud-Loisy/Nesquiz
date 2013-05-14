@@ -46,7 +46,7 @@
                                 </select>  </td> </tr>
         </table>
 	<input class="bouton" value="S'inscrire" type="submit"> 
- 
+ 	</form>
   </div>
     
     </body>
