@@ -26,17 +26,25 @@
         <br>
         <br>
         <form action='trait_inscri.php' method='POST'>
-	Nom : <input name="nom" type="text" ><br>
-        Prénom : <input name="prenom" type="text" ><br>
-        N°Etudiant : <input name="numero_etu" type="text" ><br>
-        Promotion: <input name="promotion" type="text" ><br>
-        Mot de passe: <input name="mdp" type ="password"><br>
-        Confirmer Mot de passe : <input name="cmdp" type ="password"><br>
-        Langue de l'interface: <select name="langue">
+        <table>
+        	<tr>
+			<td>Nom :</td> <td> <input name="nom" type="text" > </td> </tr>
+		<tr>
+        		<td>Prénom :</td> <td> <input name="prenom" type="text" > </td> </tr>
+        	<tr>	
+        		<td>N°Etudiant :</td> <input name="numero_etu" type="text" > </td> </tr>
+        	<tr>
+        		<td>Promotion :</td> <td> <input name="promotion" type="text" > </td> </tr>
+        	<tr>
+        		<td>Mot de passe :</td> <td> <input name="mdp" type ="password"> </td> </tr>
+        	<tr>
+        		<td>Confirmer Mot de passe :</td> <td> <input name="cmdp" type ="password"> </td> </tr>
+        	<tr>
+        		<td>Langue de l'interface :</td> <td> <select name="langue"> 
                                  <option value='fr'>Français</option>
                                  <option value='en'>English</option>
-                                </select><br>
-        
+                                </select>  </td> </tr>
+        </table>
 	<input class="bouton" value="S'inscrire" type="submit"> 
  
   </div>
