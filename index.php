@@ -22,14 +22,18 @@
       header("Location:accueil/accueil.php");
     }
     ?>
-   
-        
+     
    <br>
         <br>
 <form action='accueil/traitement.php' method='POST'>
-	Login : <input name="login" type="text" ><br>
-	Password : <input name="mdp" type ="password"><br>
-	<input class="bouton" value="Connexion" type="submit"> 
+	<table>
+		<tr>
+			<td>Login :</td> <td><input name="login" type="text" > </td> </tr>
+		<tr>
+			<td>Password :</td>  <td><input name="mdp" type ="password"> </td> </tr>
+	</table>
+	<input class="bouton" value="Connexion" type="submit">
+</form>
     </div>
 </body>
 <html>
