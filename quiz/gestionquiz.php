@@ -15,6 +15,30 @@ session_start();
 include '../accueil/menu.php';
 include '../admin/secret.php';
 
+$dbcon=pg_connect("host=$host user=$login password=$password");
+
+if(!$dbcon){
+ echo "connection BDD failed<br>";
+}else
+    {
+	echo "connection BDD succes <br>";
+
+	$result= pg_query($dbcon, "SELECT libelleQuestion, Questions.idQuestion
+                                        FROM Quiz, Questions, Inclu
+                                        WHERE Quiz.idQuiz = Inclu.idQuiz
+                                        AND Questions.idQuestion = Inclu.idQuestion
+                                        AND Quiz.idQuiz = 1;");
+
+        echo "<select name='liste_questions'>";
+        
+        $i=0;
+        while($row = pg_fetch_array($result)){
+            echo "<option>$row[i]</option>";
+            $i++;
+        }
+        echo "</select>";
+    }
+
 echo"<form action ='/session/publication.php' method='POST'>";
 echo "<input class='bouton' type='submit' value='Publier'>";
 echo "</form>";
