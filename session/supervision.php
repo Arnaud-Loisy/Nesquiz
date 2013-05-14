@@ -19,7 +19,7 @@
             
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
-         $etatsession=$_SESSION["etatsession"];
+         $etatsession=$_SESSION["etatSession"];
          unset($_SESSION["mode"]);
          unset($_SESSION["dateSession"]);
          

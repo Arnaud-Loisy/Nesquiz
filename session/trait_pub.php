@@ -15,7 +15,7 @@
                 header('Location:../index.php');
             }
             if(!(isset($_GET["mode"])) || !(isset($_GET["idquiz"]))){
-                header('Location:publication.php');
+               // header('Location:publication.php');
             }
             
             // Récup des variables
@@ -29,7 +29,7 @@
             $_SESSION["dateSession"]=$dateSession;
             $_SESSION["idquiz"]=$idquiz;
             $_SESSION["mode"]=$modeFonctionnement;
-            $_SESSION["etatsession"]=$etatsession;
+            $_SESSION["etatSession"]=$etatsession;
             
             // connexion à la BD
             include '../admin/secret.php';
