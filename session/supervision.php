@@ -15,7 +15,7 @@
          }
          
          if(!(isset($_SESSION["idquiz"])) || !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
-                header('Location: publication.php');
+                header('Location: sdqsdqsdqd.php');
          }
           // connexion à la BD
             include '../admin/secret.php';
