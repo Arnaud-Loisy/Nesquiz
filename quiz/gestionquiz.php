@@ -33,7 +33,7 @@ if(!$dbcon){
         
         $i=0;
         while($row = pg_fetch_array($result)){
-            echo "<option>$row[i]</option>";
+            echo "<option value='$row[i]]'>$row[i]</option>";
             $i++;
         }
         echo "</select>";
