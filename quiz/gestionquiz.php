@@ -15,7 +15,7 @@ session_start();
 include '../accueil/menu.php';
 include '../admin/secret.php';
 
-echo"<form action ='publication.php' method='POST'>";
+echo"<form action ='/session/publication.php' method='POST'>";
 echo "<input type='submit' value='Publier'>";
 echo "</form>"; 
 
