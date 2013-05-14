@@ -112,7 +112,11 @@
           $cumul+=noteQuiz($idEtu, $dateSession);
           $i++;
       }
-      $moyenne=$cumul/$i;
+      
+      if($i!=0)
+        $moyenne=$cumul/$i;
+      else
+          $moyenne=0;
       
       return round($moyenne,2);
     }
