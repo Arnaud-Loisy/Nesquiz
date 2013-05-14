@@ -30,9 +30,11 @@
         <?php 
 
         session_start();
+        
         if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
              header('Location:../index.php');
          }
+         
         include '../accueil/menu.php';
         include '../admin/secret.php';
         $dbcon = pg_connect("host=$host user=$login password=$password");
