@@ -10,12 +10,15 @@
 <body>
 <div id='page'>
 <?php
+
 session_start();
 include '../accueil/menu.php';
 include '../admin/secret.php';
 
+echo"<form action ='publication.php' method='POST'>";
+echo "<input type='submit' value='Publier'>";
+echo "</form>"; 
 
-	
 ?>
 </div>
 </body>
