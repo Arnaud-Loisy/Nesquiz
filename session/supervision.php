@@ -14,14 +14,14 @@
          }
          
          if(!(isset($_SESSION["idquiz"]))|| !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
-                header('Location:publication.php');
+                header('Location: publication.php');
          }
             
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
          $etatsession=$_SESSION["etatSession"];
-         unset($_SESSION["mode"]);
-         unset($_SESSION["dateSession"]);
+         //unset($_SESSION["mode"]);
+         //unset($_SESSION["dateSession"]);
          
             echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
         
