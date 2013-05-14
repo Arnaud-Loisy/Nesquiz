@@ -57,7 +57,7 @@
                     }
                     
                     else {
-                        echo "<form method='POST' action='supervision.php'>";
+                        echo "<form method='POST' action='resultats.php'>";
                         echo "<input class='bouton' type='submit' value='Demarrer'>";
                         echo "</form>";
 
