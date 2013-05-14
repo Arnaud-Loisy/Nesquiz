@@ -14,18 +14,19 @@
         
     <?php
       session_start();
-      if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu") || !(isset($_SESSION["datesession"])) || !(isset($_SESSION["idquiz"]))){
+      
+      if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu") || !(isset($_SESSION["dateSession"]))){
         header('Location:../index.php');
       }
+      
       include '../accueil/menu.php';
       include '../admin/secret.php';
       include 'fonctions_resultats.php';
       $dbcon = pg_connect("host=$host user=$login password=$password");
      
       // récupérer datesession
-      //$dateSession = $_SESSION["datesession"];
-      $dateSession = 1;
-      unset($_SESSION["datesession"]);
+      $dateSession = $_SESSION["dateSession"];
+      unset($_SESSION["dateSession"]);
       
     // mettre session à l'état 3
     /*  $request="UPDATE TABLE Sessions
