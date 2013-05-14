@@ -17,14 +17,13 @@
                 header('Location:publication.php');
          }
             
-                
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
          $etatsession=$_SESSION["etatsession"];
          unset($_SESSION["mode"]);
          unset($_SESSION["dateSession"]);
          
-        echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
+            echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
         
                 // si mode quiz entier
                 if ($modeFonctionnement==2){
