@@ -68,7 +68,7 @@
                 $result_quiz = pg_query($dbcon,$request) or die("Echec de la requête");
                 
                 // afficher les quiz dispo
-                echo"<form action='supervision.php' method='GET'>";
+                echo"<form action='trait_pub.php' method='GET'>";
                 echo"<br>Quiz disponibles : <br>";
                 while($arr = pg_fetch_array($result_quiz)){
                     echo "<input type='radio' name='idquiz' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
