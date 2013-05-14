@@ -33,6 +33,7 @@ if(!$dbcon){
         $i=0;
         while($row = pg_fetch_array($result)){
             $libelle=$row["libelleQuestion"];
+            echo "$libelle <br>";
             echo "<option>$libelle</option>";
             $i++;
         }
