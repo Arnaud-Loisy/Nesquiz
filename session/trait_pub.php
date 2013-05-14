@@ -15,7 +15,7 @@
                 header('Location:../index.php');
             }
             if(!(isset($_GET["mode"])) || !(isset($_GET["idquiz"]))){
-                header('Location: publication.php');
+                header('Location: qsdqdqsd.php');
             }
             
             // Récup des variables
