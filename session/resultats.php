@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Résultats de la session</title>
-                <link rel="stylesheet" href="..\styles\theme.css" />
+                <link rel="stylesheet" href="../styles/theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
         </head>
 <body>
