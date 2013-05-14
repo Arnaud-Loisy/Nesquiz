@@ -11,12 +11,12 @@
         <?php
 
             session_start();
-            /*if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
+            if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                 header('Location:../index.php');
             }
             if(!(isset($_GET["mode"])) || !(isset($_GET["idquiz"]))){
                 header('Location: publication.php');
-            }*/
+            }
             
             // Récup des variables
             $dateSession= 1;//time()+6*3600;

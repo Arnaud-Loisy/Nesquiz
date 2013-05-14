@@ -9,6 +9,7 @@
 <body>
     <div id='page'>
         <?php
+        session_start();
          if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu") ){
                 header('Location:../index.php');
          }
