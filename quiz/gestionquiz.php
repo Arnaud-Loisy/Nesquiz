@@ -23,17 +23,16 @@ if(!$dbcon){
     {
 	echo "connection BDD succes <br>";
 
-	$result= pg_query($dbcon, "SELECT libelleQuestion, tempsQuestion
-                                        FROM Questions, Matieres
-                                        WHERE Questions.idMatiere = Matieres.idMatiere
-                                        AND Matieres.idMatiere = 1;");
+	$result= pg_query($dbcon, "SELECT libellequestion, tempsquestion
+                                        FROM questions, matieres
+                                        WHERE questions.idmatiere = matieres.idmatiere
+                                        AND matieres.idmatiere = 1;");
 
         echo "<select name='liste_questions'>";
         
         $i=0;
         while($row = pg_fetch_array($result)){
-            $libelle=$row["libelleQuestion"];
-            echo "$libelle <br>";
+            $libelle=$row["libellequestion"];
             echo "<option>$libelle</option>";
             $i++;
         }
