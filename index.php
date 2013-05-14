@@ -22,8 +22,7 @@
       header("Location:accueil/accueil.php");
     }
     ?>
-   
-        
+     
    <br>
         <br>
 <form action='accueil/traitement.php' method='POST'>
