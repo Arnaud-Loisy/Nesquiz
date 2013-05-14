@@ -13,8 +13,8 @@
                 header('Location:../index.php');
          }
          
-         if(!(isset($_SESSION["idquiz"]))|| !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
-                header('Location:publication.php');
+         if(!(isset($_SESSION["idquiz"])) || !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
+                header('Location: publication.php');
          }
             
          $modeFonctionnement=$_SESSION["mode"];
@@ -23,7 +23,7 @@
          unset($_SESSION["mode"]);
          unset($_SESSION["dateSession"]);
          
-            echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
+         echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
         
                 // si mode quiz entier
                 if ($modeFonctionnement==2){
@@ -57,7 +57,7 @@
                     }
                     
                     else {
-                        echo "<form method='POST' action='supervision.php'>";
+                        echo "<form method='POST' action='resultats.php'>";
                         echo "<input class='bouton' type='submit' value='Demarrer'>";
                         echo "</form>";
 
@@ -125,7 +125,7 @@
                 
 
                 // refresh automatique
-                header("refresh: 5; url=supervision.php?idquiz=".$idquiz."&mode=".$modeFonctionnement."&mdpSession=".$mdpSession);
+                header("refresh: 5; url=supervision.php");
 
         ?>
         </div>
