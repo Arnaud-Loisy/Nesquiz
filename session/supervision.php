@@ -13,9 +13,9 @@
                 header('Location:../index.php');
          }
          
-         if(!(isset($_SESSION["idquiz"]))|| !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
+         /*if(!(isset($_SESSION["idquiz"])) || !(isset($_SESSION["dateSession"])) || !(isset($_SESSION["mode"]))){
                 header('Location: publication.php');
-         }
+         }*/
             
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
