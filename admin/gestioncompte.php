@@ -27,7 +27,7 @@
             <tr>
                 <td>Mot de passe</td> <td> <input name="mdp" type="text" > </td> </tr>
         </table>
-        <input type="checkbox" name="admin" value="1"> admin <br>
+        <input type="checkbox" name="admin" value="1"> Admin <br>
         <input class="bouton" value="Ajouter" type="submit">
         
         </form>
