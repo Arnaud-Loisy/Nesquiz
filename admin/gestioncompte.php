@@ -11,7 +11,11 @@
 </head>
 <body>
     <div id="page">
+        <?php
+        session_start();
+        include '../accueil/menu.php';
         En travaux comme le cul d'antho
+        ?>
     </div>
 </body>
 
