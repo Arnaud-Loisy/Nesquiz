@@ -26,9 +26,8 @@
                 <td>Identifiant</td> <td> <input name="identifiant" type="text" > </td> </tr>
             <tr>
                 <td>Mot de passe</td> <td> <input name="mdp" type="text" > </td> </tr>
-            <tr>
-                <input type="checkbox" name="admin" value="1"> admin </tr>
         </table>
+        <input type="checkbox" name="admin" value="1"> admin <br>
         <input class="bouton" value="Ajouter" type="submit">
         
         </form>
