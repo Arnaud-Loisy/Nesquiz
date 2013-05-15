@@ -14,8 +14,8 @@
         <?php
         session_start();
         include '../accueil/menu.php';
-        En travaux comme le cul d'antho
         ?>
+        En travaux comme le cul d'antho
     </div>
 </body>
 
