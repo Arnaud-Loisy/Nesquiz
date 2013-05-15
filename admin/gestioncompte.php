@@ -19,7 +19,16 @@
         En travaux comme le cul d'antho
         <table>
             <tr>
-                <td>Nom :</td> <td> <input name="nom" type="text" > </td> </tr>
+                <td>Nom</td> <td> <input name="nom" type="text" > </td> </tr>
+            <tr>
+                <td>Prénom</td> <td> <input name="prenom" type="text" > </td> </tr>
+            <tr>
+                <td>Identifiant</td> <td> <input name="identifiant" type="text" > </td> </tr>
+            <tr>
+                <td>Mot de passe</td> <td> <input name="mdp" type="text" > </td> </tr>
+        </table>
+        <input class="bouton" value="Ajouter" type="submit">
+        </form>
     </div>
 </body>
 
