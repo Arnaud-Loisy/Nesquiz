@@ -31,6 +31,14 @@
             echo "Veuillez réduire les champs trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription"]);
             }
+        if (isset(  $_SESSION["erreur_num_etu"])){
+            echo "Erreur: Le Numéro étudiant ne doit contenir que des nombres";
+            unset( $_SESSION["erreur_num_etu"]);
+        }
+        if (isset ($_SESSION["erreur_promotion"])){
+             echo "Erreur: La Promotion ne  doit contenir que des nombres";
+             unset( $_SESSION["erreur_promotion"]);
+        }
         ?>
         <br>
         <br>

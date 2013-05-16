@@ -20,7 +20,17 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
     $mdp=$_POST["mdp"];
     $cmdp=$_POST["cmdp"];
     $langue=$_POST["langue"];
+    $test_num_etu=  is_int($numero_etu);
+    $test_promotion=  is_int($promotion);
     
+    if($test_num_etu==false){
+        $_SESSION["erreur_num_etu"]=1;
+        header('Location:./inscription.php');
+    }
+    if ($test_promotion==false){
+        $_SESSION["erreur_promotion"]=1;
+        header('Location:./inscription.php');
+    }
     $mdph=md5($mdp);
     
     $result_etu= pg_query($dbcon," SELECT idEtudiant FROM Etudiants WHERE idEtudiant =".$numero_etu);
