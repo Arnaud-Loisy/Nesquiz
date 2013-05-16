@@ -77,7 +77,7 @@
                         echo "</table>";
 
                         // afficher bouton "Lancer le quiz"
-                        echo "<form method='POST' action='resultats.php'>";
+                        echo "<form method='POST' action='supervision_resultats.php'>";
                         echo "<input class='bouton' type='submit' value='Arrêter'>";
                         echo "</form>";
                     }
