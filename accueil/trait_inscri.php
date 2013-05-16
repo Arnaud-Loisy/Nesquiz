@@ -10,6 +10,8 @@ if(!$dbcon){
 
 if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["numero_etu"])) &&  (isset ($_POST["promotion"])) &&  (isset ($_POST["mdp"])) &&  (isset ($_POST["cmdp"])) && (isset ($_POST["langue"]))){
 
+    if (($_POST["nom"]!="") && ($_POST["prenom"]!="") && ($_POST["numero_etu"]!="") && ($_POST["numero_etu"]!="")&&($_POST["promotion"]!="") && ($_POST["mdp"]!="") && ($_POST["cmdp"]!="") && ($_POST["langue"]!="")){
+    
     $nom=$_POST["nom"];
     $prenom=$_POST["prenom"];
     $numero_etu=$_POST["numero_etu"];
@@ -40,5 +42,10 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
        $_SESSION["erreur_inscription_numero_etu"]=1;
        header('Location:./inscription.php');
 }
+    }
+    else {
+        $_SESSION["erreur_inscription_incomplet"]=1;
+        header('Location:./inscription.php');
+    }
 }
 ?>

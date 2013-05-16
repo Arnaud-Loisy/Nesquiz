@@ -22,6 +22,10 @@
             echo"Erreur:Ce numéro étudiant possède déjà un compte.<br>";
             unset( $_SESSION["erreur_inscription_numero_etu"]);
         }
+        if (isset( $_SESSION["erreur_inscription_incomplet"])){
+             echo"Erreur:Veuillez remplir tout les champs du formulaire.<br>";
+                unset( $_SESSION["erreur_inscription_incomplet"]);
+        }
         ?>
         <br>
         <br>
