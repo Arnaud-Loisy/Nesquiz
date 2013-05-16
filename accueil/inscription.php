@@ -27,7 +27,8 @@
                 unset( $_SESSION["erreur_inscription_incomplet"]);
         }
         if (isset( $_SESSION["erreur_longeur_champ_inscription"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>   Veuillez réduire les champs trop long.<br>";
+            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<td> Veuillez réduire les champs trop long.<br> </td>";
                 unset( $_SESSION["erreur_longeur_champ_inscription"]);
             }
         ?>
