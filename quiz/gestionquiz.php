@@ -61,7 +61,7 @@ echo "</form>";
 
 <script type="text/javascript">
 $("#flex1").flexigrid({
-	url: 'post2.php',
+	
 	dataType: 'json',
 	colModel : [
 		{display: 'ISO', name : 'iso', width : 40, sortable : true, align: 'center'},
