@@ -31,17 +31,25 @@
             echo "Veuillez réduire les champs trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription"]);
             }
+        if (isset(  $_SESSION["erreur_num_etu"])){
+            echo "Erreur: Le Numéro étudiant ne doit contenir que des nombres<br>";
+            unset( $_SESSION["erreur_num_etu"]);
+        }
+        if (isset ($_SESSION["erreur_promotion"])){
+             echo "Erreur: La Promotion ne  doit contenir que des nombres<br>";
+             unset( $_SESSION["erreur_promotion"]);
+        }
         ?>
         <br>
         <br>
         <form action='trait_inscri.php' method='POST'>
-        <table>
+        <table class ="center">
         	<tr>
 			<td>Nom :</td> <td> <input name="nom" type="text" > </td> </tr>
 		<tr>
         		<td>Prénom :</td> <td> <input name="prenom" type="text" > </td> </tr>
         	<tr>	
-        		<td>N°Etudiant :</td> <td><input name="numero_etu" type="text" > </td> <td>(ATTENTION CECI SERA VOTRE IDENTIFIANT!!!!!)</td> </tr>
+        		<td>N°Etudiant :</td> <td><input name="numero_etu" type="text" > </td> </tr>
         	<tr>
         		<td>Promotion :</td> <td> <input name="promotion" type="text" > </td> </tr>
         	<tr>
@@ -54,7 +62,7 @@
                                  <option value='en'>English</option>
                                 </select>  </td> </tr>
         </table>
-	<input class="bouton" value="S'inscrire" type="submit"> 
+	<input class="bouton center" value="S'inscrire" type="submit"> 
  	</form>
   </div>
     

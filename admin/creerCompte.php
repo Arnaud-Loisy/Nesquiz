@@ -17,4 +17,13 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
 
     $mdph=md5($mdp);
     
+    $result_adminprof= pg_query($dbcon," SELECT idAdminProf FROM AdminProfs WHERE idAdminProf =".$identifiant);
+        $arr = pg_fetch_array($result_adminprof);
+    if ($arr==false){
+        echo "Pas d'identifiant";
+         pg_query($dbcon,"INSERT INTO AdminProfs VALUES (".$identifiant.", '".$nom."', '".$prenom."');");
+    }
+    else
+        echo "Il y a un identifiant";
 }
+?>

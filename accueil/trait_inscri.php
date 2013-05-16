@@ -20,8 +20,14 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
     $mdp=$_POST["mdp"];
     $cmdp=$_POST["cmdp"];
     $langue=$_POST["langue"];
-    
+    $test_num_etu=(is_numeric($numero_etu));
+    $test_promotion=(is_numeric($promotion));
     $mdph=md5($mdp);
+    
+    if($test_num_etu==true){
+   
+         if ($test_promotion==true){
+      
     
     $result_etu= pg_query($dbcon," SELECT idEtudiant FROM Etudiants WHERE idEtudiant =".$numero_etu);
         $arr = pg_fetch_array($result_etu);
@@ -44,6 +50,17 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
        header('Location:./inscription.php');
 }
     }
+    else {
+          $_SESSION["erreur_promotion"]=1;
+        header('Location:./inscription.php');
+    
+    }
+    }
+    else {
+        $_SESSION["erreur_num_etu"]=1;
+        header('Location:./inscription.php');
+    }
+    }
     else { 
         $_SESSION["erreur_longeur_champ_inscription"]=1;
         header('Location:./inscription.php');
@@ -54,6 +71,8 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
         $_SESSION["erreur_inscription_incomplet"]=1;
         header('Location:./inscription.php');
     }
-}
+            }
+            
+
 
 ?>

@@ -6,9 +6,12 @@
 <link rel="stylesheet" href="../styles/theme.css" />
 <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
+  <link rel="stylesheet" href="../styles/theme.css"/>
+
 </head>
 <body>
 <div id='page'>
+    
 <?php
 
 session_start();
@@ -19,7 +22,8 @@ $dbcon=pg_connect("host=$host user=$login password=$password");
 
 if(!$dbcon){
  echo "connection BDD failed<br>";
-}else
+}
+else
     {
 	echo "connection BDD succes <br>";
 
@@ -39,11 +43,12 @@ if(!$dbcon){
         echo "</select>";
     }
 
-echo"<form action ='/session/publication.php' method='POST'>";
+echo "<form action ='/session/publication.php' method='POST'>";
 echo "<input class='bouton' type='submit' value='Publier'>";
 echo "</form>";
 
-?>
+?>   
+    
 </div>
 </body>
 </html>

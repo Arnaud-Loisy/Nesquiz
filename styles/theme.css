@@ -81,7 +81,9 @@ div.tps {
 	padding: 5px;
 }
 input.bouton {
-	margin: 7%;
+	margin-top: 7%;
+        margin-bottom: 7%;
+        display: block;
 	width: 255px;
 	height: 60px;
 	font-size: 40px;
@@ -94,4 +96,8 @@ input.bouton {
 input.bouton:active {
 	background: rgb(149,188,242);
 	color: white;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
 }

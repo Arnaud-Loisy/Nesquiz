@@ -40,7 +40,7 @@ if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
 <div id='menu'>
 <ul>
 	<li><a href='accueil/inscription.php'>S'inscrire</a></li>
-	<li><a href='index.php'>Se connecter</a></li>  
+	<li><a href='../index.php'>Se connecter</a></li>  
 </ul>
 </div>";
 }
