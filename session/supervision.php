@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Supervision d'une session</title>
+		<title>Session en cours</title>
                 <link rel="stylesheet" href="../styles/theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
         </head>
@@ -24,13 +24,19 @@
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
          $etatsession=$_SESSION["etatSession"];
-  
-         
-                 
-         echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
-        
+         $idquiz=$_SESSION["idquiz"];
+          $request = "SELECT libelleQuiz 
+                        FROM quiz
+                        WHERE idquiz  = '".$idquiz."';";
+          $result=pg_query($dbcon,$request) or die("Echec de la requête");
+          $row=  pg_fetch_array($result);
+         echo "<h1 class=''>".$row[0]."</h1><br>";        
+         echo "Session lancée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
+         echo "<br>Etudiants participant à la session :";
+         echo "<br><table>";
                 // si mode quiz entier
                 if ($modeFonctionnement==2){
+                    // si session en attente
                     if($etatsession==1){
                         // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
                         $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
@@ -42,11 +48,10 @@
                                     GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
                         $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
-                        // affichage des étudiants participants
-                        echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
+                        
+                           // affichage des étudiants participants
                         while($arr = pg_fetch_array($result)){
-                           echo "<table>";
-                           echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>";
+                            echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> </tr>";
                        }
                         echo "</table>";
 
@@ -56,7 +61,7 @@
                         echo "</form>";
                         
                      }
-                    
+                   
                     else {
                         // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
                         $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
@@ -69,10 +74,11 @@
                         $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
                         // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> nb questions </td> </tr> ";
+                        
+                        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
                         while($arr = pg_fetch_array($result)){
                            echo "<table>";
-                           echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2];
+                           echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2]."</td> </tr>";
                         }
                         echo "</table>";
 
@@ -84,8 +90,13 @@
                         
                 }
                 // si mode Question/question
-                /*else
+                else
                 {
+                    echo "Mode Question par Question non implémenté <br>";
+                    unset($_SESSION["mode"]);
+                    unset($_SESSION["dateSession"]);
+                    unset($_SESSION["etatSession"]);
+                    /*
                     // récupérer la liste des élèves participants
                      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
                                 FROM Etudiants, Participe, Sessions
@@ -116,8 +127,8 @@
                                   // afficher score
                               }
 
-                    }
-                }*/
+                    }*/
+                }
 
                 
 

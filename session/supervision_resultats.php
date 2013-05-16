@@ -60,17 +60,17 @@
              
         // Calculer et afficher le classement des étudiants
        echo "Moyenne de la session : ".moyenneSession($dateSession)." %<br><br>";
+       echo "Classement des étudiants<br><br>";
        echo "<table><tr><td> Rang </td> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
       
        $classement=classementSession($dateSession);
        for($i=0; $i<count($classement);$i++){
-           echo "<td>".($i+1)."</td> <td>".$classement[$i]["nom"]."</td> <td>".$classement[$i]["prenom"]."</td><td>".$classement[$i]["note"]." %</td></tr>";
+           echo "<tr><td>".($i+1)."</td> <td>".$classement[$i]["nom"]."</td> <td>".$classement[$i]["prenom"]."</td><td>".$classement[$i]["note"]." %</td></tr>";
        }
        echo "</table><br>";
        
        // Calculer et afficher les moyennes des questions
-       echo "Moyenne des questions :<br>";
-       echo "<table>";
+       echo "<br><table>";
        echo "<tr> <td> Question </td> <td> Moyenne </td> </tr>";
   
        while($listeQuestions = pg_fetch_array($res_listeQuestions)){

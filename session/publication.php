@@ -5,26 +5,10 @@
 		<meta charset="utf-8" />
 		<title>Publication d'un quiz</title>
                 <link rel="stylesheet" href="../styles/theme.css" />
-                <link rel="stylesheet" href="../styles/jquery-ui.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
-                <script src="../scripts/jquery-2.0.0.js"></script>
-		<script src="../scripts/jquery-ui.js"></script>
                 
         </head>
-        
-        <script>
-            $(function() {
-                $( "#selectable" ).selectable({
-                  stop: function() {
-                    var result = $( "#select-result" ).empty();
-                    $( ".ui-selected", this ).each(function() {
-                      var index = $( "#selectable li" ).index( this );
-                      result.append( " #" + ( index ) );
-                    });
-                  }
-                });
-              });
-	</script>
+
 <body>
     <div id='page'>
         <?php 
@@ -49,13 +33,11 @@
         
         // Afficher la liste des matières
         echo"<form method='POST'>";
-        echo"<br><br> Mes matières : <br>";
-       // echo "<ol id='selectable'>";
+        echo"<br> Mes matières : <br>";
         while($arr = pg_fetch_array($result_matiere)){
-            echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
-            //echo "<li class='ui-widget-content' value='".$arr["idmatiere"]."' name='idmatiere'> ".$arr["libellematiere"]."</li>";  
+            echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";  
         }
-        echo "<br><input class='bouton' type='submit' value='Afficher Quiz'>";
+        echo "<input class='bouton' type='submit' value='Afficher Quiz'>";
         echo "</form>";
         
         // Si une matière a été selectionnée
@@ -80,9 +62,9 @@
                 echo "   <br> Mode de publication : <br>";
                 echo "   <input type='radio' name='mode' value='1'> Question par Question<br>";
                 echo "   <input type='radio' name='mode' value='2'> Quiz entier<br>";
-                echo"    <br> Mot de passe de la session :";
+                echo "   <br> Mot de passe de la session : <br>";
                 echo "   <input type='text' name='mdpSession'> <br>";
-                echo"    <input class='bouton' type='submit' value='Démarrer'>";
+                echo "   <input class='bouton' type='submit' value='Démarrer'>";
         }
         ?>
         </form>
