@@ -6,6 +6,18 @@
 <link rel="stylesheet" href="../styles/theme.css" />
 <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
+
+
+  <link rel="stylesheet" href="..\styles\jquery-ui.css"/>
+  <script src="..\scripts\jquery-2.0.0.js"></script>
+  <script src="..\scripts\jquery-ui.js"></script>
+  <link rel="stylesheet" href="..\styles\theme.css"/>
+  
+  <link rel="stylesheet" href="..\styles\jquery.appendGrid-1.1.0.css"/>
+  <script type="text/javascript" src="../scripts/flexigrid.pack.js"></script>
+
+
+
 </head>
 <body>
 <div id='page'>
@@ -19,7 +31,8 @@ $dbcon=pg_connect("host=$host user=$login password=$password");
 
 if(!$dbcon){
  echo "connection BDD failed<br>";
-}else
+}
+else
     {
 	echo "connection BDD succes <br>";
 
@@ -39,11 +52,18 @@ if(!$dbcon){
         echo "</select>";
     }
 
-echo"<form action ='/session/publication.php' method='POST'>";
+echo "<form action ='/session/publication.php' method='POST'>";
 echo "<input class='bouton' type='submit' value='Publier'>";
 echo "</form>";
 
-?>
+?>   
+    
+
+<script type="text/javascript">
+$('.flexme1').flexigrid();
+</script>    
+    
+    
 </div>
 </body>
 </html>
