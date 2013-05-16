@@ -58,32 +58,15 @@
                         AND Quiz.idQuiz ='".$idquiz."';";
              $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
              
-        // Calculer et afficher les moyennes des élèves
-       echo "Moyenne de la session : ".moyenneSession($dateSession)." %<br>";
-       echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
-       //$tabNotes = array();
-       
-       while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
-           $idEtu = $listeEtudiants["idetudiant"];
-           $nomEtu = $listeEtudiants["nometudiant"];
-           $prenomEtu = $listeEtudiants["prenometudiant"];
-           
-           echo "<table>";
-           echo "<tr> <td> ".$nomEtu."</td> <td> ".$prenomEtu."</td> ";
-          
-          /* // Stocker la note pour chaque question, pour chaque élève dans un tableau
-           $tabNotesEtu=array($idEtu=>array());
-           while($listeQuestions = pg_fetch_array($res_listeQuestions)){                    
-               $idQuestion=$listeQuestions["idquestion"];
-               $tabNotes[$idEtu["'".$idQuestion."'"]]=noteQuestion($idEtu, $dateSession, $idQuestion);
-           }*/
-           
-           // Afficher la note du quiz
-           echo "<td> ".noteSession($idEtu, $dateSession)." % <td> </tr>";
+        // Calculer et afficher le classement des étudiants
+       echo "Moyenne de la session : ".moyenneSession($dateSession)." %<br><br>";
+       echo "<table><tr><td> Rang </td> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
+      
+       $classement=classementSession($dateSession);
+       for($i=0; $i<count($classement);$i++){
+           echo "<td>".($i+1)."</td> <td>".$classement[$i]["nom"]."</td> <td>".$classement[$i]["prenom"]."</td><td>".$classement[$i]["note"]." %</td></tr>";
        }
-       echo "</table>";
-       
-       
+       echo "</table><br>";
        
        // Calculer et afficher les moyennes des questions
        echo "Moyenne des questions :<br>";
@@ -98,7 +81,8 @@
            // Afficher la moyenne de la question
            echo "<td> ". moyenneQuestion($dateSession, $idQuestion)." % <td> </tr>";
        }
-       echo "</table>";
+       echo "</table><br>";
+       
     ?>
     </div>
 </body>
