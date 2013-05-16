@@ -19,7 +19,11 @@
                 }
 
                 // Récup des variables
-                $dateSession= time()+6*3600;
+               /*
+                * A ENLEVER ICI C POUR DU TEST
+                *  $dateSession= time()+6*3600;
+                */
+                $dateSession=1;
                 $modeFonctionnement=$_GET["mode"];
                 $mdpSession=$_GET["mdpSession"];
                 $idquiz=$_GET["idquiz"];
@@ -36,9 +40,9 @@
                 $dbcon = pg_connect("host=$host user=$login password=$password");
 
                 // Créa de la session, en attente des élèves
-                $request = "INSERT INTO sessions VALUES ('".$dateSession."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
+           /*     $request = "INSERT INTO sessions VALUES ('".$dateSession."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
                 pg_query($dbcon,$request) or die("Echec de la requête");
-
+                */
                 header('Location: supervision.php');
 
                 ?>

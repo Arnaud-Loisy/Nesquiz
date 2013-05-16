@@ -28,9 +28,9 @@
 <form action='accueil/connexion.php' method='POST'>
 	<table>
 		<tr>
-			<td>Login :</td> <td><input name="login" type="text" > </td> </tr>
+			<td>Identifiant :</td> <td><input name="login" type="text" > </td> </tr>
 		<tr>
-			<td>Password :</td>  <td><input name="mdp" type ="password"> </td> </tr>
+			<td>Mot de passe :</td>  <td><input name="mdp" type ="password"> </td> </tr>
 	</table>
 	<input class="bouton" value="Connexion" type="submit">
 </form>

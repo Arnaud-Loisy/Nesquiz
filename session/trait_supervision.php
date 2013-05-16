@@ -15,7 +15,7 @@
                     header('Location:../index.php');
                 }
                  if((!(isset($_SESSION["idquiz"]))) || (!(isset($_SESSION["dateSession"]))) ||  (!(isset($_SESSION["mode"]))) ){
-                header('Location: sdqsdqsdqd.php');
+                header('Location: publication.php');
                  }
                  // connexion à la BD
                 include '../admin/secret.php';
@@ -28,7 +28,7 @@
                 
                 
                 
-                // Mettre le champs etatSession à 2
+                // Mettre le champs etatSession à 2 dans la BD
                 
                  $request = "UPDATE Sessions
                             SET etatSession='2'

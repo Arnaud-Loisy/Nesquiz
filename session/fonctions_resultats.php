@@ -52,7 +52,7 @@
     
     // Retourne la note générale d'un étudiant, pour une session donnée
     // cette note est exprimée en pourcent
-    function noteQuiz($idEtu, $dateSession){
+    function noteSession($idEtu, $dateSession){
         include '../admin/secret.php';
         $dbcon = pg_connect("host=$host user=$login password=$password");
             // récupérer id du quiz correspondant à la session
@@ -109,7 +109,7 @@
       $cumul=0; $i=0;
       while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
           $idEtu = $listeEtudiants["idetudiant"];
-          $cumul+=noteQuiz($idEtu, $dateSession);
+          $cumul+=noteSession($idEtu, $dateSession);
           $i++;
       }
       
@@ -120,4 +120,34 @@
       
       return round($moyenne,2);
     }
+    
+    // Retourne la note moyenne des étudiants de la question
+    // cette note est exprimée en pourcent
+    function moyenneQuestion($dateSession, $idQuestion){
+        include '../admin/secret.php';
+        $dbcon = pg_connect("host=$host user=$login password=$password");
+
+        // récupérer la liste des étudiants participant à la session
+      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
+	FROM Etudiants, Participe, Sessions
+	WHERE Sessions.dateSession = Participe.dateSession
+	AND Etudiants.idEtudiant = Participe.idEtudiant
+	AND Sessions.dateSession = '".$dateSession."';";       
+      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+      
+      $cumul=0; $i=0;
+      while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
+          $idEtu = $listeEtudiants["idetudiant"];
+          $cumul+=noteQuestion($idEtu, $dateSession,$idQuestion);
+          $i++;
+      }
+      
+      if($i!=0)
+        $moyenne=$cumul/$i;
+      else
+          $moyenne=0;
+      
+      return round($moyenne*100,2);
+    }
+    
     ?>

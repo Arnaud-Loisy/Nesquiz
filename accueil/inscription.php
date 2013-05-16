@@ -22,6 +22,23 @@
             echo"Erreur:Ce numéro étudiant possède déjà un compte.<br>";
             unset( $_SESSION["erreur_inscription_numero_etu"]);
         }
+        if (isset( $_SESSION["erreur_inscription_incomplet"])){
+             echo"Erreur:Veuillez remplir tous les champs du formulaire.<br>";
+                unset( $_SESSION["erreur_inscription_incomplet"]);
+        }
+        if (isset( $_SESSION["erreur_longeur_champ_inscription"])){
+            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "Veuillez réduire les champs trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription"]);
+            }
+        if (isset(  $_SESSION["erreur_num_etu"])){
+            echo "Erreur: Le Numéro étudiant ne doit contenir que des nombres";
+            unset( $_SESSION["erreur_num_etu"]);
+        }
+        if (isset ($_SESSION["erreur_promotion"])){
+             echo "Erreur: La Promotion ne  doit contenir que des nombres";
+             unset( $_SESSION["erreur_promotion"]);
+        }
         ?>
         <br>
         <br>
@@ -32,7 +49,7 @@
 		<tr>
         		<td>Prénom :</td> <td> <input name="prenom" type="text" > </td> </tr>
         	<tr>	
-        		<td>N°Etudiant :</td> <td><input name="numero_etu" type="text" > </td> </tr>
+        		<td>N°Etudiant :</td> <td><input name="numero_etu" type="text" > </td> <td>(ATTENTION CECI SERA VOTRE IDENTIFIANT!!!!!)</td> </tr>
         	<tr>
         		<td>Promotion :</td> <td> <input name="promotion" type="text" > </td> </tr>
         	<tr>

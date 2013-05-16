@@ -29,10 +29,10 @@
       unset($_SESSION["dateSession"]);
       
     // mettre session à l'état 3
-    /*  $request="UPDATE TABLE Sessions
+      $request="UPDATE Sessions
               SET etatSession=3
               WHERE dateSession='".$dateSession."';"; 
-      pg_query($dbcon,$request) or die("Echec de la requête");*/
+      pg_query($dbcon,$request) or die("Echec de la requête");
             
       // récupérer id du quiz correspondant à la session
             $request= "SELECT idquiz
@@ -58,10 +58,11 @@
                         AND Quiz.idQuiz ='".$idquiz."';";
              $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
              
-        // Calculer et afficher les notes  
+        // Calculer et afficher les moyennes des élèves
        echo "Moyenne de la session : ".moyenneSession($dateSession)." %<br>";
        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
-       $tabNotes = array();
+       //$tabNotes = array();
+       
        while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
            $idEtu = $listeEtudiants["idetudiant"];
            $nomEtu = $listeEtudiants["nometudiant"];
@@ -70,15 +71,32 @@
            echo "<table>";
            echo "<tr> <td> ".$nomEtu."</td> <td> ".$prenomEtu."</td> ";
           
-           // Stocker la note pour chaque question, pour chaque élève dans un tableau
-           $tabNotes=array($idEtu=>array());
+          /* // Stocker la note pour chaque question, pour chaque élève dans un tableau
+           $tabNotesEtu=array($idEtu=>array());
            while($listeQuestions = pg_fetch_array($res_listeQuestions)){                    
                $idQuestion=$listeQuestions["idquestion"];
                $tabNotes[$idEtu["'".$idQuestion."'"]]=noteQuestion($idEtu, $dateSession, $idQuestion);
-           }
+           }*/
            
            // Afficher la note du quiz
-           echo "<td> ".noteQuiz($idEtu, $dateSession)." % <td> </tr>";
+           echo "<td> ".noteSession($idEtu, $dateSession)." % <td> </tr>";
+       }
+       echo "</table>";
+       
+       
+       
+       // Calculer et afficher les moyennes des questions
+       echo "Moyenne des questions :<br>";
+       echo "<table>";
+       echo "<tr> <td> Question </td> <td> Moyenne </td> </tr>";
+  
+       while($listeQuestions = pg_fetch_array($res_listeQuestions)){
+           $libelleQuestion=$listeQuestions["libellequestion"];
+           $idQuestion=$listeQuestions["idquestion"];
+           echo "<tr> <td> ".$libelleQuestion."</td>";
+          
+           // Afficher la moyenne de la question
+           echo "<td> ". moyenneQuestion($dateSession, $idQuestion)." % <td> </tr>";
        }
        echo "</table>";
     ?>

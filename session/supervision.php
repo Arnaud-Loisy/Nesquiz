@@ -47,7 +47,7 @@
                         while($arr = pg_fetch_array($result)){
                            echo "<table>";
                            echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>";
-                        }
+                       }
                         echo "</table>";
 
                         // afficher bouton "Lancer le quiz"
@@ -55,7 +55,7 @@
                         echo "<input class='bouton' type='submit' value='Lancer'>";
                         echo "</form>";
                         
-                    }
+                     }
                     
                     else {
                         // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
