@@ -23,9 +23,13 @@
             unset( $_SESSION["erreur_inscription_numero_etu"]);
         }
         if (isset( $_SESSION["erreur_inscription_incomplet"])){
-             echo"Erreur:Veuillez remplir tout les champs du formulaire.<br>";
+             echo"Erreur:Veuillez remplir tous les champs du formulaire.<br>";
                 unset( $_SESSION["erreur_inscription_incomplet"]);
         }
+        if (isset( $_SESSION["erreur_longeur_champ_inscription"])){
+            echo"Erreur:La longueur maximale des champs est de 32 caratères veuillez réduire les champs trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription"]);
+            }
         ?>
         <br>
         <br>
