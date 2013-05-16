@@ -16,7 +16,7 @@
         include '../accueil/menu.php';
         ?>
         <form action='creerCompte.php' method='POST'>
-        En travaux comme le cul d'antho
+        test
         <table>
             <tr>
                 <td>Nom</td> <td> <input name="nom" type="text" > </td> </tr>
