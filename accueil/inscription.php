@@ -43,7 +43,7 @@
         <br>
         <br>
         <form action='trait_inscri.php' method='POST'>
-        <table class ="center">
+        <table style="margin: auto">
         	<tr>
 			<td>Nom :</td> <td> <input name="nom" type="text" > </td> </tr>
 		<tr>
@@ -62,7 +62,7 @@
                                  <option value='en'>English</option>
                                 </select>  </td> </tr>
         </table>
-	<input class="bouton center" value="S'inscrire" type="submit"> 
+	<input class="boutonCenter" value="S'inscrire" type="submit"> 
  	</form>
   </div>
     
