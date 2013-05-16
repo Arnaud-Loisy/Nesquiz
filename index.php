@@ -25,7 +25,7 @@
      
    <br>
         <br>
-<form action='accueil/traitement.php' method='POST'>
+<form action='accueil/connexion.php' method='POST'>
 	<table>
 		<tr>
 			<td>Login :</td> <td><input name="login" type="text" > </td> </tr>
