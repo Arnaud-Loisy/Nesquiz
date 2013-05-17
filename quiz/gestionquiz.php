@@ -30,6 +30,7 @@ function SelectRow(newRow, maxColLength)
    {
        var cell=document.getElementById('cell_'+newRow+','+i);
        cell.style.background='#AAF';
+       alert(cell.
 
        if(currentRow !== -1)
        {
@@ -50,6 +51,16 @@ function GetSelectedRow()
    return currentRow;
 }
 
+function ChangeColor(tableRow, highLight)
+            {
+               if (highLight){
+            	   tableRow.style.backgroundColor = '00CCCC';
+               }
+            
+            else{
+            	 tableRow.style.backgroundColor = 'white';
+                }
+                
 </script>
 
 </head>
@@ -120,7 +131,7 @@ else
    
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequiz"];
-            echo "<tr><td>$libelle</td></tr>";
+            echo "<tr><td onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)'>$libelle</td></tr>";
         }
         echo "</tbody>";
         echo "</table>";
