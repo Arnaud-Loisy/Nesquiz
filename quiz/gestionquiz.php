@@ -30,7 +30,6 @@ function SelectRow(newRow, maxColLength)
    {
        var cell=document.getElementById('cell_'+newRow+','+i);
        cell.style.background='#AAF';
-       alert(cell.
 
        if(currentRow !== -1)
        {
