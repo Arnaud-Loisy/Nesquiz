@@ -31,13 +31,15 @@
           $result=pg_query($dbcon,$request) or die("Echec de la requête");
           $row=  pg_fetch_array($result);
          echo "<h1 class=''>".$row[0]."</h1><br>";        
-         echo "Session lancée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
-         echo "<br>Etudiants participant à la session :";
-         echo "<br><table>";
+         echo "<center>Session lancée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
+         echo "<br>Etudiants participant à la session :</center>";
+         echo "<br><table style='margin: auto'>";
+         
                 // si mode quiz entier
                 if ($modeFonctionnement==2){
                     // si session en attente
                     if($etatsession==1){
+                        echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
                         // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
                         $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
                                     FROM Repond, Etudiants, Sessions, Participe
@@ -57,7 +59,7 @@
 
                         // afficher bouton "Lancer le quiz"
                         echo "<form method='POST' action='trait_supervision.php'>";
-                        echo "<input class='bouton' type='submit' value='Lancer'>";
+                        echo "<input class='boutonCenter' type='submit' value='Lancer'>";
                         echo "</form>";
                         
                      }
@@ -74,17 +76,16 @@
                         $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
                         // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                        
+                        echo "<table style='margin: auto'>";
                         echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
                         while($arr = pg_fetch_array($result)){
-                           echo "<table>";
-                           echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2]."</td> </tr>";
+                                echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2]."</td> </tr>";
                         }
                         echo "</table>";
 
                         // afficher bouton "Lancer le quiz"
                         echo "<form method='POST' action='supervision_resultats.php'>";
-                        echo "<input class='bouton' type='submit' value='Arrêter'>";
+                        echo "<input class='boutonCenter' type='submit' value='Arrêter'>";
                         echo "</form>";
                     }
                         

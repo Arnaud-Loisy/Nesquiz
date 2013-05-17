@@ -59,9 +59,9 @@
              $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
              
         // Calculer et afficher le classement des étudiants
-       echo "Moyenne de la session : ".moyenneSession($dateSession)." %<br><br>";
-       echo "Classement des étudiants<br><br>";
-       echo "<table><tr><td> Rang </td> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
+       echo "<center>Moyenne de la session : ".moyenneSession($dateSession)." %<br><br>";
+       echo "<center>Classement des étudiants<br><br></center>";
+       echo "<table style='margin: auto'><tr><td> Rang </td> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";
       
        $classement=classementSession($dateSession);
        for($i=0; $i<count($classement);$i++){
@@ -70,7 +70,7 @@
        echo "</table><br>";
        
        // Calculer et afficher les moyennes des questions
-       echo "<br><table>";
+       echo "<br><table style='margin: auto'>";
        echo "<tr> <td> Question </td> <td> Moyenne </td> </tr>";
   
        while($listeQuestions = pg_fetch_array($res_listeQuestions)){
