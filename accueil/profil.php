@@ -50,8 +50,8 @@ session_start();
                                 </select>  </td> </tr>";
         echo"<br>";
         echo"Changer de mot de passe <br>";
-        echo'Ancien mot de passe <td><input name="oldmdp" type ="password"> <br>';
-        echo'Nouveau mot de passe <td><input name="newmdp" type ="password"> <br> ';
+        echo'Ancien mot de passe <input name="oldmdp" type ="password"> <br>';
+        echo'Nouveau mot de passe <input name="newmdp" type ="password"> <br> ';
         echo'<input class="boutonCenter" value="Valider les changements appliqués à votre compte" type="submit">';
                 
         echo"</form>";
