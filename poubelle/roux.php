@@ -92,6 +92,7 @@ onload = function() {
         rows[i].onclick = function() {
             alert(this.rowIndex + 1);
         }
+        rows[i].toLocaleString();
     }
 }
 </script>
