@@ -24,9 +24,9 @@
 
 var currentRow=-1;
 
-function SelectRow(newRow)
+function SelectRow(newRow, maxLength)
 {
-   for(var i=1;i<5;++i)
+   for(var i=1;i<maxLength;++i)
    {
        var cell=document.getElementById('cell_'+newRow+','+i);
        cell.style.background='#AAF';
@@ -158,7 +158,7 @@ else
         $i = 1;
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequestion"];
-            echo "<tr><td onclick='SelectRow(1)' id='cell_1,".$i."'>$libelle</td></tr>";
+            echo "<tr><td onclick='SelectRow(1, ".$i.")' id='cell_1,".$i."'>$libelle</td></tr>";
             $i++;
         }
         echo "</tbody>";
