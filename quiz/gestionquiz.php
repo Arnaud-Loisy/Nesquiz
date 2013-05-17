@@ -159,25 +159,6 @@
                 }
                 }
                 </script>";
-        
-        echo "<table id='table_libelles_questions_quiz'>";
-        echo "<tbody>";
-        echo "<th>Questions présentes</th>";
-   
-        $i = 1;
-        while($row = pg_fetch_array($result)){
-            $libelle=$row["libellequestion"];
-            /*echo "<tr><td onclick='SelectRow(".$i.", 2)' id='cell_".$i.",1'>$libelle</td></tr>";*/
-            echo "<tr><td onclick='InvertColorOfTableLine(this)'>$libelle</td></tr>";
-            $i++;
-        }
-        echo "</tbody>";
-        echo "</table>";
-    }    
-    
-echo "<form action ='../session/publication.php' method='POST'>";
-echo "<input class='boutonCenter' type='submit' value='Publier'>";
-echo "</form>";
 
 				echo "<table class='tableau_mystique' id='table_libelles_questions_quiz'>";
 				echo "<tbody>";
