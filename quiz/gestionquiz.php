@@ -54,7 +54,7 @@ var last_tableRow = -1;
 
 function InvertColorOfTableLine(tableRow)
 {
-    if (last_tableRow != -1)
+    if ((last_tableRow != -1) && (last_TableRow !== tableRow))
         {
             last_tableRow.style.backgroundColor = "rgb(255, 255, 255)";
         }
@@ -65,7 +65,7 @@ function InvertColorOfTableLine(tableRow)
                    {
                        tableRow.style.backgroundColor = "rgb(255, 255, 255)";
                    }
-                   last_tableRow = tableRow;
+        last_tableRow = tableRow;
 }
                 
 </script>
