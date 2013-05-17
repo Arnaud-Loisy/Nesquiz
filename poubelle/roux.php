@@ -90,7 +90,7 @@ onload = function() {
     var rows = document.getElementById('my_table').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
     for (i = 0; i < rows.length; i++) {
         rows[i].onclick = function() {
-            alert(this.rowIndex + 1);
+            alert(rows[i].toLocaleString(););
         }
     }
 }
