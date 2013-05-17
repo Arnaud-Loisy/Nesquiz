@@ -14,12 +14,7 @@
 include '../accueil/menu.php';
 include '../admin/secret.php';
 session_start();
-$dbcon=pg_connect("host=$host user=$login password=$password");
 
-if(!$dbcon){
- echo "connection BDD failed<br>";
-}else
-	echo "connection BDD succes <br>";
 
      if(isset($_SESSION["mdpfail"])){
           echo"Erreur:L'ancien mot de passe n'est pas bon.<br>";
@@ -37,7 +32,7 @@ if(!$dbcon){
           echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["mdpchok"]);
         }             
-   
+        echo"<br><br>";
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
@@ -54,8 +49,8 @@ if(!$dbcon){
                                 </select>  </td> </tr>";
         echo"<br>";
         echo"Changer de mot de passe";
-        echo'Ancien mot de passe <td><input name="oldmdp" type ="password"> </td> ';
-        echo'Nouveau mot de passe <td><input name="newmdp" type ="password"> </td> ';
+        echo'Ancien mot de passe <td><input name="oldmdp" type ="password"> <br>';
+        echo'Nouveau mot de passe <td><input name="newmdp" type ="password"> <br> ';
         echo'<input class="boutonCenter" value="Valider les changements appliqués à votre compte" type="submit">';
                 
         echo"</form>";
