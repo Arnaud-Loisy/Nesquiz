@@ -52,7 +52,7 @@ function GetSelectedRow()
 }
 
 function ChangeColor(tableRow, highLight)
-            {
+{
                if (highLight){
             	   tableRow.style.backgroundColor = '00CCCC';
                }
@@ -60,6 +60,7 @@ function ChangeColor(tableRow, highLight)
             else{
             	 tableRow.style.backgroundColor = 'white';
                 }
+}
                 
 </script>
 
