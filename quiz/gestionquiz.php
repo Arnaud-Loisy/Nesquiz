@@ -185,7 +185,7 @@ else
     }    
     
 echo "<form action ='../session/publication.php' method='POST'>";
-echo "<input class='bouton' type='submit' value='Publier'>";
+echo "<input class='boutonCenter' type='submit' value='Publier'>";
 echo "</form>";
 
 ?>   
