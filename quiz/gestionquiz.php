@@ -69,12 +69,13 @@ else
                 var rows = document.getElementById('table_libelles_quiz').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
                 for (i = 0; i < rows.length; i++) {
                     rows[i].onclick = function() {
-                        alert(this.rowIndex + 1);
+                        alert(this.toString());
                     }
                 }
                 }
                 </script>";
         
+                        //alert(this.rowIndex + 1);
         echo "<table id='table_libelles_quiz'>";
         echo "<tbody>";
    
