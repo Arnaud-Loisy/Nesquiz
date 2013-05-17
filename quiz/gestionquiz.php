@@ -87,6 +87,7 @@ else
         
         echo "<table id='table_libelles_quiz'>";
         echo "<tbody>";
+        echo "<th>Nom du quiz</th>";
    
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequiz"];
