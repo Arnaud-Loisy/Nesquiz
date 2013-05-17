@@ -121,7 +121,7 @@
       return round($moyenne,2);
     }
     
-    // Retourne la note moyenne des étudiants de la question
+    // Retourne la note moyenne des étudiants à une question d'une session
     // cette note est exprimée en pourcent
     function moyenneQuestion($dateSession, $idQuestion){
         include '../admin/secret.php';
@@ -149,5 +149,61 @@
       
       return round($moyenne*100,2);
     }
+    
+    // Compare deux entrée du classement. Sert uniquement pour trier par note.
+    function cmpNotes($a, $b)  
+    { 
+       if ($a["note"] > $b["note"]) 
+          return (-1); 
+       else{
+           if($a["note"] < $b["note"])
+               return 1;
+           else
+               return 0;
+       }
+    }  
+    
+    // Retourne le tableau représentant le classement des étudiants pour la session
+    function classementSession($dateSession){
+        
+         include '../admin/secret.php';
+        $dbcon = pg_connect("host=$host user=$login password=$password");
+        
+         // récupérer la liste des étudiants participant à la session
+      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
+	FROM Etudiants, Participe, Sessions
+	WHERE Sessions.dateSession = Participe.dateSession
+	AND Etudiants.idEtudiant = Participe.idEtudiant
+	AND Sessions.dateSession = '".$dateSession."';";       
+      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+      
+      // Stocker la moyenne de la session de chaque étudiant
+     
+      $classement=array();
+      while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){     
+            $idEtu=$listeEtudiants["idetudiant"];
+            $prenomEtu=$listeEtudiants["prenometudiant"];
+            $nomEtu=$listeEtudiants["nometudiant"];
+            
+            $classement[]=array("idetudiant"=>$idEtu,"nom"=>$nomEtu,"prenom"=>$prenomEtu,"note"=>noteSession($idEtu, $dateSession));
+      }
+     
+      // Trier les élèves par note décroissante
+      usort($classement,"cmpNotes");
+      
+      return ($classement);
+      
+    }
+    
+    // Retourne le rang de l'étudiant pour la session
+    function rangEtudiant($idEtu, $dateSession){
+        $classement=classementSession($dateSession);
+        
+        for($i=0;$i<count($classement);$i++){
+            if($classement[$i]["idetudiant"]==$idEtu)
+                return ($i+1);
+        }  
+    }
+    
     
     ?>

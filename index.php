@@ -26,13 +26,13 @@
    <br>
         <br>
 <form action='accueil/connexion.php' method='POST'>
-	<table>
+	<table style="margin: auto">
 		<tr>
 			<td>Identifiant :</td> <td><input name="login" type="text" > </td> </tr>
 		<tr>
 			<td>Mot de passe :</td>  <td><input name="mdp" type ="password"> </td> </tr>
 	</table>
-	<input class="bouton" value="Connexion" type="submit">
+	<input class="boutonCenter" value="Connexion" type="submit">
 </form>
     </div>
 </body>

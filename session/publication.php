@@ -5,26 +5,10 @@
 		<meta charset="utf-8" />
 		<title>Publication d'un quiz</title>
                 <link rel="stylesheet" href="../styles/theme.css" />
-                <link rel="stylesheet" href="../styles/jquery-ui.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
-                <script src="../scripts/jquery-2.0.0.js"></script>
-		<script src="../scripts/jquery-ui.js"></script>
                 
         </head>
-        
-        <script>
-            $(function() {
-                $( "#selectable" ).selectable({
-                  stop: function() {
-                    var result = $( "#select-result" ).empty();
-                    $( ".ui-selected", this ).each(function() {
-                      var index = $( "#selectable li" ).index( this );
-                      result.append( " #" + ( index ) );
-                    });
-                  }
-                });
-              });
-	</script>
+
 <body>
     <div id='page'>
         <?php 
@@ -48,14 +32,15 @@
         $result_matiere = pg_query($dbcon,$request) or die("Echec de la requête");
         
         // Afficher la liste des matières
+        echo"<center>";
         echo"<form method='POST'>";
-        echo"<br><br> Mes matières : <br>";
-       // echo "<ol id='selectable'>";
+        echo"<br> Mes matières : <br>";
+        echo "<select name='idmatiere'>";
         while($arr = pg_fetch_array($result_matiere)){
-            echo "<input type='radio' name='idmatiere' value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]." <br>";
-            //echo "<li class='ui-widget-content' value='".$arr["idmatiere"]."' name='idmatiere'> ".$arr["libellematiere"]."</li>";  
+            echo "<option value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]."</option> <br>";  
         }
-        echo "<br><input class='bouton' type='submit' value='Afficher Quiz'>";
+        echo "</select>";
+        echo "<input class='boutonCenter' type='submit' value='Afficher Quiz'>";
         echo "</form>";
         
         // Si une matière a été selectionnée
@@ -70,20 +55,27 @@
                 $result_quiz = pg_query($dbcon,$request) or die("Echec de la requête");
                 
                 // afficher les quiz dispo
+                
                 echo"<form action='trait_pub.php' method='GET'>";
                 echo"<br>Quiz disponibles : <br>";
+                echo"<select name='idquiz'>";
                 while($arr = pg_fetch_array($result_quiz)){
-                    echo "<input type='radio' name='idquiz' value='".$arr["idquiz"]."'> ".$arr["libellequiz"]." <br>";
+                    echo "<option value='".$arr["idquiz"]."'> ".$arr["libellequiz"]."</option>";
                 }
+                echo "</select><br>";
                 
                 // Afficher le formulaire permettant de choisir mode et mdp
                 echo "   <br> Mode de publication : <br>";
-                echo "   <input type='radio' name='mode' value='1'> Question par Question<br>";
-                echo "   <input type='radio' name='mode' value='2'> Quiz entier<br>";
-                echo"    <br> Mot de passe de la session :";
+                echo "   <select name='mode'>";
+                    echo "   <option value='2'> Quiz entier </option></select>";
+                    echo "   <option value='1'> Question par Question</option>";                   
+                echo "</select>";
+                echo "   <br><br> Mot de passe de la session : <br>";
+                
                 echo "   <input type='text' name='mdpSession'> <br>";
-                echo"    <input class='bouton' type='submit' value='Démarrer'>";
+                echo "   <input class='boutonCenter' type='submit' value='Démarrer'>";
         }
+        echo"</center>";
         ?>
         </form>
     </div>

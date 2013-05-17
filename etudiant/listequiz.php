@@ -1,37 +1,52 @@
 <!DOCTYPE HTML>
 <html lang="fr">
-<head>
-<meta charset="utf-8" />
-<title>Liste des quiz en cours</title>
-<link rel="stylesheet" href="../styles/theme.css" />
-<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
+	<head>
+		<meta charset="utf-8" />
+		<title>Liste des quiz en cours</title>
+		<link rel="stylesheet" href="../styles/theme.css" />
+		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
-</head>
-<body>
-<div id='page'>
-<?php
-session_start();
-include '../accueil/menu.php';
-include '../admin/secret.php';
+	</head>
+	<body>
+		<div id='page'>
+			<?php
+			session_start();
+			include '../accueil/menu.php';
+			include '../admin/secret.php';
 
-$dbcon=pg_connect("host=$host user=$login password=$password");
-if(!$dbcon){
- 				echo "<br><br>connection échouée à la BDD<br>";
-			}else
-				echo "<br><br>connection réussie à la BDD<br>";
-$requete="SELECT libelleQuiz
-	FROM Sessions, Quiz
-	WHERE Sessions.idQuiz = Quiz.idQuiz
-	AND Sessions.etatsession=1;";
-$result = pg_query($dbcon,$requete);
-while($tableauquiz = pg_fetch_array($result)){
-	echo '<input class="bouton" type="submit" value="';
-	echo $tableauquiz['libellequiz'];
-	echo '"/><br>';
-}
+			if (isset($_SESSION["badpw"])) {
+				echo "<br><br>Mauvais mot de passe<br>";
+				unset($_SESSION['badpw']);
+			}
 
-	
-?>
-</div>
-</body>
+			$dbcon = pg_connect("host=$host user=$login password=$password");
+			if (!$dbcon) {
+				echo "<br><br>connection échouée à la BDD<br>";
+			} else {
+				echo "<br><br>";
+				$requete = "SELECT libelleQuiz,datesession	FROM Sessions, Quiz	WHERE Sessions.idQuiz = Quiz.idQuiz	AND Sessions.etatsession=1;";
+
+				$result = pg_query($dbcon, $requete);
+				echo "<form action ='/session/participer.php' method='POST'>";
+				
+				echo "<select name='idSession'>";
+
+				$i = 0;
+				while ($row = pg_fetch_array($result)) {
+					$libelle = $row["libellequiz"];
+					$id = $row["datesession"];
+					echo "<option value=$id>$libelle</option>";
+					$i++;
+				}
+				
+				echo "</select>"; 
+				echo '  Mot de Passe : <input type="text" name="passquiz" /><br>';
+				echo "<input class='boutonCenter' type='submit' value='Participer'>";
+				
+				echo "</form>";
+				
+			}
+			?>
+		</div>
+	</body>
 </html>

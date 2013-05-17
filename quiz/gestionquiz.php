@@ -43,7 +43,7 @@ else
         echo "</select>";
     }
 
-echo "<form action ='/session/publication.php' method='POST'>";
+echo "<form action ='../session/publication.php' method='POST'>";
 echo "<input class='bouton' type='submit' value='Publier'>";
 echo "</form>";
 

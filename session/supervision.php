@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Supervision d'une session</title>
+		<title>Session en cours</title>
                 <link rel="stylesheet" href="../styles/theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
         </head>
@@ -24,14 +24,22 @@
          $modeFonctionnement=$_SESSION["mode"];
          $dateSession=$_SESSION["dateSession"];
          $etatsession=$_SESSION["etatSession"];
-  
+         $idquiz=$_SESSION["idquiz"];
+          $request = "SELECT libelleQuiz 
+                        FROM quiz
+                        WHERE idquiz  = '".$idquiz."';";
+          $result=pg_query($dbcon,$request) or die("Echec de la requête");
+          $row=  pg_fetch_array($result);
+         echo "<h1 class=''>".$row[0]."</h1><br>";        
+         echo "<center>Session lancée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
+         echo "<br>Etudiants participant à la session :</center>";
+         echo "<br><table style='margin: auto'>";
          
-                 
-         echo "Session démarrée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
-        
                 // si mode quiz entier
                 if ($modeFonctionnement==2){
+                    // si session en attente
                     if($etatsession==1){
+                        echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
                         // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
                         $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
                                     FROM Repond, Etudiants, Sessions, Participe
@@ -42,21 +50,20 @@
                                     GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
                         $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
-                        // affichage des étudiants participants
-                        echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
+                        
+                           // affichage des étudiants participants
                         while($arr = pg_fetch_array($result)){
-                           echo "<table>";
-                           echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>";
+                            echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> </tr>";
                        }
                         echo "</table>";
 
                         // afficher bouton "Lancer le quiz"
                         echo "<form method='POST' action='trait_supervision.php'>";
-                        echo "<input class='bouton' type='submit' value='Lancer'>";
+                        echo "<input class='boutonCenter' type='submit' value='Lancer'>";
                         echo "</form>";
                         
                      }
-                    
+                   
                     else {
                         // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
                         $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
@@ -69,23 +76,28 @@
                         $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
                         // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> nb questions </td> </tr> ";
+                        echo "<table style='margin: auto'>";
+                        echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
                         while($arr = pg_fetch_array($result)){
-                           echo "<table>";
-                           echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2];
+                                echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2]."</td> </tr>";
                         }
                         echo "</table>";
 
                         // afficher bouton "Lancer le quiz"
-                        echo "<form method='POST' action='resultats.php'>";
-                        echo "<input class='bouton' type='submit' value='Arrêter'>";
+                        echo "<form method='POST' action='supervision_resultats.php'>";
+                        echo "<input class='boutonCenter' type='submit' value='Arrêter'>";
                         echo "</form>";
                     }
                         
                 }
                 // si mode Question/question
-                /*else
+                else
                 {
+                    echo "Mode Question par Question non implémenté <br>";
+                    unset($_SESSION["mode"]);
+                    unset($_SESSION["dateSession"]);
+                    unset($_SESSION["etatSession"]);
+                    /*
                     // récupérer la liste des élèves participants
                      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
                                 FROM Etudiants, Participe, Sessions
@@ -116,8 +128,8 @@
                                   // afficher score
                               }
 
-                    }
-                }*/
+                    }*/
+                }
 
                 
 
