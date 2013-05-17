@@ -12,11 +12,49 @@
 /*body { width: 500px; text-align: center; font: bold 10px/16px Verdana, sans-serif; color: #555; margin: 20px auto; }*/
 /*h1, p { text-align: left; font-weight: normal; }*/
 /*h1 { font: bold 14px "Trebuchet MS", sans-serif; color: #600; }*/
-table { width: 500px; margin: 0 auto; font-size: 20px; border: 1px solid #ccc; border-width: 1px 0 0 1px; border-collapse: collapse; }
+table { width: 500px; margin: 0 auto; font-size: 12px; border: 1px solid #ccc; border-width: 1px 0 0 1px; border-collapse: collapse; }
 /*caption { margin: 0 auto; font-size: 12px; margin-bottom: 2em; }*/
 td { padding: 10px; border: 1px solid #ccc; border-width: 0 1px 1px 0; }
 tr:hover td { background: #CAEFFD; color: #0768B3; cursor: pointer; }
 </style>
+
+
+
+<script type='text/javascript'>
+
+var currentRow=-1;
+
+function SelectRow(newRow)
+
+{
+
+   for(var i=1;i<5;++i)
+
+   {
+
+       var cell=document.getElementById('cell_'+newRow+','+i);
+
+       cell.style.background='#AAF';
+
+       if(currentRow!=-1)
+
+       {
+
+           var cell=document.getElementById('cell_'+currentRow+','+i);
+
+           cell.style.background='#FFF';
+
+       }
+
+   }
+
+   currentRow=newRow;
+
+}
+
+</script>
+
+
 
 </head>
 <body>
@@ -124,10 +162,11 @@ else
         
         echo "<table id='table_libelles_questions_quiz'>";
         echo "<tbody>";
+        echo "<th>Questions présentes</th>";
    
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequestion"];
-            echo "<tr><td>$libelle</td></tr>";
+            echo "<tr><td onclick='SelectRow(1)' id='cell_1,1'>$libelle</td></tr>";
         }
         echo "</tbody>";
         echo "</table>";
