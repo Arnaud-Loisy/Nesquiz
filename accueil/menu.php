@@ -4,7 +4,7 @@ if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
 <div id='menu'>
 <ul>
    <li><a href='../index.php'>Accueil</a></li>
-   <li><a href='../admin/profil.php'>Mon<br>Profil</a></li>
+   <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
    <li><a href='../admin/gestioncompte.php'>Comptes<br>Utilisateurs</a></li>
    <li><a href='../admin/historique.php'>Historique</a></li>
@@ -18,7 +18,7 @@ if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
 <div id='menu'>
 <ul>
   <li><a href='../index.php'>Accueil</a></li>
-   <li><a href='../admin/profil.php'>Mon<br>Profil</a></li>
+   <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
@@ -29,7 +29,7 @@ if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
 <div id='menu'>
 <ul>
 	<li><a href='../index.php'>Accueil</a></li>
-	<li><a href='../admin/profil.php'>" . $_SESSION['prenom'] . " " . $_SESSION['nom'] . "</a></li>
+	<li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
 	<li><a href='../etudiant/listequiz.php'>Quiz</a></li>
 	<li><a href='../etudiant/notes.php'>Notes</a></li> 
 	<li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
