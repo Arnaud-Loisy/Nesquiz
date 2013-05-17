@@ -52,6 +52,22 @@ function SelectRow(newRow)
 
 }
 
+function IsSelected()
+
+{
+
+   return currentRow==-1?false:true;
+
+}
+
+function GetSelectedRow()
+
+{
+
+   return currentRow;
+
+}
+
 </script>
 
 
