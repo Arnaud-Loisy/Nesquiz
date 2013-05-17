@@ -6,7 +6,7 @@ if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
    <li><a href='../index.php'>Accueil</a></li>
    <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
-   <li><a href='../admin/gestioncompte.php'>Comptes<br>Utilisateurs</a></li>
+   <li><a href='../admin/compte.php'>Comptes<br>Utilisateurs</a></li>
    <li><a href='../admin/historique.php'>Historique</a></li>
    <li><a href='../admin/matieres.php'>Matières</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
