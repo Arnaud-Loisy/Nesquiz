@@ -49,7 +49,7 @@
             </tr>
                 <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td><br>
         </table>
-        <input class="bouton" value="Ajouter" type="submit">
+        <input class="boutonCenter" value="Ajouter" type="submit">
         
         </form>
     </div>

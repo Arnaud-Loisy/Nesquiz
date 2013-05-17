@@ -11,9 +11,9 @@
        <div id="page">
 
 <?php
+session_start();
 include '../accueil/menu.php';
 include '../admin/secret.php';
-session_start();
 
 
      if(isset($_SESSION["mdpfail"])){
@@ -38,9 +38,9 @@ session_start();
         $prenom=$_SESSION ["prenom"];
         
         echo "<table style='margin: auto'>";
-        echo"Identifiant:". $id."<br>";
-        echo"Nom:".$nom."<br>";
-        echo"Prénom:".$prenom."<br>";
+        echo"Identifiant : ". $id."<br>";
+        echo"Nom : ".$nom."<br>";
+        echo"Prénom : ".$prenom."<br>";
         echo"<br><br><br>";
         echo"Changer la langue de l'interface <br>";
         echo"<br> <form action='trait_profil.php' method='POST'>
