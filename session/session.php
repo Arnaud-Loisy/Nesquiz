@@ -18,7 +18,7 @@
 						$(".ui-selected", this).each(function() {
 							var index = $("#selectable li").index(this);
 							result.append((index));
-							$.post('session.php', {selectable: $('#select-result').html()});
+							$(this).load('session.php', {selectable: $('#select-result').html()});
 						});
 					}
 				});
@@ -44,6 +44,8 @@
 			} elseif (isset($_POST['suivant'])) {
 				//$selectable = $_POST['selectable'];
 				//echo "$selectable";
+				$_SESSION['QuestionPrecedente']=$_SESSION['QuestionCourrante'];
+				$_SESSION['QuestionCourrante']=$_SESSION['QuestionSuivante'];
 				var_dump($_POST);
 				
 
@@ -68,10 +70,11 @@
 			AND	  sessions.idquiz = inclu.idquiz 
 			AND	  sessions.datesession = $session;");
 
-				$array = pg_fetch_array($result);
+				$array = pg_fetch_array($result) or die("Echec de la requete") ;				
 				//var_dump($array);
 				$question = $array['libellequestion'];
 				$idQuestion = $array['idquestion'];
+				$_SESSION['QuestionCourrante']=$idQuestion;
 				$reponse = $array['libellereponse'];
 				echo '<br><br>Vous avez séléctioné les réponses suivantes : <span id="select-result"></span>
 			<form method="post" action="session.php">
@@ -81,7 +84,12 @@
 				while ($idQuestion == $array['idquestion']) {
 					$array = pg_fetch_array($result);
 					$reponse = $array['libellereponse'];
-
+					
+					//idquestion suivante 
+					$array = pg_fetch_array($result);
+					$idQuestionSuivante = $array['idquestion'];
+					$_SESSION['QuestionSuivante']=$idQuestionSuivante;
+					
 					echo '<li class="ui-widget-content">' . $reponse . '</li>';
 				}
 
