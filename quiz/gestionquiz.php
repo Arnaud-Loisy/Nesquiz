@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="../styles/theme.css" />
 <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
-  <link rel="stylesheet" href="../styles/theme.css"/>
+<link rel="stylesheet" href="../styles/theme.css"/>
   
 <style>
 /*body { width: 500px; text-align: center; font: bold 10px/16px Verdana, sans-serif; color: #555; margin: 20px auto; }*/
@@ -31,7 +31,7 @@ function SelectRow(newRow)
        var cell=document.getElementById('cell_'+newRow+','+i);
        cell.style.background='#AAF';
 
-       if(currentRow!=-1)
+       if(currentRow !== -1)
        {
            var cell=document.getElementById('cell_'+currentRow+','+i);
            cell.style.background='#FFF';
@@ -42,7 +42,7 @@ function SelectRow(newRow)
 
 function IsSelected()
 {
-   return currentRow==-1?false:true;
+   return currentRow === -1 ? false:true;
 }
 
 function GetSelectedRow()
