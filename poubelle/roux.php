@@ -72,6 +72,26 @@
 </head>
 
 <body>
+    
+<script type="text/javascript">
+onload = function() {
+    if (!document.getElementsByTagName || !document.createTextNode) return;
+    var rows = document.getElementById('my_table').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    for (i = 0; i < rows.length; i++) {
+        rows[i].onclick = function() {
+            alert(this.rowIndex + 1);
+        }
+    }
+}
+</script>
+
+<table id="my_table">
+    
+<tbody>
+    <tr><td>first row</td></tr>
+    <tr><td>second row</td></tr>
+</tbody>
+</table>
 
 <?php
 
