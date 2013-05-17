@@ -36,24 +36,25 @@ session_start();
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
-     
+        
+        echo "<table style='margin: auto'>";
         echo"Identifiant:". $id."<br>";
         echo"Nom:".$nom."<br>";
         echo"Prénom:".$prenom."<br>";
         echo"<br><br><br>";
         echo"Changer la langue de l'interface <br>";
-        echo"    <form action='trait_profil.php' method='POST'>
+        echo"<br> <form action='trait_profil.php' method='POST'>
                  <table style='margin: auto'>
                   <td>Langue de l'interface :</td> <td> <select name='langue'> 
                                  <option value='fr'>Français</option>
                                  <option value='en'>English</option>
-                                </select>  </td> </tr>";
-        echo"<br>";
-        echo"Changer de mot de passe <br>";
+                                </select>  </td> </tr>  </table>";
+       
+        echo"<br> Changer de mot de passe <br>";
         echo'Ancien mot de passe <input name="oldmdp" type ="password"> <br>';
         echo'Nouveau mot de passe <input name="newmdp" type ="password"> <br> ';
         echo'<input class="boutonCenter" value="Valider les changements appliqués à votre compte" type="submit">';
-                
+        echo"</table>";    
         echo"</form>";
 ?>
        </div>
