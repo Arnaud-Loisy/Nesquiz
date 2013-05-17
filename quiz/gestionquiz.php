@@ -50,15 +50,25 @@ function GetSelectedRow()
    return currentRow;
 }
 
-function ChangeColor(tableRow, highLight)
+var var_guard = false;
+
+function ChangeColor(tableRow, highLight, guard)
 {
+    if (guard)
+        {
+            var_guard=true;
+        }
                if (highLight){
             	   tableRow.style.backgroundColor = '#AAF';
                }
             
-            else{
+               if (!highLight && !var_guard){
             	 tableRow.style.backgroundColor = '#FFF';
                 }
+               else
+                   {
+                       var_guard=false;
+                   }
 }
                 
 </script>
@@ -131,7 +141,7 @@ else
    
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequiz"];
-            echo "<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' onclick='ChangeColor(this, true)'><td>$libelle</td></tr>";
+            echo "<tr onmouseover='ChangeColor(this, true, false)' onmouseout='ChangeColor(this, false, false)' onclick='ChangeColor(this, true, true)'><td>$libelle</td></tr>";
         }
         echo "</tbody>";
         echo "</table>";
