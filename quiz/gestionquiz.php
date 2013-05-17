@@ -155,7 +155,7 @@ else
         echo "<tbody>";
         echo "<th>Questions présentes</th>";
    
-        $i = 0;
+        $i = 1;
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequestion"];
             echo "<tr><td onclick='SelectRow(1)' id='cell_1,".$i."'>$libelle</td></tr>";
