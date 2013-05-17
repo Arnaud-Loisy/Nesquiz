@@ -12,10 +12,10 @@
 /*body { width: 500px; text-align: center; font: bold 10px/16px Verdana, sans-serif; color: #555; margin: 20px auto; }*/
 /*h1, p { text-align: left; font-weight: normal; }*/
 /*h1 { font: bold 14px "Trebuchet MS", sans-serif; color: #600; }*/
-table { width: 500px; margin: 0 auto; font-size: 12px; border: 1px solid #ccc; border-width: 1px 0 0 1px; border-collapse: collapse; }
+/*table { width: 500px; margin: 0 auto; font-size: 12px; border: 1px solid #ccc; border-width: 1px 0 0 1px; border-collapse: collapse; }*/
 /*caption { margin: 0 auto; font-size: 12px; margin-bottom: 2em; }*/
-td { padding: 10px; border: 1px solid #ccc; border-width: 0 1px 1px 0; }
-tr:hover td { background: #CAEFFD; color: #0768B3; cursor: pointer; }
+/*td { padding: 10px; border: 1px solid #ccc; border-width: 0 1px 1px 0; }*/
+/*tr:hover td { background: #CAEFFD; color: #0768B3; cursor: pointer; }*/
 </style>
 
 
