@@ -37,9 +37,9 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
                 $_SESSION["prenom"]=$tab["prenomadminprof"];
                 $trouver=true;
                 if($tab["admin"]=="t"){
-                $_SESSION["statut"] = "admin";}
+                    $_SESSION["statut"] = "admin";}
                 else{
-                   $_SESSION["statut"]="prof";
+                    $_SESSION["statut"]="prof";
                 }
 		header('Location:./accueil.php');
 	}

@@ -14,14 +14,21 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
     $prenom=$_POST["prenom"];
     $identifiant=$_POST["identifiant"];
     $mdp=$_POST["mdp"];
-
+    $langue=$_POST["langue"];
+    $admin=$_POST["admin"];
+    if($admin == 1)
+            $adminb = "true";
+    else
+            $adminb = "false";
+    
     $mdph=md5($mdp);
     
     $result_adminprof= pg_query($dbcon," SELECT idAdminProf FROM AdminProfs WHERE idAdminProf =".$identifiant);
         $arr = pg_fetch_array($result_adminprof);
     if ($arr==false){
         echo "Pas d'identifiant";
-         pg_query($dbcon,"INSERT INTO AdminProfs VALUES (".$identifiant.", '".$nom."', '".$prenom."');");
+         pg_query($dbcon,"INSERT INTO AdminProfs VALUES (".$identifiant.", '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');");
+         header('Location:./gestioncompte.php');
     }
     else
         echo "Il y a un identifiant";
