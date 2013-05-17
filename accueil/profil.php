@@ -11,6 +11,7 @@
        <div id="page">
 
 <?php
+include '../accueil/menu.php';
 include '../admin/secret.php';
 session_start();
 $dbcon=pg_connect("host=$host user=$login password=$password");
