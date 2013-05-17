@@ -52,12 +52,12 @@ function GetSelectedRow()
 
 function InvertColorOfTableLine(tableRow)
 {
-               if (tableRow.style.backgroundColor == '#AAF'){
-            	   tableRow.style.backgroundColor = '#FFF';
+               if (tableRow.style.backgroundColor != '#AAF'){
+            	   tableRow.style.backgroundColor = '#AAF';
                }
                else
                    {
-                       tableRow.style.backgroundColor = '#AAF';
+                       tableRow.style.backgroundColor = '#FFF';
                    }
 }
                 
