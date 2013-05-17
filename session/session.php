@@ -39,15 +39,19 @@
 			if (isset($_POST['precedent'])) {
 
 				// j'ai cliqué sur « Précedent »
+				var_dump($_POST);
 
 			} elseif (isset($_POST['suivant'])) {
-				$selectable = $_POST['selectable'];
-				echo "$selectable";
+				//$selectable = $_POST['selectable'];
+				//echo "$selectable";
+				var_dump($_POST);
+				
 
 				// j'ai cliqué sur « Suivant »
 
 			} else {
-
+				
+				var_dump($_POST);
 				// j'arrive sur la page 
 
 			}
@@ -69,7 +73,7 @@
 				$question = $array['libellequestion'];
 				$idQuestion = $array['idquestion'];
 				$reponse = $array['libellereponse'];
-				echo '<span id="select-result"></span>
+				echo '<br><br>Vous avez séléctioné les réponses suivantes : <span id="select-result"></span>
 			<form method="post" action="session.php">
 				<h1 class="question">' . $question . ' ? :</h1>
 				<ol id="selectable">';
@@ -85,8 +89,10 @@
 			?>
 
 			</ol>
-			<input class="bouton" type="submit" name"Précedent" value="Précédent" />
-			<input class="bouton" type="submit" name"Suivant"value="Suivant" />
+			
+<input class="bouton" type="submit" name="precedent" value="Précédent" />
+<input class="bouton" type="submit" name="suivant" value="Suivant" />
+			
 
 			</form>
 

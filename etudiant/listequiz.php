@@ -28,6 +28,7 @@
 
 				$result = pg_query($dbcon, $requete);
 				echo "<form action ='/session/participer.php' method='POST'>";
+				
 				echo "<select name='idSession'>";
 
 				$i = 0;
@@ -37,11 +38,13 @@
 					echo "<option value=$id>$libelle</option>";
 					$i++;
 				}
-				echo "</select>";
-
-				echo 'Mot de Passe : <input type="text" name="passquiz" /><br>';
-				echo "<input class='bouton' type='submit' value='Participer'>";
+				
+				echo "</select>"; 
+				echo '  Mot de Passe : <input type="text" name="passquiz" /><br>';
+				echo "<input class='boutonCenter' type='submit' value='Participer'>";
+				
 				echo "</form>";
+				
 			}
 			?>
 		</div>

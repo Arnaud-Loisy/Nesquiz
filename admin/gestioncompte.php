@@ -6,7 +6,7 @@
      <link rel="stylesheet" href="../styles/theme.css" />
     <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
-<title>Accueil</title>
+<title>Gestion des Compte</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
@@ -14,8 +14,23 @@
         <?php
         session_start();
         include '../accueil/menu.php';
+        include '../admin/secret.php';
+        
+        $dbcon = pg_connect("host=$host user=$login password=$password");
+        
+        if(!$dbcon)
+            echo "connection BDD failed<br>";
+        else
+            echo "connection BDD succes <br>";
+        
+        $resultat = pg_query($dbcon,"SELECT nomadminprof
+                           FROM AdminProfs");
+        
+        while($arr = pg_fetch_array($resultat)){
+            echo"<br>".$arr["nomadminprof"];
+        }
         ?>
-        <form action='creercompte.php' method='POST'>
+                <form action='creercompte.php' method='POST'>
         <br>
         Créer compte enseignant
         <table>
