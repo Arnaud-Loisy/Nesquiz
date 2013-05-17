@@ -25,64 +25,39 @@ tr:hover td { background: #CAEFFD; color: #0768B3; cursor: pointer; }
 var currentRow=-1;
 
 function SelectRow(newRow)
-
 {
-
    for(var i=1;i<5;++i)
-
    {
-
        var cell=document.getElementById('cell_'+newRow+','+i);
-
        cell.style.background='#AAF';
 
        if(currentRow!=-1)
-
        {
-
            var cell=document.getElementById('cell_'+currentRow+','+i);
-
            cell.style.background='#FFF';
-
        }
-
    }
-
    currentRow=newRow;
-
 }
 
 function IsSelected()
-
 {
-
    return currentRow==-1?false:true;
-
 }
 
 function GetSelectedRow()
-
 {
-
    return currentRow;
-
 }
 
 </script>
 
-
-
 </head>
+
+
 <body>
+    
 <div id='page'>
-    
-    
-    
-
-
-
-
-    
     
 <?php
 
@@ -180,9 +155,11 @@ else
         echo "<tbody>";
         echo "<th>Questions présentes</th>";
    
+           $i = 0;
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequestion"];
-            echo "<tr><td onclick='SelectRow(1)' id='cell_1,1'>$libelle</td></tr>";
+            echo "<tr><td onclick='SelectRow(1)' id='cell_1,$i'>$libelle</td></tr>";
+            $i++;
         }
         echo "</tbody>";
         echo "</table>";
