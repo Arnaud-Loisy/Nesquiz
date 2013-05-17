@@ -50,8 +50,14 @@ function GetSelectedRow()
    return currentRow;
 }
 
+var last_tableRow = -1;
+
 function InvertColorOfTableLine(tableRow)
 {
+    if (last_tableRow != -1)
+        {
+            last_tableRow.style.backgroundColor = "rgb(255, 255, 255)";
+        }
                if (tableRow.style.backgroundColor !== "rgb(170, 170, 255)"){
             	   tableRow.style.backgroundColor = "rgb(170, 170, 255)";
                }
@@ -59,6 +65,7 @@ function InvertColorOfTableLine(tableRow)
                    {
                        tableRow.style.backgroundColor = "rgb(255, 255, 255)";
                    }
+                   last_tableRow = tableRow;
 }
                 
 </script>
@@ -169,7 +176,8 @@ else
         $i = 1;
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequestion"];
-            echo "<tr><td onclick='SelectRow(".$i.", 2)' id='cell_".$i.",1'>$libelle</td></tr>";
+            /*echo "<tr><td onclick='SelectRow(".$i.", 2)' id='cell_".$i.",1'>$libelle</td></tr>";*/
+            echo "<tr><td onclick='InvertColorOfTableLine(this)'>$libelle</td></tr>";
             $i++;
         }
         echo "</tbody>";
