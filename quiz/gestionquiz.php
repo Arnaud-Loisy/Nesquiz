@@ -53,13 +53,13 @@ function GetSelectedRow()
 function InvertColorOfTableLine(tableRow)
 {
                if (tableRow.style.backgroundColor === rgb(255, 255, 255)){
-                   alert("Le fond n'est pas violet");
-            	   tableRow.style.backgroundColor = '#AAF';
+                   alert("Le fond est blanc");
+            	   tableRow.style.backgroundColor = rgb(170, 170, 255);
                }
                else
                    {
                             alert("Le fond est violet");
-                       tableRow.style.backgroundColor = rgb(170, 170, 255);
+                       tableRow.style.backgroundColor = rgb(255, 255, 255);
                    }
 }
                 
