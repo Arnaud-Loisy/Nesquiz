@@ -41,6 +41,7 @@ session_start();
         echo"Nom:".$nom."<br>";
         echo"Prénom:".$prenom."<br>";
         echo"<br><br><br>";
+        echo"Changer la langue de l'interface <br>";
         echo"    <form action='trait_profil.php' method='POST'>
                  <table style='margin: auto'>
                   <td>Langue de l'interface :</td> <td> <select name='langue'> 
@@ -48,7 +49,7 @@ session_start();
                                  <option value='en'>English</option>
                                 </select>  </td> </tr>";
         echo"<br>";
-        echo"Changer de mot de passe";
+        echo"Changer de mot de passe <br>";
         echo'Ancien mot de passe <td><input name="oldmdp" type ="password"> <br>';
         echo'Nouveau mot de passe <td><input name="newmdp" type ="password"> <br> ';
         echo'<input class="boutonCenter" value="Valider les changements appliqués à votre compte" type="submit">';
