@@ -36,7 +36,8 @@ session_start();
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
-     
+        
+        echo "<table style='margin: auto'>";
         echo"Identifiant:". $id."<br>";
         echo"Nom:".$nom."<br>";
         echo"Prénom:".$prenom."<br>";
@@ -53,7 +54,7 @@ session_start();
         echo'Ancien mot de passe <input name="oldmdp" type ="password"> <br>';
         echo'Nouveau mot de passe <input name="newmdp" type ="password"> <br> ';
         echo'<input class="boutonCenter" value="Valider les changements appliqués à votre compte" type="submit">';
-                
+        echo"</table>";    
         echo"</form>";
 ?>
        </div>
