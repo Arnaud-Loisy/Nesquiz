@@ -17,12 +17,7 @@
         include '../admin/secret.php';
         
         $dbcon = pg_connect("host=$host user=$login password=$password");
-        
-        if(!$dbcon)
-            echo "connection BDD failed<br>";
-        else
-            echo "connection BDD succes <br>";
-        
+       
         $resultat = pg_query($dbcon,"SELECT nomadminprof,prenomadminprof
                            FROM AdminProfs");
         echo"<br><table>";
