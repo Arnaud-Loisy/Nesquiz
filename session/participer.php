@@ -28,7 +28,11 @@
 				}
 
 				if (($_POST["passquiz"] != "") && ($passSession == $row['mdpsession'])) {
+					$id=$_SESSION["id"];
 					$_SESSION['idSession'] = $idSession;
+					$requete="INSERT INTO PARTICIPE values (".$id.",".$idSession."); ";
+					$result = pg_query($dbcon, $requete) or die("Echec de la requete"); 
+					
 					header('Location:../session/session.php');
 
 				} else {
