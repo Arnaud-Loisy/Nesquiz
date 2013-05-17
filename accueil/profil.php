@@ -14,12 +14,7 @@
 include '../accueil/menu.php';
 include '../admin/secret.php';
 session_start();
-$dbcon=pg_connect("host=$host user=$login password=$password");
 
-if(!$dbcon){
- echo "connection BDD failed<br>";
-}else
-	echo "connection BDD succes <br>";
 
      if(isset($_SESSION["mdpfail"])){
           echo"Erreur:L'ancien mot de passe n'est pas bon.<br>";
