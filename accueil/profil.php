@@ -11,9 +11,9 @@
        <div id="page">
 
 <?php
+session_start();
 include '../accueil/menu.php';
 include '../admin/secret.php';
-session_start();
 
 
      if(isset($_SESSION["mdpfail"])){
