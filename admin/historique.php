@@ -25,7 +25,8 @@
         
          $request = "SELECT dateSession, libelleQuiz
                     FROM Sessions, Quiz
-                    WHERE Sessions.idQuiz = Quiz.idQuiz;";
+                    WHERE Sessions.idQuiz = Quiz.idQuiz
+                    ORDER BY Sessions.dateSession;";
         $result_sessions = pg_query($dbcon,$request) or die("Echec de la requête");
         
         echo "<table style='margin: auto'>";

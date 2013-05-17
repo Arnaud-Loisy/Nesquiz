@@ -67,8 +67,8 @@
                 // Afficher le formulaire permettant de choisir mode et mdp
                 echo "   <br> Mode de publication : <br>";
                 echo "   <select name='mode'>";
-                    echo "   <option value='1'> Question par Question</option>";
                     echo "   <option value='2'> Quiz entier </option></select>";
+                    echo "   <option value='1'> Question par Question</option>";                   
                 echo "</select>";
                 echo "   <br><br> Mot de passe de la session : <br>";
                 
