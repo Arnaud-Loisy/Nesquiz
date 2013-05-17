@@ -56,7 +56,7 @@ else
     {
 	echo "connection BDD succes <br>";
 
-	$result= pg_query($dbcon, "SELECT libelleQuiz, tempsQuiz
+	$result= pg_query($dbcon, "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
                                     FROM Quiz, Inclu, Questions, Matieres
                                     WHERE Quiz.idQuiz = Inclu.idQuiz
                                     AND Questions.idQuestion = Inclu.idQuestion
