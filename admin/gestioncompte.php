@@ -23,14 +23,15 @@
         else
             echo "connection BDD succes <br>";
         
-        $resultat = pg_query($dbcon,"SELECT nomadminprof
+        $resultat = pg_query($dbcon,"SELECT nomadminprof,prenomadminprof
                            FROM AdminProfs");
-        
+        echo"<br><table>";
         while($arr = pg_fetch_array($resultat)){
-            echo"<br>".$arr["nomadminprof"];
+            echo"<tr><td>".$arr["nomadminprof"]."</td><td>".$arr["prenomadminprof"]."</td></tr>";
         }
+        echo"</table>";
         ?>
-                <form action='creercompte.php' method='POST'>
+        <form action='creercompte.php' method='POST'>
         <br>
         Créer compte enseignant
         <table>
