@@ -47,7 +47,7 @@ session_start();
                   <td>Langue de l'interface :</td> <td> <select name='langue'> 
                                  <option value='fr'>Français</option>
                                  <option value='en'>English</option>
-                                </select>  </td> </tr>";
+                                </select>  </td> </tr>  </table>";
        
         echo"<br> Changer de mot de passe <br>";
         echo'Ancien mot de passe <input name="oldmdp" type ="password"> <br>';
