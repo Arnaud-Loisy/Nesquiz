@@ -32,7 +32,7 @@ session_start();
           echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["mdpchok"]);
         }             
-   
+        echo"<br><br>";
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
