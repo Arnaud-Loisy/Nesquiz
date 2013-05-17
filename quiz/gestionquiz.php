@@ -69,7 +69,7 @@ else
                 var rows = document.getElementById('table_libelles_quiz').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
                 for (i = 0; i < rows.length; i++) {
                     rows[i].onclick = function() {
-                        alert(this.toString());
+                        alert(this.valueOf());
                     }
                 }
                 }
