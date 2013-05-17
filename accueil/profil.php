@@ -38,9 +38,9 @@ include '../admin/secret.php';
         $prenom=$_SESSION ["prenom"];
         
         echo "<table style='margin: auto'>";
-        echo"Identifiant:". $id."<br>";
-        echo"Nom:".$nom."<br>";
-        echo"Prénom:".$prenom."<br>";
+        echo"Identifiant : ". $id."<br>";
+        echo"Nom : ".$nom."<br>";
+        echo"Prénom : ".$prenom."<br>";
         echo"<br><br><br>";
         echo"Changer la langue de l'interface <br>";
         echo"<br> <form action='trait_profil.php' method='POST'>
