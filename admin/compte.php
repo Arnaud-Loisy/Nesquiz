@@ -48,8 +48,9 @@
                         <option value='fr'>Français</option>
                         <option value='en'>English</option>
                         </select>  </td> </tr>
+            </tr>
+                <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td><br>
         </table>
-        <input type="checkbox" name="admin" value="1"> Admin <br>
         <input class="bouton" value="Ajouter" type="submit">
         
         </form>
