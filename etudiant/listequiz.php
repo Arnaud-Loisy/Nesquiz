@@ -35,7 +35,7 @@
 				while ($row = pg_fetch_array($result)) {
 					$libelle = $row["libellequiz"];
 					$id = $row["datesession"];
-					echo "<option value=$id>$libelle</option>";
+					echo "<option value=$id>$libelle : ".date("Y-m-d H:i",$id)."</option>";
 					$i++;
 				}
 				
