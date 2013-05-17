@@ -3,10 +3,10 @@ session_start();
 include '../admin/secret.php';
 $dbcon=pg_connect("host=$host user=$login password=$password");
 
-if(!$dbcon){
- echo "connection BDD failed<br>";
-}else
-echo "connection BDD succes <br>";
+if(!$dbcon)
+    echo "connection BDD failed<br>";
+else
+    echo "connection BDD succes <br>";
 
 if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["identifiant"])) && (isset ($_POST["mdp"]))){
 
@@ -23,7 +23,9 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
     
     $mdph=md5($mdp);
     
-    $result_adminprof= pg_query($dbcon," SELECT idAdminProf FROM AdminProfs WHERE idAdminProf =".$identifiant);
+    $result_adminprof= pg_query($dbcon," SELECT idAdminProf 
+                                         FROM AdminProfs 
+                                         WHERE idAdminProf =".$identifiant);
         $arr = pg_fetch_array($result_adminprof);
     if ($arr==false){
         echo "Pas d'identifiant";
