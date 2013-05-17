@@ -85,7 +85,6 @@ else
                 }
                 </script>";
         
-                        //alert(this.rowIndex + 1);
         echo "<table id='table_libelles_quiz'>";
         echo "<tbody>";
    
@@ -96,6 +95,42 @@ else
         echo "</tbody>";
         echo "</table>";
     }
+    
+if(!$dbcon){
+    echo "connection BDD failed<br>";
+}
+else
+    {
+	echo "connection BDD succes <br>";
+
+	$result= pg_query($dbcon, "SELECT libelleQuestion, Questions.idQuestion
+                                    FROM Quiz, Questions, Inclu
+                                    WHERE Quiz.idQuiz = Inclu.idQuiz
+                                    AND Questions.idQuestion = Inclu.idQuestion
+                                    AND Quiz.idQuiz = 1");
+
+        echo "<script type='text/javascript'>
+                onload = function() {
+                if (!document.getElementsByTagName || !document.createTextNode) return;
+                var rows = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+                for (i = 0; i < rows.length; i++) {
+                    rows[i].onclick = function() {
+                        alert(this.rowIndex());
+                    }
+                }
+                }
+                </script>";
+        
+        echo "<table id='table_libelles_questions_quiz'>";
+        echo "<tbody>";
+   
+        while($row = pg_fetch_array($result)){
+            $libelle=$row["libellequestion"];
+            echo "<tr><td>$libelle</td></tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+    }    
     
 echo "<form action ='../session/publication.php' method='POST'>";
 echo "<input class='bouton' type='submit' value='Publier'>";
