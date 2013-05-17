@@ -131,7 +131,7 @@ else
    
         while($row = pg_fetch_array($result)){
             $libelle=$row["libellequiz"];
-            echo "<tr><td onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)'>$libelle</td></tr>";
+            echo "<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' onclick='ChangeColor(this, true)'><td>$libelle</td></tr>";
         }
         echo "</tbody>";
         echo "</table>";
