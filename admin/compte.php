@@ -21,8 +21,11 @@
         $resultat = pg_query($dbcon,"SELECT nomadminprof,prenomadminprof
                            FROM AdminProfs");
         echo"<br><table>";
+        $i=0;
+        echo"<tr><td> Nom </td> <td> Prenom </td> <td> Admin </td> <td> Supprimer </td>";
         while($arr = pg_fetch_array($resultat)){
-            echo"<tr><td>".$arr["nomadminprof"]."</td><td>".$arr["prenomadminprof"]."</td></tr>";
+            echo"<tr><td>".$arr["nomadminprof"]."</td><td>".$arr["prenomadminprof"]."</td><td><input type='checkbox' name='admin' value=%i></td><td><input type='checkbox' name='supprimer' value=%i></td><td></td></tr>";
+            ++$i;
         }
         echo"</table>";
         ?>
