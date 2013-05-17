@@ -7,6 +7,16 @@
 <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
   <link rel="stylesheet" href="../styles/theme.css"/>
+  
+<style>
+/*body { width: 500px; text-align: center; font: bold 10px/16px Verdana, sans-serif; color: #555; margin: 20px auto; }*/
+/*h1, p { text-align: left; font-weight: normal; }*/
+/*h1 { font: bold 14px "Trebuchet MS", sans-serif; color: #600; }*/
+table { width: 500px; margin: 0 auto; font-size: 20px; border: 1px solid #ccc; border-width: 1px 0 0 1px; border-collapse: collapse; }
+/*caption { margin: 0 auto; font-size: 12px; margin-bottom: 2em; }*/
+td { padding: 10px; border: 1px solid #ccc; border-width: 0 1px 1px 0; }
+tr:hover td { background: #CAEFFD; color: #0768B3; cursor: pointer; }
+</style>
 
 </head>
 <body>
@@ -56,7 +66,7 @@ else
     {
 	echo "connection BDD succes <br>";
 
-	$result= pg_query($dbcon, "SELECT libelleQuiz, tempsQuiz
+	$result= pg_query($dbcon, "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
                                     FROM Quiz, Inclu, Questions, Matieres
                                     WHERE Quiz.idQuiz = Inclu.idQuiz
                                     AND Questions.idQuestion = Inclu.idQuestion
@@ -69,12 +79,13 @@ else
                 var rows = document.getElementById('table_libelles_quiz').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
                 for (i = 0; i < rows.length; i++) {
                     rows[i].onclick = function() {
-                        alert(this.rowIndex + 1);
+                        alert(this.rowIndex());
                     }
                 }
                 }
                 </script>";
         
+                        //alert(this.rowIndex + 1);
         echo "<table id='table_libelles_quiz'>";
         echo "<tbody>";
    
