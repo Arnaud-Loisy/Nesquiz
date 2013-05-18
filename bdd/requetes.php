@@ -82,7 +82,7 @@ function requete_nb_de_questions_d_une_session ($session)
 	return $requete;
 }
 
-function insertion_des_reponses_choisies ($SQLQuestion,$SQLreponse,$id,$dateSession)
+function requete_insertion_des_reponses_choisies ($SQLQuestion,$SQLreponse,$id,$dateSession)
 {
 	$requete = "INSERT INTO repond
 				VALUES (" . $SQLQuestion . ",
@@ -92,7 +92,7 @@ function insertion_des_reponses_choisies ($SQLQuestion,$SQLreponse,$id,$dateSess
 	return $requete;
 }
 
-function efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession)
+function requete_efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession)
 {
 	$requete = "DELETE FROM repond
  				WHERE idquestion = ".$SQLQuestion."
