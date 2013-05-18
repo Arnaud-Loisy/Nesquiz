@@ -1,22 +1,30 @@
-#selectable .ui-selected {
-	background: #009E0F;
+.checkB input[type="checkbox"] {
+	display:none; 
+}
+.checkB input[type="checkbox"]:checked + label { 
+	background-color: #009E0F;
 	color: white;
+	
 }
-#selectable {
-	list-style-type: none;
-	margin: auto;
-	padding: 0;
-	width: 80%;
-}
-#selectable li {
-	text-align: center;
-	margin: 10px;
-	padding: 4px;
-	font-size: 35px;
-	height: auto;
+
+.checkB label {
+	display: block;
+	border-style :solid;
+	border-width: 1px;
 	border-color: #666666;
 	border-radius: 10px;
+	background-color: white;
+	height: 100%;
+	font-size: 35px;
+	width: 576px;
+	color: black;
+	text-align: center;
+	margin: 5px;
+	padding: 4px;	
+	margin-left: auto;
+	margin-right: auto;
 }
+
 #page {
 	font-family: 'Earthbound', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	width: 720px;
@@ -146,3 +154,5 @@ input.bouton:active {
 .liste {border-collapse: collapse;}
 .liste , .liste tr , .liste td {border: 1px solid rgb(102, 102, 102);}
 .liste th {background-color: rgb(204, 204, 204);}
+
+
