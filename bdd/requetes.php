@@ -101,7 +101,28 @@ function requete_efface_les_reponses_d_une_question_d_une_session_d_un_etudiant 
 	return $requete;
 }
 
+function requete_temps_session ($dateSession)
+{
+	$requete = "SELECT tempsquiz
+				FROM   quiz, sessions
+				WHERE  quiz.idquiz = sessions.idquiz
+				AND datesession = ".$dateSession.";";
+	return $requete;
+}
 
+function requete_mdp_etat_session($dateSession)
+{
+	$requete = "SELECT mdpsession,etatsession
+				FROM Sessions
+				WHERE datesession =".$dateSession.";";
+	return $requete;
+}
+
+function requete_participer_a_une_session($id,$dateSession)
+{
+	$requete = "INSERT INTO PARTICIPE values (".$id.",".$dateSession."); ";
+	return $requete;
+}
 
 
 ?>
