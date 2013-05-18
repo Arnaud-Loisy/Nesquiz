@@ -47,4 +47,61 @@ function requete_toutes_matieres_pour_un_professeur($idAdminProf)
 	return $requete;
 }
 
+function requete_questions_d_une_session ($session)
+{
+	$requete = "SELECT questions.idquestion, questions.libellequestion, questions.tempsquestion 
+				FROM   quiz, questions, inclu, sessions
+				WHERE 	  quiz.idquiz = inclu.idquiz 
+				AND	  inclu.idquestion = questions.idquestion 
+				AND	  sessions.idquiz = inclu.idquiz 
+				AND	  sessions.datesession = ".$session.";";
+	return $requete;
+}
+
+function requete_reponses_d_une_question_d_une_session ($session,$idQuestion)
+{
+	$requete = "SELECT reponses.idreponse, reponses.libellereponse 
+				FROM   quiz, questions, inclu, reponses, sessions
+				WHERE 	  quiz.idquiz = inclu.idquiz 
+				AND	  inclu.idquestion = questions.idquestion 
+				AND	  reponses.idquestion = questions.idquestion 
+				AND	  sessions.idquiz = inclu.idquiz 
+				AND	  sessions.datesession = ".$session."
+				AND	  reponses.idquestion =".$idQuestion.";";
+	return $requete;
+}
+
+function requete_nb_de_questions_d_une_session ($session)
+{
+	$requete = "SELECT COUNT(*)
+				FROM Questions, Inclu, Quiz, Sessions
+				WHERE	Questions.idQuestion = Inclu.idQuestion
+				AND Quiz.idQuiz = Inclu.idQuiz
+				AND	sessions.idquiz = inclu.idquiz 
+				AND	  sessions.datesession = $session;";
+	return $requete;
+}
+
+function insertion_des_reponses_choisies ($SQLQuestion,$SQLreponse,$id,$dateSession)
+{
+	$requete = "INSERT INTO repond
+				VALUES (" . $SQLQuestion . ",
+						" . $SQLreponse . ",
+						" . $id . ",
+						" . $dateSession . ");";
+	return $requete;
+}
+
+function efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession)
+{
+	$requete = "DELETE FROM repond
+ 				WHERE idquestion = ".$SQLQuestion."
+				AND idetudiant = ".$id."
+				AND datesession = ".$dateSession.";";
+	return $requete;
+}
+
+
+
+
 ?>
