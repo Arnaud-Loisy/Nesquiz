@@ -86,7 +86,8 @@
 			<?php
 			session_start();
 			include '../accueil/menu.php';
-			include '../admin/secret.php';
+			include '../bdd/connexionBDD.php';
+			include '../bdd/requetes.php';
 			
 			echo "<br>Mes matières : <div class='radioButtons'>
 					<span><input type='radio' id='radio_php'  name='radios' value='php' />
@@ -95,7 +96,7 @@
 					<label for='radio_css'>css</label></span>
 				</div><br><br><br><br><br><br>";
 
-			$dbcon = pg_connect("host=$host user=$login password=$password");
+			$dbcon = connexionBDD();
 
 			if (!$dbcon)
 			{
@@ -103,12 +104,7 @@
 			}
 			else
 			{
-				$result = pg_query($dbcon, "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
-                                    FROM Quiz, Inclu, Questions, Matieres
-                                    WHERE Quiz.idQuiz = Inclu.idQuiz
-                                    AND Questions.idQuestion = Inclu.idQuestion
-                                    AND Questions.idMatiere = Matieres.idMatiere
-                                    AND Matieres.idMatiere = 1;");
+				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
 				echo "<script type='text/javascript'>
                 onload = function() {
@@ -122,7 +118,7 @@
                 }
                 </script>";
 
-				echo "<table class='tableau_mystique' id='table_libelles_quiz'>";
+				echo "<table class='liste' id='table_libelles_quiz'>";
 				echo "<tbody>";
 				echo "<th>Nom du quiz</th>";
 
@@ -142,11 +138,7 @@
 			}
 			else
 			{
-				$result = pg_query($dbcon, "SELECT libelleQuestion, Questions.idQuestion
-                                    FROM Quiz, Questions, Inclu
-                                    WHERE Quiz.idQuiz = Inclu.idQuiz
-                                    AND Questions.idQuestion = Inclu.idQuestion
-                                    AND Quiz.idQuiz = 1");
+				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
 				echo "<script type='text/javascript'>
                 onload = function() {
@@ -160,7 +152,7 @@
                 }
                 </script>";
 
-				echo "<table class='tableau_mystique' id='table_libelles_questions_quiz'>";
+				echo "<table class='liste' id='table_libelles_questions_quiz'>";
 				echo "<tbody>";
 				echo "<th>Questions présentes</th>";
 
@@ -187,10 +179,7 @@
 			}
 			else
 			{
-				$result = pg_query($dbcon, "SELECT libellequestion, tempsquestion, idquestion
-                                        FROM questions, matieres
-                                        WHERE questions.idmatiere = matieres.idmatiere
-                                        AND matieres.idmatiere = 1;");
+				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere(1));
 
 				echo "<select name='liste_questions'>";
 
