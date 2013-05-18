@@ -17,11 +17,11 @@
 			include '../bdd/requetes.php';
 
 			if (isset($_SESSION["badpw"])) {
-				echo "<br><br><h1>Mauvais mot de passe.</h1><br>";
+				echo "<br><br><h1>Mauvais mot de passe.</h1>";
 				unset($_SESSION['badpw']);
 			}
 			if (isset($_SESSION["done"])) {
-				echo "<br><br><h1>vous avez déja partipé à cette session.</h1><br><br>";
+				echo "<br><br><h1>vous avez déja partipé à cette session.</h1>";
 				unset($_SESSION['done']);
 			}
 			
@@ -34,7 +34,8 @@
 				
 
 				$result = pg_query($dbcon, requete_liste_session_ouvertes());
-				echo "<form action ='/session/participer.php' method='POST'>";
+				
+				echo '<form action="/session/participer.php" method="POST" style="text-align: center;">';
 				
 				echo "<select name='idSession'>";
 
@@ -47,7 +48,7 @@
 				}
 				
 				echo "</select>"; 
-				echo '  Mot de Passe : <input type="text" name="passquiz" /><br>';
+				echo ' <br> Mot de Passe : <input type="text" name="passquiz" /><br>';
 				echo "<input class='boutonCenter' type='submit' value='Participer'>";
 				
 				echo "</form>";
