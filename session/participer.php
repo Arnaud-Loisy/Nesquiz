@@ -10,33 +10,42 @@
 		<div id='page'>
 
 			<?php
-			$idSession = $_POST['idSession'];
+			session_start();
+			include '../bdd/connexionBDD.php';
+			include '../bdd/requetes.php';
+			if (!(isset($_SESSION["id"]))) {
+				header('Location:../index.php');
+			}
+			$dateSession = $_POST['idSession'];
 			$passSession = $_POST['passquiz'];
-			include '../admin/secret.php';
-			$dbcon = pg_connect("host=$host user=$login password=$password");
+
+			$dbcon = connexionBDD();
 			if (!$dbcon) {
 				echo "<br><br>connection échouée à la BDD<br>";
 			} else {
-				$requete = "SELECT mdpsession FROM Sessions	WHERE datesession =$idSession";
 
-				$result = pg_query($dbcon, $requete);
-				$row = pg_fetch_array($result);
+				$result = pg_query($dbcon, requete_mdp_etat_session($dateSession));
+				$array = pg_fetch_array($result);
 
-				session_start();
-				if (!(isset($_SESSION["id"]))) {
-					header('Location:../index.php');
-				}
+				if (($_POST["passquiz"] != "") && ($passSession == $array['mdpsession'])) {
+					$id = $_SESSION["id"];
+					$_SESSION['idSession'] = $dateSession;
 
-				if (($_POST["passquiz"] != "") && ($passSession == $row['mdpsession'])) {
-					$id=$_SESSION["id"];
-					$_SESSION['idSession'] = $idSession;
-					$requete="INSERT INTO PARTICIPE values (".$id.",".$idSession."); ";
-					$result = pg_query($dbcon, $requete);// or die("Vous êtes déja connecté"); 
-					
-					header('Location:../session/session.php');
+					$result = pg_query($dbcon, requete_participer_a_une_session($id, $dateSession));
+					// or die("Vous êtes déja connecté");
+					//$array = pg_fetch_array($result);
+					var_dump($result);
+					if ($result) {
+						header('Location:../session/session_pause.php');
+					} else {
+						$_SESSION['done'] = 1;
+						
+						header('Location:../etudiant/listequiz.php');
+					}
 
 				} else {
 					$_SESSION['badpw'] = 1;
+					//var_dump($array);
 					header('Location:../etudiant/listequiz.php');
 				}
 			}
