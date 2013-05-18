@@ -40,7 +40,7 @@
                     // si session en attente
                     if($etatsession==1){
                         echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
-                        // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
+                        // Récupération des étudiants participants
                         $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
                                     FROM Repond, Etudiants, Sessions, Participe
                                     WHERE Repond.idEtudiant = Etudiants.idEtudiant
@@ -65,21 +65,40 @@
                      }
                    
                     else {
-                        // Récupération des étudiants participants et nb de questions auxquels ils ont répondus
-                        $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, COUNT(idQuestion)
+                        // Récupération des étudiants participants
+                        $request = "SELECT DISTINCT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
                                     FROM Repond, Etudiants, Sessions, Participe
                                     WHERE Repond.idEtudiant = Etudiants.idEtudiant
                                     AND Sessions.dateSession = Participe.dateSession
                                     AND Participe.idEtudiant = Etudiants.idEtudiant
                                     AND Sessions.dateSession='".$dateSession."'
-                                    GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant;";
+                                    GROUP BY Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant;";
                         $result=pg_query($dbcon,$request) or die("Echec de la requête");
 
                         // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                        echo "<table style='margin: auto'>";
+                        
                         echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
                         while($arr = pg_fetch_array($result)){
-                                echo "<tr> <td> ".$arr["nometudiant"]."</td> <td> ".$arr["prenometudiant"]." </td> <td>".$arr[2]."</td> </tr>";
+                                $nomEtu =$arr["nometudiant"];
+                                $prenomEtu=$arr["prenometudiant"];
+                                $idEtu=$arr["idetudiant"];
+                                echo "<tr> <td> ".$nomEtu."</td> <td> ".$prenomEtu." </td>";
+
+                                 //Compter nombre de réponses de l'étudiant
+                                 $request = "SELECT COUNT(idQuestion)
+                                            FROM Repond, Etudiants, Sessions, Participe
+                                            WHERE Repond.idEtudiant = Etudiants.idEtudiant
+                                            AND Repond.dateSession = Sessions.dateSession
+                                            AND Sessions.dateSession = Participe.dateSession
+                                            AND Participe.idEtudiant = Etudiants.idEtudiant
+                                            AND Sessions.dateSession='".$dateSession."'
+                                            AND Etudiants.idEtudiant='".$idEtu."';";
+                                 $result_nbRep=pg_query($dbcon,$request) or die("Echec de la requête");
+                                 
+                                 $nbRep=pg_fetch_array($result_nbRep);
+                                 echo "<td> ".$nbRep[0]."</td> </tr>";
+                                 
+                                    
                         }
                         echo "</table>";
 

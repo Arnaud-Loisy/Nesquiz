@@ -21,7 +21,7 @@
                 // Récup des variables
               
                 
-                $dateSession= time()+6*3600;
+                $dateSession= time()+4*3600;
                
                 
                 $modeFonctionnement=$_GET["mode"];
