@@ -31,7 +31,7 @@
 					$id=$_SESSION["id"];
 					$_SESSION['idSession'] = $idSession;
 					$requete="INSERT INTO PARTICIPE values (".$id.",".$idSession."); ";
-					$result = pg_query($dbcon, $requete) or die("Echec de la requete"); 
+					$result = pg_query($dbcon, $requete);// or die("Vous êtes déja connecté"); 
 					
 					header('Location:../session/session.php');
 

@@ -17,17 +17,15 @@
         include '../admin/secret.php';
         
         $dbcon = pg_connect("host=$host user=$login password=$password");
-        
-        if(!$dbcon)
-            echo "connection BDD failed<br>";
-        else
-            echo "connection BDD succes <br>";
-        
+       
         $resultat = pg_query($dbcon,"SELECT nomadminprof,prenomadminprof
                            FROM AdminProfs");
         echo"<br><table>";
+        $i=0;
+        echo"<tr><td> Nom </td> <td> Prenom </td> <td> Admin </td> <td> Supprimer </td>";
         while($arr = pg_fetch_array($resultat)){
-            echo"<tr><td>".$arr["nomadminprof"]."</td><td>".$arr["prenomadminprof"]."</td></tr>";
+            echo"<tr><td>".$arr["nomadminprof"]."</td><td>".$arr["prenomadminprof"]."</td><td><input type='checkbox' name='admin' value=%i></td><td><input type='checkbox' name='supprimer' value=%i></td><td></td></tr>";
+            ++$i;
         }
         echo"</table>";
         ?>
@@ -48,9 +46,10 @@
                         <option value='fr'>Français</option>
                         <option value='en'>English</option>
                         </select>  </td> </tr>
+            </tr>
+                <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td><br>
         </table>
-        <input type="checkbox" name="admin" value="1"> Admin <br>
-        <input class="bouton" value="Ajouter" type="submit">
+        <input class="boutonCenter" value="Ajouter" type="submit">
         
         </form>
     </div>

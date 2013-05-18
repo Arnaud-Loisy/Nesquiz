@@ -97,12 +97,12 @@ input.bouton:active {
 }
 
 .boutonCenter{
-        margin-top: 7%;
-        margin-bottom: 7%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    	width: 255px;
+	margin-top: 7%;
+	margin-bottom: 7%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
 	height: 60px;
 	font-size: 40px;
 	text-align: center;
@@ -111,3 +111,38 @@ input.bouton:active {
 	border-width: 1px;
 	border-color: rgb(102,102,102);
 }
+
+.radioButtons input[type="radio"] {
+	display:none; 
+}
+
+.radioButtons label {
+	display: table-cell;
+	padding: 4px 11px;
+	background-color: rgb(221, 221, 221);
+	height: 60px;
+	width: 80px;
+	float: left;
+}
+
+.radioButtons input[type="radio"]:checked + label { 
+	background-color: rgb(149,188,242);
+}
+
+.radioButtons {
+	display: table;
+	vertical-align: middle;
+	text-align: center;
+	border: 1px solid rgb(102, 102, 102);
+	position: absolute;
+}
+
+.rightRadioButton label {
+	vertical-align: middle;
+	margin-left: -4px;
+	border-left: 1px solid rgb(102, 102, 102);
+}
+
+.tableau_mystique {border-collapse: collapse;}
+.tableau_mystique , .tableau_mystique tr , .tableau_mystique td {border: 1px solid rgb(102, 102, 102);}
+.tableau_mystique th {background-color: rgb(204, 204, 204);}
