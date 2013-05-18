@@ -11,6 +11,7 @@
 		<div id='page'>
 			<?php
 			session_start();
+			date_default_timezone_set("Europe/Paris");
 			include '../accueil/menu.php';
 			include '../admin/secret.php';
 

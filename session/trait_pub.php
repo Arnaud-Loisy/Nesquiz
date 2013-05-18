@@ -11,6 +11,7 @@
             <?php
 
                 session_start();
+				date_default_timezone_set("Europe/Paris");
                 if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                     header('Location:../index.php');
                 }
