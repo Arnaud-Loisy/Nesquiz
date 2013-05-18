@@ -15,9 +15,14 @@
 			include '../admin/secret.php';
 
 			if (isset($_SESSION["badpw"])) {
-				echo "<br><br>Mauvais mot de passe<br>";
+				echo "<br><br><h1>Mauvais mot de passe.</h1><br>";
 				unset($_SESSION['badpw']);
 			}
+			if (isset($_SESSION["done"])) {
+				echo "<br><br><h1>vous avez déja partipé à cette session.</h1><br><br>";
+				unset($_SESSION['done']);
+			}
+			
 
 			$dbcon = pg_connect("host=$host user=$login password=$password");
 			if (!$dbcon) {
