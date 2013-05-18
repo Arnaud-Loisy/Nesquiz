@@ -57,6 +57,7 @@
 					<input type="hidden" name="Question" value="' . $idQuestion . '"/>';
 					
 					$result = pg_query($dbcon, requete_reponses_d_une_question_d_une_session($dateSession, $idQuestion));
+					$i = 0;
 					while ($array = pg_fetch_array($result)) {
 
 							$reponse = $array['libellereponse'];
@@ -172,6 +173,7 @@
 					<input type="hidden" name="Question" value="' . $idQuestion . '"/>';
 
 					$result = pg_query($dbcon, requete_reponses_d_une_question_d_une_session($dateSession, $idQuestion));
+					$i = 0;
 					while ($array = pg_fetch_array($result)) {
 
 							$reponse = $array['libellereponse'];
