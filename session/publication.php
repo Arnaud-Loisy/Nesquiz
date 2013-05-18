@@ -23,6 +23,7 @@
         include '../admin/secret.php';
         $dbcon = pg_connect("host=$host user=$login password=$password");
         
+        echo "<h1>Publication d'un quiz</h1>";
         // Récupérer les matières du prof
         $idAdminProf=$_SESSION["id"];
         $request = "SELECT * FROM Matieres, AdminProfs, Enseigne 
@@ -34,13 +35,13 @@
         // Afficher la liste des matières
         echo"<center>";
         echo"<form method='POST'>";
-        echo"<br> Mes matières : <br>";
+        echo"<br> Choix d'une matière : <br>";
         echo "<select name='idmatiere'>";
         while($arr = pg_fetch_array($result_matiere)){
             echo "<option value='".$arr["idmatiere"]."'> ".$arr["libellematiere"]."</option> <br>";  
         }
         echo "</select>";
-        echo "<input class='boutonCenter' type='submit' value='Afficher Quiz'>";
+        echo "<input class='boutonCenter' type='submit' value='Quiz disponibles'>";
         echo "</form>";
         
         // Si une matière a été selectionnée
@@ -73,7 +74,7 @@
                 echo "   <br><br> Mot de passe de la session : <br>";
                 
                 echo "   <input type='text' name='mdpSession'> <br>";
-                echo "   <input class='boutonCenter' type='submit' value='Démarrer'>";
+                echo "   <input class='boutonCenter' type='submit' value='Publier'>";
         }
         echo"</center>";
         ?>

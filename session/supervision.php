@@ -30,7 +30,7 @@
                         WHERE idquiz  = '".$idquiz."';";
           $result=pg_query($dbcon,$request) or die("Echec de la requête");
           $row=  pg_fetch_array($result);
-         echo "<h1 class=''>".$row[0]."</h1><br>";        
+         echo "<h1>".$row[0]."</h1><br>";        
          echo "<center>Session lancée le ".date('d/m/Y', $dateSession)." à ".date('H:i:s', $dateSession)."<br>";
          echo "<br>Etudiants participant à la session :</center>";
          echo "<br><table style='margin: auto'>";
@@ -59,7 +59,7 @@
 
                         // afficher bouton "Lancer le quiz"
                         echo "<form method='POST' action='trait_supervision.php'>";
-                        echo "<input class='boutonCenter' type='submit' value='Lancer'>";
+                        echo "<input class='boutonCenter' type='submit' value='Lancer le quiz'>";
                         echo "</form>";
                         
                      }
@@ -104,7 +104,7 @@
 
                         // afficher bouton "Lancer le quiz"
                         echo "<form method='POST' action='supervision_resultats.php'>";
-                        echo "<input class='boutonCenter' type='submit' value='Arrêter'>";
+                        echo "<input class='boutonCenter' type='submit' value='Arrêter le quiz'>";
                         echo "</form>";
                     }
                         

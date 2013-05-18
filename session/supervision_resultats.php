@@ -23,7 +23,8 @@
       include '../admin/secret.php';
       include 'fonctions_resultats.php';
       $dbcon = pg_connect("host=$host user=$login password=$password");
-     
+      
+      echo "<h1>Résultats du quiz</h1>";
       // récupérer datesession
       $dateSession = $_SESSION["dateSession"];
       unset($_SESSION["dateSession"]);
