@@ -1,12 +1,14 @@
+<!doctype html>
+
 <html>
     
-<head>
-     <link rel="stylesheet" href="../styles/theme.css" />
-    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
+    <head>
+        <link rel="stylesheet" href="../styles/theme.css" />
+        <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
-<title>Profil</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
+        <title>Profil</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
 <body>
        <div id="page">
 
@@ -32,30 +34,48 @@ include '../admin/secret.php';
           echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["mdpchok"]);
         }             
-        echo"<br><br>";
+
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
         
-        echo "<table style='margin: auto'>";
-        echo"Identifiant : ". $id."<br>";
-        echo"Nom : ".$nom."<br>";
-        echo"Prénom : ".$prenom."<br>";
-        echo"<br><br><br>";
-        echo"Changer la langue de l'interface <br>";
-        echo"<br> <form action='trait_profil.php' method='POST'>
-                 <table style='margin: auto'>
-                  <td>Langue de l'interface :</td> <td> <select name='langue'> 
+        echo"<br>
+            <form action='trait_profil.php' method='POST'>
+                <table style='margin: auto'>
+                    <tr>
+                        <td>Identifiant</td>
+                        <td>". $id."</td>
+                    </tr>
+                    <tr>
+                        <td>Nom</td> 
+                        <td>".$nom."</td>
+                    </tr>
+                    <tr>
+                        <td>Prénom</td>
+                        <td>".$prenom."</td>
+                    </tr>       
+                    <tr>
+                        <td colspan=2 >Changer la langue de l'interface </td></tr>                
+                    <tr>
+                        <td>Langue de l'interface :</td> 
+                        <td> <select name='langue'> 
                                  <option value='fr'>Français</option>
                                  <option value='en'>English</option>
-                                </select>  </td> </tr>  </table>";
-       
-        echo"<br> Changer de mot de passe <br>";
-        echo'Ancien mot de passe <input name="oldmdp" type ="password"> <br>';
-        echo'Nouveau mot de passe <input name="newmdp" type ="password"> <br> ';
-        echo'<input class="boutonCenter" value="Valider les changements appliqués à votre compte" type="submit">';
-        echo"</table>";    
-        echo"</form>";
+                                </select>  </td> 
+                    </tr>
+                    <tr>
+                        <td colspan=2 >Changer de mot de passe</td></tr>
+                    <tr>
+                        <td>Ancien mot de passe</td> 
+                        <td><input name='oldmdp' type ='password'></td>
+                    </tr>
+                    <tr>
+                        <td>Nouveau mot de passe</td> 
+                        <td><input name='newmdp' type ='password'></td>
+                    </tr>
+                </table>
+                <input class='boutonCenter' value='Valider les changements' type='submit'>
+                </form>";
 ?>
        </div>
     
