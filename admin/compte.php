@@ -1,58 +1,61 @@
 <!doctype html>
 
 <html>
-    
-<head>
-     <link rel="stylesheet" href="../styles/theme.css" />
-    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
+    <head>
+        <title>Gestion des Compte</title>
+        <link rel="stylesheet" href="../styles/theme.css" />
+        <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body>
+        <div id="page">
+            <?php
+            session_start();
+            include '../accueil/menu.php';
+            include '../admin/secret.php';
 
-<title>Gestion des Compte</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body>
-    <div id="page">
-        <?php
-        session_start();
-        include '../accueil/menu.php';
-        include '../admin/secret.php';
-        
-        $dbcon = pg_connect("host=$host user=$login password=$password");
-       
-        $resultat = pg_query($dbcon,"SELECT nomadminprof,prenomadminprof
-                           FROM AdminProfs");
-        echo"<br><table>";
-        $i=0;
-        echo"<tr><td> Nom </td> <td> Prenom </td> <td> Admin </td> <td> Supprimer </td>";
-        while($arr = pg_fetch_array($resultat)){
-            echo"<tr><td>".$arr["nomadminprof"]."</td><td>".$arr["prenomadminprof"]."</td><td><input type='checkbox' name='admin' value=%i></td><td><input type='checkbox' name='supprimer' value=%i></td><td></td></tr>";
-            ++$i;
-        }
-        echo"</table>";
-        ?>
-        <form action='creercompte.php' method='POST'>
-        <br>
-        Créer compte enseignant
-        <table>
-            <tr>
-                <td>Nom</td> <td> <input name="nom" type="text" > </td> </tr>
-            <tr>
-                <td>Prénom</td> <td> <input name="prenom" type="text" > </td> </tr>
-            <tr>
-                <td>Identifiant</td> <td> <input name="identifiant" type="text" > </td> </tr>
-            <tr>
-                <td>Mot de passe</td> <td> <input name="mdp" type="text" > </td> </tr>
-            <tr>
-        	<td>Langue de l'interface :</td> <td> <select name="langue"> 
-                        <option value='fr'>Français</option>
-                        <option value='en'>English</option>
-                        </select>  </td> </tr>
-            </tr>
-                <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td><br>
-        </table>
-        <input class="boutonCenter" value="Ajouter" type="submit">
-        
-        </form>
-    </div>
-</body>
+            $dbcon = pg_connect("host=$host user=$login password=$password");
 
+            // Récupère l'identifiant, le nom et le prénom des admins et des profs
+            $requetteCompte = "SELECT idadminprof,nomadminprof,prenomadminprof
+                               FROM AdminProfs";
+
+            $resultat = pg_query($dbcon,$requetteCompte);
+
+
+            // Affiche la liste des admins et des profs
+            echo"<br><table><tr><td> Nom </td> <td> Prenom </td> <td> Admin </td> <td> Supprimer </td>";
+            while($arr = pg_fetch_array($resultat)){
+                $nomadminprof=$arr["nomadminprof"];
+                $prenomadminprof=$arr["prenomadminprof"];
+                $idadminprof=$arr["idadminprof"];
+                echo"<tr><td>".$nomadminprof."</td><td>".$prenomadminprof."</td><td><input type='checkbox' name='admin' value='".$idadminprof."'></td><td><input type='checkbox' name='supprimer' value='".$idadminprof."'></td><td></td></tr>";
+            }
+            ?>
+            </table>
+            <form action='creercompte.php' method='POST'>
+            <br>
+            Créer compte enseignant
+            <table>
+                <tr>
+                    <td>Nom</td> <td> <input name="nom" type="text" > </td> </tr>
+                <tr>
+                    <td>Prénom</td> <td> <input name="prenom" type="text" > </td> </tr>
+                <tr>
+                    <td>Identifiant</td> <td> <input name="identifiant" type="text" > </td> </tr>
+                <tr>
+                    <td>Mot de passe</td> <td> <input name="mdp" type="text" > </td> </tr>
+                <tr>
+                    <td>Langue de l'interface :</td> <td> <select name="langue"> 
+                            <option value='fr'>Français</option>
+                            <option value='en'>English</option>
+                            </select>  </td> </tr>
+                </tr>
+                    <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td><br>
+            </table>
+            <input class="boutonCenter" value="Ajouter" type="submit">
+
+            </form>
+        </div>
+    </body>
 <html>
