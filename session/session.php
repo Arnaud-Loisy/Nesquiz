@@ -59,15 +59,16 @@
 					$result = pg_query($dbcon, requete_reponses_d_une_question_d_une_session($dateSession, $idQuestion));
 					while ($array = pg_fetch_array($result)) {
 
-						$reponse = $array['libellereponse'];
+							$reponse = $array['libellereponse'];
+							$idreponse = $array['idreponse'];
+					
+							//echo '<input type="checkbox" name="' . $i . '" value="' . $idreponse . '"/>' . $reponse . '<br>';
+							echo '<span class="checkB"><input type="checkbox" id="'.$i.'"  name="'. $i .'" value='. $idreponse .' />
+					<label for="'.$i.'">'. $reponse .'</label></span><br>';
+							
+							$i++;
 
-						$idreponse = $array['idreponse'];
-
-						//echo '<li class="ui-widget-content">' . $reponse . '</li>';
-						echo '<input type="checkbox" name="' . $idreponse . '" value="' . $idreponse . '"/>' . $reponse . '<br>';
-						//echo '<li class="ui-widget-content">' . $reponse . '</li>';
-
-					}
+						}
 
 				}
 
@@ -108,16 +109,18 @@
 
 							$reponse = $array['libellereponse'];
 							$idreponse = $array['idreponse'];
-
-							//echo '<li class="ui-widget-content">' . $reponse . '</li>';
-							echo '<input type="checkbox" name="' . $i . '" value="' . $idreponse . '"/>' . $reponse . '<br>';
+					
+							//echo '<input type="checkbox" name="' . $i . '" value="' . $idreponse . '"/>' . $reponse . '<br>';
+							echo '<span class="checkB"><input type="checkbox" id="'.$i.'"  name="'. $i .'" value='. $idreponse .' />
+					<label for="'.$i.'">'. $reponse .'</label></span><br>';
+							
 							$i++;
 
 						}
-						$result = pg_query($dbcon,efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession));
+						$result = pg_query($dbcon,requete_efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession));
 						foreach ($_POST as $key => $SQLreponse) {
 							
-							$result = pg_query($dbcon, insertion_des_reponses_choisies($SQLQuestion,$SQLreponse,$id,$dateSession));
+							$result = pg_query($dbcon, requete_insertion_des_reponses_choisies($SQLQuestion,$SQLreponse,$id,$dateSession));
 
 						}
 
@@ -129,10 +132,10 @@
 					if (!$dbcon) {
 						echo "La connexion à la base de donnée a été perdue<br>";
 					} else {
-						$result = pg_query($dbcon,efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession));
+						$result = pg_query($dbcon,requete_efface_les_reponses_d_une_question_d_une_session_d_un_etudiant ($SQLQuestion,$id,$dateSession));
 						foreach ($_POST as $key => $SQLreponse) {
 							
-							$result = pg_query($dbcon, insertion_des_reponses_choisies($SQLQuestion,$SQLreponse,$id,$dateSession));
+							$result = pg_query($dbcon, requete_insertion_des_reponses_choisies($SQLQuestion,$SQLreponse,$id,$dateSession));
 
 						}
 						header('Location:../session/resultats.php');
@@ -171,13 +174,16 @@
 					$result = pg_query($dbcon, requete_reponses_d_une_question_d_une_session($dateSession, $idQuestion));
 					while ($array = pg_fetch_array($result)) {
 
-						$reponse = $array['libellereponse'];
-						$idreponse = $array['idreponse'];
+							$reponse = $array['libellereponse'];
+							$idreponse = $array['idreponse'];
+					
+							//echo '<input type="checkbox" name="' . $i . '" value="' . $idreponse . '"/>' . $reponse . '<br>';
+							echo '<span class="checkB"><input type="checkbox" id="'.$i.'"  name="'. $i .'" value='. $idreponse .' />
+					<label for="'.$i.'">'. $reponse .'</label></span><br>';
+							
+							$i++;
 
-						//echo '<li class="ui-widget-content">' . $reponse . '</li>';
-						echo '<input type="checkbox" name="' . $idreponse . '" value="' . $idreponse . '"/>' . $reponse . '<br>';
-
-					}
+						}
 
 				}
 
