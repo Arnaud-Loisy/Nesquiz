@@ -4,9 +4,6 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Session</title>
-		<link rel="stylesheet" href="../styles/jquery-ui.css" />
-		<script src="../scripts/jquery-2.0.0.js"></script>
-		<script src="../scripts/jquery-ui.js"></script>
 		<link rel="stylesheet" href="../styles/theme.css" />
 		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 	</head>
@@ -14,12 +11,11 @@
 		<div id='page'>
 			<?php
 			session_start();
-			if (!(isset($_SESSION["id"]))) {
+			if (!isset($_SESSION["id"]) || (!isset($_SESSION['idSession']))) {
 				header('Location:../index.php');
 			}
 
 			include '../accueil/menu.php';
-			include '../admin/secret.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
 			$dateSession = $_SESSION['idSession'];
@@ -78,8 +74,9 @@
 				$SQLQuestion = $_POST['Question'];
 				unset($_POST['Question']);
 				unset($_POST['suivant']);
+				echo($_SESSION['fin']-time());
 
-				if ($_SESSION['NbdeQuestions'] + 1 > $_SESSION['Curseur']) {
+				if (($_SESSION['NbdeQuestions'] + 1 > $_SESSION['Curseur']) && ($_SESSION['fin']-time() > 0)) {
 
 					// j'ai cliqué sur « Suivant »
 					$dbcon = connexionBDD();
@@ -139,21 +136,29 @@
 							$result = pg_query($dbcon, requete_insertion_des_reponses_choisies($SQLQuestion,$SQLreponse,$id,$dateSession));
 
 						}
-						header('Location:../session/resultats.php');
+						unset($_SESSION['fin']);
+						unset($_SESSION['debut']);
+						header('Location:../session/resultatsSession.php');
 					}
 				}
 
 			} else {
-
-				$_SESSION['Curseur'] = 1;
-
 				// j'arrive sur la page
+				$_SESSION['debut']=time();
+				
+				$_SESSION['Curseur'] = 1;
+				
 				$dbcon = connexionBDD();
 
 				if (!$dbcon) {
 					echo "La connexion à la base de donnée a été perdue<br>";
 				} else {
-
+					$result = pg_query($dbcon,requete_temps_session ($dateSession));
+					$array = pg_fetch_array($result) or die("Echec de la requete temp session");
+					$tempSession = $array['tempsquiz'];
+					$_SESSION['fin']=$_SESSION['debut']+$tempSession;
+					$tempRestant=$_SESSION['fin']-time();
+					echo $tempRestant;
 					$result = pg_query($dbcon, requete_nb_de_questions_d_une_session($dateSession));
 					$array = pg_fetch_array($result) or die("Echec de la requete7");
 					//var_dump($array);
