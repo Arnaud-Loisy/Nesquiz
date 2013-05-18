@@ -13,7 +13,8 @@
 			session_start();
 			date_default_timezone_set("Europe/Paris");
 			include '../accueil/menu.php';
-			include '../admin/secret.php';
+			include '../bdd/connexionBDD.php';
+			include '../bdd/requetes.php';
 
 			if (isset($_SESSION["badpw"])) {
 				echo "<br><br><h1>Mauvais mot de passe.</h1><br>";
@@ -25,14 +26,14 @@
 			}
 			
 
-			$dbcon = pg_connect("host=$host user=$login password=$password");
+			$dbcon = connexionBDD();
 			if (!$dbcon) {
 				echo "<br><br>connection échouée à la BDD<br>";
 			} else {
 				echo "<br><br>";
-				$requete = "SELECT libelleQuiz,datesession	FROM Sessions, Quiz	WHERE Sessions.idQuiz = Quiz.idQuiz	AND Sessions.etatsession=1;";
+				
 
-				$result = pg_query($dbcon, $requete);
+				$result = pg_query($dbcon, requete_liste_session_ouvertes());
 				echo "<form action ='/session/participer.php' method='POST'>";
 				
 				echo "<select name='idSession'>";

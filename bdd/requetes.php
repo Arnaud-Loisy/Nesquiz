@@ -124,5 +124,16 @@ function requete_participer_a_une_session($id,$dateSession)
 	return $requete;
 }
 
+function requete_liste_session_ouvertes()
+{
+	$requete = "SELECT libelleQuiz,datesession
+				FROM Sessions, Quiz	
+				WHERE Sessions.idQuiz = Quiz.idQuiz	
+				AND Sessions.etatsession=1
+				ORDER BY datesession DESC;";
+	return $requete;
+}
+
+
 
 ?>
