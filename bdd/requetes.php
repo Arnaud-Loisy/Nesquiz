@@ -41,7 +41,7 @@ function requete_toutes_questions_dans_quiz($idQuiz)
 function requete_toutes_matieres_pour_un_professeur($idAdminProf)
 {
 	$requete = "SELECT *
-					FROM Matières, AdminProf, Enseigne
+					FROM Matieres, AdminProfs, Enseigne
 					WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf
 					AND Matieres.idMatiere = Enseigne.idMatiere
 					AND AdminProfs.idAdminProf = " . $idAdminProf . ";";
