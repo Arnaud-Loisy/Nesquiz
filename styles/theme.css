@@ -145,11 +145,11 @@ input.bouton:active {
 
 .radioButtons label {
 	display: table-cell;
-	padding: 20px 5px 0px 0px;
-	
+	padding: 20px 5px 20px 0px;
+	font-size:20px;
 	background-color: rgb(221, 221, 221);
-	height: 60px;
-	width: 80px;
+	width: auto;
+	min-width: 80px;
 	float: left;
 }
 
@@ -168,8 +168,8 @@ input.bouton:active {
 
 .rightRadioButton label {
 	vertical-align: 50%;
-	font-size: 16px;
-	margin-left: -4px;
+	font-size: 20px;
+	margin-left: 0px;
 	border-left: 1px solid rgb(102, 102, 102);
 }
 
