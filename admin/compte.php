@@ -4,7 +4,6 @@
     <head>
         <title>Gestion des Compte</title>
         <link rel="stylesheet" href="../styles/theme.css" />
-        <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
