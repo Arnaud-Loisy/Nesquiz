@@ -4,7 +4,6 @@
 		<meta charset="utf-8" />
 		<title>Traitement publication</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
-		<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 	</head>
 	<body>
 		<div id='page'>
