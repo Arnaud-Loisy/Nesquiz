@@ -173,8 +173,14 @@ input.bouton:active {
 	border-left: 1px solid rgb(102, 102, 102);
 }
 
-.liste {border-collapse: collapse;}
-.liste , .liste tr , .liste td {border: 1px solid rgb(102, 102, 102);}
-.liste th {background-color: rgb(204, 204, 204);}
+.liste {
+	border-collapse: collapse;
+}
 
+.liste , .liste tr , .liste td {
+	border: 1px solid rgb(102, 102, 102);
+}
 
+.liste th {
+	background-color: rgb(204, 204, 204);
+}
