@@ -1,60 +1,85 @@
-#selectable .ui-selected {
-	background: #009E0F;
+@font-face {
+    font-family: 'pacayamedium';
+    src: url('pacaya-webfont.eot');
+    src: url('pacaya-webfont.eot?#iefix') format('embedded-opentype'),
+         url('pacaya-webfont.woff') format('woff'),
+         url('pacaya-webfont.ttf') format('truetype'),
+         url('pacaya-webfont.svg#pacayamedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.checkB input[type="checkbox"] {
+	display:none; 
+}
+.checkB input[type="checkbox"]:checked + label { 
+	background-color: #009E0F;
 	color: white;
+	
 }
-#selectable {
-	list-style-type: none;
-	margin: auto;
-	padding: 0;
-	width: 80%;
-}
-#selectable li {
-	text-align: center;
-	margin: 10px;
-	padding: 4px;
-	font-size: 35px;
-	height: auto;
+
+.checkB label {
+	display: block;
+	border-style :solid;
+	border-width: 1px;
 	border-color: #666666;
 	border-radius: 10px;
+	background-color: white;
+	height: 100%;
+	font-size: 35px;
+	width: 576px;
+	color: black;
+	text-align: center;
+	margin: 5px;
+	padding: 4px;	
+	margin-left: auto;
+	margin-right: auto;
 }
+
 #page {
-	font-family: 'Earthbound', Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	width: 720px;
 	margin-left: auto;
 	margin-right: auto;
 }
 #menu ul {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	list-style-type: none;
 	width: auto;
 	position: relative;
 	display: block;
 	height: 60px;
 	text-transform: uppercase;
-	font-size: 14px;
+	font-size: 16px;
 	background: #2B78E4;
 }
 #menu li {
 	display: block;
 	float: left;
-	margin: 0;
-	padding: 0;
+	margin-right: 2px;
+	padding: 0px;
 	border-right: 1px solid #ffffff;
 }
 #menu li:last-child {
 	border-right: none;
+}
+#menu li:last-child a:hover {
+	background: none;
+	color: black;
 }
 #menu li a {
 	display: block;
 	float: left;
 	color: #ffffff;
 	text-decoration: none;
-	padding: 20px 10px 0 10px;
+	padding: 17px 10px 0 10px;
 	height: 60px;
 }
 #menu li a:hover {
-	background: #2B78E4;
+	color: black;
+	height : 49px;
 	border-radius: 10px;
 }
 
@@ -84,7 +109,8 @@ input.bouton {
 	margin: 7%;
 	width: 255px;
 	height: 60px;
-	font-size: 40px;
+	font-size: 50px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background: rgb(43,120,228);
 	color: white;
@@ -104,7 +130,8 @@ input.bouton:active {
 	margin-right: auto;
 	width: auto;
 	height: 60px;
-	font-size: 40px;
+	font-size: 50px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background: rgb(43,120,228);
 	color: white;
@@ -117,8 +144,9 @@ input.bouton:active {
 }
 
 .radioButtons label {
-	/*display: table-cell;*/
-	padding: 4px 11px;
+	display: table-cell;
+	padding: 20px 5px 0px 0px;
+	
 	background-color: rgb(221, 221, 221);
 	height: 60px;
 	width: 80px;
@@ -130,33 +158,23 @@ input.bouton:active {
 }
 
 .radioButtons {
-	/*display: table;*/
-	/*vertical-align: middle;*/
+	display: table;
+	vertical-align: 50%;
 	text-align: center;
+	
 	border: 1px solid rgb(102, 102, 102);
-	/*position: absolute;*/
+	position: absolute;
 }
 
 .rightRadioButton label {
-	/*vertical-align: middle;*/
+	vertical-align: 50%;
+	font-size: 16px;
 	margin-left: -4px;
 	border-left: 1px solid rgb(102, 102, 102);
 }
 
-.liste {
-	display: inline-table;
-	border-collapse: collapse;
-}
+.liste {border-collapse: collapse;}
+.liste , .liste tr , .liste td {border: 1px solid rgb(102, 102, 102);}
+.liste th {background-color: rgb(204, 204, 204);}
 
-.liste , .liste tr , .liste td {
-	border: 1px solid rgb(102, 102, 102);
-}
 
-.liste th {
-	background-color: rgb(204, 204, 204);
-}
-
-.liste tbody {
-	height: 550px;     /* Hauteur du reste des données */
-	overflow: scroll;
-}
