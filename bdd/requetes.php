@@ -33,7 +33,7 @@ function requete_toutes_questions_dans_quiz($idQuiz)
 					FROM Quiz, Questions, Inclu
 					WHERE Quiz.idQuiz = Inclu.idQuiz
 					AND Questions.idQuestion = Inclu.idQuestion
-					AND Quiz.idQuiz = ".$idQuiz.";";
+					AND Quiz.idQuiz = " . $idQuiz . ";";
 
 	return $requete;
 }
@@ -41,11 +41,11 @@ function requete_toutes_questions_dans_quiz($idQuiz)
 function requete_toutes_matieres_pour_un_professeur($idAdminProf)
 {
 	$requete = "SELECT *
-					FROM Matieres, AdminProfs, Enseigne
+					FROM Matières, AdminProf, Enseigne
 					WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf
 					AND Matieres.idMatiere = Enseigne.idMatiere
-					AND AdminProfs.idAdminProf = ".$idAdminProf.";";
-	
+					AND AdminProfs.idAdminProf = " . $idAdminProf . ";";
+
 	return $requete;
 }
 
@@ -126,5 +126,14 @@ function requete_participer_a_une_session($id,$dateSession)
 	return $requete;
 }
 
+function requete_liste_session_ouvertes()
+{
+	$requete = "SELECT libelleQuiz,datesession
+				FROM Sessions, Quiz	
+				WHERE Sessions.idQuiz = Quiz.idQuiz	
+				AND Sessions.etatsession=1
+				ORDER BY datesession DESC;";
+	return $requete;
+}
 
 ?>
