@@ -1,7 +1,8 @@
 
 <?php
-include '../admin/secret.php';
 session_start();
+include '../admin/secret.php';
+
 $trouver=false;
 $dbcon=pg_connect("host=$host user=$login password=$password");
 

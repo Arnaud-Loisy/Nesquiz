@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>Gestion des Quiz</title>
         <link rel="stylesheet" href="../styles/theme.css" />
+        <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/earthbound" type="text/css"/>
 
         <script type='text/javascript'>
 
@@ -53,24 +54,62 @@
 				last_tableRow = tableRow;
 			}
 
-			var last_radioButton = -1;
-
-			function InvertColorOfRadioButton(radioButton)
+			function ChangerMatiereEnCours(radioButton)
 			{
-				//alert(tableRow.textContent);
-				//alert(tableRow.id);
-				if (last_radioButton !== -1)
-				{
-					last_radioButton.style.backgroundColor = "rgb(255, 255, 255)";
-				}
-				if (radioButton.style.backgroundColor !== "rgb(149,188,242)") {
-					radioButton.style.backgroundColor = "rgb(149,188,242)";
-				}
-				else
-				{
-					radioButton.style.backgroundColor = "rgb(255, 255, 255)";
-				}
-				last_radioButton = radioButton;
+				//Modification de la liste des questions dans cette matiere
+				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+				var value = radioButton.value;
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "xhr_getListeQuestions.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && (xhr.status == 200)) {
+						document.getElementById('select_questions_matiere').innerHTML = xhr.responseText;
+						//document.getElementById("loader").style.display = "none";
+					} /*else if (xhr.readyState < 4) {
+					 document.getElementById("loader").style.display = "inline";
+					 }*/
+				};
+				
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdMatiere=" + value);
+				
+				//Modification de la liste des quiz dans cette matiere
+				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+				var xhr2 = new XMLHttpRequest();
+				xhr2.open("POST", "xhr_getListeQuizParMatiere.php", true);
+
+				xhr2.onreadystatechange = function() {
+					if (xhr2.readyState == 4 && (xhr2.status == 200)) {
+						document.getElementById('table_libelles_quiz').innerHTML = xhr2.responseText;
+						//document.getElementById("loader").style.display = "none";
+					} /*else if (xhr.readyState < 4) {
+					 document.getElementById("loader").style.display = "inline";
+					 }*/
+				};
+
+				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr2.send("IdMatiere=" + value);
+			}
+
+			function ChangerQuizEnCours(ligneTableau)
+			{
+				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+				var value = ligneTableau.id;
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "xhr_getListeQuestionsParQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && (xhr.status == 200)) {
+						document.getElementById('table_libelles_questions_quiz').innerHTML = xhr.responseText;
+						//document.getElementById("loader").style.display = "none";
+					} /*else if (xhr.readyState < 4) {
+					 document.getElementById("loader").style.display = "inline";
+					 }*/
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuiz=" + value);
 			}
 
         </script>
@@ -87,13 +126,8 @@
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
-			
-			echo "<br>Mes matières : <div class='radioButtons'>
-					<span><input type='radio' id='radio_php'  name='radios' value='php' />
-					<label for='radio_php'>php</label></span>
-					<span class='rightRadioButton'><input type='radio' id='radio_css' name='radios' value='css' />
-					<label for='radio_css'>css</label></span>
-				</div><br><br><br><br><br><br>";
+
+			$idAdminProf = $_SESSION["id"];
 
 			$dbcon = connexionBDD();
 
@@ -103,21 +137,43 @@
 			}
 			else
 			{
+				$result = pg_query($dbcon, requete_toutes_matieres_pour_un_professeur($idAdminProf));
+
+				$row = pg_fetch_array($result);
+				$libelleMatiere = $row["libellematiere"];
+				$idMatiere = $row["idmatiere"];
+				
+				//echo "<div style='width: 720px;'>";
+				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2>";
+				echo "<div style='display: inline-table;' class='radioButtons'>";
+				echo "<span><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' checked='true'/>";
+				echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
+
+				while ($row = pg_fetch_array($result))
+				{
+					$libelleMatiere = $row["libellematiere"];
+					$idMatiere = $row["idmatiere"];
+
+					echo "<span class='rightRadioButton'><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' />";
+					echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
+				}
+				echo "</div>";
+			}
+			
+			echo "<form style='display: table-cell; width 100px;' action = '../session/publication.php' method = 'POST'>";
+			echo "<input class = 'bouton' type = 'submit' value = 'Publier'>";
+			echo "</form>";
+			//echo "</div>";
+
+			if (!$dbcon)
+			{
+				echo "connection BDD failed<br>";
+			}
+			else
+			{
 				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
-				echo "<script type='text/javascript'>
-                onload = function() {
-                if (!document.getElementsByTagName || !document.createTextNode) return;
-                var rows = document.getElementById('table_libelles_quiz').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-                for (i = 0; i < rows.length; i++) {
-                    rows[i].onclick = function() {
-                        alert(this.rowIndex());
-                    }
-                }
-                }
-                </script>";
-
-				echo "<table class='liste' id='table_libelles_quiz'>";
+				echo "<table class = 'liste' id = 'table_libelles_quiz'>";
 				echo "<tbody>";
 				echo "<th>Nom du quiz</th>";
 
@@ -125,7 +181,7 @@
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
-					echo "<tr onclick='InvertColorOfTableLine(this)' id='$idQuiz'><td>$libelle</td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td></tr>";
 				}
 				echo "</tbody>";
 				echo "</table>";
@@ -139,39 +195,21 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
-				echo "<script type='text/javascript'>
-                onload = function() {
-                if (!document.getElementsByTagName || !document.createTextNode) return;
-                var rows = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-                for (i = 0; i < rows.length; i++) {
-                    rows[i].onclick = function() {
-                        alert(this.rowIndex());
-                    }
-                }
-                }
-                </script>";
-
-				echo "<table class='liste' id='table_libelles_questions_quiz'>";
+				echo "<table class = 'liste' id = 'table_libelles_questions_quiz'>";
 				echo "<tbody>";
 				echo "<th>Questions présentes</th>";
 
-				$i = 1;
 				while ($row = pg_fetch_array($result))
 				{
-					$libelle = $row["libellequestion"];
+					$libelleQuestion = $row["libellequestion"];
 					$idQuestion = $row["idquestion"];
-					/* echo "<tr><td onclick='SelectRow(".$i.", 2)' id='cell_".$i.",1'>$libelle</td></tr>"; */
-					echo "<tr><td onclick='InvertColorOfTableLine(this)' id='$idQuestion'>$libelle</td></tr>";
-					$i++;
+					/* echo "<tr><td onclick = 'SelectRow(".$i.", 2)' id = 'cell_".$i.",1'>$libelle</td></tr>"; */
+					echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
 				}
 				echo "</tbody>";
-				echo "</table>";
+				echo "</table><br><br><br><br>";
 			}
 
-			echo "<form action ='../session/publication.php' method='POST'>";
-			echo "<input class='bouton' type='submit' value='Publier'>";
-			echo "</form>";
-			
 			if (!$dbcon)
 			{
 				echo "connection BDD failed<br>";
@@ -180,17 +218,16 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere(1));
 
-				echo "<select name='liste_questions'>";
+				echo "<select id='select_questions_matiere'>";
 
 				while ($row = pg_fetch_array($result))
 				{
-					$libelle = $row["libellequestion"];
+					$libelleQuestion = $row["libellequestion"];
 					$idQuestion = $row["idquestion"];
-					echo "<option id='$idQuestion'>$libelle</option>";
+					echo "<option id = '$idQuestion' name='$libelleQuestion'>$libelleQuestion</option>";
 				}
 				echo "</select>";
 			}
-			
 			?>   
 
         </div>
