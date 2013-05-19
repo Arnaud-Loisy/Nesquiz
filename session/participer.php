@@ -26,7 +26,7 @@
 				$result = pg_query($dbcon, requete_mdp_etat_session($dateSession));
 				$array = pg_fetch_array($result);
 
-				if (($_POST["passquiz"] != "") && ($passSession == $array['mdpsession'])) {
+				if ($passSession == $array['mdpsession']){
 					$id = $_SESSION["id"];
 					$_SESSION['idSession'] = $dateSession;
 
