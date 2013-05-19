@@ -14,6 +14,10 @@
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
+			
+			if (!isset($_SESSION["id"])) {
+				header('Location:../index.php');
+			}
 
 			if (isset($_SESSION["badpw"])) {
 				echo "<br><br><h1>Mauvais mot de passe.</h1>";
