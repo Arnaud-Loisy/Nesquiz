@@ -109,7 +109,8 @@ input.bouton {
 	margin: 7%;
 	width: 255px;
 	height: 60px;
-	font-size: 40px;
+	font-size: 50px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background: rgb(43,120,228);
 	color: white;
@@ -129,7 +130,8 @@ input.bouton:active {
 	margin-right: auto;
 	width: auto;
 	height: 60px;
-	font-size: 40px;
+	font-size: 50px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background: rgb(43,120,228);
 	color: white;
