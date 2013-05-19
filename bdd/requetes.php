@@ -49,4 +49,5 @@ function requete_toutes_matieres_pour_un_professeur($idAdminProf)
 	return $requete;
 }
 
+
 ?>
