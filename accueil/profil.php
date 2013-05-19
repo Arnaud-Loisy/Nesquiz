@@ -25,15 +25,12 @@ include '../admin/secret.php';
           echo"Erreur:Veuillez bien remplir les deux champs pour le changement de mot de passe.<br>";
             unset( $_SESSION["mdpchfail"]);
         }   
-     if(isset($_SESSION["languechok"])){
+     if((isset($_SESSION["languechok"])) || (isset($_SESSION["mdpchok"]))){
           echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["languechok"]);
-        }             
-        if(isset($_SESSION["mdpchok"])){
-          echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["mdpchok"]);
         }             
-
+       
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
