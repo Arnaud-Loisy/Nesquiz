@@ -21,8 +21,9 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
       $mdpold=($_POST["oldmdp"]);
       $mdphold=md5($mdpold);
       $mdphnew=md5($mdpnew);
+      
        if($mdph==$mdphold){
-          pg_query($dbcon, "UPDATE Etudiants SET mdpEtudiant = ".$mdphnew." WHERE idEtudiant=".$id);   
+          pg_query($dbcon, "UPDATE Etudiants SET mdpEtudiant = '".$mdphnew."' WHERE idEtudiant=".$id);   
           $_SESSION["mdpchok"]=1;
        }
        else {
@@ -36,7 +37,7 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
   if(isset($_POST["langue"])){
       $langue=$_POST["langue"];
   
-     pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = ".$langue." WHERE idEtudiant=".$id);
+     pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '".$langue."' WHERE idEtudiant=".$id);
       $_SESSION["languechok"]=1;
   }
   
@@ -54,8 +55,9 @@ if (((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="admin")) || ((isset($
       $mdpold=($_POST["oldmdp"]);
       $mdphold=md5($mdpold);
       $mdphnew=md5($mdpnew);
+    
        if($mdph==$mdphold){
-          pg_query($dbcon, "UPDATE AdminProfs SET mdpAdminProf =".$mdphnew." WHERE idAdminProf=".$id); 
+          pg_query($dbcon, "UPDATE AdminProfs SET mdpAdminProf ='".$mdphnew."' WHERE idAdminProf=".$id); 
           $_SESSION["mdpchok"]=1;
        }
        else {
