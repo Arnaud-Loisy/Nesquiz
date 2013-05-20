@@ -21,13 +21,13 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
             $adminb = "false";
     
     $mdph=md5($mdp);
-    
-    $result_adminprof= pg_query($dbcon,requete_tous_idadminprof($idadminprof));
-    
-        $arr = pg_fetch_array($result_adminprof);
+
     foreach($_POST['supprimer'] as $idadminprof){
         pg_query($dbcon,requete_supprimer_prof($iadminprof));
     }
+    
+    $result_adminprof= pg_query($dbcon,requete_tous_idadminprof($idadminprof));
+    $arr = pg_fetch_array($result_adminprof);
     
     if ($arr==false){
          pg_query($dbcon,requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue));
