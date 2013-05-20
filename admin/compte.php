@@ -20,6 +20,7 @@
             echo"<br>
                 <table>
                     <tr>
+                        <td> Identifiant </td>
                         <td> Nom </td> 
                         <td> Prenom </td> 
                         <td> Admin </td> 
@@ -36,6 +37,7 @@
                 $prenomadminprof=$arr["prenomadminprof"];
                 $idadminprof=$arr["idadminprof"];
                 echo"<tr>
+                        <td>".$idadminprof."</td>
                         <td>".$nomadminprof."</td>
                         <td>".$prenomadminprof."</td>
                         <td><input type='checkbox' name='admin' value='".$idadminprof."'></td>
