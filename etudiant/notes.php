@@ -69,8 +69,8 @@
 							<td> Toutes </td>
 							<td> ".moyenneGenerale($idEtu)."% </td>
 							<td>".$totalSession."</td>
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
+							<td> XX.YY% </td>
+							<td> XX/YY </td>
 						</tr>";
 						
 				$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
@@ -86,8 +86,8 @@
 							<td>".$libelleMatiere."</td>
 							<td> ".moyenneMatiere($idEtu,$idMatiere)."% </td>
 							<td>".$nbSession['count']."</td>
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
+							<td> XX.XX% </td>
+							<td> XX/XX </td>
 						</tr>";
 				}
 						
