@@ -69,8 +69,24 @@
 		   $row = pg_fetch_array($array);
 		   $nbSession = $row['count'];
 		   
-           return $total/$nbSession;
+           return round($total/$nbSession,2);
     }
+	
+	function moyenneMatiere($idEtu,$idMatiere){
+		global $dbcon;
+		
+		$total=0.0;
+		
+		$dateSession = pg_query($dbcon,requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere));
+        while($res = pg_fetch_array($dateSession)){
+                $total+=noteSession($idEtu, $res['datesession']);
+         }
+		
+		$array = pg_query($dbcon,requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu,$idMatiere));
+		$row = pg_fetch_array($array);
+		   $nbSession = $row['count'];
+		return round($total/$nbSession,2);
+	}
 
     // Retourne la note moyenne des étudiants de la session
     // cette note est exprimée en pourcent
