@@ -193,7 +193,11 @@ input.bouton:active {
     overflow: auto;
 }
 
-.border td,.border tr{
+.border,.border td,.border tr{
     	border: 1px solid black;
 	border-collapse: collapse;
+}
+
+.idenfifiant{
+    width: 10px;
 }
