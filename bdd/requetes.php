@@ -328,5 +328,12 @@ function requete_toutes_matieres_d_un_etudiant($idEtu)
 				ORDER BY matieres.libellematiere ASC;";
 	return $requete;
 }
+function requete_nombre_de_sessions_d_un_etudiant($idEtu)
+{
+	$requete = "SELECT count (*) 
+				FROM participe
+				WHERE idetudiant =$idEtu;";
+	return $requete;
+}
 
 ?>
