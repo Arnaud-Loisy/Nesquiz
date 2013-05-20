@@ -16,9 +16,6 @@
 
             $dbcon = connexionBDD();
 
-            // Récupère l'identifiant, le nom et le prénom des admins et des profs
-            $resultat = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof ());
-
             // Affiche la liste des admins et des profs
             echo"<br>
                 <table>
@@ -27,7 +24,13 @@
                         <td> Prenom </td> 
                         <td> Admin </td> 
                         <td> Supprimer </td>
-                    </tr>";
+                    </tr>
+                </table>";
+            
+            // Récupère l'identifiant, le nom et le prénom des admins et des profs
+            $resultat = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof ());
+            echo"<div class='scroll'>
+                    <table>";
             while($arr = pg_fetch_array($resultat)){
                 $nomadminprof=$arr["nomadminprof"];
                 $prenomadminprof=$arr["prenomadminprof"];
@@ -41,6 +44,7 @@
             }
             ?>
             </table>
+            </div>
             <form action='creercompte.php' method='POST'>
             <br>
             Créer compte enseignant

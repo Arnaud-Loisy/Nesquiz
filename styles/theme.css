@@ -184,3 +184,11 @@ input.bouton:active {
 .liste th {
 	background-color: rgb(204, 204, 204);
 }
+
+.scroll{
+    min-height: 60px;
+    height:160px;
+    min-width: 60px;
+    width: 240px;
+    overflow: auto;
+}
