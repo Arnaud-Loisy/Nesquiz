@@ -14,6 +14,7 @@
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
+			include '../session/fonctions_resultats.php';
 
 			if ((!isset($_SESSION["id"])) || !($_SESSION["statut"]=="etu")) {
 				header('Location:../index.php');
@@ -29,16 +30,7 @@
 			}
 			else
 			{
-				$requete = "SELECT DISTINCT(matieres.libellematiere),matieres.idmatiere
-				FROM etudiants,	matieres, sessions, participe, questions, inclu
-				WHERE matieres.idmatiere = questions.idmatiere 
-				AND  sessions.datesession = participe.datesession
-				AND  participe.idetudiant = etudiants.idetudiant 
-				AND  inclu.idquiz = sessions.idquiz 
-				AND  inclu.idquestion = questions.idquestion 
-				AND  etudiants.idetudiant=".$idEtu."
-				ORDER BY matieres.libellematiere ASC;";
-				$result = pg_query($dbcon, $requete);
+				$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
 
 				echo "<h1 >Mes Notes :</h1>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
@@ -56,20 +48,27 @@
 				echo "</div>";
 			}
 				
+				$result = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($idEtu));
+				$row = pg_fetch_array($result);
+				$totalSession = $row["count"];
 				
 				
 				
 				
 				
 				
-				
-				
-				
-				echo "<br><br><br><br><table style='margin: auto'>
+				echo "<br><br><br><br><table style='margin: 0; text-align:right;'>
 						<tr>
 							<td> Matière </td>
 							<td> Ma Moyenne </td>
 							<td> Nombre de sessions </td>
+							<td> Moyenne de la promotion </td>
+							<td> Classement </td>
+						</tr>
+						<tr>
+							<td> Toutes </td>
+							<td> ".moyenneGenerale($idEtu)." </td>
+							<td>".$totalSession."</td>
 							<td> Moyenne de la promotion </td>
 							<td> Classement </td>
 						</tr>";
