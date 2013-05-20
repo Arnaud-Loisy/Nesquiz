@@ -1,44 +1,20 @@
 <?php
-    
+   
     // Retourne la note d'un étudiant, pour une session, pour une question 
-    function noteQuestion($idEtu, $dateSession, $idQuestion){
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
+    function noteQuestion($idEtu, $dateSession, $idQuestion){       
+        global $dbcon;
         
-       // récupérer le nb de réponses justes pour la question
-               $request="SELECT COUNT(*)
-                        FROM Reponses, Questions
-                        WHERE Reponses.idQuestion = Questions.idQuestion
-                        AND Reponses.valide=TRUE
-                        AND Questions.idQuestion ='".$idQuestion."';";
-                $res_nbRepJustes = pg_query($dbcon,$request) or die("Echec de la requête");
-                $nbRepJustes = pg_fetch_array($res_nbRepJustes);
+        // récupérer le nb de réponses justes pour la question
+        $res_nbRepJustes = pg_query($dbcon,  requete_nb_rep_justes_question($idQuestion)) or die("Echec de la requête");
+        $nbRepJustes = pg_fetch_array($res_nbRepJustes);
       
         // récupérer le nb de réponses fausses répondues par l'élève pour la question
-                $request="  SELECT COUNT(*)
-                            FROM Repond, Questions, Reponses, Sessions, Etudiants
-                            WHERE Repond.idReponse = Reponses.idReponse
-                            AND Repond.idQuestion = Questions.idQuestion
-                            AND Repond.dateSession = Sessions.dateSession
-                            AND Repond.idEtudiant = Etudiants.idEtudiant	
-                            AND Etudiants.idEtudiant = '".$idEtu."'
-                            AND Sessions.dateSession = '".$dateSession."'
-                            AND Questions.idQuestion = '".$idQuestion."'
-                            AND Reponses.valide = FALSE;";
-                 $res_nbRepFauxEtu = pg_query($dbcon,$request) or die("Echec de la requête");
-                 $nbRepFauxEtu = pg_fetch_array($res_nbRepFauxEtu);          
+         $res_nbRepFauxEtu = pg_query($dbcon,  requete_nb_rep_fausses_d_un_etudiant_pour_question_d_une_session($idEtu, $idQuestion, $dateSession)) or die("Echec de la requête");
+         $nbRepFauxEtu = pg_fetch_array($res_nbRepFauxEtu);          
                 
                   // récupérer le nb de réponses totales répondues par l'élève pour la question
-                $request="  SELECT COUNT(*)
-                            FROM Repond, Questions, Reponses, Sessions, Etudiants
-                            WHERE Repond.idReponse = Reponses.idReponse
-                            AND Repond.idQuestion = Questions.idQuestion
-                            AND Repond.dateSession = Sessions.dateSession
-                            AND Repond.idEtudiant = Etudiants.idEtudiant	
-                            AND Etudiants.idEtudiant = '".$idEtu."'
-                            AND Sessions.dateSession = '".$dateSession."'
-                            AND Questions.idQuestion = '".$idQuestion."';";
-                 $res_nbRepTotalEtu = pg_query($dbcon,$request) or die("Echec de la requête");
+               
+                 $res_nbRepTotalEtu = pg_query($dbcon,  requete_nb_rep_totales_d_un_etudiant_pour_question_d_une_session($idEtu, $idQuestion, $dateSession)) or die("Echec de la requête");
                  $nbRepTotalEtu = pg_fetch_array($res_nbRepTotalEtu);
                  
                   // Calculer la note de l'étudiant pour la question
@@ -53,41 +29,28 @@
     // Retourne la note générale d'un étudiant, pour une session donnée
     // cette note est exprimée en pourcent
     function noteSession($idEtu, $dateSession){
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
-            // récupérer id du quiz correspondant à la session
-            $request= "SELECT idquiz
-                        FROM Sessions
-                        WHERE dateSession='".$dateSession."';";
-            $res_idquiz = pg_query($dbcon,$request) or die("Echec de la requête");
-            $tab_idquiz = pg_fetch_array($res_idquiz);
-            $idquiz=$tab_idquiz[0];
-        
-            // récupérer nb questions du quiz
-             $request="SELECT COUNT(*)
-                        FROM Questions, Inclu, Quiz
-                        WHERE	Questions.idQuestion = Inclu.idQuestion
-                        AND Quiz.idQuiz = Inclu.idQuiz
-                        AND Quiz.idQuiz ='".$idquiz."';"; 
-             $res_nbQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
-             $nbQuestions = pg_fetch_array($res_nbQuestions);
+      global $dbcon;
 
-             // récupérer la liste des questions du quiz
-             $request="SELECT Questions.libelleQuestion, Questions.idQuestion
-                        FROM Quiz, Questions, Inclu
-                        WHERE Quiz.idQuiz = Inclu.idQuiz
-                        AND Questions.idQuestion = Inclu.idQuestion
-                        AND Quiz.idQuiz ='".$idquiz."';";
-             $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
+        // récupérer id du quiz correspondant à la session
+        $res_idquiz = pg_query($dbcon,  requete_idQuiz_correspondant_session($dateSession)) or die("Echec de la requête");
+        $tab_idquiz = pg_fetch_array($res_idquiz);
+        $idquiz=$tab_idquiz[0];
+        
+        // récupérer nb questions du quiz
+         $res_nbQuestions = pg_query($dbcon,  requete_nb_questions_d_un_quiz($idquiz)) or die("Echec de la requête");
+         $nbQuestions = pg_fetch_array($res_nbQuestions);
+
+         // récupérer la liste des questions du quiz
+         $res_listeQuestions = pg_query($dbcon,  requete_liste_questions_d_un_quiz($idquiz)) or die("Echec de la requête");
              
-             // Cumul des notes de chaque question
-             $scoreTotal=0;
-             while($listeQuestions = pg_fetch_array($res_listeQuestions)){
-                   $scoreTotal+=noteQuestion($idEtu, $dateSession, $listeQuestions["idquestion"]);
-              }
+         // Cumul des notes de chaque question
+         $scoreTotal=0;
+         while($listeQuestions = pg_fetch_array($res_listeQuestions)){
+                $scoreTotal+=noteQuestion($idEtu, $dateSession, $listeQuestions["idquestion"]);
+         }
               
-           // Calcul de la note moyenne du quiz de l'étudiant
-           $noteQuiz=$scoreTotal/$nbQuestions[0];
+         // Calcul de la note moyenne du quiz de l'étudiant
+         $noteQuiz=$scoreTotal/$nbQuestions[0];
            
            return round($noteQuiz*100,2);
     }
@@ -95,16 +58,10 @@
     // Retourne la note moyenne des étudiants de la session
     // cette note est exprimée en pourcent
     function moyenneSession($dateSession){
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
-
-        // récupérer la liste des étudiants participant à la session
-      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
-	FROM Etudiants, Participe, Sessions
-	WHERE Sessions.dateSession = Participe.dateSession
-	AND Etudiants.idEtudiant = Participe.idEtudiant
-	AND Sessions.dateSession = '".$dateSession."';";       
-      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+      global $dbcon;
+        
+        // récupérer la liste des étudiants participant à la session     
+      $res_listeEtudiants = pg_query($dbcon,  requete_etudiants_participants($dateSession)) or die("Echec de la requête");
       
       $cumul=0; $i=0;
       while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
@@ -124,16 +81,10 @@
     // Retourne la note moyenne des étudiants à une question d'une session
     // cette note est exprimée en pourcent
     function moyenneQuestion($dateSession, $idQuestion){
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
-
-        // récupérer la liste des étudiants participant à la session
-      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
-	FROM Etudiants, Participe, Sessions
-	WHERE Sessions.dateSession = Participe.dateSession
-	AND Etudiants.idEtudiant = Participe.idEtudiant
-	AND Sessions.dateSession = '".$dateSession."';";       
-      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+    global $dbcon;
+        
+        // récupérer la liste des étudiants participant à la session      
+      $res_listeEtudiants = pg_query($dbcon,  requete_etudiants_participants($dateSession)) or die("Echec de la requête");
       
       $cumul=0; $i=0;
       while($listeEtudiants = pg_fetch_array($res_listeEtudiants)){
@@ -165,17 +116,10 @@
     
     // Retourne le tableau représentant le classement des étudiants pour la session
     function classementSession($dateSession){
-        
-         include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
+     global $dbcon;
         
          // récupérer la liste des étudiants participant à la session
-      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
-	FROM Etudiants, Participe, Sessions
-	WHERE Sessions.dateSession = Participe.dateSession
-	AND Etudiants.idEtudiant = Participe.idEtudiant
-	AND Sessions.dateSession = '".$dateSession."';";       
-      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
+      $res_listeEtudiants = pg_query($dbcon,  requete_etudiants_participants($dateSession)) or die("Echec de la requête");
       
       // Stocker la moyenne de la session de chaque étudiant
      
@@ -198,7 +142,7 @@
     // Retourne le rang de l'étudiant pour la session
     function rangEtudiant($idEtu, $dateSession){
         $classement=classementSession($dateSession);
-        
+
         for($i=0;$i<count($classement);$i++){
             if($classement[$i]["idetudiant"]==$idEtu)
                 return ($i+1);

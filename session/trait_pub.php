@@ -10,20 +10,21 @@
             <?php
 
                 session_start();
-				date_default_timezone_set("Europe/Paris");
+		date_default_timezone_set("Europe/Paris");
                 if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]=="etu")){
                     header('Location:../index.php');
                 }
                 if(!(isset($_GET["mode"])) || !(isset($_GET["idquiz"]))){
                     header('Location: publication.php');
                 }
-
+                
+                // connexion à la BD
+                include '../bdd/connexionBDD.php';
+                include '../bdd/requetes.php';
+                $dbcon = connexionBDD();
+                
                 // Récup des variables
-              
-                
-                $dateSession= time();
-               
-                
+                $dateSession= time(); 
                 $modeFonctionnement=$_GET["mode"];
                 $mdpSession=$_GET["mdpSession"];
                 $idquiz=$_GET["idquiz"];
@@ -35,19 +36,16 @@
                 $_SESSION["mode"]=$modeFonctionnement;
                 $_SESSION["etatSession"]=$etatsession;
 
-                // connexion à la BD
-                include '../admin/secret.php';
-                $dbcon = pg_connect("host=$host user=$login password=$password");
-
-                // Créa de la session, en attente des élèves
-                $request = "INSERT INTO sessions VALUES ('".$dateSession."','".$modeFonctionnement."','".$mdpSession."','".$idquiz."','".$etatsession."');";
-                pg_query($dbcon,$request) or die("Echec de la requête");
+                 
                 
+                // Créa de la session, en attente des élèves
+                pg_query($dbcon,  requete_creer_session($dateSession, $modeFonctionnement, $mdpSession, $idquiz, $etatsession)) or die("Echec de la requête");
+                
+                // rediriger vers supervision
                 header('Location: supervision.php');
 
                 ?>
                 
-
         </div>
 </body>
 </html>

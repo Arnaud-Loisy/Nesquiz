@@ -17,29 +17,20 @@
                  if((!(isset($_SESSION["idquiz"]))) || (!(isset($_SESSION["dateSession"]))) ||  (!(isset($_SESSION["mode"]))) ){
                 header('Location: publication.php');
                  }
-                 // connexion à la BD
-                include '../admin/secret.php';
-                $dbcon = pg_connect("host=$host user=$login password=$password");
-                
+                // connexion à la BD
+                include '../bdd/connexionBDD.php';
+                include '../bdd/requetes.php';
+                $dbcon = connexionBDD();
+                 
                 $_SESSION["etatSession"]=2;
-                $modeFonctionnement=$_SESSION["mode"];
                 $dateSession=$_SESSION["dateSession"];
-                $etatsession=$_SESSION["etatSession"];
-                
-                
                 
                 // Mettre le champs etatSession à 2 dans la BD
+                pg_query($dbcon,  requete_changer_etat_session($dateSession, 2)) or die("Echec de la requête");
                 
-                 $request = "UPDATE Sessions
-                            SET etatSession='2'
-                            WHERE dateSession='".$dateSession."';";
-
-                $result=pg_query($dbcon,$request) or die("Echec de la requête");
-                
+                // rediriger vers supervision
                 header('Location:supervision.php');
            ?>
-                
-
         </div>
 </body>
 </html>

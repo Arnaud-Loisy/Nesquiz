@@ -20,46 +20,30 @@
       }
       
       include '../accueil/menu.php';
-      include '../admin/secret.php';
-      include 'fonctions_resultats.php';
-      $dbcon = pg_connect("host=$host user=$login password=$password");
+       // connexion à la BD
+        include '../bdd/connexionBDD.php';
+        include '../bdd/requetes.php';
+        $dbcon= connexionBDD();
+        include 'fonctions_resultats.php';
       
       echo "<h1>Résultats du quiz</h1>";
-      // récupérer datesession
+      
+        // récupérer datesession
       $dateSession = $_SESSION["dateSession"];
       unset($_SESSION["dateSession"]);
       
-    // mettre session à l'état 3
-      $request="UPDATE Sessions
-              SET etatSession=3
-              WHERE dateSession='".$dateSession."';"; 
-      pg_query($dbcon,$request) or die("Echec de la requête");
+      // mettre la session à l'état 3
+      pg_query($dbcon,  requete_changer_etat_session($dateSession, 3)) or die("Echec de la requête");
             
       // récupérer id du quiz correspondant à la session
-            $request= "SELECT idquiz
-                        FROM Sessions
-                        WHERE dateSession='".$dateSession."';";
-            $res_idquiz = pg_query($dbcon,$request) or die("Echec de la requête");
-            $tab_idquiz = pg_fetch_array($res_idquiz);
-            $idquiz=$tab_idquiz[0];
-            
-      // récupérer liste des étudiants participant à la session
-      $request="SELECT Etudiants.nomEtudiant, Etudiants.prenomEtudiant, Etudiants.idEtudiant
-	FROM Etudiants, Participe, Sessions
-	WHERE Sessions.dateSession = Participe.dateSession
-	AND Etudiants.idEtudiant = Participe.idEtudiant
-	AND Sessions.dateSession = '".$dateSession."';";       
-      $res_listeEtudiants = pg_query($dbcon,$request) or die("Echec de la requête");
-      
-        // récupérer la liste des questions du quiz
-             $request="SELECT Questions.libelleQuestion, Questions.idQuestion
-                        FROM Quiz, Questions, Inclu
-                        WHERE Quiz.idQuiz = Inclu.idQuiz
-                        AND Questions.idQuestion = Inclu.idQuestion
-                        AND Quiz.idQuiz ='".$idquiz."';";
-             $res_listeQuestions = pg_query($dbcon,$request) or die("Echec de la requête");
+      $res_idquiz = pg_query($dbcon,  requete_idQuiz_correspondant_session($dateSession)) or die("Echec de la requête");
+      $tab_idquiz = pg_fetch_array($res_idquiz);
+      $idQuiz=$tab_idquiz[0];
+                  
+      // récupérer la liste des questions du quiz
+       $res_listeQuestions = pg_query($dbcon,  requete_toutes_questions_dans_quiz($idQuiz)) or die("Echec de la requête");
              
-        // Calculer et afficher le classement des étudiants
+       // Calculer et afficher le classement des étudiants
        echo "<center>Moyenne de la session : ".moyenneSession($dateSession)." %<br><br>";
        echo "<center>Classement des étudiants<br><br></center>";
        echo "<table style='margin: auto'><tr><td> Rang </td> <td> Nom </td> <td> Prénom </td> <td> Note </td> </tr>";

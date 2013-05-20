@@ -19,19 +19,15 @@
         if(!(isset($_POST)))
             header('Location:historique.php');
         
-        include '../accueil/menu.php';
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
+        // connexion à la BD
+        include '../bdd/connexionBDD.php';
+        include '../bdd/requetes.php';
+        $dbcon = connexionBDD();   
         
         //Supprimer l'ensemble des entrée avec l'id session en param
         foreach($_POST['session'] as $dateSession){
-            $request = "DELETE FROM Repond
-                        WHERE dateSession='".$dateSession."';
-                        DELETE FROM Participe
-                        WHERE dateSession='".$dateSession."';
-                        DELETE FROM Sessions
-                        WHERE dateSession='".$dateSession."';";
-            pg_query($dbcon,$request) or die("Echec de la requête");
+            
+            pg_query($dbcon,  requete_supprimer_session($dateSession)) or die("Echec de la requête");
             
          }
          

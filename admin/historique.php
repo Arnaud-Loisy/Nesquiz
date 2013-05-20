@@ -17,10 +17,13 @@
         if(!(isset($_SESSION["id"])) || ($_SESSION["statut"]!="admin")){
              header('Location:../index.php');
          }
-         
+        date_default_timezone_set("Europe/Paris");
         include '../accueil/menu.php';
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
+        
+        // connexion à la BD
+        include '../bdd/connexionBDD.php';
+        include '../bdd/requetes.php';
+        $dbcon = connexionBDD();   
         
         echo "<h1> Historique des sessions </h1>";
         
@@ -30,13 +33,7 @@
         }
         
         // Selectionner les sessions triées de la plus récente à la plus ancienne
-         $request = "SELECT dateSession, libelleQuiz, etatSession
-                    FROM Sessions, Quiz
-                    WHERE Sessions.idQuiz = Quiz.idQuiz
-                    ORDER BY Sessions.dateSession DESC;";
-        $result_sessions = pg_query($dbcon,$request) or die("Echec de la requête");
-        
-       
+        $result_sessions = pg_query($dbcon,  requete_liste_sessions_terminees()) or die("Echec de la requête");
         
         // Afficher la liste des sessions
         echo "<form method='POST' action='trait_historique.php'>";
@@ -44,14 +41,12 @@
         echo "<tr><td> Quiz </td><td> Date </td><td> Heure </td><td> Supprimer </td></tr>";
         
         while($arr=  pg_fetch_array($result_sessions)){
-            $dateSession=$arr["datesession"];
-            $libelleQuiz=$arr["libellequiz"];
-            $etatsession=$arr["etatsession"];
-            // si la session est terminée
-            if($etatsession==3){
+                $dateSession=$arr["datesession"];
+                $libelleQuiz=$arr["libellequiz"];
+                
                 echo "<tr><td>".$libelleQuiz."</td><td>".date('d/m/Y', $dateSession)."</td><td>".date('H:i:s', $dateSession)."</td>";
                 echo "<td><input type='checkbox' name='session[]' value='".$dateSession."'></td></tr>";
-            }
+        
         }
         
         echo "</table>";

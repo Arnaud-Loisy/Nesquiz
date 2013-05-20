@@ -19,17 +19,16 @@
          }
          
         include '../accueil/menu.php';
-        include '../admin/secret.php';
-        $dbcon = pg_connect("host=$host user=$login password=$password");
+         // connexion à la BD
+        include '../bdd/connexionBDD.php';
+        include '../bdd/requetes.php';
+        $dbcon = connexionBDD();
+        
         
         echo "<h1>Publication d'un quiz</h1>";
         // Récupérer les matières du prof
         $idAdminProf=$_SESSION["id"];
-        $request = "SELECT * FROM Matieres, AdminProfs, Enseigne 
-                    WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf 
-                    AND Matieres.idMatiere = Enseigne.idMatiere 
-                    AND AdminProfs.idAdminProf = ".$idAdminProf.";";
-        $result_matiere = pg_query($dbcon,$request) or die("Echec de la requête");
+        $result_matiere = pg_query($dbcon,  requete_matieres_d_un_prof($idAdminProf)) or die("Echec de la requête");
         
         // Afficher la liste des matières
         echo"<center>";
@@ -45,17 +44,12 @@
         
         // Si une matière a été selectionnée
         if(isset($_POST["idmatiere"])){
+                $idMatiere=$_POST["idmatiere"];
+                
                 // Récupérer les quiz dispo
-                $request="  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
-                        FROM Quiz, Inclu, Questions, Matieres
-                        WHERE Quiz.idQuiz = Inclu.idQuiz
-                        AND Questions.idQuestion = Inclu.idQuestion
-                        AND Questions.idMatiere = Matieres.idMatiere
-                        AND Matieres.idMatiere =".$_POST["idmatiere"].";";
-                $result_quiz = pg_query($dbcon,$request) or die("Echec de la requête");
+                $result_quiz = pg_query($dbcon,  requete_liste_quiz_d_une_matiere($idMatiere)) or die("Echec de la requête");
                 
                 // afficher les quiz dispo
-                
                 echo"<form action='trait_pub.php' method='GET'>";
                 echo"<br>Quiz disponibles : <br>";
                 echo"<select name='idquiz'>";
