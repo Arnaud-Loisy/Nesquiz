@@ -16,7 +16,10 @@ session_start();
 include '../accueil/menu.php';
 include '../admin/secret.php';
 
-
+		if (!isset($_SESSION["id"])) {
+				header('Location:../index.php'); //si non connecté.
+			}
+		
      if(isset($_SESSION["mdpfail"])){
          echo"<br>";
          echo"Erreur:L'ancien mot de passe n'est pas bon.<br>";
