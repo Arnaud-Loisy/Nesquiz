@@ -22,10 +22,6 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
     
     $mdph=md5($mdp);
 
-    foreach($_POST['supprimer'] as $idadminprof){
-        pg_query($dbcon,requete_supprimer_prof($iadminprof));
-    }
-    
     $result_adminprof= pg_query($dbcon,requete_tous_idadminprof($idadminprof));
     $arr = pg_fetch_array($result_adminprof);
     
