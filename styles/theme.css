@@ -189,7 +189,7 @@ input.bouton:active {
     min-height: 60px;
     height:160px;
     min-width: 60px;
-    width: 300px;
+    width: 385px;
     overflow: auto;
 }
 
@@ -198,6 +198,23 @@ input.bouton:active {
 	border-collapse: collapse;
 }
 
-.idenfifiant{
-    width: 10px;
+.identifiant{
+    width: 70px;
+    text-align: center;
+}
+
+.nom{
+    width: 70px;  
+}
+
+.prenom{
+    width: 70px;
+}
+
+.admin{
+    width: 70px;
+}
+
+.supprimer{
+    width: 70px;
 }

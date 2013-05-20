@@ -18,13 +18,13 @@
 
             // Affiche la liste des admins et des profs
             echo"<br>
-                <table>
+                <table class='border'>
                     <tr>
-                        <td> Identifiant </td>
-                        <td> Nom </td> 
-                        <td> Prenom </td> 
-                        <td> Admin </td> 
-                        <td> Supprimer </td>
+                        <td class='identifiant'> Identifiant </td>
+                        <td class='nom'> Nom </td> 
+                        <td class='prenom'> Prenom </td> 
+                        <td class='admin'> Admin </td> 
+                        <td class='supprimer'> Supprimer </td>
                     </tr>
                 </table>";
             
@@ -37,18 +37,18 @@
                 $prenomadminprof=$arr["prenomadminprof"];
                 $idadminprof=$arr["idadminprof"];
                 echo"<tr>
-                        <td>".$idadminprof."</td>
-                        <td>".$nomadminprof."</td>
-                        <td>".$prenomadminprof."</td>
-                        <td><input type='checkbox' name='admin' value='".$idadminprof."'></td>
-                        <td><input type='checkbox' name='supprimer' value='".$idadminprof."'></td>
+                        <td class='identifiant'>".$idadminprof."</td>
+                        <td class='nom'>".$nomadminprof."</td>
+                        <td class='prenom'>".$prenomadminprof."</td>
+                        <td class='admin'><input type='checkbox' name='admin' value='".$idadminprof."'></td>
+                        <td class='supprimer'><input type='checkbox' name='supprimer' value='".$idadminprof."'></td>
                     </tr>";
             }
             ?>
             </table>
             </div>
             <br>
-            <input type='submit' name='Validé' value='validé'>
+            <input  style='margin-left: 20%'type='submit' name='Validé' value='Validé'>
             <form action='creercompte.php' method='POST'>
             <br>
             Créer compte enseignant
