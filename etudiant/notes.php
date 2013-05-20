@@ -67,11 +67,29 @@
 						</tr>
 						<tr>
 							<td> Toutes </td>
-							<td> ".moyenneGenerale($idEtu)." </td>
+							<td> ".moyenneGenerale($idEtu)."% </td>
 							<td>".$totalSession."</td>
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
+							<td> XX.YY% </td>
+							<td> XX/YY </td>
 						</tr>";
+						
+				$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
+				while ($row = pg_fetch_array($result))
+				{
+					$libelleMatiere = $row["libellematiere"];
+					$idMatiere = $row["idmatiere"];
+					$result_nbSession = pg_query($dbcon,requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu,$idMatiere));
+					$nbSession = pg_fetch_array($result_nbSession);
+					
+					
+					echo "<tr>
+							<td>".$libelleMatiere."</td>
+							<td> ".moyenneMatiere($idEtu,$idMatiere)."% </td>
+							<td>".$nbSession['count']."</td>
+							<td> XX.XX% </td>
+							<td> XX/XX </td>
+						</tr>";
+				}
 						
 						echo "</table>";
 			}
