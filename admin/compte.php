@@ -11,24 +11,34 @@
             <?php
             session_start();
             include '../accueil/menu.php';
-            include '../admin/secret.php';
+            include '../bdd/connexionBDD.php';
+            include '../bdd/requetes.php';
 
-            $dbcon = pg_connect("host=$host user=$login password=$password");
+            $dbcon = connexionBDD();
 
             // Récupère l'identifiant, le nom et le prénom des admins et des profs
-            $requetteCompte = "SELECT idadminprof,nomadminprof,prenomadminprof
-                               FROM AdminProfs";
-
-            $resultat = pg_query($dbcon,$requetteCompte);
-
+            $requette = requete_tous_idadminprof_nomadminprof_prenomadminprof (); 
+            $resultat = pg_query($dbcon,$requette);
 
             // Affiche la liste des admins et des profs
-            echo"<br><table><tr><td> Nom </td> <td> Prenom </td> <td> Admin </td> <td> Supprimer </td>";
+            echo"<br>
+                <table>
+                    <tr>
+                        <td> Nom </td> 
+                        <td> Prenom </td> 
+                        <td> Admin </td> 
+                        <td> Supprimer </td>
+                    </tr>";
             while($arr = pg_fetch_array($resultat)){
                 $nomadminprof=$arr["nomadminprof"];
                 $prenomadminprof=$arr["prenomadminprof"];
                 $idadminprof=$arr["idadminprof"];
-                echo"<tr><td>".$nomadminprof."</td><td>".$prenomadminprof."</td><td><input type='checkbox' name='admin' value='".$idadminprof."'></td><td><input type='checkbox' name='supprimer' value='".$idadminprof."'></td><td></td></tr>";
+                echo"<tr>
+                        <td>".$nomadminprof."</td>
+                        <td>".$prenomadminprof."</td>
+                        <td><input type='checkbox' name='admin' value='".$idadminprof."'></td>
+                        <td><input type='checkbox' name='supprimer' value='".$idadminprof."'></td>
+                    </tr>";
             }
             ?>
             </table>
@@ -37,13 +47,21 @@
             Créer compte enseignant
             <table>
                 <tr>
-                    <td>Nom</td> <td> <input name="nom" type="text" > </td> </tr>
+                    <td>Nom</td> 
+                    <td> <input name="nom" type="text" > </td> 
+                </tr>
                 <tr>
-                    <td>Prénom</td> <td> <input name="prenom" type="text" > </td> </tr>
+                    <td>Prénom</td> 
+                    <td> <input name="prenom" type="text" > </td> 
+                </tr>
                 <tr>
-                    <td>Identifiant</td> <td> <input name="identifiant" type="text" > </td> </tr>
+                    <td>Identifiant</td> 
+                    <td> <input name="identifiant" type="text" > </td> 
+                </tr>
                 <tr>
-                    <td>Mot de passe</td> <td> <input name="mdp" type="text" > </td> </tr>
+                    <td>Mot de passe</td> <td> 
+                    <input name="mdp" type="text" > </td> 
+                </tr>
                 <tr>
                     <td>Langue de l'interface :</td> <td> <select name="langue"> 
                             <option value='fr'>Français</option>

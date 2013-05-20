@@ -136,4 +136,11 @@ function requete_liste_session_ouvertes()
 	return $requete;
 }
 
+function requete_tous_idadminprof_nomadminprof_prenomadminprof ()
+{
+    $requete = "SELECT idadminprof,nomadminprof,prenomadminprof
+                               FROM AdminProfs";
+    return $requete;
+}
+
 ?>
