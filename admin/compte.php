@@ -30,8 +30,9 @@
             
             // Récupère l'identifiant, le nom et le prénom des admins et des profs
             $resultat = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof ());
-            echo"<div class='scroll'>
-                    <table class = 'border'>";
+            echo"<form action='majcompte.php' method='POST'>
+                    <div class='scroll'>
+                        <table class = 'border'>";
             while($arr = pg_fetch_array($resultat)){
                 $nomadminprof=$arr["nomadminprof"];
                 $prenomadminprof=$arr["prenomadminprof"];
@@ -41,7 +42,7 @@
                         <td class='nom'>".$nomadminprof."</td>
                         <td class='prenom'>".$prenomadminprof."</td>
                         <td class='admin'><input type='checkbox' name='admin' value='".$idadminprof."'></td>
-                        <td class='supprimer'><input type='checkbox' name='supprimer' value='".$idadminprof."'></td>
+                        <td class='supprimer'><input type='checkbox' name='supprimer[]' value='".$idadminprof."'></td>
                     </tr>";
             }
             ?>
@@ -49,6 +50,7 @@
             </div>
             <br>
             <input  style='margin-left: 20%'type='submit' name='Validé' value='Validé'>
+            </form>
             <form action='creercompte.php' method='POST'>
             <br>
             Créer compte enseignant
