@@ -41,7 +41,7 @@
             }
             ?>
             </table>
-            <form action='creercompte.php' method='GET'>
+            <form action='creercompte.php' method='POST'>
             <br>
             Créer compte enseignant
             <table>
