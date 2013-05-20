@@ -55,6 +55,23 @@
            return round($noteQuiz*100,2);
     }
 
+// Retourne la moyenne générale d'un étudiant, pour toutes les sessions
+    // cette note est exprimée en pourcent
+    function moyenneGenerale($idEtu){
+      global $dbcon;
+		$total=0.0;
+		$dateSession = pg_query($dbcon,requete_sessions_d_un_etudiant($idEtu));
+        while($res = pg_fetch_array($dateSession)){
+                $total+=noteSession($idEtu, $res['datesession']);
+         }
+           
+		   $array = pg_query($dbcon,requete_nombre_de_sessions_d_un_etudiant($idEtu));
+		   $row = pg_fetch_array($array);
+		   $nbSession = $row['count'];
+		   
+           return $total/$nbSession;
+    }
+
     // Retourne la note moyenne des étudiants de la session
     // cette note est exprimée en pourcent
     function moyenneSession($dateSession){
@@ -77,6 +94,8 @@
       
       return round($moyenne,2);
     }
+	
+	
     
     // Retourne la note moyenne des étudiants à une question d'une session
     // cette note est exprimée en pourcent
