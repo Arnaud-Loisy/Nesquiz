@@ -31,7 +31,7 @@
             // Récupère l'identifiant, le nom et le prénom des admins et des profs
             $resultat = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof ());
             echo"<div class='scroll'>
-                    <table>";
+                    <table class = 'border'>";
             while($arr = pg_fetch_array($resultat)){
                 $nomadminprof=$arr["nomadminprof"];
                 $prenomadminprof=$arr["prenomadminprof"];
@@ -47,6 +47,8 @@
             ?>
             </table>
             </div>
+            <br>
+            <input type='submit' name='Validé' value='validé'>
             <form action='creercompte.php' method='POST'>
             <br>
             Créer compte enseignant

@@ -192,3 +192,8 @@ input.bouton:active {
     width: 300px;
     overflow: auto;
 }
+
+.border td,.border tr{
+    	border: 1px solid black;
+	border-collapse: collapse;
+}
