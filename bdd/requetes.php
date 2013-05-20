@@ -356,4 +356,16 @@ function requete_sessions_d_un_etudiant($idEtu)
 	return $requete;
 }
 
+function requete_sessions_d_un_etudiant_par_matiere($idEtu,$idMatiere)
+{
+	$requete = "SELECT DISTINCT(participe.datesession)
+				FROM  participe, inclu, sessions, questions
+				WHERE participe.datesession = sessions.datesession 
+				AND  inclu.idquestion = questions.idquestion 
+				AND  inclu.idquiz = sessions.idquiz 
+				AND  idetudiant=".$idEtu." 
+				AND   idmatiere =".$idMatiere.";";
+	return $requete;
+}
+
 ?>
