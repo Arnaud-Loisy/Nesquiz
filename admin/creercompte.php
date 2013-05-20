@@ -26,10 +26,15 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
     $result_adminprof= pg_query($dbcon,$requetteCreerCompte1);
     
         $arr = pg_fetch_array($result_adminprof);
+    foreach($_POST['supprimer'] as $idadminprof){
+        pg_query($dbcon,requete_supprimer_prof($iadminprof));
+    }
+    
     if ($arr==false){
          $requetteCreerCompte2=requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue);
          pg_query($dbcon,$requetteCreerCompte2);
          header('Location:./compte.php');
     }
+    header('Location:./compte.php');
 }
 ?>

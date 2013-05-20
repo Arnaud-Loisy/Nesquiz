@@ -305,4 +305,12 @@ function requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue)
                 VALUES (".$identifiant.", '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
     return $requete;
 }
+
+function requete_supprimer_prof($iadminprof)
+{
+    $requete = "DELETE
+                FROM adminprofs
+                WHERE idadminprof ='".$idadminprof."'";
+    return $requete;
+}
 ?>
