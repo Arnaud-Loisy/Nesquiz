@@ -80,9 +80,11 @@
 					$idMatiere = $row["idmatiere"];
 					$result_nbSession = pg_query($dbcon,requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu,$idMatiere));
 					$nbSession = pg_fetch_array($result_nbSession);
+					
+					
 					echo "<tr>
 							<td>".$libelleMatiere."</td>
-							<td> XX.XX% </td>
+							<td> ".moyenneMatiere($idEtu,$idMatiere)."% </td>
 							<td>".$nbSession['count']."</td>
 							<td> Moyenne de la promotion </td>
 							<td> Classement </td>
