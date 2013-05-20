@@ -136,6 +136,7 @@ function requete_liste_session_ouvertes()
 	return $requete;
 }
 
+
 function requete_libelleQuiz($idQuiz){
      $request = "SELECT libelleQuiz 
                         FROM quiz
@@ -313,4 +314,19 @@ function requete_supprimer_prof($iadminprof)
                 WHERE idadminprof ='".$idadminprof."'";
     return $requete;
 }
+
+function requete_toutes_matieres_d_un_etudiant($idEtu)
+{
+	$requete = "SELECT DISTINCT(matieres.libellematiere),matieres.idmatiere
+				FROM etudiants,	matieres, sessions, participe, questions, inclu
+				WHERE matieres.idmatiere = questions.idmatiere 
+				AND  sessions.datesession = participe.datesession
+				AND  participe.idetudiant = etudiants.idetudiant 
+				AND  inclu.idquiz = sessions.idquiz 
+				AND  inclu.idquestion = questions.idquestion 
+				AND  etudiants.idetudiant=".$idEtu."
+				ORDER BY matieres.libellematiere ASC;";
+	return $requete;
+}
+
 ?>
