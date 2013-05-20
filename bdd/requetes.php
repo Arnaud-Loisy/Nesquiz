@@ -288,7 +288,8 @@ function requete_supprimer_session($dateSession){
 function requete_tous_idadminprof_nomadminprof_prenomadminprof ()
 {
     $requete = "SELECT idadminprof,nomadminprof,prenomadminprof
-                FROM adminprofs";
+                FROM adminprofs
+                ORDER BY nomadminprof";
     return $requete;
 }
 
