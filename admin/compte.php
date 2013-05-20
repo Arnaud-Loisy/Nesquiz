@@ -17,8 +17,7 @@
             $dbcon = connexionBDD();
 
             // Récupère l'identifiant, le nom et le prénom des admins et des profs
-            $requette = requete_tous_idadminprof_nomadminprof_prenomadminprof (); 
-            $resultat = pg_query($dbcon,$requette);
+            $resultat = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof ());
 
             // Affiche la liste des admins et des profs
             echo"<br>
@@ -42,7 +41,7 @@
             }
             ?>
             </table>
-            <form action='creercompte.php' method='POST'>
+            <form action='creercompte.php' method='GET'>
             <br>
             Créer compte enseignant
             <table>
