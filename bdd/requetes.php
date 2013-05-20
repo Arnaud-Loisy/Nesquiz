@@ -336,4 +336,12 @@ function requete_nombre_de_sessions_d_un_etudiant($idEtu)
 	return $requete;
 }
 
+function requete_sessions_d_un_etudiant($idEtu)
+{
+	$requete = "SELECT dateSession 
+				FROM participe
+				WHERE idetudiant =$idEtu;";
+	return $requete;
+}
+
 ?>
