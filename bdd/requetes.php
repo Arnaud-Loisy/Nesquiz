@@ -283,10 +283,26 @@ function requete_supprimer_session($dateSession){
                         WHERE dateSession='".$dateSession."';";
     return $request;
 }
+
 function requete_tous_idadminprof_nomadminprof_prenomadminprof ()
 {
     $requete = "SELECT idadminprof,nomadminprof,prenomadminprof
                 FROM adminprofs";
+    return $requete;
+}
+
+function requete_tous_idadminprof($idadminprof)
+{
+    $requete = "SELECT idAdminProf 
+                 FROM AdminProfs 
+                 WHERE idAdminProf =".$identifiant;
+    return $requete;
+}
+
+function requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue)
+{
+    $requete = "INSERT INTO AdminProfs 
+                VALUES (".$identifiant.", '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
     return $requete;
 }
 ?>

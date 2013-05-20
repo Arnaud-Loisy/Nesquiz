@@ -1,9 +1,10 @@
 <?php
 
 session_start();
-include '../admin/secret.php';
+include '../bdd/connexionBDD.php';
+include '../bdd/requetes.php';
 
-$dbcon=pg_connect("host=$host user=$login password=$password");
+$dbcon = connexionBDD();
 
 if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["identifiant"])) && (isset ($_POST["mdp"]))){
 
@@ -21,15 +22,12 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) && (isset ($_POST["ident
     
     $mdph=md5($mdp);
     
-    $requetteCreerCompte1=" SELECT idAdminProf 
-                                         FROM AdminProfs 
-                                         WHERE idAdminProf =".$identifiant;
-    
+    $requetteCreerCompte1=requete_tous_idadminprof($idadminprof);
     $result_adminprof= pg_query($dbcon,$requetteCreerCompte1);
     
         $arr = pg_fetch_array($result_adminprof);
     if ($arr==false){
-         $requetteCreerCompte2="INSERT INTO AdminProfs VALUES (".$identifiant.", '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
+         $requetteCreerCompte2=requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue);
          pg_query($dbcon,$requetteCreerCompte2);
          header('Location:./compte.php');
     }
