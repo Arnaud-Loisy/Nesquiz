@@ -55,7 +55,10 @@
             echo "<br>Veuillez réduire le champ 'Confirmation Mot de Passe' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_cmdp"]);
             }
-      
+        if (isset ( $_SESSION["erreur_num_etu"])){
+             echo "<br>Erreur: Le Numéro Etudiant ne  doit contenir que des nombres<br>";
+             unset( $_SESSION["erreur_promotion"]);
+        }
         if (isset ($_SESSION["erreur_promotion"])){
              echo "<br>Erreur: La Promotion ne  doit contenir que des nombres<br>";
              unset( $_SESSION["erreur_promotion"]);
