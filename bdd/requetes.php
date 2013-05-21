@@ -369,5 +369,12 @@ function requete_etudiant_d_une_promo($promo)
 	return $requete;
 }
 
+function requete_promo_d_un_etudiant($idEtu)
+{
+	$requete = "SELECT promo
+				FROM etudiants
+				WHERE idetudiant=".$idEtu.";";
+	return $requete;
+}
 
 ?>
