@@ -375,4 +375,20 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere)
 	return $requete;
 }
 
+function requete_etudiant_d_une_promo($promo)
+{
+	$requete = "SELECT idetudiant
+				FROM etudiants
+				WHERE promo=".$promo.";";
+	return $requete;
+}
+
+function requete_promo_d_un_etudiant($idEtu)
+{
+	$requete = "SELECT promo
+				FROM etudiants
+				WHERE idetudiant=".$idEtu.";";
+	return $requete;
+}
+
 ?>
