@@ -57,7 +57,7 @@
             }
         if (isset ( $_SESSION["erreur_num_etu"])){
              echo "<br>Erreur: Le Numéro Etudiant ne  doit contenir que des nombres<br>";
-             unset( $_SESSION["erreur_promotion"]);
+             unset( $_SESSION["erreur_num_etu"]);
         }
         if (isset ($_SESSION["erreur_promotion"])){
              echo "<br>Erreur: La Promotion ne  doit contenir que des nombres<br>";
