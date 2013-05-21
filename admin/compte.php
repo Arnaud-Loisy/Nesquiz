@@ -49,7 +49,7 @@
             </table>
             </div>
             <br>
-            <input  class='bouton'type='submit' name='Validé' value='Validé'>
+            <input  class='bouton'type='submit' name='Valider' value='Validé'>
             </form>
             <form action='creercompte.php' method='POST'>
             <br>
