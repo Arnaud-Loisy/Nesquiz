@@ -14,50 +14,50 @@
         session_start();
         include '../accueil/menu.php';
         if(isset( $_SESSION["erreur_inscription_mdp"])){
-            echo"Erreur:Le mot de passe et sa confirmation sont différents.<br>";
+            echo"<br>Erreur:Le mot de passe et sa confirmation sont différents.<br>";
             unset( $_SESSION["erreur_inscription_mdp"]);
         }
          if(isset( $_SESSION["erreur_inscription_numero_etu"])){
-            echo"Erreur:Ce numéro étudiant possède déjà un compte.<br>";
+            echo"<br>Erreur:Ce numéro étudiant possède déjà un compte.<br>";
             unset( $_SESSION["erreur_inscription_numero_etu"]);
         }
         if (isset( $_SESSION["erreur_inscription_incomplet"])){
-             echo"Erreur:Veuillez remplir tous les champs du formulaire.<br>";
+             echo"<br>Erreur:Veuillez remplir tous les champs du formulaire.<br>";
                 unset( $_SESSION["erreur_inscription_incomplet"]);
         }
         if (isset( $_SESSION["erreur_longeur_champ_inscription_nom"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire le champ 'nom' qui est  trop long.<br>";
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'nom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_nom"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_prenom"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_etu"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire le champ 'numero etudiant' qui est  trop long.<br>";
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'numero etudiant' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_etu"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_promotion"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire le champ 'promotion' qui est  trop long.<br>";
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'promotion' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_promotion"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_mdp"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire le champ 'Mot De Passe' qui est  trop long.<br>";
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'Mot De Passe' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_mdp"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_cmdp"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire le champ 'Confirmation Mot de Passe' qui est  trop long.<br>";
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'Confirmation Mot de Passe' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_cmdp"]);
             }
       
         if (isset ($_SESSION["erreur_promotion"])){
-             echo "Erreur: La Promotion ne  doit contenir que des nombres<br>";
+             echo "<br>Erreur: La Promotion ne  doit contenir que des nombres<br>";
              unset( $_SESSION["erreur_promotion"]);
         }
         ?>
