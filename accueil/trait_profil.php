@@ -31,7 +31,7 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
           $_SESSION["mdpchok"]=1;
        }
        else {
-           $_SESSION["mdpconffail"];
+           $_SESSION["mdpconffail"]=1;
        }
        }
        else {
