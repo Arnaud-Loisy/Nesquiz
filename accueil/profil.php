@@ -35,7 +35,12 @@ include '../admin/secret.php';
           echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["languechok"]);
             unset( $_SESSION["mdpchok"]);
-        }             
+        }
+           if(isset($_SESSION["mdpconffail"])){
+                echo"<br>";
+                echo"Erreur:Différence entre la confirmation et le mot de passe.<br>";
+                unset($_SESSION["mdpconffail"]);
+           }
        
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
@@ -74,6 +79,10 @@ include '../admin/secret.php';
                     <tr>
                         <td>Nouveau mot de passe</td> 
                         <td><input name='newmdp' type ='password'></td>
+                    </tr>
+                    <tr>
+                        <td> Confirmation nouveau mot de passe</td> 
+                        <td><input name='cnewmdp' type ='password'></td>
                     </tr>
                 </table>
                 <input class='boutonCenter' value='Valider les changements' type='submit'>
