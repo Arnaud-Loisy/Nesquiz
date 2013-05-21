@@ -16,7 +16,7 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
                     $mdph=$arr["mdpetudiant"];
                                                          
             
-  if((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) ){
+  if((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))){
       $mdpnew=($_POST["newmdp"]);
       $mdpold=($_POST["oldmdp"]);
       $mdpcnew=($_POST["cnewmdp"]);
@@ -24,8 +24,7 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
       $mdphold=md5($mdpold);
       $mdphnew=md5($mdpnew);
       if($mdphcnew!=$mdphnew){
-          $_SESSION["mdpconffail"]=1;
-      }
+        
        if($mdph==$mdphold){
           pg_query($dbcon, "UPDATE Etudiants SET mdpEtudiant = '".$mdphnew."' WHERE idEtudiant=".$id);   
           $_SESSION["mdpchok"]=1;
@@ -33,6 +32,10 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
        else {
            $_SESSION["mdpfail"]=1;
        }
+      }
+       else{ 
+         $_SESSION["mdpconffail"]=1;
+      }
   }
    else {
            $_SESSION["mdpchfail"]=1;
