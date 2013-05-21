@@ -289,7 +289,7 @@ function requete_tous_idadminprof($idadminprof)
 {
     $requete = "SELECT idAdminProf 
                  FROM AdminProfs 
-                 WHERE idAdminProf =".$identifiant;
+                 WHERE idAdminProf =".$idadminprof;
     return $requete;
 }
 
@@ -300,7 +300,7 @@ function requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue)
     return $requete;
 }
 
-function requete_supprimer_prof($iadminprof)
+function requete_supprimer_prof($idadminprof)
 {
     $requete = "DELETE
                 FROM adminprofs
@@ -359,6 +359,10 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu,$idMatiere)
 				AND  idetudiant=".$idEtu." 
 				AND   idmatiere =".$idMatiere.";";
 	return $requete;
+}
+
+function requete_prof_devient_admin($idadminprof){
+    
 }
 
 ?>
