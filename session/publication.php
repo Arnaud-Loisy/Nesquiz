@@ -56,50 +56,24 @@
             // Afficher la liste des matières
             echo"<center>";
             echo"<br> Choix d'une matière : <br>";
-            /*
-              echo "<select name='idmatiere'>";
-              while ($arr = pg_fetch_array($result_matiere)) {
-              echo "<option value='" . $arr["idmatiere"] . "'> " . $arr["libellematiere"] . "</option> <br>";
-              }
-              echo "</select>";
-              echo "<input class='boutonCenter' type='submit' value='Quiz disponibles'>"; */
-
-
-
             echo "<div style='display: inline-table;' class='radioButtons'>";
-            $i = 0;
-            $idMatiere1;
-            while ($row = pg_fetch_array($result_matiere)) {
-                // Retenir l'id de la premiere matiere
-                if ($i == 0)
-                    $idMatiere1 = $row["idmatiere"];
 
+            while ($row = pg_fetch_array($result_matiere)) {
                 $libelleMatiere = $row["libellematiere"];
                 $idMatiere = $row["idmatiere"];
 
                 echo "<span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' />";
                 echo "<label for='radio_" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
-
-                $i++;
             }
             echo "</div>";
-
-
-
-            // Récupérer les quiz dispo
-            $result_quiz = pg_query($dbcon, requete_liste_quiz_entier_d_une_matiere($idMatiere1)) or die("Echec de la requête");
 
             // afficher les quiz dispo
             echo"<form action='trait_pub.php' method='GET'>";
             echo"<br>Quiz disponibles : <br>";
-            echo"<select id='select_idquiz' name='idquiz' style='width: 200px;'>";
-            while ($arr = pg_fetch_array($result_quiz)) {
-
-                echo "<option value='" . $arr["idquiz"] . "'> " . $arr["libellequiz"] . "</option>";
-            }
+            echo"<select id='select_idquiz' name='idquiz' style='width: 200px;'>";   
             echo "</select> <br>";
 
-            // Afficher le formulaire permettant de choisir mode et mdp
+            // Afficher choix mode de publication
             echo "<br> Mode de publication : <br>";
             echo "<div style='display: inline-table;' class='radioButtons'>";
             echo "<span class='rightRadioButton'>";
@@ -109,14 +83,15 @@
             echo "<label for='radio_mode2'> Quiz entier</label>";
             echo "</span>";
             echo "</div>";
-      
+            
+            // Afficher saisie mot de passe
             echo "   <br><br> Mot de passe de la session : <br>";
             echo "   <input type='text' name='mdpSession'> <br>";
             echo "   <input class='boutonCenter' type='submit' value='Publier'>";
             echo "</form>";
             echo"</center>";
             ?>
-            
+
         </form>
     </div>
 </body>
