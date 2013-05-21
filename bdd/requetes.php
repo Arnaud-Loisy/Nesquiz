@@ -369,4 +369,8 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu,$idMatiere)
 	return $requete;
 }
 
+function requete_prof_devient_admin($idadminprof){
+    
+}
+
 ?>
