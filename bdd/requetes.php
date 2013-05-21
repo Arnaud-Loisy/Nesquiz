@@ -297,7 +297,7 @@ function requete_tous_idadminprof($idadminprof)
 {
     $requete = "SELECT idAdminProf 
                  FROM AdminProfs 
-                 WHERE idAdminProf =".$identifiant;
+                 WHERE idAdminProf =".$idadminprof;
     return $requete;
 }
 
@@ -308,7 +308,7 @@ function requete_inserer_prof($identifiant,$nom, $prenom,$mdph,$adminb,$langue)
     return $requete;
 }
 
-function requete_supprimer_prof($iadminprof)
+function requete_supprimer_prof($idadminprof)
 {
     $requete = "DELETE
                 FROM adminprofs
