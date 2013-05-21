@@ -142,7 +142,7 @@
 				$libelleMatiere = $row["libellematiere"];
 				$idMatiere = $row["idmatiere"];
 				
-				//echo "<div style='width: 720px;'>";
+				echo "<div name='div_entete' style='width: 100%;'>";
 				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
 				echo "<span><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' checked='true'/>";
@@ -162,7 +162,7 @@
 			echo "<form style='display: table-cell; width 100px;' action = '../session/publication.php' method = 'POST'>";
 			echo "<input class = 'bouton' type = 'submit' value = 'Publier'>";
 			echo "</form>";
-			//echo "</div>";
+			echo "</div>";
 
 			if (!$dbcon)
 			{
@@ -172,7 +172,8 @@
 			{
 				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
-				echo "<table class = 'liste' id = 'table_libelles_quiz'>";
+				echo "<div name='div_colonne_gauche' style='float:left; width: 40%;'>";
+				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_quiz'>";
 				echo "<tbody>";
 				echo "<th>Nom du quiz</th>";
 
@@ -185,6 +186,15 @@
 				echo "</tbody>";
 				echo "</table>";
 			}
+			
+			echo "<form>";
+			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
+			echo "<input style='width: 50%;' type='text' value = 'Ex:IPV6'><br>";
+			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
+			echo "<input style='width: 50%;'  type='text' value = 'Ex:6m'><br>";
+			echo "<input type='button' value = 'Nouveau Quiz'>";
+			echo "</form>";
+			echo "</div>";
 
 			if (!$dbcon)
 			{
@@ -194,9 +204,10 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
-				echo "<table class = 'liste' id = 'table_libelles_questions_quiz'>";
-				echo "<tbody>";
-				echo "<th>Questions présentes</th>";
+				echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
+				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_questions_quiz'>";
+				echo "<thead><th>Questions présentes</th></thead>";
+				echo "<tbody style='display:block; overflow-x:auto; height:8em;'>";
 
 				while ($row = pg_fetch_array($result))
 				{
@@ -206,7 +217,7 @@
 					echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
 				}
 				echo "</tbody>";
-				echo "</table><br><br><br><br>";
+				echo "</table>";
 			}
 
 			if (!$dbcon)
@@ -226,6 +237,7 @@
 					echo "<option id = '$idQuestion' name='$libelleQuestion'>$libelleQuestion</option>";
 				}
 				echo "</select>";
+				echo "</div>";
 			}
 			?>   
 
