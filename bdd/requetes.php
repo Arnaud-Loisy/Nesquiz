@@ -362,7 +362,10 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu,$idMatiere)
 }
 
 function requete_prof_devient_admin($idadminprof){
-    
+    $requete = "UPDATE AdminProfs
+                SET admin = 'true'
+                WHERE idadminprof = ".$idadminprof.";";
+    return $requete;
 }
 
 ?>
