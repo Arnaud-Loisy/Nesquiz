@@ -8,6 +8,8 @@ $dbcon = connexionBDD();
 
 foreach($_POST['supprimer'] as $idadminprof)
             pg_query($dbcon,requete_supprimer_prof($idadminprof));
+foreach($_POST['admin'] as $idadminprof)
+            pg_query($dbcon,requete_prof_devient_admin($idadminprof));
 header('Location:./compte.php');
 
 ?>
