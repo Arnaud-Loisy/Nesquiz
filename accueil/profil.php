@@ -27,7 +27,7 @@ include '../admin/secret.php';
         }
      if(isset($_SESSION["mdpchfail"])){
           echo"<br>";
-          echo"Erreur:Veuillez bien remplir les deux champs pour le changement de mot de passe.<br>";
+          echo"Erreur:Veuillez bien remplir les trois champs pour le changement de mot de passe.<br>";
             unset( $_SESSION["mdpchfail"]);
         }   
      if((isset($_SESSION["languechok"])) || (isset($_SESSION["mdpchok"]))){
