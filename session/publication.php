@@ -70,7 +70,7 @@
             // afficher les quiz dispo
             echo"<form action='trait_pub.php' method='GET'>";
             echo"<br>Quiz disponibles : <br>";
-            echo"<select id='select_idquiz' name='idquiz' style='width: 200px;'>";   
+            echo"<select id='select_idquiz' name='idquiz' style='width: 200px;'>";
             echo "</select> <br>";
 
             // Afficher choix mode de publication
@@ -83,7 +83,7 @@
             echo "<label for='radio_mode2'> Quiz entier</label>";
             echo "</span>";
             echo "</div>";
-            
+
             // Afficher saisie mot de passe
             echo "   <br><br> Mot de passe de la session : <br>";
             echo "   <input type='text' name='mdpSession'> <br>";

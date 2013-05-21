@@ -13,7 +13,7 @@ if (isset($_POST["idMatiere"])) {
 
         echo"<select id='select_idquiz' name='idquiz' style= 'width: 200px;'>";
         while ($arr = pg_fetch_array($result_quiz)) {
-                echo "<option value='" . $arr['idquiz'] . "'> " . $arr['libellequiz'] . "</option>";
+            echo "<option value='" . $arr['idquiz'] . "'> " . $arr['libellequiz'] . "</option>";
         }
         echo "</select><br>";
     }
