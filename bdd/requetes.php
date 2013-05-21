@@ -166,14 +166,6 @@ function requete_nb_questions_repondues_par_un_etudiant($dateSession, $idEtu){
     return $request;
 }
 
-function requete_matieres_d_un_prof($idProf){
-    $request = "SELECT * FROM Matieres, AdminProfs, Enseigne 
-                    WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf 
-                    AND Matieres.idMatiere = Enseigne.idMatiere 
-                    AND AdminProfs.idAdminProf = ".$idProf.";";
-    return $request;
-}
-
 function requete_liste_quiz_d_une_matiere($idMatiere){
      $request="  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
                         FROM Quiz, Inclu, Questions, Matieres
