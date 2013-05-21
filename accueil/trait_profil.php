@@ -16,24 +16,33 @@ if ((isset($_SESSION["statut"]))&& ($_SESSION["statut"]=="etu")){
                     $mdph=$arr["mdpetudiant"];
                                                          
             
-  if((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) ){
+  if((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))){
       $mdpnew=($_POST["newmdp"]);
       $mdpold=($_POST["oldmdp"]);
+      $mdpcnew=($_POST["cnewmdp"]);
+      $mdphcnew=md5($mdpcnew);
       $mdphold=md5($mdpold);
       $mdphnew=md5($mdpnew);
-      
+     // if($mdphcnew!=$mdphnew){ ERREUR A PRENDRE EN COMPTE
+        
        if($mdph==$mdphold){
+           if($mdphcnew==$mdphnew){
           pg_query($dbcon, "UPDATE Etudiants SET mdpEtudiant = '".$mdphnew."' WHERE idEtudiant=".$id);   
           $_SESSION["mdpchok"]=1;
        }
        else {
+           $_SESSION["mdpconffail"];
+       }
+       }
+       else {
            $_SESSION["mdpfail"]=1;
        }
-  }
-   else {
+      }
+     
+     else {
            $_SESSION["mdpchfail"]=1;
        }
-    
+
   if(isset($_POST["langue"])){
       $langue=$_POST["langue"];
   

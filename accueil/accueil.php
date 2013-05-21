@@ -15,6 +15,9 @@
     <?php
     session_start();
     include '../accueil/menu.php';
+    if(!isset ($_SESSION["id"])){
+        header('Location:../index.php');
+    }
     echo"<br><h1> Bonjour ".$_SESSION["prenom"]." ".$_SESSION["nom"]."</h1>";
     
     ?>

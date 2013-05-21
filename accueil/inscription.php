@@ -14,28 +14,53 @@
         session_start();
         include '../accueil/menu.php';
         if(isset( $_SESSION["erreur_inscription_mdp"])){
-            echo"Erreur:Le mot de passe et sa confirmation sont différents.<br>";
+            echo"<br>Erreur:Le mot de passe et sa confirmation sont différents.<br>";
             unset( $_SESSION["erreur_inscription_mdp"]);
         }
          if(isset( $_SESSION["erreur_inscription_numero_etu"])){
-            echo"Erreur:Ce numéro étudiant possède déjà un compte.<br>";
+            echo"<br>Erreur:Ce numéro étudiant possède déjà un compte.<br>";
             unset( $_SESSION["erreur_inscription_numero_etu"]);
         }
         if (isset( $_SESSION["erreur_inscription_incomplet"])){
-             echo"Erreur:Veuillez remplir tous les champs du formulaire.<br>";
+             echo"<br>Erreur:Veuillez remplir tous les champs du formulaire.<br>";
                 unset( $_SESSION["erreur_inscription_incomplet"]);
         }
-        if (isset( $_SESSION["erreur_longeur_champ_inscription"])){
-            echo"Erreur:La longueur maximale des champs est de 32 caratères. <br>";
-            echo "Veuillez réduire les champs trop long.<br>";
-                unset( $_SESSION["erreur_longeur_champ_inscription"]);
+        if (isset( $_SESSION["erreur_longeur_champ_inscription_nom"])){
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'nom' qui est  trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription_nom"]);
             }
-        if (isset(  $_SESSION["erreur_num_etu"])){
-            echo "Erreur: Le Numéro étudiant ne doit contenir que des nombres<br>";
-            unset( $_SESSION["erreur_num_etu"]);
+                if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription_prenom"]);
+            }
+                if (isset( $_SESSION["erreur_longeur_champ_inscription_etu"])){
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'numero etudiant' qui est  trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription_etu"]);
+            }
+                if (isset( $_SESSION["erreur_longeur_champ_inscription_promotion"])){
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'promotion' qui est  trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription_promotion"]);
+            }
+                if (isset( $_SESSION["erreur_longeur_champ_inscription_mdp"])){
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'Mot De Passe' qui est  trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription_mdp"]);
+            }
+                if (isset( $_SESSION["erreur_longeur_champ_inscription_cmdp"])){
+            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+            echo "<br>Veuillez réduire le champ 'Confirmation Mot de Passe' qui est  trop long.<br>";
+                unset( $_SESSION["erreur_longeur_champ_inscription_cmdp"]);
+            }
+        if (isset ( $_SESSION["erreur_num_etu"])){
+             echo "<br>Erreur: Le Numéro Etudiant ne  doit contenir que des nombres<br>";
+             unset( $_SESSION["erreur_num_etu"]);
         }
         if (isset ($_SESSION["erreur_promotion"])){
-             echo "Erreur: La Promotion ne  doit contenir que des nombres<br>";
+             echo "<br>Erreur: La Promotion ne  doit contenir que des nombres<br>";
              unset( $_SESSION["erreur_promotion"]);
         }
         ?>
@@ -48,7 +73,7 @@
 		<tr>
         		<td>Prénom :</td> <td> <input name="prenom" type="text" > </td> </tr>
         	<tr>	
-        		<td>N°Etudiant :</td> <td><input name="numero_etu" type="text" > </td> </tr>
+        		<td>N°Etudiant (votre futur Login):</td> <td><input name="numero_etu" type="text" > </td> </tr>
         	<tr>
         		<td>Promotion :</td> <td> <input name="promotion" type="text" > </td> </tr>
         	<tr>

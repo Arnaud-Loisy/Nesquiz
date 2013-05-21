@@ -62,10 +62,31 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
     }
     }
     else { 
-        $_SESSION["erreur_longeur_champ_inscription"]=1;
+        if((strlen($_POST["nom"]) > 32 )){
+        $_SESSION["erreur_longeur_champ_inscription_nom"]=1;
         header('Location:./inscription.php');
-               
-    }
+        }
+        if(strlen($_POST["prenom"]) > 32){
+        $_SESSION["erreur_longeur_champ_inscription_prenom"]=1;
+        header('Location:./inscription.php');
+        }
+        if(strlen($_POST["numero_etu"]) > 32){
+        $_SESSION["erreur_longeur_champ_inscription_etu"]=1;
+        header('Location:./inscription.php');
+        }
+        if(strlen($_POST["promotion"]) > 32){
+        $_SESSION["erreur_longeur_champ_inscription_promotion"]=1;
+        header('Location:./inscription.php');
+        }
+        if(strlen($_POST["mdp"]) > 32){
+        $_SESSION["erreur_longeur_champ_inscription_mdp"]=1;
+        header('Location:./inscription.php');
+        }
+        if(strlen($_POST["cmdp"]) > 32){
+        $_SESSION["erreur_longeur_champ_inscription_cmdp"]=1;
+        header('Location:./inscription.php');
+        }
+        }
       }
     else {
         $_SESSION["erreur_inscription_incomplet"]=1;

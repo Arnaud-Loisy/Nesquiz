@@ -294,6 +294,7 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 	$requete = "SELECT idadminprof,nomadminprof,prenomadminprof
                 FROM adminprofs
                 ORDER BY nomadminprof";
+	
 	return $requete;
 }
 
@@ -301,7 +302,7 @@ function requete_tous_idadminprof($idadminprof)
 {
 	$requete = "SELECT idAdminProf 
                  FROM AdminProfs 
-                 WHERE idAdminProf =".$identifiant;
+                 WHERE idAdminProf =".$idadminprof.";";
 	return $requete;
 }
 
@@ -316,7 +317,7 @@ function requete_supprimer_prof($iadminprof)
 {
 	$requete = "DELETE
                 FROM adminprofs
-                WHERE idadminprof ='".$idadminprof."'";
+                WHERE idadminprof =".$idadminprof.";";
 	return $requete;
 }
 
@@ -338,7 +339,7 @@ function requete_nombre_de_sessions_d_un_etudiant($idEtu)
 {
 	$requete = "SELECT count (*) 
 				FROM participe
-				WHERE idetudiant =$idEtu;";
+				WHERE idetudiant =".$idEtu.";";
 	return $requete;
 }
 
@@ -358,7 +359,7 @@ function requete_sessions_d_un_etudiant($idEtu)
 {
 	$requete = "SELECT dateSession 
 				FROM participe
-				WHERE idetudiant =$idEtu;";
+				WHERE idetudiant =".$idEtu.";";
 	return $requete;
 }
 
