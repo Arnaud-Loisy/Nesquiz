@@ -42,7 +42,7 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) {
         $_SESSION["mdpchfail"] = 1;
     }
   }
-    if (isset($_POST["langue"])) {
+    if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
         $langue = $_POST["langue"];
 
         pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
