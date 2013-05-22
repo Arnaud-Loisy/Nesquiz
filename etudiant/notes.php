@@ -90,7 +90,7 @@
 							<td>".$libelleMatiere."</td>
 							<td> ".moyenneMatiere($idEtu,$idMatiere)."% </td>
 							<td>".$nbSession['count']."</td>
-							<td> XX.XX% </td>
+							<td> ".moyennePromotionMatiere($promo, $idMatiere)."% </td>
 							<td> XX/XX </td>
 						</tr>";
 				}
