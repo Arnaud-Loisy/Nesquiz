@@ -26,7 +26,7 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) {
         $mdphcnew = md5($mdpcnew);
         $mdphold = md5($mdpold);
         $mdphnew = md5($mdpnew);
-        // if($mdphcnew!=$mdphnew){ ERREUR A PRENDRE EN COMPTE
+        
 
         if ($mdph == $mdphold) {
             if ($mdphcnew == $mdphnew) {
