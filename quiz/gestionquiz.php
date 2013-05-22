@@ -55,7 +55,9 @@
 
 			function ChangerMatiereEnCours(radioButton)
 			{
+				//**
 				//Modification de la liste des questions dans cette matiere
+				//**
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
 				var value = radioButton.value;
 				var xhr = new XMLHttpRequest();
@@ -69,11 +71,12 @@
 					 document.getElementById("loader").style.display = "inline";
 					 }*/
 				};
-				
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdMatiere=" + value);
 				
+				//**
 				//Modification de la liste des quiz dans cette matiere
+				//**
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
 				var xhr2 = new XMLHttpRequest();
 				xhr2.open("POST", "xhr_getListeQuizParMatiere.php", true);
@@ -86,9 +89,15 @@
 					 document.getElementById("loader").style.display = "inline";
 					 }*/
 				};
-
 				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr2.send("IdMatiere=" + value);
+				
+				//**
+				//Modification de la liste des questions dans un quiz donne
+				//**
+				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>\
+																						<thead><th>Questions présentes</th></thead>\
+																						<tbody></tbody></table>";
 			}
 
 			function ChangerQuizEnCours(ligneTableau)
@@ -174,8 +183,8 @@
 
 				echo "<div name='div_colonne_gauche' style='float:left; width: 40%;'>";
 				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_quiz'>";
+				echo "<thead><th>Questions présentes</th></thead>";
 				echo "<tbody>";
-				echo "<th>Nom du quiz</th>";
 
 				while ($row = pg_fetch_array($result))
 				{
@@ -205,9 +214,9 @@
 				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
 				echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
-				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_questions_quiz'>";
+				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>";
 				echo "<thead><th>Questions présentes</th></thead>";
-				echo "<tbody style='display:block; overflow-x:auto; height:8em;'>";
+				echo "<tbody>";
 
 				while ($row = pg_fetch_array($result))
 				{
@@ -228,7 +237,7 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere(1));
 
-				echo "<select id='select_questions_matiere'>";
+				echo "<select style='width: 100%;' id='select_questions_matiere'>";
 
 				while ($row = pg_fetch_array($result))
 				{
