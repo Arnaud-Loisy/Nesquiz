@@ -20,6 +20,8 @@ include '../admin/secret.php';
 				header('Location:../index.php'); //si non connecté.
 			}
 		var_dump($_SESSION);
+                var_dump($_SESSION["mdpchok"]);
+                var_dump($_SESSION["languechok"]);
      if(isset($_SESSION["mdpfail"])){
          echo"<br>";
          echo"Erreur:L'ancien mot de passe n'est pas bon.<br>";
