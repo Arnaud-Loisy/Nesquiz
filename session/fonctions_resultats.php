@@ -263,13 +263,17 @@ function rangEtudiantGeneral($idEtu){
         //$nomEtu = $listeEtudiants["nometudiant"];
 
         $classement[] = array("idetudiant" => $idEtu, "note" => moyenneGenerale($idEtu));
+        
     }
-
+//var_dump($classement);
     // Trier les élèves par note décroissante
     usort($classement, "cmpNotes");
+    var_dump($classement);
     for ($i = 0; $i < count($classement); $i++) {
         if ($classement[$i]["idetudiant"] == $idEtu)
+		//var_dump($classement);
             return ($i + 1);
     }
+	
 }
 ?>
