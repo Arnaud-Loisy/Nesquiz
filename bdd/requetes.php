@@ -313,7 +313,7 @@ function requete_inserer_prof($identifiant, $nom, $prenom, $mdph, $adminb, $lang
 	return $requete;
 }
 
-function requete_supprimer_prof($iadminprof)
+function requete_supprimer_prof($idadminprof)
 {
 	$requete = "DELETE
                 FROM adminprofs
@@ -381,6 +381,14 @@ function requete_etudiant_d_une_promo($promo)
 				FROM etudiants
 				WHERE promo=".$promo.";";
 	return $requete;
+}
+
+function requete_prof_devient_admin($idadminprof){
+    $requete = "UPDATE AdminProfs
+                SET admin = 'true'
+                WHERE idadminprof = ".$idadminprof.";";
+    return $requete;
+
 }
 
 function requete_promo_d_un_etudiant($idEtu)
