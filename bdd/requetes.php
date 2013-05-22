@@ -391,4 +391,14 @@ function requete_promo_d_un_etudiant($idEtu)
 	return $requete;
 }
 
+function requete_liste_quiz_entier_d_une_matiere($idMatiere){
+    $request="  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+                        FROM Quiz, Inclu, Questions, Matieres
+                        WHERE Quiz.idQuiz = Inclu.idQuiz
+                        AND Questions.idQuestion = Inclu.idQuestion
+                        AND Questions.idMatiere = Matieres.idMatiere
+                        AND Matieres.idMatiere =".$idMatiere."
+                        AND Quiz.tempsQuiz != 0;";
+    return $request;
+}
 ?>
