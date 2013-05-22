@@ -417,4 +417,11 @@ function requete_liste_quiz_entier_d_une_matiere($idMatiere){
                         AND Quiz.tempsQuiz != 0;";
     return $request;
 }
+
+function requete_si_admin($idadminprof){
+    $requete="SELECT admin
+              FROM adminprofs
+              WHERE idadminprof =".$idadminprof.";";
+    return $requete;
+}
 ?>
