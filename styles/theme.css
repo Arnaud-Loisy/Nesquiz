@@ -2,9 +2,9 @@
     font-family: 'pacayamedium';
     src: url('pacaya-webfont.eot');
     src: url('pacaya-webfont.eot?#iefix') format('embedded-opentype'),
-         url('pacaya-webfont.woff') format('woff'),
-         url('pacaya-webfont.ttf') format('truetype'),
-         url('pacaya-webfont.svg#pacayamedium') format('svg');
+		url('pacaya-webfont.woff') format('woff'),
+		url('pacaya-webfont.ttf') format('truetype'),
+		url('pacaya-webfont.svg#pacayamedium') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -16,7 +16,7 @@
 .checkB input[type="checkbox"]:checked + label { 
 	background-color: #009E0F;
 	color: white;
-	
+
 }
 
 .checkB label {
@@ -161,7 +161,7 @@ input.bouton:active {
 	display: table;
 	vertical-align: 50%;
 	text-align: center;
-	
+
 	border: 1px solid rgb(102, 102, 102);
 	/*position: absolute;*/
 }
@@ -185,6 +185,12 @@ input.bouton:active {
 	background-color: rgb(204, 204, 204);
 }
 
+.listeScrollable tbody {
+	display:block;
+	overflow-x:auto;
+	height:10em;
+}
+
 .scroll{
     min-height: 60px;
     height:160px;
@@ -194,7 +200,7 @@ input.bouton:active {
 }
 
 .border,.border td,.border tr{
-    	border: 1px solid black;
+	border: 1px solid black;
 	border-collapse: collapse;
 }
 
