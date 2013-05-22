@@ -383,6 +383,14 @@ function requete_etudiant_d_une_promo($promo)
 	return $requete;
 }
 
+function requete_nb_etudiant_d_une_promo($promo)
+{
+	$requete = "SELECT COUNT(idetudiant)
+				FROM etudiants
+				WHERE promo=".$promo.";";
+	return $requete;
+}
+
 function requete_prof_devient_admin($idadminprof){
     $requete = "UPDATE AdminProfs
                 SET admin = 'true'
