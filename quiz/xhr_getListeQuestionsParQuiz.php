@@ -15,9 +15,9 @@ if (isset($_POST["IdQuiz"]))
 	{
 		$result = pg_query($dbcon, requete_toutes_questions_dans_quiz($idQuiz));
 
-		echo "<table class = 'liste' id = 'table_libelles_questions_quiz'>";
+		echo "<table class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>";
+		echo "<thead><th>Questions présentes</th></thead>";
 		echo "<tbody>";
-		echo "<th>Questions présentes</th>";
 
 		while ($row = pg_fetch_array($result))
 		{
