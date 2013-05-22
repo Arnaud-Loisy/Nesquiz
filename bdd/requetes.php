@@ -294,7 +294,7 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 	$requete = "SELECT idadminprof,nomadminprof,prenomadminprof
                 FROM adminprofs
                 ORDER BY nomadminprof";
-	
+
 	return $requete;
 }
 
@@ -383,12 +383,19 @@ function requete_etudiant_d_une_promo($promo)
 	return $requete;
 }
 
+function requete_nb_etudiant_d_une_promo($promo)
+{
+	$requete = "SELECT COUNT(idetudiant)
+				FROM etudiants
+				WHERE promo=".$promo.";";
+	return $requete;
+}
+
 function requete_prof_devient_admin($idadminprof){
     $requete = "UPDATE AdminProfs
                 SET admin = 'true'
                 WHERE idadminprof = ".$idadminprof.";";
-    return $requete;
-
+	return $requete;
 }
 
 function requete_promo_d_un_etudiant($idEtu)
@@ -399,15 +406,16 @@ function requete_promo_d_un_etudiant($idEtu)
 	return $requete;
 }
 
-function requete_liste_quiz_entier_d_une_matiere($idMatiere){
-    $request="  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+function requete_liste_quiz_entier_d_une_matiere($idMatiere)
+{
+	$request = "  SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
                         FROM Quiz, Inclu, Questions, Matieres
                         WHERE Quiz.idQuiz = Inclu.idQuiz
                         AND Questions.idQuestion = Inclu.idQuestion
                         AND Questions.idMatiere = Matieres.idMatiere
                         AND Matieres.idMatiere =".$idMatiere."
                         AND Quiz.tempsQuiz != 0;";
-    return $request;
+	return $request;
 }
 
 function requete_si_admin($idadminprof){
@@ -417,10 +425,11 @@ function requete_si_admin($idadminprof){
     return $requete;
 }
 
-function requete_admin_devient_prof($idadminprof){
-    $requete="UPDATE Adminprofs
-              SET admin='false'
-              WHERE idadminprof=".$idadminprof.";";
-    return $requete;
+function requete_creer_quiz($nomQuiz, $tempsQuiz)
+{
+	$request = "INSERT INTO QUIZ (libellequiz,tempsquiz) VALUES ('".$nomQuiz."','".$tempsQuiz."');";
+
+	return $request;
 }
+
 ?>
