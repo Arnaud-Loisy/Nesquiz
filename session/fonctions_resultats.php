@@ -262,7 +262,7 @@ function rangEtudiantGeneral($idEtu){
         //$prenomEtu = $listeEtudiants["prenometudiant"];
         //$nomEtu = $listeEtudiants["nometudiant"];
 
-        $classement[] = array("idetudiant" => $listeidEtu, "note" => moyenneGenerale($idEtu));
+        $classement[] = array("idetudiant" => $listeidEtu, "note" => moyenneGenerale($listeidEtu));
         
     }
 //var_dump($classement);
