@@ -40,9 +40,16 @@
                 echo"<tr>
                         <td class='identifiant'>" . $idadminprof . "</td>
                         <td class='nom'>" . $nomadminprof . "</td>
-                        <td class='prenom'>" . $prenomadminprof . "</td>
-                        <td class='admin'><input type='checkbox' name='admin' value='" . $idadminprof . "'></td>
-                        <td class='supprimer'><input type='checkbox' name='supprimer[]' value='" . $idadminprof . "'></td>
+                        <td class='prenom'>" . $prenomadminprof . "</td>";
+                $resultatAdmin = pg_query ($dbcon, requete_si_admin ($idadminprof));
+                $arrAdmin = pg_fetch_array ($resultatAdmin);
+                $admin = $arrAdmin['admin'];
+                if ($admin == 't')
+                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
+                else
+                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
+
+                echo"<td class='supprimer'><input type='checkbox' name='supprimer[]' value='" . $idadminprof . "'></td>
                     </tr>";
             }
             ?>
