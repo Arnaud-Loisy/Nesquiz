@@ -31,7 +31,7 @@ include '../admin/secret.php';
             unset( $_SESSION["mdpchfail"]);
         }   
      if((isset($_SESSION["mdpchok"]))){
-          echo"votre changement à été effectué avec succès.<br>";
+          echo"<br>votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["languechok"]);
             unset( $_SESSION["mdpchok"]);
         }
