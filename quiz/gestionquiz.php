@@ -196,12 +196,12 @@
 				echo "</table>";
 			}
 			
-			echo "<form>";
+			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
 			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
-			echo "<input style='width: 50%;' type='text' value = 'Ex:IPV6'><br>";
+			echo "<input style='width: 50%;' type='text' value = 'Ex:IPV6' name='nomQuiz'><br>";
 			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
-			echo "<input style='width: 50%;'  type='text' value = 'Ex:6m'><br>";
-			echo "<input type='button' value = 'Nouveau Quiz'>";
+			echo "<input style='width: 50%;'  type='text' value = 'Ex:6m' name='tempsQuiz'><br>";
+			echo "<input type='submit' value = 'Nouveau Quiz'>";
 			echo "</form>";
 			echo "</div>";
 
