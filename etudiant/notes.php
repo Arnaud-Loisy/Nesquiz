@@ -52,6 +52,10 @@
 				$row = pg_fetch_array($result);
 				$totalSession = $row["count"];
 				
+				$resPromo = pg_query($dbcon, requete_promo_d_un_etudiant($idEtu));
+					$rowP = pg_fetch_array($resPromo);
+					$promo = $rowP['promo'];
+				
 				
 				
 				
@@ -69,7 +73,7 @@
 							<td> Toutes </td>
 							<td> ".moyenneGenerale($idEtu)."% </td>
 							<td>".$totalSession."</td>
-							<td> XX.YY% </td>
+							<td> ".moyenneGeneralePromotion($promo)."% </td>
 							<td> XX/YY </td>
 						</tr>";
 						
