@@ -258,11 +258,11 @@ function rangEtudiantGeneral($idEtu){
 	
     $idEtuu = pg_query($dbcon, requete_etudiant_d_une_promo($promo['promo']));
     while ($listeEtudiants = pg_fetch_array($idEtuu)) {
-        $idEtu = $listeEtudiants["idetudiant"];
+        $listeidEtu = $listeEtudiants["idetudiant"];
         //$prenomEtu = $listeEtudiants["prenometudiant"];
         //$nomEtu = $listeEtudiants["nometudiant"];
 
-        $classement[] = array("idetudiant" => $idEtu, "note" => moyenneGenerale($idEtu));
+        $classement[] = array("idetudiant" => $listeidEtu, "note" => moyenneGenerale($idEtu));
         
     }
 //var_dump($classement);
