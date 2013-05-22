@@ -45,7 +45,7 @@
                 $arrAdmin = pg_fetch_array ($resultatAdmin);
                 $admin = $arrAdmin['admin'];
                 if ($admin == 't')
-                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
+                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='admin_" . $idadminprof . "' checked></td>";
                 else
                     echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
 
@@ -56,7 +56,7 @@
         </table>
     </div>
     <br>
-    <input  class='bouton'type='submit' name='Valider' value='Valider'>
+    <input  class='bouton' value='Valider' type='submit'>
 </form>
 <form action='creercompte.php' method='POST'>
     <br>
@@ -82,9 +82,11 @@
             <td>Langue de l'interface :</td> <td> <select name="langue"> 
                     <option value='fr'>Français</option>
                     <option value='en'>English</option>
-                </select>  </td> </tr>
+                </select>  </td>
         </tr>
-        <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td><br>
+        <tr>
+            <td colspan=2 style ="text-align: center"> <input type="checkbox" name="admin" value="1"> Admin </td>
+        </tr>
     </table>
     <input class="boutonCenter" value="Ajouter" type="submit">
 
