@@ -383,6 +383,14 @@ function requete_etudiant_d_une_promo($promo)
 	return $requete;
 }
 
+function requete_prof_devient_admin($idadminprof){
+    $requete = "UPDATE AdminProfs
+                SET admin = 'true'
+                WHERE idadminprof = ".$idadminprof.";";
+    return $requete;
+
+}
+
 function requete_promo_d_un_etudiant($idEtu)
 {
 	$requete = "SELECT promo
