@@ -383,9 +383,16 @@ function requete_etudiant_d_une_promo($promo)
 	return $requete;
 }
 
-function requete_prof_devient_admin($idadminprof)
+function requete_nb_etudiant_d_une_promo($promo)
 {
-	$requete = "UPDATE AdminProfs
+	$requete = "SELECT COUNT(idetudiant)
+				FROM etudiants
+				WHERE promo=".$promo.";";
+	return $requete;
+}
+
+function requete_prof_devient_admin($idadminprof){
+    $requete = "UPDATE AdminProfs
                 SET admin = 'true'
                 WHERE idadminprof = ".$idadminprof.";";
 	return $requete;
@@ -411,11 +418,10 @@ function requete_liste_quiz_entier_d_une_matiere($idMatiere)
 	return $request;
 }
 
-function requete_creer_quiz($nomQuiz, $tempsQuiz)
-{
-	$request = "INSERT INTO QUIZ (libellequiz,tempsquiz) VALUES ('".$nomQuiz."','".$tempsQuiz."');";
-
-	return $request;
+function requete_si_admin($idadminprof){
+    $requete="SELECT admin
+              FROM adminprofs
+              WHERE idadminprof =".$idadminprof.";";
+    return $requete;
 }
-
 ?>

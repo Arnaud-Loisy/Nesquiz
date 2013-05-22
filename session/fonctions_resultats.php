@@ -88,7 +88,9 @@ function moyenneGeneralePromotion($numPromo) {
     }
 
 
-    return round($total / $totalSession, 2);
+    if ($totalSession == 0)
+        return 0;
+    else return round($total / $totalSession, 2);
 }
 
 function moyenneMatiere($idEtu, $idMatiere) {
@@ -104,7 +106,28 @@ function moyenneMatiere($idEtu, $idMatiere) {
     $array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
     $row = pg_fetch_array($array);
     $nbSession = $row['count'];
-    return round($total / $nbSession, 2);
+    
+    if ($nbSession == 0)
+        return 0;
+    else return round($total / $nbSession, 2);
+}
+
+function moyennePromotionMatiere($promo, $idMatiere) {
+    global $dbcon;
+
+    $total = 0.0;
+    $totalSession = 0;
+    $idEtu = pg_query($dbcon, requete_etudiant_d_une_promo($promo));
+    while ($res = pg_fetch_array($idEtu)) {
+        $total+=moyenneMatiere(($res['idetudiant']),$idMatiere);
+        $array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($res['idetudiant']));
+        $row = pg_fetch_array($array);
+        $totalSession += $row['count'];
+		
+    }
+	if ($totalSession == 0)
+        return 0;
+    else return round($total / $totalSession, 2);
 }
 
 // Retourne la note moyenne des étudiants de la session
@@ -201,4 +224,52 @@ function rangEtudiant($idEtu, $dateSession) {
     }
 }
 
+function rangEtudiantMatiere($idEtu, $matiere) {
+    
+	global $dbcon;
+    $classement = array();
+    
+    $respromo= pg_query($dbcon, requete_promo_d_un_etudiant($idEtu));
+	$promo = pg_fetch_array($respromo);
+	
+    $idEtuu = pg_query($dbcon, requete_etudiant_d_une_promo($promo['promo']));
+    while ($listeEtudiants = pg_fetch_array($idEtuu)) {
+        $idEtu = $listeEtudiants["idetudiant"];
+        //$prenomEtu = $listeEtudiants["prenometudiant"];
+        //$nomEtu = $listeEtudiants["nometudiant"];
+
+        $classement[] = array("idetudiant" => $idEtu, "note" => moyenneMatiere($idEtu, $matiere));
+    }
+
+    // Trier les élèves par note décroissante
+    usort($classement, "cmpNotes");
+    for ($i = 0; $i < count($classement); $i++) {
+        if ($classement[$i]["idetudiant"] == $idEtu)
+            return ($i + 1);
+    }
+}
+
+function rangEtudiantGeneral($idEtu){
+	global $dbcon;
+    $classement = array();
+    
+    $respromo= pg_query($dbcon, requete_promo_d_un_etudiant($idEtu));
+	$promo = pg_fetch_array($respromo);
+	
+    $idEtuu = pg_query($dbcon, requete_etudiant_d_une_promo($promo['promo']));
+    while ($listeEtudiants = pg_fetch_array($idEtuu)) {
+        $idEtu = $listeEtudiants["idetudiant"];
+        //$prenomEtu = $listeEtudiants["prenometudiant"];
+        //$nomEtu = $listeEtudiants["nometudiant"];
+
+        $classement[] = array("idetudiant" => $idEtu, "note" => moyenneGenerale($idEtu));
+    }
+
+    // Trier les élèves par note décroissante
+    usort($classement, "cmpNotes");
+    for ($i = 0; $i < count($classement); $i++) {
+        if ($classement[$i]["idetudiant"] == $idEtu)
+            return ($i + 1);
+    }
+}
 ?>
