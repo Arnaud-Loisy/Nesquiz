@@ -30,7 +30,7 @@ include '../admin/secret.php';
           echo"Erreur:Veuillez bien remplir les trois champs pour le changement de mot de passe.<br>";
             unset( $_SESSION["mdpchfail"]);
         }   
-     if(((isset($_SESSION["languechok"])) || (isset($_SESSION["mdpchok"])))&& ((!isset($_SESSION["mdpconffail"])) && (!isset($_SESSION["mdpchfail"])) && (!isset($_SESSION["mdpfail"])))) { // A FINIR
+     if(((isset($_SESSION["languechok"])) || (isset($_SESSION["mdpchok"])))&& (((!isset($_SESSION["mdpconffail"])) && (!isset($_SESSION["mdpchfail"])) && (!isset($_SESSION["mdpfail"]))))) { // A FINIR
           echo"<br>";
           echo"votre changement à été effectué avec succès.<br>";
             unset( $_SESSION["languechok"]);
