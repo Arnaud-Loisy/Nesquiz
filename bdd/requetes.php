@@ -424,4 +424,12 @@ function requete_si_admin($idadminprof){
               WHERE idadminprof =".$idadminprof.";";
     return $requete;
 }
+
+function requete_creer_quiz($nomQuiz, $tempsQuiz)
+{
+	$request = "INSERT INTO QUIZ (libellequiz,tempsquiz) VALUES ('".$nomQuiz."','".$tempsQuiz."');";
+
+	return $request;
+}
+
 ?>
