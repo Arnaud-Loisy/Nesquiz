@@ -431,5 +431,10 @@ function requete_creer_quiz($nomQuiz, $tempsQuiz)
 
 	return $request;
 }
-
+function requete_admin_devient_prof($idadminprof){
+    $requete="UPDATE Adminprofs
+              SET admin='false'
+              WHERE idadminprof=".$idadminprof.";";
+    return $requete;
+}
 ?>
