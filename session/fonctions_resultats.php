@@ -268,7 +268,7 @@ function rangEtudiantGeneral($idEtu){
 //var_dump($classement);
     // Trier les élèves par note décroissante
     usort($classement, "cmpNotes");
-    var_dump($classement);
+    //var_dump($classement);
     for ($i = 0; $i < count($classement); $i++) {
         if ($classement[$i]["idetudiant"] == $idEtu)
 		//var_dump($classement);
