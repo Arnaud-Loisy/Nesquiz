@@ -416,4 +416,11 @@ function requete_si_admin($idadminprof){
               WHERE idadminprof =".$idadminprof.";";
     return $requete;
 }
+
+function requete_admin_devient_prof($idadminprof){
+    $requete="UPDATE Adminprofs
+              SET admin='false'
+              WHERE idadminprof=".$idadminprof.";";
+    return $requete;
+}
 ?>
