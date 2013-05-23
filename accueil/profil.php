@@ -22,24 +22,35 @@ include '../admin/secret.php';
 		
      if(isset($_SESSION["mdpfail"])){
          echo"<br>";
-         echo"Erreur:L'ancien mot de passe n'est pas bon.<br>";
+         echo"Erreur: L'ancien mot de passe n'est pas bon.<br>";
             unset( $_SESSION["mdpfail"]);
         }
-     if(isset($_SESSION["mdpchfail"])){
+    
+          if (isset($_SESSION["languechok"])){
+               echo"<br>Votre changement à été effectué avec succès.<br>";
+               unset( $_SESSION["languechok"]);
+          }
+              
+              
+              
+               if((isset($_SESSION["mdpchfail"]))) {
           echo"<br>";
-          echo"Erreur:Veuillez bien remplir les trois champs pour le changement de mot de passe.<br>";
+          echo"Erreur: Veuillez bien remplir les trois champs pour le changement de mot de passe.<br>";
             unset( $_SESSION["mdpchfail"]);
-        }   
+           
+            }
+           
      if((isset($_SESSION["mdpchok"]))){
-          echo"<br>votre changement à été effectué avec succès.<br>";
-            unset( $_SESSION["languechok"]);
-            unset( $_SESSION["mdpchok"]);
+          echo"<br>Votre changement à été effectué avec succès.<br>";
+           unset( $_SESSION["mdpchok"]);
         }
            if(isset($_SESSION["mdpconffail"])){
                 echo"<br>";
-                echo"Erreur:Différence entre la confirmation et le mot de passe.<br>";
+                echo"Erreur: Différence entre la confirmation et le mot de passe.<br>";
                 unset($_SESSION["mdpconffail"]);
            }
+         
+           
        
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
@@ -60,10 +71,9 @@ include '../admin/secret.php';
                         <td>Prénom</td>
                         <td>".$prenom."</td>
                     </tr>       
+                                
                     <tr>
-                        <td colspan=2 >Changer la langue de l'interface </td></tr>                
-                    <tr>
-                        <td>Langue de l'interface :</td> 
+                        <td>Langue de l'interface </td> 
                         <td> <select name='langue'> 
                                  <option value='fr'>Français</option>
                                  <option value='en'>English</option>
