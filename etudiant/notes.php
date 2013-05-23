@@ -7,7 +7,7 @@
 		<script type='text/javascript'>
 			function changerStats(radiobtn) {
 				var idMatiere = radiobtn.value;
-				var libelleMatiere = radiobtn.id;
+				
 				var xhr = new XMLHttpRequest();
 
 				xhr.open("POST", "xhr_notes_detaillees.php", true);
@@ -21,7 +21,7 @@
 
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhr.send("idMatiere=" + idMatiere);
-				xhr.send("libelleMatiere=" + libelleMatiere);
+				
 
 			}
 
