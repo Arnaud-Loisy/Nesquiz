@@ -52,7 +52,7 @@
 
 				echo "<h1 >Mes Notes :</h1>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
-				echo "<span><input onClick = 'ChangerStats(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
+				echo "<span><input onClick = 'changerStats(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
 				echo "<label for='radio_Toutes'>Toutes</label></span>";
 
 				while ($row = pg_fetch_array($result))
@@ -60,7 +60,7 @@
 					$libelleMatiere = $row["libellematiere"];
 					$idMatiere = $row["idmatiere"];
 
-					echo "<span class='rightRadioButton'><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' />";
+					echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' />";
 					echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
 				}
 				echo "</div>";
