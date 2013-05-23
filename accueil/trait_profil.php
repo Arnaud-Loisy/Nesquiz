@@ -26,7 +26,7 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) {
         $mdphcnew = md5($mdpcnew);
         $mdphold = md5($mdpold);
         $mdphnew = md5($mdpnew);
-        
+       
 
         if ($mdph == $mdphold) {
             if ($mdphcnew == $mdphnew) {
@@ -42,7 +42,10 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) {
         $_SESSION["mdpchfail"] = 1;
     }
   }
-   /*if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
+  else {
+         $_SESSION["languechok"] = 1;
+  }
+      /*if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
         $langue = $_POST["langue"];
 
         pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
@@ -80,6 +83,9 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
     } else {
         $_SESSION["mdpchfail"] = 1;
     }
+  }
+  else {
+         $_SESSION["languechok"] = 1;
   }
    /*if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
         $langue = $_POST["langue"];
