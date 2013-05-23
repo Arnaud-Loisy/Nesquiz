@@ -61,7 +61,7 @@
 						echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					}
 					echo "</div>";
-					
+					/*
 
 					echo "<br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
@@ -73,12 +73,12 @@
 						</tr>
 						<tr>
 							<td> Toutes </td>
-							<td>  '. moyenneGenerale($idEtu) . '% </td>
-							<td>' . $totalSession . '</td>
-							<td> ' . moyenneGeneralePromotion($promo) . '% </td>
-							<td> ' . rangEtudiantGeneral($idEtu) . '/' . $ranknb . ' </td>
+							<td> " . moyenneGenerale($idEtu) . "% </td>
+							<td>" . $totalSession . "</td>
+							<td> " . moyenneGeneralePromotion($promo) . "% </td>
+							<td> " . rangEtudiantGeneral($idEtu) . "/" . $ranknb . " </td>
 						</tr>";
-/*
+
 					$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
 					while ($row = pg_fetch_array($result)) {
 						$libelleMatiere = $row["libellematiere"];
@@ -88,20 +88,20 @@
 
 						$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
 						$rownb = pg_fetch_array($res_ranknb);
-						$ranknb = $rownb['count'];*/
+						$ranknb = $rownb['count'];
 						echo "<tr>
-							<td>' . $libelleMatiere . '</td>
-							<td> ' . moyenneMatiere($idEtu, $idMatiere) . '% </td>
-							<td>' . $nbSession[count] . '</td>
-							<td> ' . moyennePromotionMatiere($promo, $idMatiere) . '% </td>
-							<td> ' . rangEtudiantMatiere($idEtu, $idMatiere) . '/' . $ranknb . ' </td>
+							<td>" . $libelleMatiere . "</td>
+							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
+							<td>" . $nbSession['count'] . "</td>
+							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
+							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
 						</tr>";
 					}
 
-					echo "</table>";
+					echo "</table>";*/
 				}
 
-			
+			}
 			?>
 		</div>
 	</body>
