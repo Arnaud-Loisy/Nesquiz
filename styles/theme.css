@@ -120,6 +120,7 @@ input.bouton {
 	color: white;
 	border-width: 1px;
 	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
 }
 input.bouton:active {
 	background: rgb(149,188,242);
@@ -141,6 +142,7 @@ input.bouton:active {
 	color: white;
 	border-width: 1px;
 	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
 }
 
 .radioButtons input[type="radio"] {
