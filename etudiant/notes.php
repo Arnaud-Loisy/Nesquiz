@@ -66,7 +66,7 @@
 					$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
 
 					echo "<h1 >Mes Notes :</h1>";
-					echo "<div style='display: inline-table;' class='radioButtons'>";
+					echo "<div style=display: inline-table; margin: auto; class='radioButtons'>";
 					echo "<span><input onClick = 'changerStatsToutes(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
 					echo "<label for='radio_Toutes'>Toutes</label></span>";
 
@@ -90,7 +90,7 @@
 					$rownb = pg_fetch_array($res_ranknb);
 					$ranknb = $rownb['count'];
 
-					echo "<br><br><br><br><table class='border' id='table_stat' style='margin: 0; text-align:right;'>
+					echo "<br><br><br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
 							<td> Matière </td>
 							<td> Ma Moyenne </td>
