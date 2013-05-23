@@ -4,7 +4,25 @@
 		<meta charset="utf-8" />
 		<title>Notes</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
+<script type='text/javascript'>
 
+            function changerListeQuiz(radiobtn) {
+                var idMatiere = radiobtn.value;
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "xhr_note_detaillees.php", true);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        //alert(xhr.responseText);
+                        document.getElementById('table_stat').innerHTML = xhr.responseText;
+                    }
+                };
+
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send("idMatiere=" + idMatiere);
+            }
+        </script>
 	</head>
 	<body>
 		<div id='page'>
@@ -63,7 +81,7 @@
 				
 				
 				
-				echo "<br><br><br><br><table style='margin: 0; text-align:right;'>
+				echo "<br><br><br><br><table id='table_stat' style='margin: 0; text-align:right;'>
 						<tr>
 							<td> Matière </td>
 							<td> Ma Moyenne </td>
