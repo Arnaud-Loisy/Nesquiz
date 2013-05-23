@@ -32,17 +32,18 @@ function noteSession($idEtu, $dateSession) {
     global $dbcon;
 
     // récupérer id du quiz correspondant à la session
-    $res_idquiz = pg_query($dbcon, requete_idQuiz_correspondant_session($dateSession)) or die("Echec de la requête");
-    $tab_idquiz = pg_fetch_array($res_idquiz);
-    $idquiz = $tab_idquiz[0];
+    //$res_idquiz = pg_query($dbcon, requete_idQuiz_correspondant_session($dateSession)) or die("Echec de la requête");
+    //$tab_idquiz = pg_fetch_array($res_idquiz);
+    //$idquiz = $tab_idquiz[0];
 
     // récupérer nb questions du quiz
-    $res_nbQuestions = pg_query($dbcon, requete_nb_questions_d_un_quiz($idquiz)) or die("Echec de la requête");
-    $nbQuestions = pg_fetch_array($res_nbQuestions);
+    //$res_nbQuestions = pg_query($dbcon, requete_nb_questions_d_un_quiz($idquiz)) or die("Echec de la requête");
+    //$nbQuestions = pg_fetch_array($res_nbQuestions);
 
     // récupérer la liste des questions du quiz
-    $res_listeQuestions = pg_query($dbcon, requete_liste_questions_d_un_quiz($idquiz)) or die("Echec de la requête");
-
+    //$res_listeQuestions = pg_query($dbcon, requete_liste_questions_d_un_quiz($idquiz)) or die("Echec de la requête");
+	$res_listeQuestions=pg_query($dbcon,requete_questions_d_une_session($dateSession));
+	$nbQuestions=pg_num_rows($res_listeQuestions);
     // Cumul des notes de chaque question
     $scoreTotal = 0;
     while ($listeQuestions = pg_fetch_array($res_listeQuestions)) {
@@ -50,9 +51,12 @@ function noteSession($idEtu, $dateSession) {
     }
 
     // Calcul de la note moyenne du quiz de l'étudiant
-    $noteQuiz = $scoreTotal / $nbQuestions[0];
-
-    return round($noteQuiz * 100, 2);
+    $noteQuiz = $scoreTotal / $nbQuestions;
+	
+	if ($nbQuestions == 0)
+        return 0;
+    else return round($noteQuiz * 100, 2);
+    
 }
 
 // Retourne la moyenne générale d'un étudiant, pour toutes les sessions
@@ -61,13 +65,16 @@ function moyenneGenerale($idEtu) {
     global $dbcon;
     $total = 0.0;
     $dateSession = pg_query($dbcon, requete_sessions_d_un_etudiant($idEtu));
+	$nbSession=pg_num_rows($dateSession);
     while ($res = pg_fetch_array($dateSession)) {
         $total+=noteSession($idEtu, $res['datesession']);
     }
+    
+    
 
-    $array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($idEtu));
-    $row = pg_fetch_array($array);
-    $nbSession = $row['count'];
+    //$array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($idEtu));
+    //$row = pg_fetch_array($array);
+    //$nbSession = $row['count'];
 
     if ($nbSession == 0)
         return 0;
@@ -99,13 +106,14 @@ function moyenneMatiere($idEtu, $idMatiere) {
     $total = 0.0;
 
     $dateSession = pg_query($dbcon, requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere));
+	$nbSession=pg_num_rows($dateSession);
     while ($res = pg_fetch_array($dateSession)) {
         $total+=noteSession($idEtu, $res['datesession']);
     }
 
-    $array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
-    $row = pg_fetch_array($array);
-    $nbSession = $row['count'];
+    //$array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
+    //$row = pg_fetch_array($array);
+    //$nbSession = $row['count'];
     
     if ($nbSession == 0)
         return 0;
@@ -258,18 +266,22 @@ function rangEtudiantGeneral($idEtu){
 	
     $idEtuu = pg_query($dbcon, requete_etudiant_d_une_promo($promo['promo']));
     while ($listeEtudiants = pg_fetch_array($idEtuu)) {
-        $idEtu = $listeEtudiants["idetudiant"];
+        $listeidEtu = $listeEtudiants["idetudiant"];
         //$prenomEtu = $listeEtudiants["prenometudiant"];
         //$nomEtu = $listeEtudiants["nometudiant"];
 
-        $classement[] = array("idetudiant" => $idEtu, "note" => moyenneGenerale($idEtu));
+        $classement[] = array("idetudiant" => $listeidEtu, "note" => moyenneGenerale($listeidEtu));
+        
     }
-
+//var_dump($classement);
     // Trier les élèves par note décroissante
     usort($classement, "cmpNotes");
+    //var_dump($classement);
     for ($i = 0; $i < count($classement); $i++) {
         if ($classement[$i]["idetudiant"] == $idEtu)
+		//var_dump($classement);
             return ($i + 1);
     }
+	
 }
 ?>
