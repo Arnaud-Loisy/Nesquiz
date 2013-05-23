@@ -66,7 +66,7 @@
 					$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
 
 					echo "<h1 >Mes Notes :</h1>";
-					echo "<div style=margin: auto; class='radioButtons'>";
+					echo "<div style='margin: auto;' class='radioButtons'>";
 					echo "<span><input onClick = 'changerStatsToutes(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
 					echo "<label for='radio_Toutes'>Toutes</label></span>";
 
