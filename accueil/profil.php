@@ -25,10 +25,13 @@ include '../admin/secret.php';
          echo"Erreur: L'ancien mot de passe n'est pas bon.<br>";
             unset( $_SESSION["mdpfail"]);
         }
-     if((isset($_SESSION["mdpchfail"]))&&(!isset($_SESSION["languechok"]))) {
+     if((isset($_SESSION["mdpchfail"]))&&(isset($_SESSION["languechok"]))) {
+         $languechok=($_SESSION["languechok"]);
+            if($languechok!=5){
           echo"<br>";
           echo"Erreur: Veuillez bien remplir les trois champs pour le changement de mot de passe.<br>";
             unset( $_SESSION["mdpchfail"]);
+            }
         }   
      if((isset($_SESSION["mdpchok"]))){
           echo"<br>Votre changement à été effectué avec succès.<br>";
