@@ -1,5 +1,8 @@
 
 			<?php
+			include '../bdd/connexionBDD.php';
+			include '../bdd/requetes.php';
+			include '../session/fonctions_resultats.php';
 			session_start();
 			date_default_timezone_set("Europe/Paris");
 			var_dump($_POST);

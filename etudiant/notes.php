@@ -8,6 +8,7 @@
 
             function changerStats(radiobtn) {
                 var idMatiere = radiobtn.value;
+                var libelleMatiere = radiobtn.name;
                 var xhr = new XMLHttpRequest();
 
                 xhr.open("POST", "xhr_notes_detaillees.php", true);
@@ -20,6 +21,7 @@
                 };
 
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send("libelleMatiere=" + libelleMatiere);
                 xhr.send("idMatiere=" + idMatiere);
             }
         </script>
@@ -60,7 +62,7 @@
 					$libelleMatiere = $row["libellematiere"];
 					$idMatiere = $row["idmatiere"];
 
-					echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' />";
+					echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='radio_".$libelleMatiere."' name=".$libelleMatiere." value='".$idMatiere."' />";
 					echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
 				}
 				echo "</div>";
