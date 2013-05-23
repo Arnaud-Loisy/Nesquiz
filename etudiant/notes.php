@@ -26,7 +26,7 @@
 			}
 
 			function changerStatsToutes(radiobtn) {
-
+				var idMatiere = radiobtn.value;
 				var xhr = new XMLHttpRequest();
 
 				xhr.open("POST", "xhr_notes.php", true);
@@ -39,7 +39,7 @@
 				};
 
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
+				xhr.send("idMatiere=" + idMatiere);
 			}
 		</script>
 	</head>
