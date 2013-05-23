@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="../styles/theme.css" />
 <script type='text/javascript'>
 
-            function changerListeQuiz(radiobtn) {
+            function changerStats(radiobtn) {
                 var idMatiere = radiobtn.value;
                 var xhr = new XMLHttpRequest();
 
@@ -52,7 +52,7 @@
 
 				echo "<h1 >Mes Notes :</h1>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
-				echo "<span><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
+				echo "<span><input onClick = 'ChangerStats(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
 				echo "<label for='radio_Toutes'>Toutes</label></span>";
 
 				while ($row = pg_fetch_array($result))
