@@ -7,6 +7,7 @@
 
 <title>Accueil</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1.0">
 </head>
 <body>
     <div id="page">
