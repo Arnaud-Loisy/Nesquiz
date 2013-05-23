@@ -29,7 +29,7 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		$rownb = pg_fetch_array($res_ranknb);
 		$ranknb = $rownb['count'];
 
-		echo "<br><br><br><br><table style='margin: 0; text-align:right;'>
+		echo "<br><br><br><br><table class='border' style='margin: 0; text-align:right;'>
 						<tr>
 							<td> Date de la session </td>
 							<td> Ma note </td>							
