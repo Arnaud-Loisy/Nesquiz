@@ -43,7 +43,7 @@
             if ($modeFonctionnement == 2) {
                 echo "<center>Session lancée le " . date('d/m/Y', $dateSession) . " à " . date('H:i:s', $dateSession) . "<br>";
                 echo "<br>Etudiants participant à la session :</center>";
-                echo "<br><table style='margin: auto'>";
+                echo "<br><table class='border' style='margin: auto'>";
                 // si session en attente
                 if ($etatsession == 1) {
                     echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
@@ -64,9 +64,9 @@
                 } else {
                     // Récupération des étudiants participants
                     $result = pg_query($dbcon, requete_etudiants_participants($dateSession)) or die("Echec de la requête");
-
+                    
                     // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                    echo "<tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
+                    echo "<table class='border' style='margin: auto'> <tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
                     while ($arr = pg_fetch_array($result)) {
                         $nomEtu = $arr["nometudiant"];
                         $prenomEtu = $arr["prenometudiant"];
