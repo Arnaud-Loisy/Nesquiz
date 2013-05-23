@@ -41,9 +41,12 @@ include '../admin/secret.php';
                 unset($_SESSION["mdpconffail"]);
            }
          
-           if (($_SESSION["languechok"])==5){
+           if (isset($_SESSION["languechok"])){
+               $languechok=($_SESSION["languechok"]);
+                if($languechok==5){
                echo"<br>Votre changement à été effectué avec succès.<br>";
                unset( $_SESSION["languechok"]);
+                }
            }      
        
         $id=$_SESSION["id"];
