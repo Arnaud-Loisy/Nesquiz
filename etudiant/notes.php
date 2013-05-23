@@ -10,7 +10,7 @@
                 var idMatiere = radiobtn.value;
                 var xhr = new XMLHttpRequest();
 
-                xhr.open("POST", "xhr_note_detaillees.php", true);
+                xhr.open("POST", "xhr_notes_detaillees.php", true);
 
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {
