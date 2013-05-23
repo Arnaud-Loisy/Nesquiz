@@ -21,7 +21,7 @@
                 };
 
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.send("libelleMatiere=" + libelleMatiere);
+                //xhr.send("libelleMatiere=" + libelleMatiere);
                 xhr.send("idMatiere=" + idMatiere);
             }
         </script>
