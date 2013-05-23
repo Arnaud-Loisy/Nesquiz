@@ -4,8 +4,6 @@ include '../bdd/requetes.php';
 include '../session/fonctions_resultats.php';
 session_start();
 date_default_timezone_set("Europe/Paris");
-//var_dump($_POST);
-$idMatiere = $_POST['idMatiere'];
 
 if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 	header('Location:../index.php');
@@ -17,6 +15,7 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 	if (!$dbcon) {
 		echo "connection BDD failed<br>";
 	} else {
+
 		$result = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($idEtu));
 		$row = pg_fetch_array($result);
 		$totalSession = $row["count"];
@@ -29,32 +28,38 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		$rownb = pg_fetch_array($res_ranknb);
 		$ranknb = $rownb['count'];
 
-		echo "<br><br><br><br><table style='margin: 0; text-align:right;'>
+		echo "<br><br><br><br><table id='table_stat' style='margin: 0; text-align:right;'>
 						<tr>
-							<td> Date de la session </td>
-							<td> Ma note </td>							
+							<td> Matière </td>
+							<td> Ma Moyenne </td>
+							<td> Nombre de sessions </td>
 							<td> Moyenne de la promotion </td>
 							<td> Classement </td>
 						</tr>
 						<tr>
 							<td> Toutes </td>
-							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
-							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
-							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
+							<td> " . moyenneGenerale($idEtu) . "% </td>
+							<td>" . $totalSession . "</td>
+							<td> " . moyenneGeneralePromotion($promo) . "% </td>
+							<td> " . rangEtudiantGeneral($idEtu) . "/" . $ranknb . " </td>
 						</tr>";
 
-		$result = pg_query($dbcon, requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere));
+		$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
 		while ($row = pg_fetch_array($result)) {
-			$date = $row["datesession"];
+			$libelleMatiere = $row["libellematiere"];
+			$idMatiere = $row["idmatiere"];
+			$result_nbSession = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
+			$nbSession = pg_fetch_array($result_nbSession);
 
 			$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
 			$rownb = pg_fetch_array($res_ranknb);
 			$ranknb = $rownb['count'];
 			echo "<tr>
-							<td>" . date("Y-m-d H:i", $date) . "</td>
-							<td> " . noteSession($idEtu, $date) . "% </td>
-							<td> " . moyenneSession($date) . "% </td>
-							<td> " . rangEtudiant($idEtu, $date) . "/" . $ranknb . " </td>
+							<td>" . $libelleMatiere . "</td>
+							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
+							<td>" . $nbSession['count'] . "</td>
+							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
+							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
 						</tr>";
 		}
 
