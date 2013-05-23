@@ -1,20 +1,8 @@
-<!DOCTYPE HTML>
-<html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Notes</title>
-		<link rel="stylesheet" href="../styles/theme.css" />
 
-	</head>
-	<body>
-		<div id='page'>
 			<?php
 			session_start();
 			date_default_timezone_set("Europe/Paris");
-			include '../accueil/menu.php';
-			include '../bdd/connexionBDD.php';
-			include '../bdd/requetes.php';
-			include '../session/fonctions_resultats.php';
+			var_dump($_POST);
 
 			if ((!isset($_SESSION["id"])) || !($_SESSION["statut"]=="etu")) {
 				header('Location:../index.php');
@@ -97,6 +85,3 @@
 			}
 			
 			?>
-		</div>
-	</body>
-</html>
