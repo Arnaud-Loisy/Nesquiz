@@ -251,7 +251,7 @@ function rangEtudiantMatiere($idEtu, $matiere) {
 
     // Trier les élèves par note décroissante
     usort($classement, "cmpNotes");
-	var_dump($classement);
+	//var_dump($classement);
     for ($i = 0; $i < count($classement); $i++) {
         if ($classement[$i]["idetudiant"] == $idEtu)
             return ($i + 1);
