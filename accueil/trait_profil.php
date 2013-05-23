@@ -42,15 +42,13 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) {
         $_SESSION["mdpchfail"] = 1;
     }
   }
-  else {
-         $_SESSION["languechok"] = 1;
-  }
-      /*if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
+  
+      if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
         $langue = $_POST["langue"];
 
-        pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
-        $_SESSION["languechok"] = 1;
-    }*/
+       //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
+        $_SESSION["languechok"] = 5;
+    }
 }
 if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "prof"))) {
     $id = $_SESSION["id"];
@@ -84,15 +82,13 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
         $_SESSION["mdpchfail"] = 1;
     }
   }
-  else {
-         $_SESSION["languechok"] = 1;
-  }
-   /*if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
+ 
+   if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
         $langue = $_POST["langue"];
 
-        pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
-        $_SESSION["languechok"] = 1;
-    }*/
+        //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
+        $_SESSION["languechok"] = 5;
+    }
 }
 
 header('Location:./profil.php');
