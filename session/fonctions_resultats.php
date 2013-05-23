@@ -242,15 +242,16 @@ function rangEtudiantMatiere($idEtu, $matiere) {
 	
     $idEtuu = pg_query($dbcon, requete_etudiant_d_une_promo($promo['promo']));
     while ($listeEtudiants = pg_fetch_array($idEtuu)) {
-        $idEtu = $listeEtudiants["idetudiant"];
+        $idEtutemp = $listeEtudiants["idetudiant"];
         //$prenomEtu = $listeEtudiants["prenometudiant"];
         //$nomEtu = $listeEtudiants["nometudiant"];
 
-        $classement[] = array("idetudiant" => $idEtu, "note" => moyenneMatiere($idEtu, $matiere));
+        $classement[] = array("idetudiant" => $idEtutemp, "note" => moyenneMatiere($idEtutemp, $matiere));
     }
 
     // Trier les élèves par note décroissante
     usort($classement, "cmpNotes");
+	var_dump($classement);
     for ($i = 0; $i < count($classement); $i++) {
         if ($classement[$i]["idetudiant"] == $idEtu)
             return ($i + 1);
