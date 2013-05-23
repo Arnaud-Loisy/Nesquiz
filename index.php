@@ -14,7 +14,7 @@
     session_start();
     include './accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
-        echo"Erreur de Login/Mot de passe";
+        echo"Identifiant et/ou Mot de passe erroné";
         unset($_SESSION["erreur_log"]);  
        }    
     if (isset($_SESSION["id"])){
