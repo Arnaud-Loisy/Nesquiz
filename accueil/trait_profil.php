@@ -85,17 +85,22 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
             $_SESSION["mdpfail"] = 1;
         }
     } else {
-        $_SESSION["mdpchfail"] = 1;
-        $_SESSION["languechok"] =1;
+           if($mdpnew=="" && $mdpold=="" && $mdpcnew==""){
+                if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
+                         $langue = $_POST["langue"];
+            
+                 //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
+             
+                         $_SESSION["languechok"] =1;
+                }
+            }
+            else {
+                $_SESSION["mdpchfail"] = 1;
+            }
     }
   }
  
-   if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
-        $langue = $_POST["langue"];
-
-        //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
-        $_SESSION["languechok"] = 5;
-    }
+   
 }
 
 header('Location:./profil.php');
