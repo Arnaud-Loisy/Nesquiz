@@ -89,7 +89,7 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
                 if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
                          $langue = $_POST["langue"];
             
-                 //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
+                 //pg_query($dbcon, "UPDATE AdminProfs SET langueAdminProf = '" . $langue . "' WHERE idAdminProf=" . $id);
              
                          $_SESSION["languechok"] =1;
                 }
