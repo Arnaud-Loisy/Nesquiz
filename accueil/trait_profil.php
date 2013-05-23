@@ -40,6 +40,7 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) {
         }
     } else {
         $_SESSION["mdpchfail"] = 1;
+        $_SESSION["languechok"] =1;
     }
   }
   
@@ -80,6 +81,7 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
         }
     } else {
         $_SESSION["mdpchfail"] = 1;
+        $_SESSION["languechok"] =1;
     }
   }
  
