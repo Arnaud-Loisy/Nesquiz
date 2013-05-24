@@ -45,7 +45,7 @@
                 $arrAdmin = pg_fetch_array ($resultatAdmin);
                 $admin = $arrAdmin['admin'];
                 if ($admin == 't')
-                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='admin_" . $idadminprof . "' checked></td>";
+                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
                 else
                     echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
 
