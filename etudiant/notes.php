@@ -113,14 +113,15 @@
 						$result_nbSession = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
 						$nbSession = pg_fetch_array($result_nbSession);
 
-						$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
+						$res_ranknb = pg_query($dbcon, requete_nb_etudiants_participants_par_matiere($promo,$idMatiere));
 						$rownb = pg_fetch_array($res_ranknb);
 						$ranknb = $rownb['count'];
+						
 						echo "<tr>
 							<td>" . $libelleMatiere . "</td>
 							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
 							<td>" . $nbSession['count'] . "</td>
-							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
+							<td> " . moyennePromotionMatiere($promo,$idMatiere) . "% </td>
 							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
 						</tr>";
 					}

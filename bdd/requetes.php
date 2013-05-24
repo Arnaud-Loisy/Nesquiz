@@ -154,6 +154,41 @@ function requete_etudiants_participants($dateSession)
 	return $request;
 }
 
+function requete_nb_etudiants_participants($dateSession)
+{
+	$request = "SELECT COUNT (idEtudiant)
+				FROM Participe
+                WHERE dateSession='".$dateSession."';";
+	return $request;
+}
+
+function requete_nb_etudiants_participants_par_matiere($promo,$idMatiere)
+{
+	$request = "SELECT COUNT (DISTINCT (participe.idetudiant))
+				FROM inclu, sessions, participe, questions, etudiants
+				WHERE  sessions.idquiz = inclu.idquiz 
+				AND participe.datesession = sessions.datesession 
+				AND etudiants.idetudiant = participe.idetudiant
+				AND etudiants.promo = ".$promo." 
+				AND questions.idmatiere = ".$idMatiere." 
+				AND questions.idquestion = inclu.idquestion;";
+	return $request;
+}
+
+function requete_etudiants_participants_par_matiere($promo,$idMatiere)
+{
+	$request = "SELECT DISTINCT (participe.idetudiant)
+				FROM inclu, sessions, participe, questions, etudiants
+				WHERE  sessions.idquiz = inclu.idquiz 
+				AND participe.datesession = sessions.datesession 
+				AND etudiants.idetudiant = participe.idetudiant
+				AND etudiants.promo = ".$promo." 
+				AND questions.idmatiere = ".$idMatiere." 
+				AND questions.idquestion = inclu.idquestion;";
+	return $request;
+}
+
+
 function requete_nb_questions_repondues_par_un_etudiant($dateSession, $idEtu)
 {
 	$request = "SELECT COUNT (DISTINCT(Questions.idQuestion))
@@ -377,17 +412,19 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere)
 
 function requete_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT idetudiant
-				FROM etudiants
-				WHERE promo=".$promo.";";
+	$requete = "SELECT DISTINCT (repond.idetudiant)
+				FROM  repond, etudiants
+				WHERE repond.idetudiant = etudiants.idetudiant
+				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
 function requete_nb_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT COUNT(idetudiant)
-				FROM etudiants
-				WHERE promo=".$promo.";";
+	$requete = "SELECT COUNT(DISTINCT (repond.idetudiant))
+				FROM  repond, etudiants
+				WHERE repond.idetudiant = etudiants.idetudiant
+				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
