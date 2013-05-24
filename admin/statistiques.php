@@ -10,7 +10,7 @@
 				
 				var xhr = new XMLHttpRequest();
 
-				xhr.open("POST", "xhr_notes_detaillees.php", true);
+				xhr.open("POST", "xhr_stats.php", true);
 
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && xhr.status == 200) {
@@ -25,22 +25,6 @@
 
 			}
 
-			function changerStatsToutes(radiobtn) {
-				var idMatiere = radiobtn.value;
-				var xhr = new XMLHttpRequest();
-
-				xhr.open("POST", "xhr_notes.php", true);
-
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						//alert(xhr.responseText);
-						document.getElementById('table_stat').innerHTML = xhr.responseText;
-					}
-				};
-
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.send("idMatiere=" + idMatiere);
-			}
 		</script>
 	</head>
 	<body>
@@ -53,42 +37,31 @@
 			include '../bdd/requetes.php';
 			include '../session/fonctions_resultats.php';
 
-			if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
+			if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 				header('Location:../index.php');
 			} else {
-				$idEtu = $_SESSION["id"];
+				$idAdminProf = $_SESSION["id"];
 
 				$dbcon = connexionBDD();
 
 				if (!$dbcon) {
 					echo "connection BDD failed<br>";
 				} else {
-					$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
+					$result = pg_query($dbcon, requete_toutes_matieres_pour_un_professeur($idAdminProf));
 
-					echo "<h1 >Mes Notes :</h1>";
+					echo "<h1 >Statistiques :</h1>";
 					echo "<div style='margin: auto;' class='radioButtons'>";
-					echo "<span><input onClick = 'changerStatsToutes(this)' type ='radio' id='radio_Toutes' name='radios_matieres' value='x' checked='true'/>";
-					echo "<label for='radio_Toutes'>Toutes</label></span>";
+					
 
 					while ($row = pg_fetch_array($result)) {
 						$libelleMatiere = $row["libellematiere"];
 						$idMatiere = $row["idmatiere"];
 
-						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' />";
+						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' checked='true' />";
 						echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					}
 					echo "</div>";
-					$result = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($idEtu));
-					$row = pg_fetch_array($result);
-					$totalSession = $row["count"];
-
-					$resPromo = pg_query($dbcon, requete_promo_d_un_etudiant($idEtu));
-					$rowP = pg_fetch_array($resPromo);
-					$promo = $rowP['promo'];
-
-					$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
-					$rownb = pg_fetch_array($res_ranknb);
-					$ranknb = $rownb['count'];
+					/*
 
 					echo "<br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
@@ -125,7 +98,7 @@
 						</tr>";
 					}
 
-					echo "</table>";
+					echo "</table>";*/
 				}
 
 			}

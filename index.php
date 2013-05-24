@@ -7,6 +7,7 @@
 
 <title>Accueil</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=720">
 </head>
 <body>
     <div id="page">
@@ -14,7 +15,7 @@
     session_start();
     include './accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
-        echo"Erreur de connexion";
+        echo"Identifiant et/ou Mot de passe erroné";
         unset($_SESSION["erreur_log"]);  
        }    
     if (isset($_SESSION["id"])){
