@@ -44,7 +44,7 @@ function requete_toutes_matieres_pour_un_professeur($idAdminProf)
 					FROM Matieres, AdminProfs, Enseigne
 					WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf
 					AND Matieres.idMatiere = Enseigne.idMatiere
-					AND AdminProfs.idAdminProf = ".$idAdminProf.";";
+					AND AdminProfs.idAdminProf = '".$idAdminProf."';";
 
 	return $requete;
 }
