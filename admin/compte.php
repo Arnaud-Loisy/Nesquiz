@@ -10,17 +10,22 @@
         <div id="page">
             <?php
             session_start ();
+            if (!(isset ($_SESSION["id"])) || ($_SESSION["statut"] == "etu") || ($_SESSION["statut"] == 'prof'))
+                header ('Location:../index.php');
+
             include '../accueil/menu.php';
             include '../bdd/connexionBDD.php';
             include '../bdd/requetes.php';
 
             $dbcon = connexionBDD ();
-            echo "<div style='display: inline-table;' class='radioButtons'>";
-            echo "<span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_etudiant' name='radios_etudiant' value='etudiant' />";
-            echo "<label for='radio_etudiant'> Etudiant </label></span>";
-            echo "<span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_prof' name='radios_prof' value='prof' />";
-            echo "<label for='radio_etudiant'> Enseignant </label></span>";
-            echo"</div>";
+            
+            echo "<div style='display: inline-table;' class='radioButtons'>
+                     <span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_etudiant' name='radios_etudiant' value='etudiant' />
+                     <label for='radio_etudiant'> Etudiant </label></span>
+                     <span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_prof' name='radios_prof' value='prof' />
+                     <label for='radio_etudiant'> Enseignant </label></span>
+                  </div>";
+            
             // Affiche la liste des admins et des profs
             echo"<br>
                 <table class='border'>
