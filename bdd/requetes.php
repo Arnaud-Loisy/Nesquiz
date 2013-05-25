@@ -337,7 +337,7 @@ function requete_tous_idadminprof($idadminprof)
 {
 	$requete = "SELECT idAdminProf 
                  FROM AdminProfs 
-                 WHERE idAdminProf =".$idadminprof.";";
+                 WHERE idAdminProf ='".$idadminprof."';";
 	return $requete;
 }
 
@@ -352,7 +352,7 @@ function requete_supprimer_prof($idadminprof)
 {
 	$requete = "DELETE
                 FROM adminprofs
-                WHERE idadminprof =".$idadminprof.";";
+                WHERE idadminprof ='".$idadminprof."';";
 	return $requete;
 }
 
@@ -431,7 +431,7 @@ function requete_nb_etudiant_d_une_promo($promo)
 function requete_prof_devient_admin($idadminprof){
     $requete = "UPDATE AdminProfs
                 SET admin = 'true'
-                WHERE idadminprof = ".$idadminprof.";";
+                WHERE idadminprof = '".$idadminprof."';";
 	return $requete;
 }
 
@@ -458,7 +458,7 @@ function requete_liste_quiz_entier_d_une_matiere($idMatiere)
 function requete_si_admin($idadminprof){
     $requete="SELECT admin
               FROM adminprofs
-              WHERE idadminprof =".$idadminprof.";";
+              WHERE idadminprof ='".$idadminprof."';";
     return $requete;
 }
 
@@ -471,7 +471,7 @@ function requete_creer_quiz($nomQuiz, $tempsQuiz)
 function requete_admin_devient_prof($idadminprof){
     $requete="UPDATE Adminprofs
               SET admin='false'
-              WHERE idadminprof=".$idadminprof.";";
+              WHERE idadminprof='".$idadminprof."';";
     return $requete;
 }
 ?>
