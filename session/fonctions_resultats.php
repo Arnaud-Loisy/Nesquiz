@@ -86,12 +86,14 @@ function moyenneGeneralePromotion($numPromo) {
     global $dbcon;
     $total = 0.0;
     $totalSession = 0;
+	$array = pg_query($dbcon, requete_nb_etudiant_d_une_promo($numPromo));
+        $row = pg_fetch_array($array);
+        $totalSession = $row['count'];
     $idEtu = pg_query($dbcon, requete_etudiant_d_une_promo($numPromo));
+	
     while ($res = pg_fetch_array($idEtu)) {
         $total+=moyenneGenerale($res['idetudiant']);
-        $array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($res['idetudiant']));
-        $row = pg_fetch_array($array);
-        $totalSession += $row['count'];
+        
     }
 
 
@@ -120,22 +122,25 @@ function moyenneMatiere($idEtu, $idMatiere) {
     else return round($total / $nbSession, 2);
 }
 
-function moyennePromotionMatiere($promo, $idMatiere) {
+function moyennePromotionMatiere($promo,$idMatiere) {
     global $dbcon;
 
     $total = 0.0;
     $totalSession = 0;
-    $idEtu = pg_query($dbcon, requete_etudiant_d_une_promo($promo));
+	$nbEtu = pg_query($dbcon,requete_nb_etudiants_participants_par_matiere($promo,$idMatiere));
+	$resNb = pg_fetch_array($nbEtu);
+	$totalSession = $resNb['count'];
+    $idEtu = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo,$idMatiere));
     while ($res = pg_fetch_array($idEtu)) {
         $total+=moyenneMatiere(($res['idetudiant']),$idMatiere);
         $array = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant($res['idetudiant']));
-        $row = pg_fetch_array($array);
-        $totalSession += $row['count'];
+        
+        
 		
     }
 	if ($totalSession == 0)
         return 0;
-    else return round($total / $totalSession, 2);
+    else return round($total / $totalSession , 2);
 }
 
 // Retourne la note moyenne des étudiants de la session
@@ -240,7 +245,7 @@ function rangEtudiantMatiere($idEtu, $matiere) {
     $respromo= pg_query($dbcon, requete_promo_d_un_etudiant($idEtu));
 	$promo = pg_fetch_array($respromo);
 	
-    $idEtuu = pg_query($dbcon, requete_etudiant_d_une_promo($promo['promo']));
+    $idEtuu = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo['promo'],$matiere));
     while ($listeEtudiants = pg_fetch_array($idEtuu)) {
         $idEtutemp = $listeEtudiants["idetudiant"];
         //$prenomEtu = $listeEtudiants["prenometudiant"];

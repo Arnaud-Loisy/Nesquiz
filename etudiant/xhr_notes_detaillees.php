@@ -25,7 +25,7 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		$rowP = pg_fetch_array($resPromo);
 		$promo = $rowP['promo'];
 
-		$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
+		$res_ranknb = pg_query($dbcon, requete_nb_etudiants_participants_par_matiere($promo,$idMatiere));
 		$rownb = pg_fetch_array($res_ranknb);
 		$ranknb = $rownb['count'];
 
@@ -39,7 +39,7 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 						<tr>
 							<td> Toutes </td>
 							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
-							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
+							<td> " . moyennePromotionMatiere($promo,$idMatiere) . "% </td>
 							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
 						</tr>";
 
@@ -47,7 +47,7 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		while ($row = pg_fetch_array($result)) {
 			$date = $row["datesession"];
 
-			$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
+			$res_ranknb = pg_query($dbcon, requete_nb_etudiants_participants($date));
 			$rownb = pg_fetch_array($res_ranknb);
 			$ranknb = $rownb['count'];
 			echo "<tr>
