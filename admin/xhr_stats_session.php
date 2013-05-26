@@ -6,6 +6,7 @@ session_start();
 date_default_timezone_set("Europe/Paris");
 $idMatiere = $_POST['idMatiere'];
 $promo =  $_POST['promo'];
+$date = $_POST['date'];
 //$promo = $_POST['promo'];
 if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 	header('Location:../index.php');
@@ -17,15 +18,15 @@ if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 	if (!$dbcon) {
 		echo "connection BDD failed<br>";
 	} else {
-		echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
+		echo "<div id='table_stat'><h2>Moyenne de cette Session :".moyenneSession($date)."%</h2>";
 		echo "<table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
 							<td> Rang </td>
 							<td> Nom </td>
-							<td> Moyenne </td>
+							<td> Note </td>
 						</tr>";
 						
-					$result = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo,$idMatiere));
+					$result = pg_query($dbcon, requete_etudiants_participants($date));
 					while ($row = pg_fetch_array($result)) {
 						
 						$idEtu=$row['idetudiant'];
@@ -37,9 +38,9 @@ if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 						$rownb = pg_fetch_array($res_ranknb);
 						$ranknb = $rownb['count'];
 						echo "<tr>
-							<td>" . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
+							<td>" . rangEtudiant($idEtu, $date) . "/" . $ranknb . " </td>
 							<td> " . $nom_etu ." ". $prenom_etu . " </td>
-							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
+							<td> " . noteSession($idEtu, $date) . "% </td>
 						</tr>";
 					}
 

@@ -7,7 +7,7 @@
 		<script type='text/javascript'>
 			function changerStats(radiobtn) {
 				var idMatiere = radiobtn.value;
-				
+				var promo = getSelectValue('numPromo');
 				var xhr = new XMLHttpRequest();
 
 				xhr.open("POST", "xhr_stats.php", true);
@@ -20,30 +20,21 @@
 				};
 
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.send("idMatiere=" + idMatiere);
+				xhr.send("idMatiere=" + idMatiere + "&promo=" + promo );
 				
 
 			}
-			
-			function filtrer(select) {
-				var promo = select.id;
-				
-				var xhr = new XMLHttpRequest();
-
-				xhr.open("POST", "xhr_stats.php", true);
-
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						//alert(xhr.responseText);
-						document.getElementById('table_stat').innerHTML = xhr.responseText;
-					}
-				};
-
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.send("promo=" + promo);
-				
-
-			}
+			function getSelectValue(selectId)
+{
+	/**On récupère l'élement html <select>*/
+	var selectElmt = document.getElementById(selectId);
+	/**
+	selectElmt.options correspond au tableau des balises <option> du select
+	selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
+	*/
+	return selectElmt.options[selectElmt.selectedIndex].value;
+}
+		
 
 		</script>
 	</head>
@@ -89,7 +80,7 @@
 					$result = pg_query($dbcon,requete_promotion_des_etudiants());
 					$row = pg_fetch_array($result);
 					$promo = $row["promo"];
-					echo "<h2>Promotion : <select onRealease = 'filtrer(this)'>";
+					echo "<h2>Promotion : <select id='numPromo' onChange = 'changerStats(this)'>";
 					echo "<option id = 'promo' name='$promo'>$promo</option>";
 
 				while ($row = pg_fetch_array($result))
