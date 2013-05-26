@@ -73,9 +73,9 @@
 					echo "<option id = '$promo' name='$promo'>$promo</option>";
 				}
 				echo "</select></h2>";
-					$idMatiere=1;
-					echo "<h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
-					echo "<br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
+					
+					echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
+					echo "<table class='border' style='margin: auto; text-align:right;'>
 						<tr>
 							<td> Rang </td>
 							<td> Nom </td>
@@ -100,7 +100,7 @@
 						</tr>";
 					}
 
-					echo "</table>";
+					echo "</table></div>";
 				}
 
 			}

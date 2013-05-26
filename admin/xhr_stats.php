@@ -17,7 +17,7 @@ if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 		echo "connection BDD failed<br>";
 	} else {
 
-		echo "<br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
+		echo "<table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
 							<td> Rang </td>
 							<td> Nom </td>
