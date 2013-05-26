@@ -24,6 +24,26 @@
 				
 
 			}
+			
+			function filtrer(select) {
+				var promo = select.id;
+				
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_stats.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						//alert(xhr.responseText);
+						document.getElementById('table_stat').innerHTML = xhr.responseText;
+					}
+				};
+
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.send("promo=" + promo);
+				
+
+			}
 
 		</script>
 	</head>
@@ -48,29 +68,35 @@
 					echo "connection BDD failed<br>";
 				} else {
 					$result = pg_query($dbcon, requete_toutes_matieres_pour_un_professeur($idAdminProf));
-
-					echo "<h1 >Statistiques :</h1>";
+					$row = pg_fetch_array($result);
+					$libelleMatiere = $row["libellematiere"];
+					$idMatiere = $row["idmatiere"];
+					echo "<h1>Mes Matières : </h1>";
 					echo "<div style='margin: auto;' class='radioButtons'>";
+					echo "<span><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' checked='true'/>";
+					echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					
 
 					while ($row = pg_fetch_array($result)) {
 						$libelleMatiere = $row["libellematiere"];
-						$idMatiere = $row["idmatiere"];
+						$idBtMatiere = $row["idmatiere"];
 
-						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' checked='true' />";
+						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idBtMatiere . "'/>";
 						echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					}
 					echo "</div>";
 					
 					$result = pg_query($dbcon,requete_promotion_des_etudiants());
-					
-					echo "<h2>Promotion : <select>";
+					$row = pg_fetch_array($result);
+					$promo = $row["promo"];
+					echo "<h2>Promotion : <select onRealease = 'filtrer(this)'>";
+					echo "<option id = 'promo' name='$promo'>$promo</option>";
 
 				while ($row = pg_fetch_array($result))
 				{
-					$promo = $row["promo"];
+					$prom = $row["promo"];
 					
-					echo "<option id = '$promo' name='$promo'>$promo</option>";
+					echo "<option id = 'promo' name='$prom'>$prom</option>";
 				}
 				echo "</select></h2>";
 					

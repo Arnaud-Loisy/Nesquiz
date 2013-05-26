@@ -6,6 +6,7 @@ session_start();
 date_default_timezone_set("Europe/Paris");
 $idMatiere = $_POST['idMatiere'];
 $promo = 2015;
+//$promo = $_POST['promo'];
 if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 	header('Location:../index.php');
 } else {
@@ -16,7 +17,7 @@ if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 	if (!$dbcon) {
 		echo "connection BDD failed<br>";
 	} else {
-
+		echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
 		echo "<table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
 							<td> Rang </td>

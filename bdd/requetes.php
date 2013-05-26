@@ -495,7 +495,8 @@ function requete_admin_devient_prof($idadminprof)
 
 function requete_promotion_des_etudiants(){
     $requete="SELECT DISTINCT (promo)
-				FROM etudiants;";
+				FROM etudiants
+				ORDER BY promo DESC;";
     return $requete;
 }
 function requete_nom_prenom_etudiant($idEtu)
