@@ -15,7 +15,12 @@
             include '../bdd/requetes.php';
 
             $dbcon = connexionBDD ();
-
+            echo "<div style='display: inline-table;' class='radioButtons'>";
+            echo "<span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_etudiant' name='radios_etudiant' value='etudiant' />";
+            echo "<label for='radio_etudiant'> Etudiant </label></span>";
+            echo "<span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_prof' name='radios_prof' value='prof' />";
+            echo "<label for='radio_etudiant'> Enseignant </label></span>";
+            echo"</div>";
             // Affiche la liste des admins et des profs
             echo"<br>
                 <table class='border'>
@@ -45,7 +50,7 @@
                 $arrAdmin = pg_fetch_array ($resultatAdmin);
                 $admin = $arrAdmin['admin'];
                 if ($admin == 't')
-                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='admin_" . $idadminprof . "' checked></td>";
+                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
                 else
                     echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
 

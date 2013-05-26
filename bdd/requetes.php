@@ -57,7 +57,7 @@ function requete_toutes_matieres_pour_un_professeur($idAdminProf)
 					FROM Matieres, AdminProfs, Enseigne
 					WHERE AdminProfs.idAdminProf = Enseigne.idAdminProf
 					AND Matieres.idMatiere = Enseigne.idMatiere
-					AND AdminProfs.idAdminProf = ".$idAdminProf.";";
+					AND AdminProfs.idAdminProf = '".$idAdminProf."';";
 
 	return $requete;
 }
@@ -166,6 +166,41 @@ function requete_etudiants_participants($dateSession)
                                     AND Sessions.dateSession='".$dateSession."';";
 	return $request;
 }
+
+function requete_nb_etudiants_participants($dateSession)
+{
+	$request = "SELECT COUNT (idEtudiant)
+				FROM Participe
+                WHERE dateSession='".$dateSession."';";
+	return $request;
+}
+
+function requete_nb_etudiants_participants_par_matiere($promo,$idMatiere)
+{
+	$request = "SELECT COUNT (DISTINCT (participe.idetudiant))
+				FROM inclu, sessions, participe, questions, etudiants
+				WHERE  sessions.idquiz = inclu.idquiz 
+				AND participe.datesession = sessions.datesession 
+				AND etudiants.idetudiant = participe.idetudiant
+				AND etudiants.promo = ".$promo." 
+				AND questions.idmatiere = ".$idMatiere." 
+				AND questions.idquestion = inclu.idquestion;";
+	return $request;
+}
+
+function requete_etudiants_participants_par_matiere($promo,$idMatiere)
+{
+	$request = "SELECT DISTINCT (participe.idetudiant)
+				FROM inclu, sessions, participe, questions, etudiants
+				WHERE  sessions.idquiz = inclu.idquiz 
+				AND participe.datesession = sessions.datesession 
+				AND etudiants.idetudiant = participe.idetudiant
+				AND etudiants.promo = ".$promo." 
+				AND questions.idmatiere = ".$idMatiere." 
+				AND questions.idquestion = inclu.idquestion;";
+	return $request;
+}
+
 
 function requete_nb_questions_repondues_par_un_etudiant($dateSession, $idEtu)
 {
@@ -315,7 +350,7 @@ function requete_tous_idadminprof($idadminprof)
 {
 	$requete = "SELECT idAdminProf 
                  FROM AdminProfs 
-                 WHERE idAdminProf =".$idadminprof.";";
+                 WHERE idAdminProf ='".$idadminprof."';";
 	return $requete;
 }
 
@@ -330,7 +365,7 @@ function requete_supprimer_prof($idadminprof)
 {
 	$requete = "DELETE
                 FROM adminprofs
-                WHERE idadminprof =".$idadminprof.";";
+                WHERE idadminprof ='".$idadminprof."';";
 	return $requete;
 }
 
@@ -390,17 +425,19 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere)
 
 function requete_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT idetudiant
-				FROM etudiants
-				WHERE promo=".$promo.";";
+	$requete = "SELECT DISTINCT (repond.idetudiant)
+				FROM  repond, etudiants
+				WHERE repond.idetudiant = etudiants.idetudiant
+				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
 function requete_nb_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT COUNT(idetudiant)
-				FROM etudiants
-				WHERE promo=".$promo.";";
+	$requete = "SELECT COUNT(DISTINCT (repond.idetudiant))
+				FROM  repond, etudiants
+				WHERE repond.idetudiant = etudiants.idetudiant
+				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
@@ -408,7 +445,7 @@ function requete_prof_devient_admin($idadminprof)
 {
 	$requete = "UPDATE AdminProfs
                 SET admin = 'true'
-                WHERE idadminprof = ".$idadminprof.";";
+                WHERE idadminprof = '".$idadminprof."';";
 	return $requete;
 }
 
@@ -436,8 +473,8 @@ function requete_si_admin($idadminprof)
 {
 	$requete = "SELECT admin
               FROM adminprofs
-              WHERE idadminprof =".$idadminprof.";";
-	return $requete;
+              WHERE idadminprof ='".$idadminprof."';";
+    return $requete;
 }
 
 function requete_creer_quiz($nomQuiz, $tempsQuiz)
@@ -451,8 +488,8 @@ function requete_admin_devient_prof($idadminprof)
 {
 	$requete = "UPDATE Adminprofs
               SET admin='false'
-              WHERE idadminprof=".$idadminprof.";";
-	return $requete;
+              WHERE idadminprof='".$idadminprof."';";
+    return $requete;
 }
 
 function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
