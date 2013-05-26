@@ -7,7 +7,7 @@
 
 function requete_tous_quiz_dans_matiere($idMatiere)
 {
-	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz, Quiz.tempsQuiz
 					FROM Quiz, Inclu, Questions, Matieres
 					WHERE Quiz.idQuiz = Inclu.idQuiz
 					AND Questions.idQuestion = Inclu.idQuestion
