@@ -100,9 +100,12 @@
 																						<tbody></tbody></table>";
 			}
 
+			var idQuizEnCours = -1;
+
 			function ChangerQuizEnCours(ligneTableau)
 			{
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+				idQuizEnCours = ligneTableau.id;
 				var value = ligneTableau.id;
 				var xhr = new XMLHttpRequest();
 				xhr.open("POST", "xhr_getListeQuestionsParQuiz.php", true);
@@ -120,12 +123,39 @@
 				xhr.send("IdQuiz=" + value);
 			}
 
-			function RecupererValeurs()
+			function AjouterQuestionAQuiz()
 			{
 				/**On récupère l'élement html <select>*/
 				var select = document.getElementById('select_questions_matiere');
 				var idQuestion = select.options[select.selectedIndex].id;
-				
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && (xhr.status == 200)) {
+						var lignesTableau;
+						var i = -1;
+						do {
+							lignesTableau = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+							i++;
+						} while (lignesTableau[i].id != idQuizEnCours);
+						ChangerQuizEnCours(lignesTableau[i]);
+						//document.getElementById("loader").style.display = "none";
+					} /*else if (xhr.readyState < 4) {
+					 document.getElementById("loader").style.display = "inline";
+					 }*/
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+
+			}
+
+			function SupprimerQuestionAQuiz()
+			{
+				/**On récupère l'élement html <select>*/
+				alert("En travaux");
 			}
 
         </script>
@@ -160,7 +190,7 @@
 				$idMatiere = $row["idmatiere"];
 
 				echo "<div name='div_entete' style='width: 100%;'>";
-				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2>";
+				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2><br>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
 				echo "<span><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' checked='true'/>";
 				echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
@@ -189,16 +219,19 @@
 			{
 				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
-				echo "<div name='div_colonne_gauche' style='float:left; width: 40%;'>";
+				echo "<div name='div_colonne_gauche' style='float:left; width: 48%;'>";
 				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_quiz'>";
-				echo "<thead><th>Questions présentes</th></thead>";
-				echo "<tbody>";
+				echo "<thead style='width: 100%;'><th>Nom du quiz</th><th>Temps total</th></thead>";
+				echo "<tbody style='width: 100%;' >";
 
 				while ($row = pg_fetch_array($result))
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td></tr>";
+					$tempsquiz = $row["tempsquiz"];
+					//echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td>";
+					echo "<td>$tempsquiz</td></tr>";
 				}
 
 
@@ -208,7 +241,8 @@
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td><b><i>$libelle</i></b></td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td><b><i>$libelle</i></b></td>";
+					echo "<td>$tempsquiz</td></tr>";
 				}
 				echo "</tbody>";
 				echo "</table>";
@@ -236,13 +270,12 @@
 				echo "<thead><th>Questions présentes</th></thead>";
 				echo "<tbody>";
 
-				while ($row = pg_fetch_array($result))
-				{
-					$libelleQuestion = $row["libellequestion"];
-					$idQuestion = $row["idquestion"];
-					/* echo "<tr><td onclick = 'SelectRow(".$i.", 2)' id = 'cell_".$i.",1'>$libelle</td></tr>"; */
-					echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
-				}
+				/* while ($row = pg_fetch_array($result))
+				  {
+				  $libelleQuestion = $row["libellequestion"];
+				  $idQuestion = $row["idquestion"];
+				  echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
+				  } */
 				echo "</tbody>";
 				echo "</table>";
 			}
@@ -266,14 +299,17 @@
 				echo "</select>";
 
 				echo "<form method='POST' action='trait_ajoutNouvelleQuestion.php'>";
-				echo "<input value = 'Ajouter Question'>";
-				echo "<input onClick='RecupererValeurs()' type='submit' value = 'Gérer Questions'>";
-				echo "<input type='hidden' name='idQuiz' value='3' >";
-				echo "<input type='hidden' name='idQuestion' value='4' >";
+				echo "<input onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
+				echo "<input onClick='SupprimerQuestionAQuiz()' type='button' value = 'Supprimer Question'>";
+				echo "<input type='submit' value = 'Gérer Questions'>";
 				echo "</form>";
 				echo "</div>";
 			}
 			?>   
+
+			<script type="text/javascript">
+
+			</script>
 
         </div>
     </body>
