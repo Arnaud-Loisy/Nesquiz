@@ -181,6 +181,7 @@ input.bouton:active {
 
 .liste {
 	border-collapse: collapse;
+	text-align: center;
 }
 
 .liste , .liste tr , .liste td {
@@ -189,6 +190,7 @@ input.bouton:active {
 
 .liste th {
 	background-color: rgb(204, 204, 204);
+	border: 1px solid rgb(102, 102, 102);
 }
 
 .listeScrollable tbody {

@@ -7,12 +7,25 @@
 
 function requete_tous_quiz_dans_matiere($idMatiere)
 {
-	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz, Quiz.tempsQuiz
 					FROM Quiz, Inclu, Questions, Matieres
 					WHERE Quiz.idQuiz = Inclu.idQuiz
 					AND Questions.idQuestion = Inclu.idQuestion
 					AND Questions.idMatiere = Matieres.idMatiere
 					AND Matieres.idMatiere = ".$idMatiere.";";
+
+	return $requete;
+}
+
+function requete_tous_quiz_sans_matiere()
+{
+	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+				FROM Quiz
+				WHERE Quiz.idQuiz
+				NOT IN (
+					SELECT DISTINCT Quiz.idQuiz
+					FROM Quiz, Inclu, Matieres	
+					WHERE Quiz.idQuiz = Inclu.idQuiz);";
 
 	return $requete;
 }
@@ -428,8 +441,9 @@ function requete_nb_etudiant_d_une_promo($promo)
 	return $requete;
 }
 
-function requete_prof_devient_admin($idadminprof){
-    $requete = "UPDATE AdminProfs
+function requete_prof_devient_admin($idadminprof)
+{
+	$requete = "UPDATE AdminProfs
                 SET admin = 'true'
                 WHERE idadminprof = '".$idadminprof."';";
 	return $requete;
@@ -455,8 +469,9 @@ function requete_liste_quiz_entier_d_une_matiere($idMatiere)
 	return $request;
 }
 
-function requete_si_admin($idadminprof){
-    $requete="SELECT admin
+function requete_si_admin($idadminprof)
+{
+	$requete = "SELECT admin
               FROM adminprofs
               WHERE idadminprof ='".$idadminprof."';";
     return $requete;
@@ -468,12 +483,15 @@ function requete_creer_quiz($nomQuiz, $tempsQuiz)
 
 	return $request;
 }
-function requete_admin_devient_prof($idadminprof){
-    $requete="UPDATE Adminprofs
+
+function requete_admin_devient_prof($idadminprof)
+{
+	$requete = "UPDATE Adminprofs
               SET admin='false'
               WHERE idadminprof='".$idadminprof."';";
     return $requete;
 }
+
 
 function requete_promotion_des_etudiants(){
     $requete="SELECT DISTINCT (promo)
@@ -488,5 +506,11 @@ function requete_nom_prenom_etudiant($idEtu)
                                     
 	return $request;
 }
-
+function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
+{
+	$requete = "INSERT INTO Inclu
+				VALUES('".$idQuiz."', '".$idQuestion."');";
+	
+	return $requete;
+}
 ?>
