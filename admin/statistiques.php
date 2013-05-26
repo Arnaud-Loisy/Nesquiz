@@ -61,44 +61,46 @@
 						echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					}
 					echo "</div>";
-					/*
+					
+					$result = pg_query($dbcon,requete_promotion_des_etudiants());
+					
+					echo "<h2>Promotion : <select>";
 
+				while ($row = pg_fetch_array($result))
+				{
+					$promo = $row["promo"];
+					
+					echo "<option id = '$promo' name='$promo'>$promo</option>";
+				}
+				echo "</select></h2>";
+					$idMatiere=1;
+					echo "<h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
 					echo "<br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
 						<tr>
-							<td> Matière </td>
-							<td> Ma Moyenne </td>
-							<td> Nombre de sessions </td>
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
-						</tr>
-						<tr>
-							<td> Toutes </td>
-							<td> " . moyenneGenerale($idEtu) . "% </td>
-							<td>" . $totalSession . "</td>
-							<td> " . moyenneGeneralePromotion($promo) . "% </td>
-							<td> " . rangEtudiantGeneral($idEtu) . "/" . $ranknb . " </td>
+							<td> Rang </td>
+							<td> Nom </td>
+							<td> Moyenne </td>
 						</tr>";
-
-					$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
+						
+					$result = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo,$idMatiere));
 					while ($row = pg_fetch_array($result)) {
-						$libelleMatiere = $row["libellematiere"];
-						$idMatiere = $row["idmatiere"];
-						$result_nbSession = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
-						$nbSession = pg_fetch_array($result_nbSession);
-
+						
+						$idEtu=$row['idetudiant'];
+						$res_nom = pg_query($dbcon,requete_nom_prenom_etudiant($idEtu));
+						$row_nom = pg_fetch_array($res_nom);
+						$nom_etu =$row_nom['nometudiant'];
+						$prenom_etu =$row_nom['prenometudiant'];
 						$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
 						$rownb = pg_fetch_array($res_ranknb);
 						$ranknb = $rownb['count'];
 						echo "<tr>
-							<td>" . $libelleMatiere . "</td>
+							<td>" . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
+							<td> " . $nom_etu ." ". $prenom_etu . " </td>
 							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
-							<td>" . $nbSession['count'] . "</td>
-							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
-							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
 						</tr>";
 					}
 
-					echo "</table>";*/
+					echo "</table>";
 				}
 
 			}

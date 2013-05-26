@@ -474,4 +474,19 @@ function requete_admin_devient_prof($idadminprof){
               WHERE idadminprof='".$idadminprof."';";
     return $requete;
 }
+
+function requete_promotion_des_etudiants(){
+    $requete="SELECT DISTINCT (promo)
+				FROM etudiants;";
+    return $requete;
+}
+function requete_nom_prenom_etudiant($idEtu)
+{
+	$request = "SELECT nomEtudiant, prenomEtudiant
+               FROM Etudiants
+               WHERE idEtudiant = ".$idEtu.";";
+                                    
+	return $request;
+}
+
 ?>
