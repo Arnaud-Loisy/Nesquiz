@@ -73,7 +73,7 @@
 				};
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdMatiere=" + value);
-				
+
 				//**
 				//Modification de la liste des quiz dans cette matiere
 				//**
@@ -91,7 +91,7 @@
 				};
 				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr2.send("IdMatiere=" + value);
-				
+
 				//**
 				//Modification de la liste des questions dans un quiz donne
 				//**
@@ -118,6 +118,14 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuiz=" + value);
+			}
+
+			function RecupererValeurs()
+			{
+				/**On récupère l'élement html <select>*/
+				var select = document.getElementById('select_questions_matiere');
+				var idQuestion = select.options[select.selectedIndex].id;
+				
 			}
 
         </script>
@@ -150,7 +158,7 @@
 				$row = pg_fetch_array($result);
 				$libelleMatiere = $row["libellematiere"];
 				$idMatiere = $row["idmatiere"];
-				
+
 				echo "<div name='div_entete' style='width: 100%;'>";
 				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
@@ -167,7 +175,7 @@
 				}
 				echo "</div>";
 			}
-			
+
 			echo "<form style='display: table-cell; width 100px;' action = '../session/publication.php' method = 'POST'>";
 			echo "<input class = 'bouton' type = 'submit' value = 'Publier'>";
 			echo "</form>";
@@ -192,10 +200,20 @@
 					$idQuiz = $row["idquiz"];
 					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td></tr>";
 				}
+
+
+				$result = pg_query($dbcon, requete_tous_quiz_sans_matiere(1));
+
+				while ($row = pg_fetch_array($result))
+				{
+					$libelle = $row["libellequiz"];
+					$idQuiz = $row["idquiz"];
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td><b><i>$libelle</i></b></td></tr>";
+				}
 				echo "</tbody>";
 				echo "</table>";
 			}
-			
+
 			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
 			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
 			echo "<input style='width: 50%;' type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
@@ -246,6 +264,13 @@
 					echo "<option id = '$idQuestion' name='$libelleQuestion'>$libelleQuestion</option>";
 				}
 				echo "</select>";
+
+				echo "<form method='POST' action='trait_ajoutNouvelleQuestion.php'>";
+				echo "<input value = 'Ajouter Question'>";
+				echo "<input onClick='RecupererValeurs()' type='submit' value = 'Gérer Questions'>";
+				echo "<input type='hidden' name='idQuiz' value='3' >";
+				echo "<input type='hidden' name='idQuestion' value='4' >";
+				echo "</form>";
 				echo "</div>";
 			}
 			?>   
