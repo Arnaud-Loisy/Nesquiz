@@ -518,4 +518,10 @@ function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
 	
 	return $requete;
 }
+
+function requete_tous_les_etudiants(){
+    $requete = "SELECT idetudiant,nometudiant,prenometudiant,promo
+                FROM etudiants";
+    return $requete;
+}
 ?>
