@@ -53,7 +53,18 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
-} elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu")) {
+} elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu") && isset($_SESSION['idSession'])) {
+	echo "
+<div id='menu'>
+<ul>
+	<li><a href='../index.php'>Accueil</a></li>
+	<li><a href='../accueil/profil.php'>Mon Profil</a></li>
+	<li><a href='../session/session.php'>Quiz en cours</a></li>
+	<li><a href='../etudiant/notes.php'>Notes</a></li> 
+	<li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
+</ul>
+</div>";
+}elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu")) {
 	echo "
 <div id='menu'>
 <ul>
