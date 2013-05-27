@@ -25,7 +25,6 @@
         </script>
     </head>
     <body>
-        <br>
         <div id="page">
             <?php
             session_start ();
@@ -43,7 +42,7 @@
 
             $dbcon = connexionBDD ();
 
-            echo "<div style='display: inline-table;' class='radioButtons'>
+            echo "<br><div style='display: inline-table;' class='radioButtons'>
                      <span class='rightRadioButton'><input onClick='changerUtilisateur(this)' type ='radio' id='radio_etudiant' name='radios_compte' value='etudiant'/>
                      <label for='radio_etudiant'> Etudiant </label></span>
                      <span class='rightRadioButton'><input onClick='changerUtilisateur(this)' type ='radio' id='radio_prof' name='radios_compte' value='prof' checked='true' />
@@ -52,22 +51,22 @@
 
             // Affiche la liste des admins et des profs
             echo"<div id ='enseignant'>
-                    <br>
-                    <table class='border'>
-                        <tr>
-                            <td class='identifiant'> Identifiant </td>
-                            <td class='nom'> Nom </td> 
-                            <td class='prenom'> Prenom </td> 
-                            <td class='admin'> Admin </td> 
-                            <td class='supprimer'> Supprimer </td>
-                        </tr>
-                    </table>";
+                    <br>";
 
             // Récupère l'identifiant, le nom et le prénom des admins et des profs
             $resultat = pg_query ($dbcon, requete_tous_idadminprof_nomadminprof_prenomadminprof ());
-            echo"<form action='majcompte.php' method='POST'>
-                    <div class='scroll'>
-                        <table class = 'border'>";
+            echo"
+                <form action='majcompte.php' method='POST'>
+                <div class='scroll'>
+                    <table class='liste'>
+                        <thead>
+                            <th class='identifiant'> Identifiant </th>
+                            <th class='nom'> Nom </th> 
+                            <th class='prenom'> Prenom </th> 
+                            <th class='admin'> Admin </th> 
+                            <th class='supprimer'> Supprimer </th>
+                        </thead>
+                        <tbody>";
             while ($arr = pg_fetch_array ($resultat)) {
                 $nomadminprof = $arr["nomadminprof"];
                 $prenomadminprof = $arr["prenomadminprof"];
@@ -88,6 +87,7 @@
                     </tr>";
             }
             ?>
+        </tbody>
         </table>
     </div>
     <br>
