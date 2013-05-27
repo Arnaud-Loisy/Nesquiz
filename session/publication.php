@@ -90,6 +90,8 @@
             echo "   <input class='boutonCenter' type='submit' value='Publier'>";
             echo "</form>";
             echo"</center>";
+            
+  
             ?>
 
         </form>

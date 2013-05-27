@@ -66,6 +66,13 @@
                 echo "<td> " . moyenneQuestion($dateSession, $idQuestion) . " % </td> </tr>";
             }
             echo "</tbody></table><br>";
+            
+            unset($_SESSION["idquiz"]);
+            unset($_SESSION["dateSession"]);
+            unset($_SESSION["mode"]);
+            unset($_SESSION["etatSession"]);
+            
+
             ?>
         </div>
     </body>
