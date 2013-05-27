@@ -7,7 +7,7 @@
 		<script type='text/javascript'>
 			function changerStats(radiobtn) {
 				var idMatiere = radiobtn.value;
-				
+				var promo = getSelectValue('numPromo');
 				var xhr = new XMLHttpRequest();
 
 				xhr.open("POST", "xhr_stats.php", true);
@@ -20,10 +20,21 @@
 				};
 
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.send("idMatiere=" + idMatiere);
+				xhr.send("idMatiere=" + idMatiere + "&promo=" + promo );
 				
 
 			}
+			function getSelectValue(selectId)
+{
+	/**On récupère l'élement html <select>*/
+	var selectElmt = document.getElementById(selectId);
+	/**
+	selectElmt.options correspond au tableau des balises <option> du select
+	selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
+	*/
+	return selectElmt.options[selectElmt.selectedIndex].value;
+}
+		
 
 		</script>
 	</head>
@@ -48,57 +59,65 @@
 					echo "connection BDD failed<br>";
 				} else {
 					$result = pg_query($dbcon, requete_toutes_matieres_pour_un_professeur($idAdminProf));
-
-					echo "<h1 >Statistiques :</h1>";
+					$row = pg_fetch_array($result);
+					$libelleMatiere = $row["libellematiere"];
+					$idMatiere = $row["idmatiere"];
+					echo "<h1>Mes Matières : </h1>";
 					echo "<div style='margin: auto;' class='radioButtons'>";
+					echo "<span><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' checked='true'/>";
+					echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					
 
 					while ($row = pg_fetch_array($result)) {
 						$libelleMatiere = $row["libellematiere"];
-						$idMatiere = $row["idmatiere"];
+						$idBtMatiere = $row["idmatiere"];
 
-						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' checked='true' />";
+						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idBtMatiere . "'/>";
 						echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					}
 					echo "</div>";
-					/*
+					
+					$result = pg_query($dbcon,requete_promotion_des_etudiants());
+					$row = pg_fetch_array($result);
+					$promo = $row["promo"];
+					echo "<h2>Promotion : <select id='numPromo' onChange = 'changerStats(this)'>";
+					echo "<option id = 'promo' name='$promo'>$promo</option>";
 
-					echo "<br><br><table class='border' id='table_stat' style='margin: auto; text-align:right;'>
+				while ($row = pg_fetch_array($result))
+				{
+					$prom = $row["promo"];
+					
+					echo "<option id = 'promo' name='$prom'>$prom</option>";
+				}
+				echo "</select></h2>";
+					
+					echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
+					echo "<table class='border' style='margin: auto; text-align:right;'>
 						<tr>
-							<td> Matière </td>
-							<td> Ma Moyenne </td>
-							<td> Nombre de sessions </td>
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
-						</tr>
-						<tr>
-							<td> Toutes </td>
-							<td> " . moyenneGenerale($idEtu) . "% </td>
-							<td>" . $totalSession . "</td>
-							<td> " . moyenneGeneralePromotion($promo) . "% </td>
-							<td> " . rangEtudiantGeneral($idEtu) . "/" . $ranknb . " </td>
+							<td> Rang </td>
+							<td> Nom </td>
+							<td> Moyenne </td>
 						</tr>";
-
-					$result = pg_query($dbcon, requete_toutes_matieres_d_un_etudiant($idEtu));
+						
+					$result = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo,$idMatiere));
 					while ($row = pg_fetch_array($result)) {
-						$libelleMatiere = $row["libellematiere"];
-						$idMatiere = $row["idmatiere"];
-						$result_nbSession = pg_query($dbcon, requete_nombre_de_sessions_d_un_etudiant_matiere_donnee($idEtu, $idMatiere));
-						$nbSession = pg_fetch_array($result_nbSession);
-
+						
+						$idEtu=$row['idetudiant'];
+						$res_nom = pg_query($dbcon,requete_nom_prenom_etudiant($idEtu));
+						$row_nom = pg_fetch_array($res_nom);
+						$nom_etu =$row_nom['nometudiant'];
+						$prenom_etu =$row_nom['prenometudiant'];
 						$res_ranknb = pg_query($dbcon, requete_nb_etudiant_d_une_promo($promo));
 						$rownb = pg_fetch_array($res_ranknb);
 						$ranknb = $rownb['count'];
 						echo "<tr>
-							<td>" . $libelleMatiere . "</td>
+							<td>" . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
+							<td> " . $nom_etu ." ". $prenom_etu . " </td>
 							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
-							<td>" . $nbSession['count'] . "</td>
-							<td> " . moyennePromotionMatiere($promo, $idMatiere) . "% </td>
-							<td> " . rangEtudiantMatiere($idEtu, $idMatiere) . "/" . $ranknb . " </td>
 						</tr>";
 					}
 
-					echo "</table>";*/
+					echo "</table></div>";
 				}
 
 			}
