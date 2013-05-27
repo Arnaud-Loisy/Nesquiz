@@ -43,10 +43,10 @@
             if ($modeFonctionnement == 2) {
                 echo "<center>Session lancée le " . date('d/m/Y', $dateSession) . " à " . date('H:i:s', $dateSession) . "<br>";
                 echo "<br>Etudiants participant à la session :</center>";
-                echo "<br><table class='border' style='margin: auto'>";
+                echo "<br><table class='liste'  style='margin: auto'>";
                 // si session en attente
                 if ($etatsession == 1) {
-                    echo "<tr> <td> Nom </td> <td> Prénom </td> </tr> ";
+                    echo "<tr><thead><th> Nom </th> <th> Prénom </th> </thead></td> <tbody>";
 
                     // Récupération des étudiants participants
                     $result = pg_query($dbcon, requete_etudiants_participants($dateSession)) or die("Echec de la requête");
@@ -55,7 +55,7 @@
                     while ($arr = pg_fetch_array($result)) {
                         echo "<tr> <td> " . $arr["nometudiant"] . "</td> <td> " . $arr["prenometudiant"] . " </td> </tr>";
                     }
-                    echo "</table>";
+                    echo "</tbody></table>";
 
                     // afficher bouton "Lancer le quiz"
                     echo "<form method='POST' action='trait_supervision.php'>";
@@ -66,7 +66,7 @@
                     $result = pg_query($dbcon, requete_etudiants_participants($dateSession)) or die("Echec de la requête");
                     
                     // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                    echo "<table class='border' style='margin: auto'> <tr> <td> Nom </td> <td> Prénom </td> <td> Questions répondues </td> </tr> ";
+                    echo "<table class='liste' style='margin: auto'><thead> <tr> <th> Nom </th> <th> Prénom </th> <th> Questions répondues </th> </tr><thead><tbody> ";
                     while ($arr = pg_fetch_array($result)) {
                         $nomEtu = $arr["nometudiant"];
                         $prenomEtu = $arr["prenometudiant"];
@@ -79,7 +79,7 @@
 
                         echo "<td> " . $nbRep[0] . "</td> </tr>";
                     }
-                    echo "</table>";
+                    echo "</tbody></table>";
 
                     // afficher bouton "Arreter"
                     echo "<form method='POST' action='resultatsSupervision.php'>";
