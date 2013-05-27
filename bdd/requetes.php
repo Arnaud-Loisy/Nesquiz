@@ -357,7 +357,7 @@ function requete_tous_idadminprof($idadminprof)
 function requete_inserer_prof($identifiant, $nom, $prenom, $mdph, $adminb, $langue)
 {
 	$requete = "INSERT INTO AdminProfs 
-                VALUES (".$identifiant.", '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
+                VALUES ('".$identifiant."', '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
 	return $requete;
 }
 
