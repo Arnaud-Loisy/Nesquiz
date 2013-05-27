@@ -7,6 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
+        <br>
         <div id="page">
             <?php
             session_start ();
@@ -17,15 +18,20 @@
             include '../bdd/connexionBDD.php';
             include '../bdd/requetes.php';
 
+            if (isset ($_SESSION["erreur_creation"])) {
+                echo"<br> Identifiant déjà existant.";
+                unset ($_SESSION["erreur_creation"]);
+            }
+
             $dbcon = connexionBDD ();
-            
+
             echo "<div style='display: inline-table;' class='radioButtons'>
                      <span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_etudiant' name='radios_etudiant' value='etudiant' />
                      <label for='radio_etudiant'> Etudiant </label></span>
                      <span class='rightRadioButton'><input onClick='changerListeQuiz(this)' type ='radio' id='radio_prof' name='radios_prof' value='prof' />
                      <label for='radio_etudiant'> Enseignant </label></span>
                   </div>";
-            
+
             // Affiche la liste des admins et des profs
             echo"<br>
                 <table class='border'>
@@ -66,7 +72,7 @@
         </table>
     </div>
     <br>
-    <input  class='bouton' value='Valider' type='submit'>
+    <input  class='bouton2' value='Valider' type='submit'>
 </form>
 <form action='creercompte.php' method='POST'>
     <br>
@@ -79,10 +85,6 @@
         <tr>
             <td>Prénom</td> 
             <td> <input name="prenom" type="text" > </td> 
-        </tr>
-        <tr>
-            <td>Identifiant</td> 
-            <td> <input name="identifiant" type="text" > </td> 
         </tr>
         <tr>
             <td>Mot de passe</td> <td> 
