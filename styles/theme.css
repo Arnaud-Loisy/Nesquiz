@@ -188,6 +188,10 @@ input.bouton:active {
 	border: 1px solid rgb(102, 102, 102);
 }
 
+.liste tr {
+	height: 2em;
+}
+
 .liste th {
 	background-color: rgb(204, 204, 204);
 	border: 1px solid rgb(102, 102, 102);
@@ -195,8 +199,12 @@ input.bouton:active {
 
 .listeScrollable tbody {
 	display:block;
-	overflow-x:auto;
+	overflow:auto;
 	height:10em;
+}
+
+.listeScrollable thead {
+	/*display:block;*/
 }
 
 .scroll{
@@ -231,4 +239,26 @@ input.bouton:active {
 
 .supprimer{
     width: 70px;
+}
+
+.TEST {
+	height: 10em;
+}
+.TEST tr {
+	height: 2em;
+}
+
+.TEST th {
+	background-color: rgb(204, 204, 204);
+	border: 1px solid rgb(102, 102, 102);
+}
+
+.TEST tbody {
+	display:block;
+	overflow:auto;
+	height:10em;
+}
+
+.TEST thead {
+	display:block;
 }

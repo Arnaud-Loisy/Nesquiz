@@ -25,7 +25,10 @@
             // Récup des variables
             $nomQuiz = $_POST["nomQuiz"];
             $tempsQuiz = $_POST["tempsQuiz"];
-
+			
+			if (($nomQuiz == "Ex:\"IPV6\"") || ($tempsQuiz == "Ex:\"200(secondes)\""))
+				header('Location: gestionquiz.php');
+			
             // transmission des variables utiles à la page "gestionquiz.php"
             //$_SESSION["nomQuiz"] = $nomQuiz;
 

@@ -149,13 +149,18 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
-
 			}
 
 			function SupprimerQuestionAQuiz()
 			{
-				/**On récupère l'élement html <select>*/
-				alert("En travaux");
+				var i = -1;
+				var lignesTableau;
+						do {
+							lignesTableau = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tr');
+							alert("ID QUESTION = " + lignesTableau[i].id);
+							i++;
+						} while (lignesTableau[i].style.backgroundColor != "rgb(149,188,242)");
+						alert("ID QUESTION = " + lignesTableau[i].id);
 			}
 
         </script>
@@ -266,7 +271,8 @@
 				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
 				echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
-				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>";
+				//echo "<div class='TEST'>";
+				echo "<table class ='liste listeScrollable' style='width: 100%;' id = 'table_libelles_questions_quiz'>";
 				echo "<thead><th>Questions présentes</th></thead>";
 				echo "<tbody>";
 
@@ -278,6 +284,7 @@
 				  } */
 				echo "</tbody>";
 				echo "</table>";
+				//echo "</div>";
 			}
 
 			if (!$dbcon)
@@ -298,7 +305,7 @@
 				}
 				echo "</select>";
 
-				echo "<form method='POST' action='trait_ajoutNouvelleQuestion.php'>";
+				echo "<form>";
 				echo "<input onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
 				echo "<input onClick='SupprimerQuestionAQuiz()' type='button' value = 'Supprimer Question'>";
 				echo "<input type='submit' value = 'Gérer Questions'>";
