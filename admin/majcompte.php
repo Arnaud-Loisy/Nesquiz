@@ -13,7 +13,7 @@ if (!$dbcon)
 else {
     // Suppression de certains enseignants sauf 0
     foreach ($_POST['supprimer'] as $idadminprof)
-        if ($idadminprof != 0)
+        if ($idadminprof != '0')
             pg_query ($dbcon, requete_supprimer_prof ($idadminprof));
     // Certains enseignants deviennent admin    
     foreach ($_POST['admin'] as $idadminprof)
@@ -26,7 +26,7 @@ else {
         foreach ($_POST['admin'] as $idadminprof)
             if ($idadminprof == $idadminFromBD)
                 $valider = 'true';
-        if ($valider != 'true' && $idadminFromBD != 0)
+        if ($valider != 'true' && $idadminFromBD != '0')
             pg_query ($dbcon, requete_admin_devient_prof ($idadminFromBD));
     }
     header ('Location:./compte.php');
