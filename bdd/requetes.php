@@ -518,4 +518,12 @@ function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
 	
 	return $requete;
 }
+function requete_matieres()
+{
+	$requete = "SELECT * 
+				FROM matieres
+				ORDER BY libellematiere ASC;";
+	
+	return $requete;
+}
 ?>
