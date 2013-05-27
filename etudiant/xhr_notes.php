@@ -28,14 +28,14 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		$rownb = pg_fetch_array($res_ranknb);
 		$ranknb = $rownb['count'];
 
-		echo "<table class='border' id='table_stat' style='margin: auto; text-align:right;'>
-						<tr>
-							<td> Matière </td>
-							<td> Ma Moyenne </td>
-							<td> Nombre de sessions </td>
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
-						</tr>
+		echo "<table class='liste' id='table_stat' style='margin: auto; text-align:right;'>
+						<thead>
+							<th> Matière </th>
+							<th> Ma Moyenne </th>
+							<th> Nombre de sessions </th>
+							<th> Moyenne de la promotion </th>
+							<th> Classement </th>
+						</thead>
 						<tr>
 							<td> Toutes </td>
 							<td> " . moyenneGenerale($idEtu) . "% </td>
