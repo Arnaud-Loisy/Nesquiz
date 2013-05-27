@@ -425,19 +425,23 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere)
 
 function requete_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT DISTINCT (repond.idetudiant)
-				FROM  repond, etudiants
-				WHERE repond.idetudiant = etudiants.idetudiant
-				AND etudiants.promo=".$promo.";";
+	$requete = "SELECT DISTINCT(etudiants.idetudiant)
+				FROM  participe, sessions, quiz, etudiants
+				WHERE  participe.datesession = sessions.datesession 
+				AND  sessions.idquiz = quiz.idquiz 
+				AND  etudiants.idetudiant = participe.idetudiant
+ 				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
 function requete_nb_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT COUNT(DISTINCT (repond.idetudiant))
-				FROM  repond, etudiants
-				WHERE repond.idetudiant = etudiants.idetudiant
-				AND etudiants.promo=".$promo.";";
+	$requete = "SELECT COUNT(DISTINCT(etudiants.idetudiant))
+				FROM  participe, sessions, quiz, etudiants
+				WHERE  participe.datesession = sessions.datesession 
+				AND  sessions.idquiz = quiz.idquiz 
+				AND  etudiants.idetudiant = participe.idetudiant
+ 				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
