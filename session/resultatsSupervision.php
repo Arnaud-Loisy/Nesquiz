@@ -70,6 +70,9 @@
             unset($_SESSION["idquiz"]);
             unset($_SESSION["dateSession"]);
             unset($_SESSION["mode"]);
+            unset($_SESSION["etatSession"]);
+            
+
             ?>
         </div>
     </body>

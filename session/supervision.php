@@ -93,10 +93,12 @@
                 unset($_SESSION["mode"]);
                 unset($_SESSION["dateSession"]);
                 unset($_SESSION["etatSession"]);
+                unset($_SESSION["idquiz"]);
             }
 
             // refresh automatique de la page
             header("refresh: 5; url=supervision.php");
+
             ?>
         </div>
     </body>
