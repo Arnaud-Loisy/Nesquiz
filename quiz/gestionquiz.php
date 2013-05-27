@@ -229,7 +229,6 @@
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
 					$tempsquiz = $row["tempsquiz"];
-					//echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td></tr>";
 					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td>";
 					echo "<td>$tempsquiz</td></tr>";
 				}
@@ -241,6 +240,7 @@
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
+					$tempsquiz = $row["tempsquiz"];
 					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td><b><i>$libelle</i></b></td>";
 					echo "<td>$tempsquiz</td></tr>";
 				}

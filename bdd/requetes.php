@@ -19,7 +19,7 @@ function requete_tous_quiz_dans_matiere($idMatiere)
 
 function requete_tous_quiz_sans_matiere()
 {
-	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz
+	$requete = "SELECT DISTINCT Quiz.libelleQuiz, Quiz.idQuiz, Quiz.tempsQuiz
 				FROM Quiz
 				WHERE Quiz.idQuiz
 				NOT IN (

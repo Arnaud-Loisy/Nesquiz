@@ -1,18 +1,47 @@
 <?php
-if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
+if(isset($_SESSION['id']) && ($_SESSION['statut'] == "admin") && isset($_SESSION["idquiz"]))
+{
+		echo "
+<div id='menu'>
+<ul>
+   <li><a href='../index.php'>Accueil</a></li>
+   <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
+   <li><a href='../admin/compte.php'>Comptes<br>Utilisateurs</a></li>
+   <li><a href='../session/supervision.php'>Quiz</a></li>
+   <li><a href='../admin/matieres.php'>Matières</a></li>
+   <li><a href='../admin/historique.php'>Historique</a></li>
+   <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
+   <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
+</ul>
+</div>";
+}
+elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
 	echo "
 <div id='menu'>
 <ul>
    <li><a href='../index.php'>Accueil</a></li>
    <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
-   <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
    <li><a href='../admin/compte.php'>Comptes<br>Utilisateurs</a></li>
-   <li><a href='../admin/historique.php'>Historique</a></li>
+   <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
    <li><a href='../admin/matieres.php'>Matières</a></li>
+   <li><a href='../admin/historique.php'>Historique</a></li>
+   <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
+   <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
+</ul>
+</div>";}
+elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESSION["idquiz"]))
+{
+		echo "
+<div id='menu'>
+<ul>
+  <li><a href='../index.php'>Accueil</a></li>
+   <li><a href='../accueil/profil.php'>Mon Profil</a></li>
+   <li><a href='../session/supervision.php'>Quiz en cours</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
+
 } elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "prof")) {
 	echo "
 <div id='menu'>
@@ -24,7 +53,18 @@ if (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
-} elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu")) {
+} elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu") && isset($_SESSION['idSession'])) {
+	echo "
+<div id='menu'>
+<ul>
+	<li><a href='../index.php'>Accueil</a></li>
+	<li><a href='../accueil/profil.php'>Mon Profil</a></li>
+	<li><a href='../session/session.php'>Quiz en cours</a></li>
+	<li><a href='../etudiant/notes.php'>Notes</a></li> 
+	<li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
+</ul>
+</div>";
+}elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu")) {
 	echo "
 <div id='menu'>
 <ul>

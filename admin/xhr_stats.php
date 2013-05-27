@@ -18,12 +18,12 @@ if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 		echo "connection BDD failed<br>";
 	} else {
 		echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
-		echo "<table class='border' id='table_stat' style='margin: auto; text-align:right;'>
-						<tr>
-							<td> Rang </td>
-							<td> Nom </td>
-							<td> Moyenne </td>
-						</tr>";
+		echo "<table class='liste' id='table_stat' style='margin: auto; text-align:right;'>
+						<thead>
+							<th> Rang </th>
+							<th> Nom </th>
+							<th> Moyenne </th>
+						</thead>";
 						
 					$result = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo,$idMatiere));
 					while ($row = pg_fetch_array($result)) {

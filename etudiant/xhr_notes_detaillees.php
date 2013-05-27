@@ -29,13 +29,13 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		$rownb = pg_fetch_array($res_ranknb);
 		$ranknb = $rownb['count'];
 
-		echo "<table class='border' style='margin: auto; text-align:right;'>
-						<tr>
-							<td> Date de la session </td>
-							<td> Ma note </td>							
-							<td> Moyenne de la promotion </td>
-							<td> Classement </td>
-						</tr>
+		echo "<table class='liste' style='margin: auto; text-align:right;'>
+						<thead>
+							<th> Date de la session </th>
+							<th> Ma note </th>							
+							<th> Moyenne de la promotion </th>
+							<th> Classement </th>
+						</thead>
 						<tr>
 							<td> Toutes </td>
 							<td> " . moyenneMatiere($idEtu, $idMatiere) . "% </td>
