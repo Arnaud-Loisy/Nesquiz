@@ -5,34 +5,68 @@
         <title>Gestion des Compte</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type='text/javascript'>
+            function changerUtilisateur(radios_compte) {
+                var utilisateur = radios_compte.value;
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "xhr_compte.php", true);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        //alert(xhr.responseText);
+                        document.getElementById('enseignant').innerHTML = xhr.responseText;
+                    }
+                };
+
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send("utilisateur=" + utilisateur);
+            }
+        </script>
     </head>
     <body>
         <div id="page">
             <?php
             session_start ();
+            if (!(isset ($_SESSION["id"])) || ($_SESSION["statut"] == "etu") || ($_SESSION["statut"] == 'prof'))
+                header ('Location:../index.php');
+
             include '../accueil/menu.php';
             include '../bdd/connexionBDD.php';
             include '../bdd/requetes.php';
 
+            if (isset ($_SESSION["erreur_creation"])) {
+                echo"<br> Identifiant déjà existant.";
+                unset ($_SESSION["erreur_creation"]);
+            }
+
             $dbcon = connexionBDD ();
 
+            echo "<br><div style='display: inline-table;' class='radioButtons'>
+                     <span class='rightRadioButton'><input onClick='changerUtilisateur(this)' type ='radio' id='radio_etudiant' name='radios_compte' value='etudiant'/>
+                     <label for='radio_etudiant'> Etudiant </label></span>
+                     <span class='rightRadioButton'><input onClick='changerUtilisateur(this)' type ='radio' id='radio_prof' name='radios_compte' value='prof' checked='true' />
+                     <label for='radio_prof'> Enseignant </label></span>
+                  </div>";
+
             // Affiche la liste des admins et des profs
-            echo"<br>
-                <table class='border'>
-                    <tr>
-                        <td class='identifiant'> Identifiant </td>
-                        <td class='nom'> Nom </td> 
-                        <td class='prenom'> Prenom </td> 
-                        <td class='admin'> Admin </td> 
-                        <td class='supprimer'> Supprimer </td>
-                    </tr>
-                </table>";
+            echo"<div id ='enseignant'>
+                    <br>";
 
             // Récupère l'identifiant, le nom et le prénom des admins et des profs
             $resultat = pg_query ($dbcon, requete_tous_idadminprof_nomadminprof_prenomadminprof ());
-            echo"<form action='majcompte.php' method='POST'>
-                    <div class='scroll'>
-                        <table class = 'border'>";
+            echo"
+                <form action='majcompte.php' method='POST'>
+                <div class='scroll'>
+                    <table class='liste'>
+                        <thead>
+                            <th class='identifiant'> Identifiant </th>
+                            <th class='nom'> Nom </th> 
+                            <th class='prenom'> Prenom </th> 
+                            <th class='admin'> Admin </th> 
+                            <th class='supprimer'> Supprimer </th>
+                        </thead>
+                        <tbody>";
             while ($arr = pg_fetch_array ($resultat)) {
                 $nomadminprof = $arr["nomadminprof"];
                 $prenomadminprof = $arr["prenomadminprof"];
@@ -45,7 +79,7 @@
                 $arrAdmin = pg_fetch_array ($resultatAdmin);
                 $admin = $arrAdmin['admin'];
                 if ($admin == 't')
-                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='admin_" . $idadminprof . "' checked></td>";
+                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
                 else
                     echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
 
@@ -53,10 +87,11 @@
                     </tr>";
             }
             ?>
+        </tbody>
         </table>
     </div>
     <br>
-    <input  class='bouton' value='Valider' type='submit'>
+    <input  class='boutonMAJ' value='Valider' type='submit'>
 </form>
 <form action='creercompte.php' method='POST'>
     <br>
@@ -69,10 +104,6 @@
         <tr>
             <td>Prénom</td> 
             <td> <input name="prenom" type="text" > </td> 
-        </tr>
-        <tr>
-            <td>Identifiant</td> 
-            <td> <input name="identifiant" type="text" > </td> 
         </tr>
         <tr>
             <td>Mot de passe</td> <td> 
@@ -91,6 +122,7 @@
     <input class="boutonCenter" value="Ajouter" type="submit">
 
 </form>
+</div>
 </div>
 </body>
 <html>

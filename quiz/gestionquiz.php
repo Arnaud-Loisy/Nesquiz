@@ -73,7 +73,7 @@
 				};
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdMatiere=" + value);
-				
+
 				//**
 				//Modification de la liste des quiz dans cette matiere
 				//**
@@ -91,7 +91,7 @@
 				};
 				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr2.send("IdMatiere=" + value);
-				
+
 				//**
 				//Modification de la liste des questions dans un quiz donne
 				//**
@@ -100,9 +100,12 @@
 																						<tbody></tbody></table>";
 			}
 
+			var idQuizEnCours = -1;
+
 			function ChangerQuizEnCours(ligneTableau)
 			{
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+				idQuizEnCours = ligneTableau.id;
 				var value = ligneTableau.id;
 				var xhr = new XMLHttpRequest();
 				xhr.open("POST", "xhr_getListeQuestionsParQuiz.php", true);
@@ -118,6 +121,67 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuiz=" + value);
+			}
+
+			function AjouterQuestionAQuiz()
+			{
+				/**On récupère l'élement html <select>*/
+				var select = document.getElementById('select_questions_matiere');
+				var idQuestion = select.options[select.selectedIndex].id;
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && (xhr.status == 200)) {
+						var lignesTableau;
+						var i = -1;
+						do {
+							lignesTableau = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+							i++;
+						} while (lignesTableau[i].id != idQuizEnCours);
+						ChangerQuizEnCours(lignesTableau[i]);
+						//document.getElementById("loader").style.display = "none";
+					} /*else if (xhr.readyState < 4) {
+					 document.getElementById("loader").style.display = "inline";
+					 }*/
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+			}
+
+			function SupprimerQuestionAQuiz()
+			{
+				var i = -1;
+				var idQuestion = -1;
+				var lignesTableau;
+				do {
+					lignesTableau = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tr');
+					i++;
+				} while (lignesTableau[i].style.backgroundColor.toString() != "rgb(149, 188, 242)");
+				idQuestion = lignesTableau[i].id;
+
+				alert("ID QUESTION = " + idQuestion + " ; ID QUIZ = " + idQuizEnCours);
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_supprimerQuestionDansQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && (xhr.status == 200)) {
+						var lignesTableauQuiz;
+						var i2 = -1;
+						do {
+							lignesTableauQuiz = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+							i2++;
+						} while (lignesTableauQuiz[i2].id != idQuizEnCours);
+						ChangerQuizEnCours(lignesTableauQuiz[i2]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
 
         </script>
@@ -150,9 +214,9 @@
 				$row = pg_fetch_array($result);
 				$libelleMatiere = $row["libellematiere"];
 				$idMatiere = $row["idmatiere"];
-				
+
 				echo "<div name='div_entete' style='width: 100%;'>";
-				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2>";
+				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2><br>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
 				echo "<span><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' checked='true'/>";
 				echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
@@ -167,7 +231,7 @@
 				}
 				echo "</div>";
 			}
-			
+
 			echo "<form style='display: table-cell; width 100px;' action = '../session/publication.php' method = 'POST'>";
 			echo "<input class = 'bouton' type = 'submit' value = 'Publier'>";
 			echo "</form>";
@@ -181,27 +245,41 @@
 			{
 				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
-				echo "<div name='div_colonne_gauche' style='float:left; width: 40%;'>";
-				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_quiz'>";
-				echo "<thead><th>Questions présentes</th></thead>";
-				echo "<tbody>";
+				echo "<div name='div_colonne_gauche' style='float:left; width: 48%;'>";
+				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_libelles_quiz'>";
+				echo "<thead style='width: 100%;'><th style='width: 720px'>Nom du quiz</th><th style='width: 100px'>Temps total</th></thead>";
+				echo "<tbody style='width: 100%;'>";
 
 				while ($row = pg_fetch_array($result))
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td></tr>";
+					$tempsquiz = $row["tempsquiz"];
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'>$libelle</td>";
+					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
+				}
+
+
+				$result = pg_query($dbcon, requete_tous_quiz_sans_matiere(1));
+
+				while ($row = pg_fetch_array($result))
+				{
+					$libelle = $row["libellequiz"];
+					$idQuiz = $row["idquiz"];
+					$tempsquiz = $row["tempsquiz"];
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'><b><i>$libelle</i></b></td>";
+					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
 				}
 				echo "</tbody>";
 				echo "</table>";
 			}
-			
+
 			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
 			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
 			echo "<input style='width: 50%;' type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
 			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
 			echo "<input style='width: 50%;'  type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
-			echo "<input type='submit' value = 'Nouveau Quiz'>";
+			echo "<input class ='boutonPetit' type='submit' value = 'Nouveau Quiz'>";
 			echo "</form>";
 			echo "</div>";
 
@@ -214,19 +292,13 @@
 				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
 				echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
-				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>";
+				//echo "<div class='TEST'>";
+				echo "<table class ='liste listeScrollable' style='width: 100%;' id = 'table_libelles_questions_quiz'>";
 				echo "<thead><th>Questions présentes</th></thead>";
 				echo "<tbody>";
-
-				while ($row = pg_fetch_array($result))
-				{
-					$libelleQuestion = $row["libellequestion"];
-					$idQuestion = $row["idquestion"];
-					/* echo "<tr><td onclick = 'SelectRow(".$i.", 2)' id = 'cell_".$i.",1'>$libelle</td></tr>"; */
-					echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
-				}
 				echo "</tbody>";
 				echo "</table>";
+				//echo "</div>";
 			}
 
 			if (!$dbcon)
@@ -246,9 +318,19 @@
 					echo "<option id = '$idQuestion' name='$libelleQuestion'>$libelleQuestion</option>";
 				}
 				echo "</select>";
+
+				echo "<form>";
+				echo "<input class='boutonPetit' onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
+				echo "<input class='boutonPetit' onClick='SupprimerQuestionAQuiz()' type='button' value = 'Retirer Question'>";
+				echo "<input class='boutonPetit' type='submit' value = 'Gérer Questions'>";
+				echo "</form>";
 				echo "</div>";
 			}
 			?>   
+
+			<script type="text/javascript">
+
+			</script>
 
         </div>
     </body>

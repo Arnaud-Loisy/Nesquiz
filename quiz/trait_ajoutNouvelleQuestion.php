@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <title>Traitement des quiz</title>
+        <title>Traitement des questions</title>
         <link rel="stylesheet" href="../styles/theme.css" />
     </head>
     <body>
@@ -23,17 +23,14 @@
             $dbcon = connexionBDD();
 
             // Récup des variables
-            $nomQuiz = $_POST["nomQuiz"];
-            $tempsQuiz = $_POST["tempsQuiz"];
-			
-			if (($nomQuiz == "Ex:\"IPV6\"") || ($tempsQuiz == "Ex:\"200(secondes)\""))
-				header('Location: gestionquiz.php');
-			
+            $idQuiz = $_POST["idQuiz"];
+            $idQuestion = $_POST["idQuestion"];
+
             // transmission des variables utiles à la page "gestionquiz.php"
             //$_SESSION["nomQuiz"] = $nomQuiz;
 
             // Créa de la session, en attente des élèves
-            pg_query($dbcon, requete_creer_quiz($nomQuiz, $tempsQuiz)) or die("Echec de la requête");
+            pg_query($dbcon, requete_ajout_question_dans_quiz($idQuiz, $idQuestion));
 
             // rediriger vers supervision
             header('Location: gestionquiz.php');

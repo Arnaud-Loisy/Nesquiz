@@ -24,7 +24,7 @@ if (isset($_POST["IdQuiz"]))
 			$libelleQuestion = $row["libellequestion"];
 			$idQuestion = $row["idquestion"];
 			/* echo "<tr><td onclick = 'SelectRow(".$i.", 2)' id = 'cell_".$i.",1'>$libelle</td></tr>"; */
-			echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
+			echo "<tr onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'><td style='width: 720px'>$libelleQuestion</td></tr>";
 		}
 		echo "</tbody>";
 		echo "</table>";

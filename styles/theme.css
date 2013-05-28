@@ -9,6 +9,10 @@
     font-style: normal;
 
 }
+@viewport {
+   width: device-width; /* largeur du viewport */
+   zoom: 1; /* zoom initial à 1.0 */
+}
 
 .checkB input[type="checkbox"] {
 	display:none; 
@@ -106,7 +110,7 @@ div.tps {
 	padding: 5px;
 }
 input.bouton {
-	margin: 7%;
+        margin: 7%;
 	width: 255px;
 	height: 60px;
 	font-size: 50px;
@@ -116,6 +120,7 @@ input.bouton {
 	color: white;
 	border-width: 1px;
 	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
 }
 input.bouton:active {
 	background: rgb(149,188,242);
@@ -123,7 +128,7 @@ input.bouton:active {
 }
 
 .boutonCenter{
-	margin-top: 7%;
+	margin-top: 10px;
 	margin-bottom: 7%;
 	display: block;
 	margin-left: auto;
@@ -137,6 +142,7 @@ input.bouton:active {
 	color: white;
 	border-width: 1px;
 	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
 }
 
 .radioButtons input[type="radio"] {
@@ -175,27 +181,37 @@ input.bouton:active {
 
 .liste {
 	border-collapse: collapse;
+	text-align: center;
 }
 
 .liste , .liste tr , .liste td {
 	border: 1px solid rgb(102, 102, 102);
 }
 
+.liste tr {
+	height: 2em;
+}
+
 .liste th {
 	background-color: rgb(204, 204, 204);
+	border: 1px solid rgb(102, 102, 102);
 }
 
 .listeScrollable tbody {
 	display:block;
-	overflow-x:auto;
+	overflow:auto;
 	height:10em;
+}
+
+.listeScrollable thead {
+	display:block;
 }
 
 .scroll{
     min-height: 60px;
     height:160px;
     min-width: 60px;
-    width: 385px;
+    width: 470px;
     overflow: auto;
 }
 
@@ -205,7 +221,7 @@ input.bouton:active {
 }
 
 .identifiant{
-    width: 70px;
+    width: 150px;
     text-align: center;
 }
 
@@ -223,4 +239,38 @@ input.bouton:active {
 
 .supprimer{
     width: 70px;
+}
+
+input.boutonMAJ {
+        margin-top: 10px;
+        margin-bot: 10px;
+        margin-left: 20%;
+	width: auto;
+	height: 60px;
+	font-size: 50px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+	background: rgb(43,120,228);
+	color: white;
+	border-width: 1px;
+	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
+}
+
+input.boutonPetit {
+	margin: 1%;
+	min-width: 125px;
+	height: 30px;
+	font-size: 17px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+	background: rgb(43,120,228);
+	color: white;
+	border-width: 1px;
+	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
+}
+input.boutonPetit:active {
+	background: rgb(149,188,242);
+	color: white;
 }
