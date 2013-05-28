@@ -18,7 +18,7 @@ if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 		echo "connection BDD failed<br>";
 	} else {
 		echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
-		echo "<table class='liste' id='table_stat' style='margin: auto;min-width:60%;'>
+		echo "<table class='liste' id='table_stat' style='margin: auto;min-width:70%;'>
 						<thead>
 							<th> Rang </th>
 							<th> Nom </th>
