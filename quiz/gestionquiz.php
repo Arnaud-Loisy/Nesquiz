@@ -312,7 +312,7 @@
 				}
 				echo "</select>";
 
-				echo "<form>";
+				echo "<form method='POST' action='../questions/gestionquestions.php'>";
 				echo "<input class='boutonPetit' onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
 				echo "<input class='boutonPetit' onClick='SupprimerQuestionAQuiz()' type='button' value = 'Retirer Question'>";
 				echo "<input class='boutonPetit' type='submit' value = 'Gérer Questions'>";
