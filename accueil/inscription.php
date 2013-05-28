@@ -33,13 +33,14 @@
                 unset( $_SESSION["erreur_longeur_champ_inscription_nom"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
-                   $str = "A 'quote' is <b>bold</b>";
+               
+$str = "\x8F!!!";
 
-// Outputs: A 'quote' is &lt;b&gt;bold&lt;/b&gt;
-echo htmlentities($str);
+// Outputs an empty string
+echo htmlentities($str, ENT_QUOTES, "UTF-8");
 
-// Outputs: A &#039;quote&#039; is &lt;b&gt;bold&lt;/b&gt;
-echo htmlentities($str, ENT_QUOTES);
+// Outputs "!!!"
+echo htmlentities($str, ENT_QUOTES | ENT_IGNORE, "UTF-8");
             echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
             echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_prenom"]);
