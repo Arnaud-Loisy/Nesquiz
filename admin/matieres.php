@@ -49,6 +49,71 @@
 				xhr.send("idMatiere=" + value);
 				
 			}
+			function GetSelectedRowID(idTableau)
+			{
+				var tableau = document.getElementById(idTableau);
+				var lignesTableau = tableau.getElementsByTagName('tr');
+				var i;
+				var idRow = -1;
+				
+				for (i = 0; i < lignesTableau.length; i++)
+				{
+					if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
+						idRow = lignesTableau[i].id;
+				}
+				
+				return idRow;
+			}
+			function AssocierProf(){
+				var idMatiere = GetSelectedRowID('table_matiere');
+				var idAdminProf = getSelectValue("select_questions_matiere")
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "matieres_traitement.php", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("associe=1&idMatiere=" + idMatiere + "&idAdminProf=" + idAdminProf);
+				
+				var xhr2 = new XMLHttpRequest();
+				xhr2.open("POST", "xhr_matiere.php", true);xhr2.onreadystatechange = function() {
+					if (xhr2.readyState == 4 && (xhr2.status == 200)) {
+						document.getElementById('table_profs').innerHTML = xhr2.responseText;
+						
+					} 
+				};
+
+				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr2.send("idMatiere=" + idMatiere);
+				
+			}
+			function DissocierProf(){
+				var idMatiere = GetSelectedRowID('table_matiere');
+				var idAdminProf = getSelectValue("select_questions_matiere")
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "matieres_traitement.php", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("dissocie=1&idMatiere=" + idMatiere + "&idAdminProf=" + idAdminProf);
+				
+				var xhr2 = new XMLHttpRequest();
+				xhr2.open("POST", "xhr_matiere.php", true);xhr2.onreadystatechange = function() {
+					if (xhr2.readyState == 4 && (xhr2.status == 200)) {
+						document.getElementById('table_profs').innerHTML = xhr2.responseText;
+						
+					} 
+				};
+
+				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr2.send("idMatiere=" + idMatiere);
+				
+			}
+			function getSelectValue(selectId)
+{
+	/**On récupère l'élement html <select>*/
+	var selectElmt = document.getElementById(selectId);
+	/**
+	selectElmt.options correspond au tableau des balises <option> du select
+	selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
+	*/
+	return selectElmt.options[selectElmt.selectedIndex].value;
+}
 			
         </script>
     </head>
@@ -116,8 +181,8 @@
 				echo "</select>";
 
 				
-				echo "<input onClick='AjouterProf' class='boutonPetit' type='submit' name='ass' value = 'Associer Professeur'>";
-				echo "<input onClick='SupprimerProf()' class='boutonPetit' type='submit' name='dis' value = 'Dissocier Professeur'>";
+				echo "<input onClick='AssocierProf()' class='boutonPetit' type='button' name='associe' value = 'Associer Professeur'>";
+				echo "<input onClick='DissocierProf()' class='boutonPetit' type='button' name='dissocie' value = 'Dissocier Professeur'>";
 				
 				echo "</form>";
 				echo "</div>";
