@@ -23,8 +23,8 @@
             $dbcon = connexionBDD();
 
             // Récup des variables
-            $idQuiz = $_POST["idQuiz"];
-            $idQuestion = $_POST["idQuestion"];
+            $idQuiz = pg_escape_string($_POST["idQuiz"]);
+            $idQuestion = pg_escape_string($_POST["idQuestion"]);
 
             // transmission des variables utiles à la page "gestionquiz.php"
             //$_SESSION["nomQuiz"] = $nomQuiz;

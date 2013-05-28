@@ -22,7 +22,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
         
        while($arr = pg_fetch_array($result_etu)){
            $mdphco=md5($_POST["mdp"]);
-           if($_POST["login"]==$arr["idetudiant"] && $mdphco==$arr["mdpetudiant"]){
+           if(pg_escape_string($_POST["login"])==$arr["idetudiant"] && $mdphco==$arr["mdpetudiant"]){
             $_SESSION["id"] = $_POST["login"];
             $_SESSION["statut"]="etu";
             $_SESSION["nom"]=$arr["nometudiant"];
@@ -36,7 +36,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
         while($tab = pg_fetch_array($result_adm)){
            
        $mdphco=md5($_POST["mdp"]);
-      if($_POST["login"]==$tab["idadminprof"] &&  $mdphco==$tab["mdpadminprof"]){
+      if(pg_escape_string($_POST["login"])==$tab["idadminprof"] &&  $mdphco==$tab["mdpadminprof"]){
 		$_SESSION["id"] = $_POST["login"];
                 $_SESSION["nom"]=$tab["nomadminprof"];
                 $_SESSION["prenom"]=$tab["prenomadminprof"];

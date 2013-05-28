@@ -17,7 +17,7 @@ if(isset($_POST['idAdminProf'])){
 if (isset($_POST['nomMatiere'])) {
 	if (($_POST['nomMatiere'] != 'Ex:"SQL"') && isset($_POST['add'])) {
 		unset($_POST['add']);
-		$result = pg_query($dbcon, requete_insertion_matiere($_POST['nomMatiere']));
+		$result = pg_query($dbcon, requete_insertion_matiere(pg_escape_string($_POST['nomMatiere'])));
 		header('Location:matieres.php');
 
 	} elseif (isset($_POST['del'])) {

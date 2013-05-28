@@ -15,18 +15,18 @@
 			if (!(isset($_SESSION["id"]))) {
 				header('Location:../index.php');
 			}
-			$dateSession = $_POST['idSession'];
-			$passSession = $_POST['passquiz'];
 
 			$dbcon = connexionBDD();
 			if (!$dbcon) {
 				echo "<br><br>connection échouée à la BDD<br>";
 			} else {
+				$dateSession = $_POST['idSession'];
+				$passSession = pg_escape_string($_POST['passquiz']);
 
 				$result = pg_query($dbcon, requete_mdp_etat_session($dateSession));
 				$array = pg_fetch_array($result);
 
-				if ($passSession == $array['mdpsession']){
+				if ($passSession == pg_escape_string($array['mdpsession'])) {
 					$id = $_SESSION["id"];
 					$_SESSION['idSession'] = $dateSession;
 
@@ -38,7 +38,7 @@
 						header('Location:../session/session_pause.php');
 					} else {
 						$_SESSION['done'] = 1;
-						
+
 						header('Location:../etudiant/listequiz.php');
 					}
 
