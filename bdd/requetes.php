@@ -557,4 +557,12 @@ function requete_effacement_matiere($idMatiere){
 	return $request;
 }
 
+function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
+{
+	$requete = "DELETE FROM Inclu
+					WHERE idQuiz='".$idQuiz."'
+					AND idQuestion='".$idQuestion."';";
+	
+	return $requete;
+}
 ?>

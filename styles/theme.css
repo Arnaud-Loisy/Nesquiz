@@ -256,3 +256,21 @@ input.boutonMAJ {
 	border-color: rgb(102,102,102);
 	-webkit-appearance: none;
 }
+
+input.boutonPetit {
+	margin: 1%;
+	width: 125px;
+	height: 30px;
+	font-size: 17px;
+	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+	background: rgb(43,120,228);
+	color: white;
+	border-width: 1px;
+	border-color: rgb(102,102,102);
+	-webkit-appearance: none;
+}
+input.boutonPetit:active {
+	background: rgb(149,188,242);
+	color: white;
+}
