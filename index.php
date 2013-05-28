@@ -15,6 +15,10 @@
     include './accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
         echo"Identifiant et/ou Mot de passe erroné";
+        if(isset ($_SESSION["prenom"])){
+            $str=$_SESSION["prenom"];
+            echo htmlentities($str,ent_quotes);
+        }
         unset($_SESSION["erreur_log"]);  
        }    
     if (isset($_SESSION["id"])){
