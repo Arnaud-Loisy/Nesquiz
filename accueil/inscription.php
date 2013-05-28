@@ -33,11 +33,8 @@
                 unset( $_SESSION["erreur_longeur_champ_inscription_nom"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
-                       $str= "juiu'huhi'uhihih";
-                       $fu='""';
-                       $test=strpos($str,$fu);
-                       echo $test;
-            echo htmlentities($str,ENT_NOQUOTES);
+                     $str=$_SESSION["prenom"];
+            echo "uehfuhe".htmlentities($str,ENT_NOQUOTES);
             echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
             echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_prenom"]);
