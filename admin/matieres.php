@@ -47,7 +47,9 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("idMatiere=" + value);
+				
 			}
+			
         </script>
     </head>
     <body>
@@ -103,7 +105,7 @@
 				echo "</tbody>";
 				echo "</table>";
 				echo "<form method='POST' action='matieres_traitement.php'>";
-				echo "<select name ='idAdminprof' style='width: 100%;' id='select_questions_matiere'>";
+				echo "<select name ='idAdminProf' style='width: 100%;' id='select_questions_matiere'>";
 
 				$result = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof());
 				while ($row=pg_fetch_array($result)) {

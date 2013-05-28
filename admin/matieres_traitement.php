@@ -5,6 +5,15 @@ var_dump($_SESSION);
 include '../bdd/connexionBDD.php';
 include '../bdd/requetes.php';
 $dbcon = connexionBDD();
+
+if(isset($_POST['idMatiere']))
+{
+	$idMatiere=$_POST['idMatiere'];
+}
+if(isset($_POST['idAdminProf'])){
+	$idAdminProf=$_POST['idAdminProf'];
+}
+
 if (isset($_POST['nomMatiere'])) {
 	if (($_POST['nomMatiere'] != 'Ex:"SQL"') && isset($_POST['add'])) {
 		unset($_POST['add']);
@@ -21,8 +30,12 @@ if (isset($_POST['nomMatiere'])) {
 		}
 	}
 } elseif (isset($_POST['ass'])) {
-	echo "ass";
+	
+	$result = pg_query($dbcon, requete_associer_prof_a_matiere($idAdminProf, $idMatiere));
+	header('Location:matieres.php');
 } elseif (isset($_POST['dis'])) {
-	echo "dis";
+	
+	$result = pg_query($dbcon, requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere));
+	header('Location:matieres.php');
 }
 ?>
