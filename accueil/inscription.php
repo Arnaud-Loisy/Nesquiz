@@ -13,6 +13,11 @@
         <?php
         session_start();
         include '../accueil/menu.php';
+        
+        /*Si dans trait_inscri une des variables d'erreur et SET et lors de la 
+         * redirection sur cette page l'erreur en question apparaitra.         * 
+         */
+     
         if(isset( $_SESSION["erreur_inscription_mdp"])){
             echo"<br>Erreur:Le mot de passe et sa confirmation sont différents.<br>";
             unset( $_SESSION["erreur_inscription_mdp"]);
@@ -63,6 +68,9 @@
              unset( $_SESSION["erreur_promotion"]);
         }
         ?>
+      <!-- On met en place un formulaire qui fait appel à la page trait_inscri
+      une fois que l'on à cliquer sur le bouton. -->
+     
         <br>
         <br>
         <form action='trait_inscri.php' method='POST'>

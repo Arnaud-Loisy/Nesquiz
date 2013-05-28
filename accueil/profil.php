@@ -19,7 +19,9 @@ include '../admin/secret.php';
 		if (!isset($_SESSION["id"])) {
 				header('Location:../index.php'); //si non connecté.
 			}
-		
+		/*SI les variable de session d'erreur sont SET on affiche les 
+                 * erreur correspondantes pour l'utilisateur
+                  */
      if(isset($_SESSION["mdpfail"])){
          echo"<br>";
          echo"Erreur: L'ancien mot de passe n'est pas bon.<br>";
@@ -55,7 +57,11 @@ include '../admin/secret.php';
         $id=$_SESSION["id"];
         $nom=$_SESSION ["nom"];
         $prenom=$_SESSION ["prenom"];
-        
+        /*On créer un formulaire ou on fait apparaitre certaines informations relatives
+         * au profil de l'utilisateur (nom, prénom, son identifiant) et on lui laisse
+         * la possibilitée de changer la langue de son interface (par encore implémenté)
+         * et de modifier son mot de passe. 
+         */
         echo"<br>
             <form action='trait_profil.php' method='POST'>
                 <table style='margin: auto'>

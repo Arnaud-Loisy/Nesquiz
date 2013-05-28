@@ -14,6 +14,10 @@
     <?php
     session_start();
     include './accueil/menu.php';
+    /*Page d'acceuil avec un champ ID et Mot de passe 
+     * si l'un des deux est faux on affiche une erreur au client
+     * le traitement de cette pagre s'appelle "connexion"
+     */
     if(isset($_SESSION["erreur_log"])){
         echo"Identifiant et/ou Mot de passe erroné";
           unset($_SESSION["erreur_log"]);  
@@ -22,7 +26,8 @@
       header("Location:accueil/accueil.php");
     }
     ?>
-     
+     <!--Formulaire que fait appel a "connexion" et qui prend le login
+      et le mot de passe en paramètre-->
    <br>
         <br>
 <form action='accueil/connexion.php' method='POST'>
