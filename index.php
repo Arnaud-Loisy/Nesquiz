@@ -17,7 +17,7 @@
     if(isset($_SESSION["erreur_log"])){
         echo"Identifiant et/ou Mot de passe erroné";
            $str=$_POST["login"];
-            echo ".htmlentities($str,ent_quotes).";
+            echo htmlentities($str,ent_quotes);
          unset($_SESSION["erreur_log"]);  
        }    
     if (isset($_SESSION["id"])){
