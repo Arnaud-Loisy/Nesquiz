@@ -10,8 +10,8 @@
 
 }
 @viewport {
-   width: device-width; /* largeur du viewport */
-   zoom: 1; /* zoom initial à 1.0 */
+	width: device-width; /* largeur du viewport */
+	zoom: 1; /* zoom initial à 1.0 */
 }
 
 .checkB input[type="checkbox"] {
@@ -110,7 +110,7 @@ div.tps {
 	padding: 5px;
 }
 input.bouton {
-        margin: 7%;
+	margin: 7%;
 	width: 255px;
 	height: 60px;
 	font-size: 50px;
@@ -242,9 +242,9 @@ input.bouton:active {
 }
 
 input.boutonMAJ {
-        margin-top: 10px;
-        margin-bot: 10px;
-        margin-left: 20%;
+	margin-top: 10px;
+	margin-bot: 10px;
+	margin-left: 20%;
 	width: auto;
 	height: 60px;
 	font-size: 50px;
