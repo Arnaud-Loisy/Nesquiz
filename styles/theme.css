@@ -332,6 +332,10 @@ input.boutonPetit:active {
 	border-bottom: 1px solid rgb(102, 102, 102);
 }
 
+.TestScrollable tr:hover {
+	cursor: pointer;
+}
+
 .TestScrollable tbody {
     display: block;
 }
