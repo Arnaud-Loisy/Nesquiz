@@ -90,7 +90,7 @@
 					$rownb = pg_fetch_array($res_ranknb);
 					$ranknb = $rownb['count'];
 
-					echo "<br><br><table class='liste' id='table_stat' style='margin: auto; text-align:right;'>
+					echo "<br><br><table class='liste' id='table_stat' style='margin: auto; width:98%;'>
 						<thead>
 							<th> Matière </th>
 							<th> Ma Moyenne </th>

@@ -7,19 +7,19 @@ if(!$dbcon){
  echo "connection BDD failed<br>";
 }else
 	echo "connection BDD succes <br>";
-
+// on verifie qu tout les variables sont SET.
 if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["numero_etu"])) &&  (isset ($_POST["promotion"])) &&  (isset ($_POST["mdp"])) &&  (isset ($_POST["cmdp"])) && (isset ($_POST["langue"]))){
-
+// on vérifie que toutes les variable sont remplie.
     if (($_POST["nom"]!="") && ($_POST["prenom"]!="") && ($_POST["numero_etu"]!="") &&($_POST["promotion"]!="") && ($_POST["mdp"]!="") && ($_POST["cmdp"]!="") && ($_POST["langue"]!="")){
-     
+     // on vérifie que toutes les variables respectent bien la taille maximum de ces dernières.
             if((strlen($_POST["nom"]) < 32 ) && (strlen($_POST["prenom"]) < 32) && (strlen($_POST["numero_etu"])< 32) && (strlen($_POST["promotion"])< 32) && (strlen($_POST["mdp"])< 32) && (strlen($_POST["cmdp"])< 32)){
-    $nom=$_POST["nom"];
-    $prenom=$_POST["prenom"];
-    $numero_etu=$_POST["numero_etu"];
-    $promotion=$_POST["promotion"];
-    $mdp=$_POST["mdp"];
-    $cmdp=$_POST["cmdp"];
-    $langue=$_POST["langue"];
+    $nom=pg_escape_string($_POST["nom"]); // on met les variable de POST dans des variables locale
+    $prenom=pg_escape_string($_POST["prenom"]);// et on s'assure que les information données ne soit pas 
+    $numero_etu=pg_escape_string($_POST["numero_etu"]);// interprétées dans la BDD pg_escape_string...
+    $promotion=pg_escape_string($_POST["promotion"]);
+    $mdp=pg_escape_string($_POST["mdp"]);
+    $cmdp=pg_escape_string($_POST["cmdp"]);
+    $langue=pg_escape_string($_POST["langue"]);
     $test_num_etu=(is_numeric($numero_etu));
     $test_promotion=(is_numeric($promotion));
     $mdph=md5($mdp);

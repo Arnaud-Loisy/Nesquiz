@@ -28,7 +28,7 @@ if ((!isset($_SESSION["id"])) || !($_SESSION["statut"] == "etu")) {
 		$rownb = pg_fetch_array($res_ranknb);
 		$ranknb = $rownb['count'];
 
-		echo "<table class='liste' id='table_stat' style='margin: auto; text-align:right;'>
+		echo "<table class='liste' id='table_stat' style='margin: auto; width:98%;'>
 						<thead>
 							<th> Matière </th>
 							<th> Ma Moyenne </th>

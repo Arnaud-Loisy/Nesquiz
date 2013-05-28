@@ -8,6 +8,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut'] == "admin") && isset($_SESSION
    <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
    <li><a href='../admin/compte.php'>Comptes<br>Utilisateurs</a></li>
    <li><a href='../session/supervision.php'>Quiz</a></li>
+   <li><a href='../session/publication.php'>Publication</a></li>
    <li><a href='../admin/matieres.php'>Matières</a></li>
    <li><a href='../admin/historique.php'>Historique</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
@@ -23,6 +24,7 @@ elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
    <li><a href='../accueil/profil.php'>Mon<br>Profil</a></li>
    <li><a href='../admin/compte.php'>Comptes<br>Utilisateurs</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
+   <li><a href='../session/publication.php'>Publication</a></li>
    <li><a href='../admin/matieres.php'>Matières</a></li>
    <li><a href='../admin/historique.php'>Historique</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
@@ -37,6 +39,7 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
   <li><a href='../index.php'>Accueil</a></li>
    <li><a href='../accueil/profil.php'>Mon Profil</a></li>
    <li><a href='../session/supervision.php'>Quiz en cours</a></li>
+   <li><a href='../session/publication.php'>Publication</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
@@ -49,6 +52,7 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
   <li><a href='../index.php'>Accueil</a></li>
    <li><a href='../accueil/profil.php'>Mon Profil</a></li>
    <li><a href='../quiz/gestionquiz.php'>Quiz</a></li>
+   <li><a href='../session/publication.php'>Publication</a></li>
    <li><a href='../admin/statistiques.php'>Statistiques</a></li>   
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>

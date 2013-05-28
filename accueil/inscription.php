@@ -14,7 +14,10 @@
         session_start();
         include '../accueil/menu.php';
         
-        
+        /*Si dans trait_inscri une des variables d'erreur et SET et lors de la 
+         * redirection sur cette page l'erreur en question apparaitra.         * 
+         */
+     
         if(isset( $_SESSION["erreur_inscription_mdp"])){
             echo"<br>Erreur:Le mot de passe et sa confirmation sont différents.<br>";
             unset( $_SESSION["erreur_inscription_mdp"]);
@@ -32,12 +35,7 @@
             echo "<br>Veuillez réduire le champ 'nom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_nom"]);
             }
-                if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
-               
-$str =$_SESSION["prenom"];
-$test =(htmlentities($str, ENT_QUOTES, "UTF-8"));
-echo "test devrait donner le resultat qui ce siutue entre la ".$test."est la";
-            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){            echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
             echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_prenom"]);
             }
@@ -70,6 +68,9 @@ echo "test devrait donner le resultat qui ce siutue entre la ".$test."est la";
              unset( $_SESSION["erreur_promotion"]);
         }
         ?>
+      <!-- On met en place un formulaire qui fait appel à la page trait_inscri
+      une fois que l'on à cliquer sur le bouton. -->
+     
         <br>
         <br>
         <form action='trait_inscri.php' method='POST'>
