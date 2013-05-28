@@ -44,14 +44,14 @@
 				
 			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Matière</label>";
 			echo "<input style='width: 50%;' type='text' value = 'Ex:\"SQL\"' name='nomMatiere'><br>";
-			echo "<input type='submit' name='add' value = 'Ajout Matière'>";
-			echo "<input type='submit' name='del' value = 'Supprimer Matière'>";
+			echo "<input type='submit' class='boutonPetit' name='add' value = 'Ajout Matière'>";
+			echo "<input type='submit' class='boutonPetit' name='del' value = 'Supprimer Matière'>";
 			echo "</form>";
 			echo "</div>";
 			
 			echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
 				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_profs'>";
-				echo "<thead><th>Nom Prénom</th></thead>";
+				echo "<thead style='display: table-header-group;'><th>Nom Prénom</th></thead>";
 				echo "<tbody>";
 				$result = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof());
 				while ($row=pg_fetch_array($result)) {
@@ -75,13 +75,13 @@
 				echo "</select>";
 
 				
-				echo "<input onClick='AjouterProf' type='button' name='ass' value = 'Associer Professeur'>";
-				echo "<input onClick='SupprimerProf()' type='button' name='dis' value = 'Dissocier Professeur'>";
+				echo "<input onClick='AjouterProf' class='boutonPetit' type='button' name='ass' value = 'Associer Professeur'>";
+				echo "<input onClick='SupprimerProf()' class='boutonPetit' type='button' name='dis' value = 'Dissocier Professeur'>";
 				
 				echo "</form>";
 				echo "</div>";
-				echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-				<input class='boutonCenter' style='margin-top=5%' type='submit' value = 'Appliquer changements'>";
+				/*echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<input class='boutonCenter' style='margin-top=5%' type='submit' value = 'Appliquer changements'>";*/
             }
 			}
             ?>

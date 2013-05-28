@@ -259,7 +259,7 @@ input.boutonMAJ {
 
 input.boutonPetit {
 	margin: 1%;
-	width: 125px;
+	min-width: 125px;
 	height: 30px;
 	font-size: 17px;
 	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
