@@ -110,7 +110,7 @@ div.tps {
 	padding: 5px;
 }
 input.bouton {
-	margin: 7%;
+	margin: 9%;
 	width: 255px;
 	height: 60px;
 	font-size: 50px;
@@ -273,4 +273,10 @@ input.boutonPetit {
 input.boutonPetit:active {
 	background: rgb(149,188,242);
 	color: white;
+}
+#compte_a_rebours{
+	border: 1px solid;
+    width: 18%;
+    color: gray;
+
 }
