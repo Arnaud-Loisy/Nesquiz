@@ -92,7 +92,7 @@
 				echo "</select></h2>";
 					
 					echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
-					echo "<table class='liste' style='margin: auto; text-align:right;'>
+					echo "<table class='liste' style='margin: auto;min-width:60%;'>
 						<thead>
 							<th> Rang </th>
 							<th> Nom </th>
