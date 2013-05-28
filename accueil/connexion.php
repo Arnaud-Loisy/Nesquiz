@@ -13,7 +13,11 @@ if(!$dbcon){
 
 
 if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
-	
+	/*Si les var "login" et "mdp" sont SET on va chercher tout les id et mdp de la table étudiant
+         * on les rentrent dans un tableau et on compare avec ceux passer en post si c'est correcte on 
+         * redirige l'utilisateur vers la pag d'accueil connecté et sinon on vérifie la valeur de la variable
+         * $trouver si elle n'est pas à "true" on déclenche une erreur.
+         */
 	$result_etu= pg_query($dbcon, "SELECT idetudiant, mdpetudiant, nometudiant, prenometudiant FROM etudiants;");
         
        while($arr = pg_fetch_array($result_etu)){
