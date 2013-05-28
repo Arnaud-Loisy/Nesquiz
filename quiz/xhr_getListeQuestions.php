@@ -15,7 +15,7 @@ if (isset($_POST["IdMatiere"]))
 	{
 		$result = pg_query($dbcon, requete_toutes_questions_dans_matiere($idMatiere));
 
-		echo "<select id='select_questions_matiere'>";
+		echo "<select style='width: 400px;' id='select_questions_matiere'>";
 
 		while ($row = pg_fetch_array($result))
 		{

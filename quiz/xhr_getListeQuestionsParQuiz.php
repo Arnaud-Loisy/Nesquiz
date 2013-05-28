@@ -15,16 +15,15 @@ if (isset($_POST["IdQuiz"]))
 	{
 		$result = pg_query($dbcon, requete_toutes_questions_dans_quiz($idQuiz));
 
-		echo "<table class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>";
-		echo "<thead><th>Questions présentes</th></thead>";
+		echo "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>";
+		echo "<thead><th style='width:  400px'>Questions présentes</th></thead>";
 		echo "<tbody>";
 
 		while ($row = pg_fetch_array($result))
 		{
 			$libelleQuestion = $row["libellequestion"];
 			$idQuestion = $row["idquestion"];
-			/* echo "<tr><td onclick = 'SelectRow(".$i.", 2)' id = 'cell_".$i.",1'>$libelle</td></tr>"; */
-			echo "<tr onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'><td style='width: 720px'>$libelleQuestion</td></tr>";
+			echo "<tr onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'><td style ='width: 400px'>$libelleQuestion</td></tr>";
 		}
 		echo "</tbody>";
 		echo "</table>";
