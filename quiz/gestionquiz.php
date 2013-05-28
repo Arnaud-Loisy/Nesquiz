@@ -198,7 +198,6 @@
     <body>
         <div id='page'>
         	<?php
-        	ob_start();
         	session_start();
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
