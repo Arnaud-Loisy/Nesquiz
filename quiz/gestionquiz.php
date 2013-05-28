@@ -33,24 +33,16 @@
 				return currentRow;
 			}
 
-			var last_tableRow = -1;
-
 			function InvertColorOfTableLine(tableRow)
 			{
-				//alert(tableRow.textContent);
-				//alert(tableRow.id);
-				if (last_tableRow !== -1)
+				var tableau = tableRow.parentNode.parentNode.id;
+				var lignesTableau = tableRow.parentNode.parentNode.getElementsByTagName('tr');
+				var i = -1;
+				for (i = 0; i < lignesTableau.length; i++)
 				{
-					last_tableRow.style.backgroundColor = "rgb(255, 255, 255)";
+					lignesTableau[i].style.backgroundColor = "rgb(255, 255, 255)";
 				}
-				if (tableRow.style.backgroundColor !== "rgb(149,188,242)") {
-					tableRow.style.backgroundColor = "rgb(149,188,242)";
-				}
-				else
-				{
-					tableRow.style.backgroundColor = "rgb(255, 255, 255)";
-				}
-				last_tableRow = tableRow;
+				tableRow.style.backgroundColor = "rgb(149, 188, 242)";
 			}
 
 			function ChangerMatiereEnCours(radioButton)
@@ -141,10 +133,10 @@
 							i++;
 						} while (lignesTableau[i].id != idQuizEnCours);
 						ChangerQuizEnCours(lignesTableau[i]);
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
+						document.getElementById('attente').style.display = "none";
+					} else  if (xhr.readyState < 4){
+						document.getElementById('attente').style.display = "inline";
+					}
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -169,7 +161,7 @@
 				xhr.open("POST", "xhr_supprimerQuestionDansQuiz.php", true);
 
 				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && (xhr.status == 200)) {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
 						var lignesTableauQuiz;
 						var i2 = -1;
 						do {
@@ -182,6 +174,27 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+			}
+			
+			function GetSelectedRowID(idTableau)
+			{
+				var tableau = document.getElementById(idTableau);
+				var lignesTableau = tableau.getElementsByTagName('tr');
+				var i;
+				var idRow = -1;
+				
+				for (i = 0; i < lignesTableau.length; i++)
+				{
+					if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
+						idRow = lignesTableau[i].id;
+				}
+				
+				return idRow;
+			}
+			
+			function TEST()
+			{
+				var id = GetSelectedRowID('table_libelles_quiz');
 			}
 
         </script>
@@ -233,8 +246,9 @@
 			}
 
 			echo "<form style='display: table-cell; width 100px;' action = '../session/publication.php' method = 'POST'>";
-			echo "<input class = 'bouton' type = 'submit' value = 'Publier'>";
+			echo "<input onClick='TEST()' class = 'bouton' type = 'submit' value = 'Publier'>";
 			echo "</form>";
+			echo "<span id='attente' style='display:none;'><img src='../styles/attente.gif' /></span>";
 			echo "</div>";
 
 			if (!$dbcon)
