@@ -346,6 +346,16 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 	return $requete;
 }
 
+function requete_idadminprof_d_une_matiere($idMatiere)
+{
+	$requete = "SELECT enseigne.idadminprof,
+				FROM  matieres, enseigne
+				WHERE matieres.idmatiere = enseigne.idmatiere
+  				AND enseigne.idmatiere=".$idMatiere.";";
+
+	return $requete;
+}
+
 function requete_tous_idadminprof($idadminprof)
 {
 	$requete = "SELECT idAdminProf 
