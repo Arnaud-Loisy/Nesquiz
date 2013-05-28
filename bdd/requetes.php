@@ -175,7 +175,7 @@ function requete_nb_etudiants_participants($dateSession)
 	return $request;
 }
 
-function requete_nb_etudiants_participants_par_matiere($promo,$idMatiere)
+function requete_nb_etudiants_participants_par_matiere($promo, $idMatiere)
 {
 	$request = "SELECT COUNT (DISTINCT (participe.idetudiant))
 				FROM inclu, sessions, participe, questions, etudiants
@@ -188,7 +188,7 @@ function requete_nb_etudiants_participants_par_matiere($promo,$idMatiere)
 	return $request;
 }
 
-function requete_etudiants_participants_par_matiere($promo,$idMatiere)
+function requete_etudiants_participants_par_matiere($promo, $idMatiere)
 {
 	$request = "SELECT DISTINCT (participe.idetudiant)
 				FROM inclu, sessions, participe, questions, etudiants
@@ -200,7 +200,6 @@ function requete_etudiants_participants_par_matiere($promo,$idMatiere)
 				AND questions.idquestion = inclu.idquestion;";
 	return $request;
 }
-
 
 function requete_nb_questions_repondues_par_un_etudiant($dateSession, $idEtu)
 {
@@ -348,10 +347,12 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 
 function requete_idadminprof_d_une_matiere($idMatiere)
 {
-	$requete = "SELECT enseigne.idadminprof,
-				FROM  matieres, enseigne
-				WHERE matieres.idmatiere = enseigne.idmatiere
+	$requete = "SELECT DISTINCT(adminprofs.idadminprof), adminprofs.nomadminprof, adminprofs.prenomadminprof
+				FROM adminprofs, enseigne, matieres
+				WHERE enseigne.idadminprof = adminprofs.idadminprof 
+				AND  enseigne.idmatiere = matieres.idmatiere
   				AND enseigne.idmatiere=".$idMatiere.";";
+  				
 
 	return $requete;
 }
@@ -488,7 +489,7 @@ function requete_si_admin($idadminprof)
 	$requete = "SELECT admin
               FROM adminprofs
               WHERE idadminprof ='".$idadminprof."';";
-    return $requete;
+	return $requete;
 }
 
 function requete_creer_quiz($nomQuiz, $tempsQuiz)
@@ -503,57 +504,64 @@ function requete_admin_devient_prof($idadminprof)
 	$requete = "UPDATE Adminprofs
               SET admin='false'
               WHERE idadminprof='".$idadminprof."';";
-    return $requete;
+	return $requete;
 }
 
-
-function requete_promotion_des_etudiants(){
-    $requete="SELECT DISTINCT (promo)
+function requete_promotion_des_etudiants()
+{
+	$requete = "SELECT DISTINCT (promo)
 				FROM etudiants
 				ORDER BY promo DESC;";
-    return $requete;
+	return $requete;
 }
+
 function requete_nom_prenom_etudiant($idEtu)
 {
 	$request = "SELECT nomEtudiant, prenomEtudiant
                FROM Etudiants
                WHERE idEtudiant = ".$idEtu.";";
-                                    
+
 	return $request;
 }
+
 function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
 {
 	$requete = "INSERT INTO Inclu
 				VALUES('".$idQuiz."', '".$idQuestion."');";
-	
+
 	return $requete;
 }
+
 function requete_matieres()
 {
 	$requete = "SELECT * 
 				FROM matieres
 				ORDER BY libellematiere ASC;";
-	
+
 	return $requete;
 }
 
-function requete_tous_les_etudiants(){
-    $requete = "SELECT idetudiant,nometudiant,prenometudiant,promo
+function requete_tous_les_etudiants()
+{
+	$requete = "SELECT idetudiant,nometudiant,prenometudiant,promo
                 FROM etudiants";
-    return $requete;
-}
-
-function requete_insertion_matiere($libelleMatiere){
-	$requete = "INSERT INTO matieres (libellematiere) VALUES('".$libelleMatiere."');";
-	
 	return $requete;
 }
-function requete_effacement_matiere($idMatiere){
+
+function requete_insertion_matiere($libelleMatiere)
+{
+	$requete = "INSERT INTO matieres (libellematiere) VALUES('".$libelleMatiere."');";
+
+	return $requete;
+}
+
+function requete_effacement_matiere($idMatiere)
+{
 	$request = "DELETE FROM Matieres
                         WHERE idMatiere='".$idMatiere."';
                         DELETE FROM Enseigne
                         WHERE idMatiere='".$idMatiere."';";
-                        
+
 	return $request;
 }
 
@@ -562,7 +570,24 @@ function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
 	$requete = "DELETE FROM Inclu
 					WHERE idQuiz='".$idQuiz."'
 					AND idQuestion='".$idQuestion."';";
+
+	return $requete;
+}
+function requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere)
+{
+	$requete = "DELETE FROM Enseigne
+					WHERE idAdminProf='".$idAdminProf."'
+					AND idMatiere='".$idMatiere."';";
 	
 	return $requete;
 }
+function requete_associer_prof_a_matiere($idAdminProf, $idMatiere)
+{
+	$requete = "INSERT INTO Enseigne
+				VALUES('".$idMatiere."', '".$idAdminProf."');";
+	
+	return $requete;
+}
+
+
 ?>
