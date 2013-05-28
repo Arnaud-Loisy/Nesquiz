@@ -16,8 +16,8 @@
     include './accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
         echo"Identifiant et/ou Mot de passe erroné";
-        if(isset ($_SESSION["prenom"])){
-            $str=$_SESSION["id"];
+        if(isset ($_POST["login"])){
+            $str=$_POST["login"];
             echo ".htmlentities($str,ent_quotes).";
         }
         unset($_SESSION["erreur_log"]);  
