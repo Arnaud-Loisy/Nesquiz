@@ -514,4 +514,12 @@ function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
 	
 	return $requete;
 }
+function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
+{
+	$requete = "DELETE FROM Inclu
+					WHERE idQuiz='".$idQuiz."'
+					AND idQuestion='".$idQuestion."';";
+	
+	return $requete;
+}
 ?>
