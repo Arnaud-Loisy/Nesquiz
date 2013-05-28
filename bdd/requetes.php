@@ -567,4 +567,21 @@ function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
 	
 	return $requete;
 }
+function requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere)
+{
+	$requete = "DELETE FROM Enseigne
+					WHERE idAdminProf='".$idAdminProf."'
+					AND idMatiere='".$idMatiere."';";
+	
+	return $requete;
+}
+function requete_associer_prof_a_matiere($idAdminProf, $idMatiere)
+{
+	$requete = "INSERT INTO Enseigne
+				VALUES('".$idMatiere."', '".$idAdminProf."');";
+	
+	return $requete;
+}
+
+
 ?>
