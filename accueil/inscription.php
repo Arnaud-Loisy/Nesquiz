@@ -34,7 +34,7 @@
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
                        $str= "juiu'huhi'uhihih";
-                       $fu="";
+                       $fu='""';
                        $test=strpos($str,$fu);
                        echo $test;
             echo htmlentities($str,ENT_NOQUOTES);
