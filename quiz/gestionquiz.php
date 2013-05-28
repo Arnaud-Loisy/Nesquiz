@@ -36,6 +36,7 @@
 			{
 				var tableau = tableRow.parentNode.parentNode.id;
 				var lignesTableau = tableRow.parentNode.parentNode.getElementsByTagName('tr');
+				
 				var i = -1;
 				for (i = 0; i < lignesTableau.length; i++)
 				{
@@ -86,8 +87,8 @@
 				//**
 				//Modification de la liste des questions dans un quiz donne
 				//**
-				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class = 'liste listeScrollable' id = 'table_libelles_questions_quiz'>\
-																						<thead><th>Questions présentes</th></thead>\
+				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>\
+																						<thead><th style='width:  400px'>Questions présentes</th></thead>\
 																						<tbody></tbody></table>";
 			}
 
@@ -141,16 +142,7 @@
 
 			function SupprimerQuestionAQuiz()
 			{
-				var i = -1;
-				var idQuestion = -1;
-				var lignesTableau;
-				do {
-					lignesTableau = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tr');
-					i++;
-				} while (lignesTableau[i].style.backgroundColor.toString() != "rgb(149, 188, 242)");
-				idQuestion = lignesTableau[i].id;
-
-				alert("ID QUESTION = " + idQuestion + " ; ID QUIZ = " + idQuizEnCours);
+				var idQuestion = GetSelectedRowID('table_libelles_questions_quiz');
 
 				var xhr = new XMLHttpRequest();
 
@@ -250,17 +242,17 @@
 				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
 				echo "<div name='div_colonne_gauche' style='float:left; width: 48%;'>";
-				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_libelles_quiz'>";
-				echo "<thead style='width: 100%;'><th style='width: 720px'>Nom du quiz</th><th style='width: 100px'>Temps total</th></thead>";
-				echo "<tbody style='width: 100%;'>";
+				echo "<table style='width: 400px;' class = 'TestScrollable' id = 'table_libelles_quiz'>";
+				echo "<thead><th class='thFixed'>Nom du quiz</th><th class='thAuto'>Temps total</th></thead>";
+				echo "<tbody>";
 
 				while ($row = pg_fetch_array($result))
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
 					$tempsquiz = $row["tempsquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'>$libelle</td>";
-					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td class='tdFixed'>$libelle</td>";
+					echo "<td class='tdAuto'>$tempsquiz</td></tr>";
 				}
 
 				$result = pg_query($dbcon, requete_tous_quiz_sans_matiere(1));
@@ -270,8 +262,8 @@
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
 					$tempsquiz = $row["tempsquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'><b><i>$libelle</i></b></td>";
-					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td class='tdFixed'><b><i>$libelle</i></b></td>";
+					echo "<td class='tdAuto'>$tempsquiz</td></tr>";
 				}
 				echo "</tbody>";
 				echo "</table>";
@@ -295,13 +287,11 @@
 				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
 
 				echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
-				//echo "<div class='TEST'>";
-				echo "<table class ='liste listeScrollable' style='width: 100%;' id = 'table_libelles_questions_quiz'>";
-				echo "<thead><th>Questions présentes</th></thead>";
+				echo "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>";
+				echo "<thead><th style='width:  400px'>Questions présentes</th></thead>";
 				echo "<tbody>";
 				echo "</tbody>";
 				echo "</table>";
-				//echo "</div>";
 			}
 
 			if (!$dbcon)
@@ -312,7 +302,7 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere(1));
 
-				echo "<select style='width: 100%;' id='select_questions_matiere'>";
+				echo "<select style='width: 400px;' id='select_questions_matiere'>";
 
 				while ($row = pg_fetch_array($result))
 				{
