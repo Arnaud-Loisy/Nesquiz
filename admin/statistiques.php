@@ -2,6 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=720">
 		<title>Notes</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
 		<script type='text/javascript'>
