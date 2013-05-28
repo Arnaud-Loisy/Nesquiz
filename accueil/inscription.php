@@ -34,7 +34,7 @@
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
                
-$str =$_SESSION["prenom"];
+$str =$_POST["prenom"];
 $test =(htmlentities($str, ENT_QUOTES, "UTF-8"));
 echo "test devrait donner le resultat qui ce siutue entre la ".$test."est la";
             echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
