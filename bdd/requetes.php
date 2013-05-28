@@ -347,10 +347,12 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 
 function requete_idadminprof_d_une_matiere($idMatiere)
 {
-	$requete = "SELECT enseigne.idadminprof,
-				FROM  matieres, enseigne
-				WHERE matieres.idmatiere = enseigne.idmatiere
+	$requete = "SELECT DISTINCT(adminprofs.idadminprof), adminprofs.nomadminprof, adminprofs.prenomadminprof
+				FROM adminprofs, enseigne, matieres
+				WHERE enseigne.idadminprof = adminprofs.idadminprof 
+				AND  enseigne.idmatiere = matieres.idmatiere
   				AND enseigne.idmatiere=".$idMatiere.";";
+  				
 
 	return $requete;
 }
@@ -571,5 +573,21 @@ function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
 
 	return $requete;
 }
+function requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere)
+{
+	$requete = "DELETE FROM Enseigne
+					WHERE idAdminProf='".$idAdminProf."'
+					AND idMatiere='".$idMatiere."';";
+	
+	return $requete;
+}
+function requete_associer_prof_a_matiere($idAdminProf, $idMatiere)
+{
+	$requete = "INSERT INTO Enseigne
+				VALUES('".$idMatiere."', '".$idAdminProf."');";
+	
+	return $requete;
+}
+
 
 ?>
