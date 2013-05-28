@@ -13,6 +13,8 @@
         <?php
         session_start();
         include '../accueil/menu.php';
+        
+        
         if(isset( $_SESSION["erreur_inscription_mdp"])){
             echo"<br>Erreur:Le mot de passe et sa confirmation sont différents.<br>";
             unset( $_SESSION["erreur_inscription_mdp"]);
@@ -31,6 +33,8 @@
                 unset( $_SESSION["erreur_longeur_champ_inscription_nom"]);
             }
                 if (isset( $_SESSION["erreur_longeur_champ_inscription_prenom"])){
+                              $str=$_SESSION["nom"];
+            echo htmlentities($str,ENT_QUOTES);
             echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
             echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
                 unset( $_SESSION["erreur_longeur_champ_inscription_prenom"]);

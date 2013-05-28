@@ -16,9 +16,7 @@
     include './accueil/menu.php';
     if(isset($_SESSION["erreur_log"])){
         echo"Identifiant et/ou Mot de passe erroné";
-           $str=$_POST["login"];
-            echo htmlentities($str,ENT_QUOTES);
-         unset($_SESSION["erreur_log"]);  
+          unset($_SESSION["erreur_log"]);  
        }    
     if (isset($_SESSION["id"])){
       header("Location:accueil/accueil.php");
