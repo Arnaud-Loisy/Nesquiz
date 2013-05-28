@@ -2,6 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=720">
 		<title>Notes</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
 		<script type='text/javascript'>
@@ -92,7 +93,7 @@
 				echo "</select></h2>";
 					
 					echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
-					echo "<table class='liste' style='margin: auto; text-align:right;'>
+					echo "<table class='liste' style='margin: auto;min-width:70%;'>
 						<thead>
 							<th> Rang </th>
 							<th> Nom </th>

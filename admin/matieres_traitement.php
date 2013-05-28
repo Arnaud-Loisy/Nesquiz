@@ -29,13 +29,13 @@ if (isset($_POST['nomMatiere'])) {
 			header('Location:matieres.php');
 		}
 	}
-} elseif (isset($_POST['ass'])) {
+} elseif (isset($_POST['associe'])) {
 	
 	$result = pg_query($dbcon, requete_associer_prof_a_matiere($idAdminProf, $idMatiere));
-	header('Location:matieres.php');
-} elseif (isset($_POST['dis'])) {
+	//header('Location:matieres.php');
+} elseif (isset($_POST['dissocie'])) {
 	
 	$result = pg_query($dbcon, requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere));
-	header('Location:matieres.php');
+	//header('Location:matieres.php');
 }
 ?>
