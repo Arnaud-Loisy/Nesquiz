@@ -542,4 +542,19 @@ function requete_tous_les_etudiants(){
                 FROM etudiants";
     return $requete;
 }
+
+function requete_insertion_matiere($libelleMatiere){
+	$requete = "INSERT INTO matieres (libellematiere) VALUES('".$libelleMatiere."');";
+	
+	return $requete;
+}
+function requete_effacement_matiere($idMatiere){
+	$request = "DELETE FROM Matieres
+                        WHERE idMatiere='".$idMatiere."';
+                        DELETE FROM Enseigne
+                        WHERE idMatiere='".$idMatiere."';";
+                        
+	return $request;
+}
+
 ?>

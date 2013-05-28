@@ -1,11 +1,9 @@
 <?php
 include '../bdd/connexionBDD.php';
 include '../bdd/requetes.php';
-include '../session/fonctions_resultats.php';
 session_start();
 date_default_timezone_set("Europe/Paris");
 $idMatiere = $_POST['idMatiere'];
-$promo =  $_POST['promo'];
 //$promo = $_POST['promo'];
 if ((!isset($_SESSION["id"])) || (!($_SESSION["statut"] == "admin"))) {
 	header('Location:../index.php');
@@ -17,17 +15,16 @@ if ((!isset($_SESSION["id"])) || (!($_SESSION["statut"] == "admin"))) {
 	if (!$dbcon) {
 		echo "connection BDD failed<br>";
 	} else {
-		echo "<table style='width: 100%;' class = 'liste' id = 'table_matiere'>";
-				echo "<thead style='width: 100%;'><th>Matière</th><th>Supprimer</th></thead>";
-				echo "<tbody style='width: 100%;' >";
-				
-				$result = pg_query($dbcon,requete_matieres());
+		echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_profs'>";
+				echo "<thead><th>Nom Prénom</th></thead>";
+				echo "<tbody>";
+				$result = pg_query($dbcon,idadminprof_d_une_matiere($idMatiere));
 				while ($row=pg_fetch_array($result)) {
 					echo "<tr>
-							<td>" . $row['libellematiere'] . " </td>
-							<td> <input type='checkbox' value='".$row['idmatiere']."'> </td>
+							<td id='".$row['idadminprof']."'>" . $row['nomadminprof'] ." ".$row['prenomadminprof']. " </td>							
 						</tr>";
 				}
+
 				
 				echo "</tbody>";
 				echo "</table>";

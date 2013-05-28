@@ -25,32 +25,34 @@
 				} else {
 					
 					echo "<div name='div_colonne_gauche' style='float:left; width: 48%;'>";
+					echo "<form method='POST' action='matieres_traitement.php'>";
 				echo "<table style='width: 100%;' class = 'liste' id = 'table_matiere'>";
 				echo "<thead style='width: 100%;'><th>Matière</th><th>Supprimer</th></thead>";
 				echo "<tbody style='width: 100%;' >";
 				
 				$result = pg_query($dbcon,requete_matieres());
 				while ($row=pg_fetch_array($result)) {
-					echo "<tr>
+					echo "<tr id='".$row['idmatiere']."'>
 							<td>" . $row['libellematiere'] . " </td>
-							<td> <input type='checkbox' value='".$row['idmatiere']."'> </td>
+							<td> <input type='checkbox' id='".$row['idmatiere']."' name='".$row['idmatiere']."' value='".$row['idmatiere']."'> </td>
 						</tr>";
 				}
 				
 				echo "</tbody>";
 				echo "</table>";
 				
-				echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
+				
 			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Matière</label>";
 			echo "<input style='width: 50%;' type='text' value = 'Ex:\"SQL\"' name='nomMatiere'><br>";
-			echo "<input type='submit' value = 'Ajout Matière'>";
+			echo "<input type='submit' name='add' value = 'Ajout Matière'>";
+			echo "<input type='submit' name='del' value = 'Supprimer Matière'>";
 			echo "</form>";
 			echo "</div>";
 			
 			echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
 				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_profs'>";
 				echo "<thead><th>Nom Prénom</th></thead>";
-				//echo "<tbody>";
+				echo "<tbody>";
 				$result = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof());
 				while ($row=pg_fetch_array($result)) {
 					echo "<tr>
@@ -59,9 +61,9 @@
 				}
 
 				
-				//echo "</tbody>";
+				echo "</tbody>";
 				echo "</table>";
-				
+				echo "<form method='POST' action='matieres_traitement.php'>";
 				echo "<select style='width: 100%;' id='select_questions_matiere'>";
 
 				$result = pg_query($dbcon,requete_tous_idadminprof_nomadminprof_prenomadminprof());
@@ -72,14 +74,14 @@
 				
 				echo "</select>";
 
-				echo "<form method='POST' action='trait_ajoutNouvelleQuestion.php'>";
-				echo "<input onClick='AjouterProf' type='button' value = 'Associer Professeur'>";
-				echo "<input onClick='SupprimerProf()' type='button' value = 'Dissocier Professeur'>";
+				
+				echo "<input onClick='AjouterProf' type='button' name='ass' value = 'Associer Professeur'>";
+				echo "<input onClick='SupprimerProf()' type='button' name='dis' value = 'Dissocier Professeur'>";
 				
 				echo "</form>";
 				echo "</div>";
 				echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-				<input class='boutonCenter' style='margin-top=5%' type='submit' value = 'Dissocier Professeur'>";
+				<input class='boutonCenter' style='margin-top=5%' type='submit' value = 'Appliquer changements'>";
             }
 			}
             ?>
