@@ -346,6 +346,16 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 	return $requete;
 }
 
+function requete_idadminprof_d_une_matiere($idMatiere)
+{
+	$requete = "SELECT enseigne.idadminprof,
+				FROM  matieres, enseigne
+				WHERE matieres.idmatiere = enseigne.idmatiere
+  				AND enseigne.idmatiere=".$idMatiere.";";
+
+	return $requete;
+}
+
 function requete_tous_idadminprof($idadminprof)
 {
 	$requete = "SELECT idAdminProf 
@@ -357,7 +367,7 @@ function requete_tous_idadminprof($idadminprof)
 function requete_inserer_prof($identifiant, $nom, $prenom, $mdph, $adminb, $langue)
 {
 	$requete = "INSERT INTO AdminProfs 
-                VALUES (".$identifiant.", '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
+                VALUES ('".$identifiant."', '".$nom."', '".$prenom."','".$mdph."','".$adminb."','".$langue."');";
 	return $requete;
 }
 
@@ -425,19 +435,23 @@ function requete_sessions_d_un_etudiant_par_matiere($idEtu, $idMatiere)
 
 function requete_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT DISTINCT (repond.idetudiant)
-				FROM  repond, etudiants
-				WHERE repond.idetudiant = etudiants.idetudiant
-				AND etudiants.promo=".$promo.";";
+	$requete = "SELECT DISTINCT(etudiants.idetudiant)
+				FROM  participe, sessions, quiz, etudiants
+				WHERE  participe.datesession = sessions.datesession 
+				AND  sessions.idquiz = quiz.idquiz 
+				AND  etudiants.idetudiant = participe.idetudiant
+ 				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
 function requete_nb_etudiant_d_une_promo($promo)
 {
-	$requete = "SELECT COUNT(DISTINCT (repond.idetudiant))
-				FROM  repond, etudiants
-				WHERE repond.idetudiant = etudiants.idetudiant
-				AND etudiants.promo=".$promo.";";
+	$requete = "SELECT COUNT(DISTINCT(etudiants.idetudiant))
+				FROM  participe, sessions, quiz, etudiants
+				WHERE  participe.datesession = sessions.datesession 
+				AND  sessions.idquiz = quiz.idquiz 
+				AND  etudiants.idetudiant = participe.idetudiant
+ 				AND etudiants.promo=".$promo.";";
 	return $requete;
 }
 
@@ -514,12 +528,33 @@ function requete_ajout_question_dans_quiz($idQuiz, $idQuestion)
 	
 	return $requete;
 }
-function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
+function requete_matieres()
 {
-	$requete = "DELETE FROM Inclu
-					WHERE idQuiz='".$idQuiz."'
-					AND idQuestion='".$idQuestion."';";
+	$requete = "SELECT * 
+				FROM matieres
+				ORDER BY libellematiere ASC;";
 	
 	return $requete;
 }
+
+function requete_tous_les_etudiants(){
+    $requete = "SELECT idetudiant,nometudiant,prenometudiant,promo
+                FROM etudiants";
+    return $requete;
+}
+
+function requete_insertion_matiere($libelleMatiere){
+	$requete = "INSERT INTO matieres (libellematiere) VALUES('".$libelleMatiere."');";
+	
+	return $requete;
+}
+function requete_effacement_matiere($idMatiere){
+	$request = "DELETE FROM Matieres
+                        WHERE idMatiere='".$idMatiere."';
+                        DELETE FROM Enseigne
+                        WHERE idMatiere='".$idMatiere."';";
+                        
+	return $request;
+}
+
 ?>

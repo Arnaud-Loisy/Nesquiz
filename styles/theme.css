@@ -110,7 +110,7 @@ div.tps {
 	padding: 5px;
 }
 input.bouton {
-	margin: 7%;
+        margin: 7%;
 	width: 255px;
 	height: 60px;
 	font-size: 50px;
@@ -128,7 +128,7 @@ input.bouton:active {
 }
 
 .boutonCenter{
-	margin-top: 7%;
+	margin-top: 10px;
 	margin-bottom: 7%;
 	display: block;
 	margin-left: auto;
@@ -211,7 +211,7 @@ input.bouton:active {
     min-height: 60px;
     height:160px;
     min-width: 60px;
-    width: 385px;
+    width: 470px;
     overflow: auto;
 }
 
@@ -221,7 +221,7 @@ input.bouton:active {
 }
 
 .identifiant{
-    width: 70px;
+    width: 150px;
     text-align: center;
 }
 
@@ -241,11 +241,13 @@ input.bouton:active {
     width: 70px;
 }
 
-input.boutonPetit {
-	margin: 1%;
-	width: 125px;
-	height: 30px;
-	font-size: 17px;
+input.boutonMAJ {
+        margin-top: 10px;
+        margin-bot: 10px;
+        margin-left: 20%;
+	width: auto;
+	height: 60px;
+	font-size: 50px;
 	font-family: 'pacayamedium', Verdana, Geneva, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background: rgb(43,120,228);
@@ -253,8 +255,4 @@ input.boutonPetit {
 	border-width: 1px;
 	border-color: rgb(102,102,102);
 	-webkit-appearance: none;
-}
-input.boutonPetit:active {
-	background: rgb(149,188,242);
-	color: white;
 }

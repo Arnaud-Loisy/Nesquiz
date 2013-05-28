@@ -30,10 +30,12 @@
             $etatsession = 1;
 
             // transmission des variables utiles à la page "supervision.php"
-            $_SESSION["dateSession"] = $dateSession;
-            $_SESSION["idquiz"] = $idquiz;
-            $_SESSION["mode"] = $modeFonctionnement;
-            $_SESSION["etatSession"] = $etatsession;
+            if($idquiz != null && $modeFonctionnement != null){
+                $_SESSION["dateSession"] = $dateSession;
+                $_SESSION["idquiz"] = $idquiz;
+                $_SESSION["mode"] = $modeFonctionnement;
+                $_SESSION["etatSession"] = $etatsession;
+           }
 
 
 
