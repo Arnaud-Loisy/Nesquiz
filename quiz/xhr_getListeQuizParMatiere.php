@@ -24,8 +24,8 @@ if (isset($_POST["IdMatiere"]))
 			$libelle = $row["libellequiz"];
 			$idQuiz = $row["idquiz"];
 			$tempsquiz = $row["tempsquiz"];
-			echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td>";
-			echo "<td>$tempsquiz</td></tr>";
+			echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'>$libelle</td>";
+			echo "<td style='width: 100px'>$tempsquiz</td></tr>";
 		}
 		
 		$result = pg_query($dbcon, requete_tous_quiz_sans_matiere($idMatiere));

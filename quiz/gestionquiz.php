@@ -154,13 +154,34 @@
 			function SupprimerQuestionAQuiz()
 			{
 				var i = -1;
+				var idQuestion = -1;
 				var lignesTableau;
+				do {
+					lignesTableau = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tr');
+					i++;
+				} while (lignesTableau[i].style.backgroundColor.toString() != "rgb(149, 188, 242)");
+				idQuestion = lignesTableau[i].id;
+
+				alert("ID QUESTION = " + idQuestion + " ; ID QUIZ = " + idQuizEnCours);
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_supprimerQuestionDansQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && (xhr.status == 200)) {
+						var lignesTableauQuiz;
+						var i2 = -1;
 						do {
-							lignesTableau = document.getElementById('table_libelles_questions_quiz').getElementsByTagName('tr');
-							alert("ID QUESTION = " + lignesTableau[i].id);
-							i++;
-						} while (lignesTableau[i].style.backgroundColor != "rgb(149,188,242)");
-						alert("ID QUESTION = " + lignesTableau[i].id);
+							lignesTableauQuiz = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+							i2++;
+						} while (lignesTableauQuiz[i2].id != idQuizEnCours);
+						ChangerQuizEnCours(lignesTableauQuiz[i2]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
 
         </script>
@@ -225,17 +246,17 @@
 				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
 
 				echo "<div name='div_colonne_gauche' style='float:left; width: 48%;'>";
-				echo "<table style='width: 100%;' class = 'liste' id = 'table_libelles_quiz'>";
-				echo "<thead style='width: 100%;'><th>Nom du quiz</th><th>Temps total</th></thead>";
-				echo "<tbody style='width: 100%;' >";
+				echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_libelles_quiz'>";
+				echo "<thead style='width: 100%;'><th style='width: 720px'>Nom du quiz</th><th style='width: 100px'>Temps total</th></thead>";
+				echo "<tbody style='width: 100%;'>";
 
 				while ($row = pg_fetch_array($result))
 				{
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
 					$tempsquiz = $row["tempsquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td>$libelle</td>";
-					echo "<td>$tempsquiz</td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'>$libelle</td>";
+					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
 				}
 
 
@@ -246,8 +267,8 @@
 					$libelle = $row["libellequiz"];
 					$idQuiz = $row["idquiz"];
 					$tempsquiz = $row["tempsquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td><b><i>$libelle</i></b></td>";
-					echo "<td>$tempsquiz</td></tr>";
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'><b><i>$libelle</i></b></td>";
+					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
 				}
 				echo "</tbody>";
 				echo "</table>";
@@ -258,7 +279,7 @@
 			echo "<input style='width: 50%;' type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
 			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
 			echo "<input style='width: 50%;'  type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
-			echo "<input type='submit' value = 'Nouveau Quiz'>";
+			echo "<input class ='boutonPetit' type='submit' value = 'Nouveau Quiz'>";
 			echo "</form>";
 			echo "</div>";
 
@@ -275,13 +296,6 @@
 				echo "<table class ='liste listeScrollable' style='width: 100%;' id = 'table_libelles_questions_quiz'>";
 				echo "<thead><th>Questions présentes</th></thead>";
 				echo "<tbody>";
-
-				/* while ($row = pg_fetch_array($result))
-				  {
-				  $libelleQuestion = $row["libellequestion"];
-				  $idQuestion = $row["idquestion"];
-				  echo "<tr><td onclick = 'InvertColorOfTableLine(this)' id = '$idQuestion'>$libelleQuestion</td></tr>";
-				  } */
 				echo "</tbody>";
 				echo "</table>";
 				//echo "</div>";
@@ -306,9 +320,9 @@
 				echo "</select>";
 
 				echo "<form>";
-				echo "<input onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
-				echo "<input onClick='SupprimerQuestionAQuiz()' type='button' value = 'Supprimer Question'>";
-				echo "<input type='submit' value = 'Gérer Questions'>";
+				echo "<input class='boutonPetit' onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
+				echo "<input class='boutonPetit' onClick='SupprimerQuestionAQuiz()' type='button' value = 'Retirer Question'>";
+				echo "<input class='boutonPetit' type='submit' value = 'Gérer Questions'>";
 				echo "</form>";
 				echo "</div>";
 			}
