@@ -16,12 +16,12 @@ if ((!isset($_SESSION["id"])) || (!($_SESSION["statut"] == "admin"))) {
 		echo "connection BDD failed<br>";
 	} else {
 		echo "<table style='width: 100%;' class = 'liste listeScrollable' id = 'table_profs'>";
-				echo "<thead><th>Nom Prénom</th></thead>";
+				echo "<thead style='display: table-header-group;'><th>Nom Prénom</th></thead>";
 				echo "<tbody>";
-				$result = pg_query($dbcon,idadminprof_d_une_matiere($idMatiere));
+				$result = pg_query($dbcon,requete_idadminprof_d_une_matiere($idMatiere));
 				while ($row=pg_fetch_array($result)) {
 					echo "<tr>
-							<td id='".$row['idadminprof']."'>" . $row['nomadminprof'] ." ".$row['prenomadminprof']. " </td>							
+							<td id='".$row['idadminprof']."' style='width: 357px'>" . $row['nomadminprof'] ." ".$row['prenomadminprof']. " </td>							
 						</tr>";
 				}
 

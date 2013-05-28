@@ -348,10 +348,12 @@ function requete_tous_idadminprof_nomadminprof_prenomadminprof()
 
 function requete_idadminprof_d_une_matiere($idMatiere)
 {
-	$requete = "SELECT enseigne.idadminprof,
-				FROM  matieres, enseigne
-				WHERE matieres.idmatiere = enseigne.idmatiere
+	$requete = "SELECT DISTINCT(adminprofs.idadminprof), adminprofs.nomadminprof, adminprofs.prenomadminprof
+				FROM adminprofs, enseigne, matieres
+				WHERE enseigne.idadminprof = adminprofs.idadminprof 
+				AND  enseigne.idmatiere = matieres.idmatiere
   				AND enseigne.idmatiere=".$idMatiere.";";
+  				
 
 	return $requete;
 }
