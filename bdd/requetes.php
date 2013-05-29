@@ -605,4 +605,5 @@ function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $mot
 
 	return $requete;
 }
+
 ?>
