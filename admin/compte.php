@@ -35,10 +35,58 @@
             include '../bdd/connexionBDD.php';
             include '../bdd/requetes.php';
 
+            if (isset ($_SESSION["erreur_inscription_numero_etu"])) {
+                echo"<br>Erreur:Ce numéro étudiant possède déjà un compte.<br>";
+                unset ($_SESSION["erreur_inscription_numero_etu"]);
+            }
+            if (isset ($_SESSION["erreur_inscription_incomplet"])) {
+                echo"<br>Erreur:Veuillez remplir tous les champs du formulaire.<br>";
+                unset ($_SESSION["erreur_inscription_incomplet"]);
+            }
+            if (isset ($_SESSION["erreur_longeur_champ_inscription_nom"])) {
+                echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                echo "<br>Veuillez réduire le champ 'nom' qui est  trop long.<br>";
+                unset ($_SESSION["erreur_longeur_champ_inscription_nom"]);
+            }
+            if (isset ($_SESSION["erreur_longeur_champ_inscription_prenom"])) {
+                echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                echo "<br>Veuillez réduire le champ 'prenom' qui est  trop long.<br>";
+                unset ($_SESSION["erreur_longeur_champ_inscription_prenom"]);
+            }
+            if (isset ($_SESSION["erreur_longeur_champ_inscription_etu"])) {
+                echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                echo "<br>Veuillez réduire le champ 'numero etudiant' qui est  trop long.<br>";
+                unset ($_SESSION["erreur_longeur_champ_inscription_etu"]);
+            }
+            if (isset ($_SESSION["erreur_longeur_champ_inscription_promotion"])) {
+                echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                echo "<br>Veuillez réduire le champ 'promotion' qui est  trop long.<br>";
+                unset ($_SESSION["erreur_longeur_champ_inscription_promotion"]);
+            }
+            if (isset ($_SESSION["erreur_longeur_champ_inscription_mdp"])) {
+                echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                echo "<br>Veuillez réduire le champ 'Mot De Passe' qui est  trop long.<br>";
+                unset ($_SESSION["erreur_longeur_champ_inscription_mdp"]);
+            }
+            if (isset ($_SESSION["erreur_longeur_champ_inscription_cmdp"])) {
+                echo"<br>Erreur:La longueur maximale des champs est de 32 caratères. <br>";
+                echo "<br>Veuillez réduire le champ 'Confirmation Mot de Passe' qui est  trop long.<br>";
+                unset ($_SESSION["erreur_longeur_champ_inscription_cmdp"]);
+            }
+            if (isset ($_SESSION["erreur_num_etu"])) {
+                echo "<br>Erreur: Le Numéro Etudiant ne  doit contenir que des nombres<br>";
+                unset ($_SESSION["erreur_num_etu"]);
+            }
+            if (isset ($_SESSION["erreur_promotion"])) {
+                echo "<br>Erreur: La Promotion ne  doit contenir que des nombres<br>";
+                unset ($_SESSION["erreur_promotion"]);
+            }
+
             if (isset ($_SESSION["erreur_creation"])) {
                 echo"<br> Identifiant déjà existant.";
                 unset ($_SESSION["erreur_creation"]);
             }
+            $_SESSION['enseignant'] = 1;
 
             $dbcon = connexionBDD ();
 
@@ -57,8 +105,7 @@
             $resultat = pg_query ($dbcon, requete_tous_idadminprof_nomadminprof_prenomadminprof ());
             echo"
                 <form action='majcompte.php' method='POST'>
-                <div class='scroll'>
-                    <table class='liste'>
+                            <table class='liste'>
                         <thead>
                             <th class='identifiant'> Identifiant </th>
                             <th class='nom'> Nom </th> 
@@ -66,32 +113,43 @@
                             <th class='admin'> Admin </th> 
                             <th class='supprimer'> Supprimer </th>
                         </thead>
+                        </table>
+                <div class='scroll'>
+                    <table class='liste'>
                         <tbody>";
+
+            // Récupère l'identifiant, le nom et le prénom des admins et des profs
+            $resultat = pg_query ($dbcon, requete_tous_idadminprof_nomadminprof_prenomadminprof ());
+
             while ($arr = pg_fetch_array ($resultat)) {
                 $nomadminprof = $arr["nomadminprof"];
                 $prenomadminprof = $arr["prenomadminprof"];
                 $idadminprof = $arr["idadminprof"];
-                echo"<tr>
-                        <td class='identifiant'>" . $idadminprof . "</td>
-                        <td class='nom'>" . $nomadminprof . "</td>
-                        <td class='prenom'>" . $prenomadminprof . "</td>";
+                echo"
+            <tr>
+                <td class='identifiant'>" . $idadminprof . "</td>
+                <td class='nom'>" . $nomadminprof . "</td>
+                <td class='prenom'>" . $prenomadminprof . "</td>";
                 $resultatAdmin = pg_query ($dbcon, requete_si_admin ($idadminprof));
                 $arrAdmin = pg_fetch_array ($resultatAdmin);
                 $admin = $arrAdmin['admin'];
                 if ($admin == 't')
-                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
+                    echo"
+                <td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' checked></td>";
                 else
-                    echo"<td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
+                    echo"
+                <td class='admin'><input type='checkbox' name='admin[]' value='" . $idadminprof . "' ></td>";
 
-                echo"<td class='supprimer'><input type='checkbox' name='supprimer[]' value='" . $idadminprof . "'></td>
+                echo"
+                        <td class='supprimer'><input type='checkbox' name='supprimer[]' value='" . $idadminprof . "'></td>
                     </tr>";
             }
             ?>
         </tbody>
-        </table>
-    </div>
-    <br>
-    <input  class='boutonMAJ' value='Valider' type='submit'>
+    </table>
+</div>
+<br>
+<input  class='boutonMAJ' value='Valider' type='submit'>
 </form>
 <form action='creercompte.php' method='POST'>
     <br>
@@ -125,4 +183,4 @@
 </div>
 </div>
 </body>
-<html>
+</html>
