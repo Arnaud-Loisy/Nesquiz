@@ -110,7 +110,7 @@ div.tps {
 	padding: 5px;
 }
 input.bouton {
-	margin: 7%;
+	margin: 9%;
 	width: 255px;
 	height: 60px;
 	font-size: 50px;
@@ -338,4 +338,10 @@ input.boutonPetit:active {
 
 .TestScrollable tbody {
     display: block;
+}
+
+#compte_a_rebours{
+	border: 1px solid;
+    width: 18%;
+    color: gray;
 }

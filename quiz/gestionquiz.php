@@ -189,8 +189,8 @@
     </head>
     <body>
         <div id='page'>
-			<?php
-			session_start();
+        	<?php
+        	session_start();
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
@@ -320,7 +320,6 @@
 				echo "</div>";
 			}
 			?>   
-
         </div>
     </body>
 </html>
