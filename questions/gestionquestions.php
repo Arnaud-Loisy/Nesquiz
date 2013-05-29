@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
     <head>
-        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Gestion des Questions</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <script type='text/javascript'>
