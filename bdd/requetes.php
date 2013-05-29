@@ -597,4 +597,12 @@ function requete_toutes_reponses_dans_question($idQuestion) {
 	
 	return $requete;
 }
+
+function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $motsCles, $idMatiere) {
+	$requete = "INSERT INTO Questions
+					 (libellequestion, tempsquestion, motscles, idmatiere)
+					 ('".libelleQuestion."','".tempsQuestion."','".motsCles."','".idMatiere."');";
+
+	return $requete;
+}
 ?>

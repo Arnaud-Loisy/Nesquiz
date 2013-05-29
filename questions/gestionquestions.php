@@ -163,6 +163,30 @@
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
+			function AjouterQuestionAMatiere()
+			{
+				/**On récupère l'élement html <select>*/
+				var select = document.getElementById('select_questions_matiere');
+				var idQuestion = select.options[select.selectedIndex].id;
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
+						var lignesTableau;
+						var i = -1;
+						do {
+							lignesTableau = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+							i++;
+						} while (lignesTableau[i].id != idQuizEnCours);
+						ChangerQuizEnCours(lignesTableau[i]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+			}
 
 			function GetSelectedRowID(idTableau)
 			{
@@ -261,14 +285,14 @@
 				echo "</table>";
 			}
 
-			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
+			echo "<form>";
 			echo "<label for='input_text_nouvelle_question'>Nom de la question :</label>";
 			echo "<input id='input_text_nouvelle_question' type='text' value = '' name='nomQuestion'><br>";
 			echo "<label for='input_text_temps_nouvelle_question'>Temps total :</label>";
 			echo "<input id='input_text_temps_nouvelle_question' type='text' value = '' name='tempsQuestion'><br>";
 			echo "<label for='input_text_mots_cles_nouvelle_question'>Mots clés :</label>";
 			echo "<input id='input_text_mots_cles_nouvelle_question' type='text' value = '' name='motsCles'><br>";
-			echo "<input class ='boutonPetit' type='submit' value = 'Ajouter question'>";
+			echo "<input onClick='' class ='boutonPetit' type='submit' value = 'Ajouter question'>";
 			echo "</form>";
 			echo "</div>";
 
