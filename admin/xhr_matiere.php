@@ -21,7 +21,7 @@ if ((!isset($_SESSION["id"])) || (!($_SESSION["statut"] == "admin"))) {
 				$result = pg_query($dbcon,requete_idadminprof_d_une_matiere($idMatiere));
 				while ($row=pg_fetch_array($result)) {
 					echo "<tr>
-							<td id='".$row['idadminprof']."' style='width: 357px'>" . $row['nomadminprof'] ." ".$row['prenomadminprof']. " </td>							
+							<td id='".$row['idadminprof']."' style='width: 720px'>" . $row['nomadminprof'] ." ".$row['prenomadminprof']. " </td>							
 						</tr>";
 				}
 
