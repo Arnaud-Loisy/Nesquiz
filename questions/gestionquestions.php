@@ -53,11 +53,11 @@
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
 				var value = radioButton.value;
 				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "xhr_getListeQuestions.php", true);
+				xhr.open("POST", "xhr_getListeQuestionsParMatiere.php", true);
 
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && (xhr.status == 200)) {
-						document.getElementById('select_questions_matiere').innerHTML = xhr.responseText;
+						document.getElementById('table_libelles_questions').innerHTML = xhr.responseText;
 						//document.getElementById("loader").style.display = "none";
 					} /*else if (xhr.readyState < 4) {
 					 document.getElementById("loader").style.display = "inline";
@@ -66,30 +66,9 @@
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdMatiere=" + value);
 
-				//**
-				//Modification de la liste des quiz dans cette matiere
-				//**
-				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
-				var xhr2 = new XMLHttpRequest();
-				xhr2.open("POST", "xhr_getListeQuizParMatiere.php", true);
-
-				xhr2.onreadystatechange = function() {
-					if (xhr2.readyState == 4 && (xhr2.status == 200)) {
-						document.getElementById('table_libelles_quiz').innerHTML = xhr2.responseText;
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
-				};
-				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr2.send("IdMatiere=" + value);
-
-				//**
-				//Modification de la liste des questions dans un quiz donne
-				//**
-				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>\
-																						<thead><th style='width:  400px'>Questions présentes</th></thead>\
-																						<tbody></tbody></table>";
+				document.getElementById('table_libelles_reponses_questions').innerHTML = "<table class ='TestScrollable' style='width: 500px;' id = 'table_libelles_reponses_questions'>\
+																							<thead><th style='min-width: 400px; width: 400px'>Réponse</th><th class='thAuto'>Correcte?</th></thead>\
+																							<tbody style='width: 100%'></tbody></table>";
 			}
 
 			var idQuestionEnCours = -1;
@@ -177,25 +156,66 @@
 					if (matieres[i].checked)
 						idMatiere = matieres[i].value;
 				}
-				
+
 				var xhr = new XMLHttpRequest();
 
 				xhr.open("POST", "xhr_ajoutQuestionAMatiere.php", true);
 
 				xhr.onreadystatechange = function() {
 					if ((xhr.readyState == 4) && (xhr.status == 200)) {
-						/*var lignesTableauQuiz;
-						 var i2 = -1;
-						 do {
-						 lignesTableauQuiz = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
-						 i2++;
-						 } while (lignesTableauQuiz[i2].id != idQuizEnCours);
-						 ChangerQuizEnCours(lignesTableauQuiz[i2]);*/
+						var radios = document.getElementsByName('radios_matieres');
+						var i;
+						var idRow = -1;
+
+						for (i = 0; i < radios.length; i++)
+						{
+							if (radios[i].checked)
+								idRow = i;
+						}
+
+						ChangerMatiereEnCours(radios[idRow]);
 					}
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("LibelleQuestion=" + libelleQuestion + "&MotsCles=" + motsCles + "&TempsTotal=" + tempsTotal + "&IdMatiere=" + idMatiere);
+			}
+
+			function AjouterReponseAQuestion()
+			{
+				var libelleReponse = document.getElementById('input_text_nouvelle_reponse').value;
+				var valide;
+				var idQuestion = GetSelectedRowID('table_libelles_questions');
+
+				if (document.getElementById('checkbox_reponse_correcte').checked == true)
+					valide = true;
+				else
+					valide = false;
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_ajoutReponseAQuestion.php", true);
+
+				xhr.onreadystatechange = function() {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
+						var tableau = document.getElementById('table_libelles_questions');
+						var lignesTableau = tableau.getElementsByTagName('tr');
+						var i;
+						var idRow = -1;
+
+						for (i = 0; i < lignesTableau.length; i++)
+						{
+							if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
+								idRow = i;
+						}
+
+						ChangerQuestionEnCours(lignesTableau[idRow]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("LibelleReponse=" + libelleReponse + "&Valide=" + valide + "&IdQuestion=" + idQuestion);
+
 			}
 
 			function GetSelectedRowID(idTableau)
@@ -217,6 +237,41 @@
 			function TEST()
 			{
 				var id = GetSelectedRowID('table_libelles_quiz');
+			}
+
+			function ModifierValiditeReponse(checkbox)
+			{
+				var idReponse = checkbox.id;
+				var valide;
+
+				if (checkbox.checked)
+					valide = true;
+				else
+					valide = false;
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_modifierValiditeReponse.php", true);
+
+				xhr.onreadystatechange = function() {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
+						var tableau = document.getElementById('table_libelles_questions');
+						var lignesTableau = tableau.getElementsByTagName('tr');
+						var i;
+						var idRow = -1;
+
+						for (i = 0; i < lignesTableau.length; i++)
+						{
+							if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
+								idRow = i;
+						}
+
+						ChangerQuestionEnCours(lignesTableau[idRow]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("Valide=" + valide + "&IdReponse=" + idReponse);
 			}
 
         </script>
@@ -287,7 +342,7 @@
 					$tempsquestion = $row["tempsquestion"];
 					$motscles = $row["motscles"];
 					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuestionEnCours(this)' id = '$idQuestion'><td style='min-width: 600px; width: 600px'>$libelle</td>";
-					echo "<td class='tdAuto' style='width: 150px; min-width: 150px'>$motscles</td>";
+					echo "<td class='tdAuto' style='width: 150px; min-width: 150px; max-width: 150px''>$motscles</td>";
 					echo "<td class='tdAuto'>$tempsquestion</td></tr>";
 				}
 
@@ -322,31 +377,13 @@
 				echo "</table>";
 			}
 
-			if (!$dbcon)
-			{
-				echo "connection BDD failed<br>";
-			}
-			else
-			{
-				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere(1));
-
-				echo "<select style='width: 400px;' id='select_questions_matiere'>";
-
-				while ($row = pg_fetch_array($result))
-				{
-					$libelleQuestion = $row["libellequestion"];
-					$idQuestion = $row["idquestion"];
-					echo "<option id = '$idQuestion' name='$libelleQuestion'>$libelleQuestion</option>";
-				}
-				echo "</select>";
-
-				echo "<form>";
-				echo "<input class='boutonPetit' onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
-				echo "<input class='boutonPetit' onClick='SupprimerQuestionAQuiz()' type='button' value = 'Retirer Question'>";
-				echo "<input class='boutonPetit' type='submit' value = 'Gérer Questions'>";
-				echo "</form>";
-				echo "</div>";
-			}
+			echo "<form>";
+			echo "<label for='input_text_nouvelle_reponse'>Nom de la reponse</label>";
+			echo "<input type='text' id='input_text_nouvelle_reponse' value = '' name='nomReponse'>";
+			echo "<input id='checkbox_reponse_correcte' type='checkbox' name='validite2' value = 'Retirer Question'>Correcte ?</input>";
+			echo "<input onClick='AjouterReponseAQuestion()' class='boutonPetit' type='button' value = 'Ajouter Reponse'>";
+			echo "</form>";
+			echo "</div>";
 			?>   
 
         </div>

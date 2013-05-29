@@ -22,13 +22,13 @@ if (isset($_POST["IdQuestion"]))
 		while ($row = pg_fetch_array($result))
 		{
 			$libelle = $row["libellereponse"];
-			$idReponse = $row["idReponse"];
+			$idReponse = $row["idreponse"];
 			$valide = $row["valide"];
 			echo "<tr onclick = 'InvertColorOfTableLine(this)' id = '$idReponse'><td class='tdFixed' style='min-width: 400px; width: 400px'>$libelle</td>";
 			if ($valide == 't')
-				echo "<td class='tdAuto'><input type='checkbox' name='validite' value='".$valide."' checked/></tr>";
+				echo "<td class='tdAuto'><input onClick='ModifierValiditeReponse(this)' id='".$idReponse."' type='checkbox' name='validite' value='".$valide."' checked/></tr>";
 			else
-				echo "<td class='tdAuto'><input type='checkbox' name='validite' value='".$valide."'/></tr>";
+				echo "<td class='tdAuto'><input onClick='ModifierValiditeReponse(this)' id='".$idReponse."' type='checkbox' name='validite' value='".$valide."'/></tr>";
 		}
 		
 		echo "</tbody>";
