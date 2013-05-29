@@ -349,16 +349,6 @@
 				echo "</tbody>";
 				echo "</table>";
 			}
-
-			echo "<form>";
-			echo "<label for='input_text_nouvelle_question'>Nom de la question :</label>";
-			echo "<input id='input_text_nouvelle_question' type='text' value = '' name='nomQuestion'><br>";
-			echo "<label for='input_text_temps_nouvelle_question'>Temps total :</label>";
-			echo "<input id='input_text_temps_nouvelle_question' type='text' value = '' name='tempsQuestion'><br>";
-			echo "<label for='input_text_mots_cles_nouvelle_question'>Mots clés :</label>";
-			echo "<input id='input_text_mots_cles_nouvelle_question' type='text' value = '' name='motsCles'><br>";
-			echo "<input onClick='AjouterQuestionAMatiere()' class ='boutonPetit' type='button' value = 'Ajouter question'>";
-			echo "</form>";
 			echo "</div>";
 
 			if (!$dbcon)
@@ -369,14 +359,28 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_reponses_dans_question(1));
 
-				echo "<div name='div_reponses_centre' style='clear: both; width: 50%;'>";
-				echo "<table class ='TestScrollable' style='width: 500px;' id = 'table_libelles_reponses_questions'>";
+				echo "<div name='div_reponses_centre' style='float: left; clear: both; width: 60%; margin-top: 10px'>";
+				echo "<table class ='TestScrollable' style='width: 100%;' id = 'table_libelles_reponses_questions'>";
 				echo "<thead><th style='min-width: 400px; width: 400px'>Réponse</th><th class='thAuto'>Correcte?</th></thead>";
 				echo "<tbody style='width: 100%'>";
 				echo "</tbody>";
 				echo "</table>";
 			}
-
+			echo "</div>";
+			
+			echo "<div name='div_nouvelle_question' style='height: 235px; margin-top: 10px; margin-bottom: 10px; border: 1px dotted; width: 36%; text-align: center; float: right' >";
+			echo "<form style='margin-top: 10px; margin-bottom: 10px'>";
+			echo "<label style='display: inline-block; width: 150px' for='input_text_nouvelle_question'>Nom de la question :</label>";
+			echo "<input id='input_text_nouvelle_question' type='text' value = '' name='nomQuestion'><br>";
+			echo "<label style='display: inline-block; width: 150px'  for='input_text_temps_nouvelle_question'>Temps total :</label>";
+			echo "<input style='display: inline-block' id='input_text_temps_nouvelle_question' type='text' value = '' name='tempsQuestion'><br>";
+			echo "<label style='display: inline-block; width: 150px'  for='input_text_mots_cles_nouvelle_question'>Mots clés :</label>";
+			echo "<input id='input_text_mots_cles_nouvelle_question' type='text' value = '' name='motsCles'><br>";
+			echo "<input style='margin-top: 10px;' onClick='AjouterQuestionAMatiere()' class ='boutonPetit' type='button' value = 'Ajouter question'>";
+			echo "</form>";
+			echo "</div>";
+			
+			echo "<div name='div_nouvelle_reponse' style='border: 1px dotted; clear: both; width: 60%; text-align: center' >";
 			echo "<form>";
 			echo "<label for='input_text_nouvelle_reponse'>Nom de la reponse</label>";
 			echo "<input type='text' id='input_text_nouvelle_reponse' value = '' name='nomReponse'>";
@@ -384,6 +388,7 @@
 			echo "<input onClick='AjouterReponseAQuestion()' class='boutonPetit' type='button' value = 'Ajouter Reponse'>";
 			echo "</form>";
 			echo "</div>";
+			
 			?>   
 
         </div>
