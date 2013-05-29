@@ -11,7 +11,7 @@ else
     echo "connection BDD succes <br>";
 
 if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) { //si l'utilisateur est un étudiant.
-    $id = pg_escape_string($_SESSION["id"]);
+    $id = $_SESSION["id"];
     $result_etu = pg_query($dbcon, "SELECT langueEtudiant, mdpetudiant FROM Etudiants WHERE idEtudiant=" . $id);
     $arr = (pg_fetch_array($result_etu));
     $langue = $arr["langueEtudiant"];
@@ -19,9 +19,9 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) { //si l'uti
     // on lui affiche quelques information (nom, prénom, interface).
 
     if ((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))) {
-        $mdpnew = pg_escape_string($_POST["newmdp"]);
-        $mdpold = pg_escape_string($_POST["oldmdp"]);
-        $mdpcnew = pg_escape_string($_POST["cnewmdp"]);
+        $mdpnew = ($_POST["newmdp"]);
+        $mdpold = ($_POST["oldmdp"]);
+        $mdpcnew = ($_POST["cnewmdp"]);
         if ( $mdpnew!="" && $mdpold!="" && $mdpcnew!=""){
         $mdphcnew = md5($mdpcnew);
         $mdphold = md5($mdpold);
@@ -58,7 +58,64 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) { //si l'uti
  }
  // meme chose que pour l'étudiant mais cette fois c'est si l'utilisateur est un administrateur.
 if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "prof"))) {
-    $id = pg_escape_string($_SESSION["id"]);
+    $id = $_SESSION["id"];
+    $result_adm = pg_query($dbcon, "SELECT langueAdminProf, mdpadminprof FROM AdminProfs WHERE idAdminProf = '". $id."';");
+    $arr = (pg_fetch_array($result_adm));
+    $langue = $arr["langueAdminProf"];
+    $mdph = $arr["mdpadminprof"];
+    echo "$mdph";
+    // on lui affiche quelques information (nom, prénom, interface).
+
+    if ((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))) {
+        $mdpnew = ($_POST["newmdp"]);
+        $mdpold = ($_POST["oldmdp"]);
+        $mdpcnew = ($_POST["cnewmdp"]);
+        if ( $mdpnew!="" && $mdpold!="" && $mdpcnew!=""){
+        $mdphcnew = md5($mdpcnew);
+        $mdphold = md5($mdpold);
+        $mdphnew = md5($mdpnew);
+       
+// si les mot de passes correspondent a l'ancien et entre eux on fait le changement dans la BDD
+        if ($mdph == $mdphold) {
+            if ($mdphcnew == $mdphnew) {
+                pg_query($dbcon, "UPDATE AdminProfs SET mdpAdminProf ='" . $mdphnew . "' WHERE idAdminProf= '". $id."';");
+                $_SESSION["mdpchok"] = 1;
+            } else {
+                $_SESSION["mdpconffail"] = 1;
+            }
+        } else {
+            $_SESSION["mdpfail"] = 1;
+        }
+    } else {
+           if($mdpnew=="" && $mdpold=="" && $mdpcnew==""){
+                if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
+                         $langue = $_POST["langue"];
+           
+                 //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
+             
+                         $_SESSION["languechok"] =1;
+                }
+            }
+            else {
+                $_SESSION["mdpchfail"] = 1;
+            }
+    }
+  }
+  
+      
+ }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*$id = $_SESSION["id"];
+
     $result_adm = pg_query($dbcon, "SELECT langueAdminProf, mdpadminprof FROM AdminProfs WHERE idAdminProf =" . $id);
     $arr = (pg_fetch_array($result_adm));
     $langue = $arr["langueAdminProf"];
@@ -66,9 +123,9 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
 
 
     if ((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))) {
-        $mdpnew = pg_escape_string($_POST["newmdp"]);
-        $mdpold = pg_escape_string($_POST["oldmdp"]);
-        $mdpcnew = pg_escape_string($_POST["cnewmdp"]);
+        $mdpnew = ($_POST["newmdp"]);
+        $mdpold = ($_POST["oldmdp"]);
+        $mdpcnew = ($_POST["cnewmdp"]);
         if ( $mdpnew!="" && $mdpold!="" && $mdpcnew!=""){
         $mdphcnew = md5($mdpcnew);
         $mdphold = md5($mdpold);
@@ -102,7 +159,7 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
   }
  
    
-}
+}*/
 
-header('Location:./profil.php');
+//header('Location:./profil.php');
 ?>
