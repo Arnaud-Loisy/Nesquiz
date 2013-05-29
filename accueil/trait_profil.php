@@ -63,6 +63,7 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
     $arr = (pg_fetch_array($result_adm));
     $langue = $arr["langueAdminProf"];
     $mdph = $arr["mdpadminprof"];
+    echo "$mdph";
     // on lui affiche quelques information (nom, prénom, interface).
 
     if ((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))) {
@@ -160,5 +161,5 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
    
 }*/
 
-header('Location:./profil.php');
+//header('Location:./profil.php');
 ?>
