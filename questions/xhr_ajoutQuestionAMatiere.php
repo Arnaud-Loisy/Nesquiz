@@ -3,10 +3,12 @@
 include '../bdd/connexionBDD.php';
 include '../bdd/requetes.php';
 
-if (isset($_POST["IdQuestion"]) && isset($_POST["IdQuiz"]))
+if (isset($_POST["LibelleQuestion"]) && isset($_POST["TempsTotal"]) && isset($_POST["MotsCles"]) && isset($_POST["IdMatiere"]))
 {
-	$idQuestion = $_POST["IdQuestion"];
-	$idQuiz = $_POST["IdQuiz"];
+	$libelleQuestion = pg_escape_string($_POST["LibelleQuestion"]);
+	$tempsQuestion = pg_escape_string($_POST["TempsTotal"]);
+	$motsCles = pg_escape_string($_POST["MotsCles"]);
+	$idMatiere = pg_escape_string($_POST["IdMatiere"]);
 	
 	$dbcon = connexionBDD();
 	if (!$dbcon)
@@ -15,7 +17,7 @@ if (isset($_POST["IdQuestion"]) && isset($_POST["IdQuiz"]))
 	}
 	else
 	{
-		$result = pg_query($dbcon, requete_ajout_question_dans_quiz($idQuiz, $idQuestion));
+		$result = pg_query($dbcon, requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $motsCles, $idMatiere));
 	}
 }
 ?>

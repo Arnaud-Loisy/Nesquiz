@@ -36,7 +36,7 @@
 			{
 				var tableau = tableRow.parentNode.parentNode.id;
 				var lignesTableau = tableRow.parentNode.parentNode.getElementsByTagName('tr');
-				
+
 				var i = -1;
 				for (i = 0; i < lignesTableau.length; i++)
 				{
@@ -163,29 +163,39 @@
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
+
 			function AjouterQuestionAMatiere()
 			{
-				/**On récupère l'élement html <select>*/
-				var select = document.getElementById('select_questions_matiere');
-				var idQuestion = select.options[select.selectedIndex].id;
+				var libelleQuestion = document.getElementById('input_text_nouvelle_question').value;
+				var motsCles = document.getElementById('input_text_mots_cles_nouvelle_question').value;
+				var tempsTotal = document.getElementById('input_text_temps_nouvelle_question').value;
+				var matieres = document.getElementsByName('radios_matieres');
+				var idMatiere;
+
+				for (var i = 0; i < matieres.length; i++)
+				{
+					if (matieres[i].checked)
+						idMatiere = matieres[i].value;
+				}
+				
 				var xhr = new XMLHttpRequest();
 
-				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
+				xhr.open("POST", "xhr_ajoutQuestionAMatiere.php", true);
 
 				xhr.onreadystatechange = function() {
 					if ((xhr.readyState == 4) && (xhr.status == 200)) {
-						var lignesTableau;
-						var i = -1;
-						do {
-							lignesTableau = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
-							i++;
-						} while (lignesTableau[i].id != idQuizEnCours);
-						ChangerQuizEnCours(lignesTableau[i]);
+						/*var lignesTableauQuiz;
+						 var i2 = -1;
+						 do {
+						 lignesTableauQuiz = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+						 i2++;
+						 } while (lignesTableauQuiz[i2].id != idQuizEnCours);
+						 ChangerQuizEnCours(lignesTableauQuiz[i2]);*/
 					}
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+				xhr.send("LibelleQuestion=" + libelleQuestion + "&MotsCles=" + motsCles + "&TempsTotal=" + tempsTotal + "&IdMatiere=" + idMatiere);
 			}
 
 			function GetSelectedRowID(idTableau)
@@ -247,9 +257,9 @@
 				while ($row = pg_fetch_array($result))
 				{
 					$libelleMatiere = $row["libellematiere"];
-					$idMatiere = $row["idmatiere"];
+					$idMatiere2 = $row["idmatiere"];
 
-					echo "<span class='rightRadioButton'><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' />";
+					echo "<span class='rightRadioButton'><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere2."' />";
 					echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
 				}
 				echo "</div>";
@@ -280,7 +290,7 @@
 					echo "<td class='tdAuto' style='width: 150px; min-width: 150px'>$motscles</td>";
 					echo "<td class='tdAuto'>$tempsquestion</td></tr>";
 				}
-				
+
 				echo "</tbody>";
 				echo "</table>";
 			}
@@ -292,7 +302,7 @@
 			echo "<input id='input_text_temps_nouvelle_question' type='text' value = '' name='tempsQuestion'><br>";
 			echo "<label for='input_text_mots_cles_nouvelle_question'>Mots clés :</label>";
 			echo "<input id='input_text_mots_cles_nouvelle_question' type='text' value = '' name='motsCles'><br>";
-			echo "<input onClick='' class ='boutonPetit' type='submit' value = 'Ajouter question'>";
+			echo "<input onClick='AjouterQuestionAMatiere()' class ='boutonPetit' type='button' value = 'Ajouter question'>";
 			echo "</form>";
 			echo "</div>";
 
@@ -303,7 +313,7 @@
 			else
 			{
 				$result = pg_query($dbcon, requete_toutes_reponses_dans_question(1));
-				
+
 				echo "<div name='div_reponses_centre' style='clear: both; width: 50%;'>";
 				echo "<table class ='TestScrollable' style='width: 500px;' id = 'table_libelles_reponses_questions'>";
 				echo "<thead><th style='min-width: 400px; width: 400px'>Réponse</th><th class='thAuto'>Correcte?</th></thead>";
