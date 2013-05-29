@@ -672,4 +672,12 @@ function requete_maj_mdp_admin($mdphnew, $id){
         return $requete;           
 }
 
+function requete_supprimer_etudiant($idetudiant)
+{
+	$requete = "DELETE
+                FROM etudiants
+                WHERE idetudiant ='".$idetudiant."';";
+	return $requete;
+}
+
 ?>
