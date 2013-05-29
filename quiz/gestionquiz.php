@@ -61,9 +61,7 @@
 				//**
 				//Modification de la liste des questions dans un quiz donne
 				//**
-				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>\
-																						<thead><th style='width:  400px'>Questions présentes</th></thead>\
-																						<tbody></tbody></table>";
+				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'><thead><th style='width:  400px'>Questions présentes</th></thead><tbody></tbody></table>";
 			}
 
 			var idQuizEnCours = -1;
