@@ -255,7 +255,7 @@
 
 				xhr.onreadystatechange = function() {
 					if ((xhr.readyState == 4) && (xhr.status == 200)) {
-						var tableau = document.getElementById('table_libelles_questions');
+						/*var tableau = document.getElementById('table_libelles_questions');
 						var lignesTableau = tableau.getElementsByTagName('tr');
 						var i;
 						var idRow = -1;
@@ -266,7 +266,7 @@
 								idRow = i;
 						}
 
-						ChangerQuestionEnCours(lignesTableau[idRow]);
+						ChangerQuestionEnCours(lignesTableau[idRow]);*/
 					}
 				};
 
