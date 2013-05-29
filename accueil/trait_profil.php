@@ -104,62 +104,6 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
   
       
  }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*$id = $_SESSION["id"];
 
-    $result_adm = pg_query($dbcon, "SELECT langueAdminProf, mdpadminprof FROM AdminProfs WHERE idAdminProf =" . $id);
-    $arr = (pg_fetch_array($result_adm));
-    $langue = $arr["langueAdminProf"];
-    $mdph = $arr["mdpadminprof"];
-
-
-    if ((isset($_POST["oldmdp"])) && (isset($_POST["newmdp"])) && (isset($_POST["cnewmdp"]))) {
-        $mdpnew = ($_POST["newmdp"]);
-        $mdpold = ($_POST["oldmdp"]);
-        $mdpcnew = ($_POST["cnewmdp"]);
-        if ( $mdpnew!="" && $mdpold!="" && $mdpcnew!=""){
-        $mdphcnew = md5($mdpcnew);
-        $mdphold = md5($mdpold);
-        $mdphnew = md5($mdpnew);
-        
-
-        if ($mdph == $mdphold) {
-            if ($mdphcnew == $mdphnew) {
-                pg_query($dbcon, "UPDATE AdminProfs SET mdpAdminProf ='" . $mdphnew . "' WHERE idAdminProf=" . $id);
-                $_SESSION["mdpchok"] = 1;
-            } else {
-                $_SESSION["mdpconffail"] = 1;
-            }
-        } else {
-            $_SESSION["mdpfail"] = 1;
-        }
-    } else {
-           if($mdpnew=="" && $mdpold=="" && $mdpcnew==""){
-                if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
-                         $langue = $_POST["langue"];
-            
-                 //pg_query($dbcon, "UPDATE AdminProfs SET langueAdminProf = '" . $langue . "' WHERE idAdminProf=" . $id);
-             
-                         $_SESSION["languechok"] =1;
-                }
-            }
-            else {
-                $_SESSION["mdpchfail"] = 1;
-            }
-    }
-  }
- 
-   
-}*/
-
-//header('Location:./profil.php');
+header('Location:./profil.php');
 ?>
