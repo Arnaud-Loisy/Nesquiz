@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Gestion des Compte</title>
+        <title>Matière</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         

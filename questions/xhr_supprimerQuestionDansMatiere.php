@@ -3,10 +3,9 @@
 include '../bdd/connexionBDD.php';
 include '../bdd/requetes.php';
 
-if (isset($_POST["IdQuestion"]) && isset($_POST["IdQuiz"]))
+if (isset($_POST["IdQuestion"]))
 {
 	$idQuestion = $_POST["IdQuestion"];
-	$idQuiz = $_POST["IdQuiz"];
 	
 	$dbcon = connexionBDD();
 	if (!$dbcon)
@@ -15,7 +14,7 @@ if (isset($_POST["IdQuestion"]) && isset($_POST["IdQuiz"]))
 	}
 	else
 	{
-		$result = pg_query($dbcon, requete_supprimer_question_dans_quiz($idQuiz, $idQuestion));
+		$result = pg_query($dbcon, requete_supprimer_question_dans_matiere($idQuestion));
 	}
 }
 ?>

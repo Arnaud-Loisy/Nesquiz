@@ -1,37 +1,11 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="fr">
     <head>
-        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Gestion des Quiz</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <script type='text/javascript'>
-
-			var currentRow = -1;
-			function SelectRow(newRow, maxColLength)
-			{
-				for (var i = 1; i < maxColLength; ++i)
-				{
-					var cell = document.getElementById('cell_' + newRow + ',' + i);
-					cell.style.background = '#AAF';
-					if (currentRow !== -1)
-					{
-						var cell = document.getElementById('cell_' + currentRow + ',' + i);
-						cell.style.background = '#FFF';
-					}
-				}
-				currentRow = newRow;
-			}
-
-			function IsSelected()
-			{
-				return currentRow === -1 ? false : true;
-			}
-
-			function GetSelectedRow()
-			{
-				return currentRow;
-			}
-
+			
 			function InvertColorOfTableLine(tableRow)
 			{
 				var tableau = tableRow.parentNode.parentNode.id;
@@ -88,8 +62,7 @@
 				//Modification de la liste des questions dans un quiz donne
 				//**
 				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>\
-																						<thead><th style='width:  400px'>Questions présentes</th></thead>\
-																						<tbody></tbody></table>";
+																						<thead><th style='width:  400px'>Questions présentes</th></thead><tbody></tbody></table>";
 			}
 
 			var idQuizEnCours = -1;
@@ -180,17 +153,14 @@
 				return idRow;
 			}
 
-			function TEST()
-			{
-				var id = GetSelectedRowID('table_libelles_quiz');
-			}
-
         </script>
     </head>
     <body>
         <div id='page'>
-        	<?php
-        	session_start();
+			<?php
+			session_start();
+            if (!isset($_SESSION["id"]) || ($_SESSION["statut"] == "etu"))
+                header ('Location:../index.php');
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
@@ -270,10 +240,10 @@
 			}
 
 			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
-			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
-			echo "<input style='width: 50%;' type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
-			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
-			echo "<input style='width: 50%;'  type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
+			echo "<label style='width: 90px; display: inline-block' for='input_text_nouveau_quiz'>Nom du quiz</label>";
+			echo "<input type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
+			echo "<label style='width: 90px; display: inline-block'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
+			echo "<input type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
 			echo "<input class ='boutonPetit' type='submit' value = 'Nouveau Quiz'>";
 			echo "</form>";
 			echo "</div>";
