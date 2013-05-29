@@ -1,36 +1,10 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
         <title>Gestion des Questions</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <script type='text/javascript'>
-
-			var currentRow = -1;
-			function SelectRow(newRow, maxColLength)
-			{
-				for (var i = 1; i < maxColLength; ++i)
-				{
-					var cell = document.getElementById('cell_' + newRow + ',' + i);
-					cell.style.background = '#AAF';
-					if (currentRow !== -1)
-					{
-						var cell = document.getElementById('cell_' + currentRow + ',' + i);
-						cell.style.background = '#FFF';
-					}
-				}
-				currentRow = newRow;
-			}
-
-			function IsSelected()
-			{
-				return currentRow === -1 ? false : true;
-			}
-
-			function GetSelectedRow()
-			{
-				return currentRow;
-			}
 
 			function InvertColorOfTableLine(tableRow)
 			{
@@ -285,18 +259,14 @@
 				xhr.send("Valide=" + valide + "&IdReponse=" + idReponse);
 			}
 
-			function Test()
-			{
-				var div = document.getElementsByName('div_nouvelle_question');
-				div[0].style.hidden = true;
-			}
-
         </script>
     </head>
     <body>
         <div id='page'>
 			<?php
 			session_start();
+            if (!(isset ($_SESSION["id"])) || ($_SESSION["statut"] == "etu"))
+                header ('Location:../index.php');
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
