@@ -1,4 +1,5 @@
 <?php
+//Affichage du menu admin avec un quiz en cours
 if(isset($_SESSION['id']) && ($_SESSION['statut'] == "admin") && isset($_SESSION["idquiz"]))
 {
 		echo "
@@ -16,6 +17,7 @@ if(isset($_SESSION['id']) && ($_SESSION['statut'] == "admin") && isset($_SESSION
 </ul>
 </div>";
 }
+//Affichage du menu admin 
 elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
 	echo "
 <div id='menu'>
@@ -31,6 +33,7 @@ elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "admin")) {
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";}
+//Affichage du menu professeur avec un quiz en cours
 elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESSION["idquiz"]))
 {
 		echo "
@@ -44,7 +47,7 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
-
+//Affichage du menu professeur 
 } elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "prof")) {
 	echo "
 <div id='menu'>
@@ -57,6 +60,7 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
    <li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
+//Affichage du menu etudiant avec une session en cours
 } elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu") && isset($_SESSION['idSession'])) {
 	echo "
 <div id='menu'>
@@ -68,6 +72,7 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
 	<li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
+//Affichage du menu etudiant
 }elseif (isset($_SESSION['id']) && ($_SESSION['statut'] == "etu")) {
 	echo "
 <div id='menu'>
@@ -79,6 +84,7 @@ elseif(isset($_SESSION['id']) && ($_SESSION['statut'] == "prof") && isset($_SESS
 	<li><a href='../accueil/deconnexion.php'>Déconnexion</a></li>
 </ul>
 </div>";
+//affichage du menu non connecté
 } else {
 	echo "
 <div id='menu'>

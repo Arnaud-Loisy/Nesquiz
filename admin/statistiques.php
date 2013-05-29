@@ -16,7 +16,7 @@
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
 			include '../session/fonctions_resultats.php';
-
+			//si etudiant connecté
 			if ((!isset($_SESSION["id"])) || ($_SESSION["statut"] == "etu")) {
 				header('Location:../index.php');
 			} else {
@@ -27,16 +27,20 @@
 				if (!$dbcon) {
 					echo "connection BDD failed<br>";
 				} else {
+					
+					//affichage de la premiere matiere de l'étudiant
 					$result = pg_query($dbcon, requete_toutes_matieres_pour_un_professeur($idAdminProf));
 					$row = pg_fetch_array($result);
 					$libelleMatiere = $row["libellematiere"];
 					$idMatiere = $row["idmatiere"];
+					
 					echo "<h1>Mes Matières : </h1>";
 					echo "<div style='margin: auto;' class='radioButtons'>";
+					//on click appel de xhr_statistiques.
 					echo "<span><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' checked='true'/>";
 					echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					
-
+					//affichage des autres matieres de l'étudiant
 					while ($row = pg_fetch_array($result)) {
 						$libelleMatiere = $row["libellematiere"];
 						$idBtMatiere = $row["idmatiere"];
@@ -51,7 +55,7 @@
 					$promo = $row["promo"];
 					echo "<h2>Promotion : <select id='numPromo' onChange = 'changerStats(this)'>";
 					echo "<option id = 'promo' name='$promo'>$promo</option>";
-
+				
 				while ($row = pg_fetch_array($result))
 				{
 					$prom = $row["promo"];
@@ -59,7 +63,7 @@
 					echo "<option id = 'promo' name='$prom'>$prom</option>";
 				}
 				echo "</select></h2>";
-					
+					//affichage de la ligne d'entete de tableau
 					echo "<div id='table_stat'><h2>Moyenne de cette promo :".moyennePromotionMatiere($promo, $idMatiere)."%</h2>";
 					echo "<table class='liste' style='margin: auto;min-width:70%;'>
 						<thead>
@@ -67,7 +71,7 @@
 							<th> Nom </th>
 							<th> Moyenne </th>
 						</thead>";
-						
+						//affichage des rang
 					$result = pg_query($dbcon, requete_etudiants_participants_par_matiere($promo,$idMatiere));
 					while ($row = pg_fetch_array($result)) {
 						

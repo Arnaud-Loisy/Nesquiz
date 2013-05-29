@@ -37,9 +37,22 @@ function getSelectValue(selectId) {
 	 */
 	return selectElmt.options[selectElmt.selectedIndex].value;
 }
+function getSelectValueByName() {
+	/**On récupère l'élement html <select>*/
+	var selectElmt = document.getElementsByName('radios_matieres');
+	for(var i=0;i<selectElmt.length; i++){
+	  if(selectElmt[i].checked==true){
+	  	//alert (selectElmt[i].value);
+	  	return selectElmt[i].value;
+	  }
+	  
+	};
+	return null;
+	
+}
 
 function changerStats(radiobtn) {
-	var idMatiere = radiobtn.value;
+	var idMatiere = getSelectValueByName();
 	var promo = getSelectValue('numPromo');
 	var xhr = new XMLHttpRequest();
 

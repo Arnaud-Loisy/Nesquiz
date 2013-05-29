@@ -25,7 +25,7 @@
             // Récup des variables
             $dateSession = time();
             $modeFonctionnement = $_GET["mode"];
-            $mdpSession = $_GET["mdpSession"];
+            $mdpSession = pg_escape_string($_GET["mdpSession"]);
             $idquiz = $_GET["idquiz"];
             $etatsession = 1;
 
