@@ -4,44 +4,7 @@
 		<meta charset="utf-8" />
 		<title>Notes</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
-		<script type='text/javascript'>
-			function changerStats(radiobtn) {
-				var idMatiere = radiobtn.value;
-				
-				var xhr = new XMLHttpRequest();
-
-				xhr.open("POST", "xhr_notes_detaillees.php", true);
-
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						//alert(xhr.responseText);
-						document.getElementById('table_stat').innerHTML = xhr.responseText;
-					}
-				};
-
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.send("idMatiere=" + idMatiere);
-				
-
-			}
-
-			function changerStatsToutes(radiobtn) {
-				var idMatiere = radiobtn.value;
-				var xhr = new XMLHttpRequest();
-
-				xhr.open("POST", "xhr_notes.php", true);
-
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						//alert(xhr.responseText);
-						document.getElementById('table_stat').innerHTML = xhr.responseText;
-					}
-				};
-
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.send("idMatiere=" + idMatiere);
-			}
-		</script>
+		<script type="text/javascript" src="../scripts/scripts.js"></script>
 	</head>
 	<body>
 		<div id='page'>
@@ -74,7 +37,7 @@
 						$libelleMatiere = $row["libellematiere"];
 						$idMatiere = $row["idmatiere"];
 
-						echo "<span class='rightRadioButton'><input onClick = 'changerStats(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' />";
+						echo "<span class='rightRadioButton'><input onClick = 'changerStatsNotes(this)' type ='radio' id='" . $libelleMatiere . "' name='radios_matieres' value='" . $idMatiere . "' />";
 						echo "<label for='" . $libelleMatiere . "'>" . $libelleMatiere . "</label></span>";
 					}
 					echo "</div>";

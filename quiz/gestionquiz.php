@@ -4,7 +4,6 @@
         <meta charset="utf-8" />
         <title>Gestion des Quiz</title>
         <link rel="stylesheet" href="../styles/theme.css" />
-
         <script type='text/javascript'>
 
 			var currentRow = -1;
@@ -125,7 +124,7 @@
 				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
 
 				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && (xhr.status == 200)) {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
 						var lignesTableau;
 						var i = -1;
 						do {
@@ -133,9 +132,6 @@
 							i++;
 						} while (lignesTableau[i].id != idQuizEnCours);
 						ChangerQuizEnCours(lignesTableau[i]);
-						document.getElementById('attente').style.display = "none";
-					} else  if (xhr.readyState < 4){
-						document.getElementById('attente').style.display = "inline";
 					}
 				};
 
@@ -175,39 +171,34 @@
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
-			
+
 			function GetSelectedRowID(idTableau)
 			{
 				var tableau = document.getElementById(idTableau);
 				var lignesTableau = tableau.getElementsByTagName('tr');
 				var i;
 				var idRow = -1;
-				
+
 				for (i = 0; i < lignesTableau.length; i++)
 				{
 					if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
 						idRow = lignesTableau[i].id;
 				}
-				
+
 				return idRow;
 			}
-			
+
 			function TEST()
 			{
 				var id = GetSelectedRowID('table_libelles_quiz');
 			}
 
         </script>
-
     </head>
-
-
     <body>
-
         <div id='page'>
-
-			<?php
-			session_start();
+        	<?php
+        	session_start();
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
@@ -229,7 +220,10 @@
 				$idMatiere = $row["idmatiere"];
 
 				echo "<div name='div_entete' style='width: 100%;'>";
-				echo "<br><h2 style='display: inline-table;' >Mes Matières :</h2><br>";
+				echo "<div style='display: inline-block; float: left;'>";
+				echo "<h2 style='display: inline-table; vertical-align: middle;' >Mes Matières :</h2>";
+				echo "</div>";
+				echo "<div style='display: inline-block; float: left;'>";
 				echo "<div style='display: inline-table;' class='radioButtons'>";
 				echo "<span><input onClick = 'ChangerMatiereEnCours(this)' type ='radio' id='radio_".$libelleMatiere."' name='radios_matieres' value='".$idMatiere."' checked='true'/>";
 				echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
@@ -243,13 +237,9 @@
 					echo "<label for='radio_".$libelleMatiere."'>".$libelleMatiere."</label></span>";
 				}
 				echo "</div>";
+				echo "</div>";
+				echo "</div>";
 			}
-
-			echo "<form style='display: table-cell; width 100px;' action = '../session/publication.php' method = 'POST'>";
-			echo "<input onClick='TEST()' class = 'bouton' type = 'submit' value = 'Publier'>";
-			echo "</form>";
-			echo "<span id='attente' style='display:none;'><img src='../styles/attente.gif' /></span>";
-			echo "</div>";
 
 			if (!$dbcon)
 			{
@@ -272,7 +262,6 @@
 					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td style='width: 720px'>$libelle</td>";
 					echo "<td style='width: 100px'>$tempsquiz</td></tr>";
 				}
-
 
 				$result = pg_query($dbcon, requete_tous_quiz_sans_matiere(1));
 
@@ -341,11 +330,6 @@
 				echo "</div>";
 			}
 			?>   
-
-			<script type="text/javascript">
-
-			</script>
-
         </div>
     </body>
 </html>

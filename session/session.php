@@ -19,6 +19,7 @@
 			include '../bdd/requetes.php';
 			$dateSession = $_SESSION['idSession'];
 			$id = $_SESSION['id'];
+			
 			//DEBUG
 			//var_dump($_POST);
 			//var_dump($_SESSION);
@@ -26,6 +27,97 @@
 				if ($_SESSION['Curseur'] > 1)
 					$_SESSION['Curseur']--;
 				unset($_POST['precedent']);
+				
+				echo '<br><center><div id="compte_a_rebours"></div></center>';
+					$compte_a_rebours = '<script type="text/javascript">
+					function compte_a_rebours()
+					{
+						var compte_a_rebours = document.getElementById("compte_a_rebours");
+		
+						var date_actuelle = new Date();
+						var date_evenement = ' . $_SESSION['fin'] * 1000 . '
+						var total_secondes = (date_evenement - date_actuelle) / 1000;
+		
+						var prefixe = "Temps restant <br>";
+						if (total_secondes < 0)
+					{
+							prefixe = "Temps écoulé."; // On modifie le préfixe si la différence est négatif
+		
+							total_secondes = 0; // 
+		
+					}
+		
+						if (total_secondes > 0)
+						{
+							var jours = Math.floor(total_secondes / (60 * 60 * 24));
+							var heures = Math.floor((total_secondes - (jours * 60 * 60 * 24)) / (60 * 60));
+							minutes = Math.floor((total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60))) / 60);
+							secondes = Math.floor(total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60 + minutes * 60)));
+		
+							var et = "et";
+							var mot_jour = "jours<br>";
+							var mot_heure = "heures<br>";
+							var mot_minute = "minutes<br>";
+							var mot_seconde = "secondes";
+		
+							if (jours == 0)
+							{
+								jours = "";
+								mot_jour = "";
+							}
+								else if (jours == 1)
+							{
+								mot_jour = "jour<br>";
+							}
+		
+							if (heures == 0)
+							{
+								heures = "";
+								mot_heure = "";
+							}
+							else if (heures == 1)
+							{
+								mot_heure = "heure<br>";
+							}
+		
+							if (minutes == 0)
+							{
+								minutes = "";
+								mot_minute = "";
+							}
+							else if (minutes == 1)
+							{
+								mot_minute = "minute<br>";
+							}
+					
+							if (secondes == 0)
+							{
+								secondes = "";
+								mot_seconde = "";
+								et = "";
+							}
+							else if (secondes == 1)
+							{
+								mot_seconde = "seconde";
+							}
+					
+							if (minutes == 0 && heures == 0 && jours == 0)
+							{
+								et = "";
+							}
+					
+							compte_a_rebours.innerHTML = prefixe + jours + " " + mot_jour + " " + heures + " " + mot_heure + " " + minutes + " " + mot_minute + " " + et + " " + secondes + " " + mot_seconde;
+						}
+						else
+						{
+							compte_a_rebours.innerHTML = "Temps écoulé.";
+						}
+					
+						var actualisation = setTimeout("compte_a_rebours();", 1000);
+					}
+					compte_a_rebours();
+					</script>';
+					echo($compte_a_rebours);
 
 				// j'ai cliqué sur « Précedent »
 				$dbcon = connexionBDD();
@@ -46,8 +138,7 @@
 					$idQuestion = $array['idquestion'];
 					$tempquestion = $array['tempsquestion'];
 
-					echo '<br><br>
-					<form method="post" action="session.php">
+					echo '<form method="post" action="session.php">
 					<h1 class="question">' . $question . ' ? :</h1>
 					<input type="hidden" name="Question" value="' . $idQuestion . '"/>';
 
@@ -73,7 +164,9 @@
 				$SQLQuestion = $_POST['Question'];
 				unset($_POST['Question']);
 				unset($_POST['suivant']);
-				echo($_SESSION['fin'] - time());
+				
+				
+				
 				$dbcon = connexionBDD();
 				if (!$dbcon) {
 					echo "La connexion à la base de donnée a été perdue<br>";
@@ -86,6 +179,96 @@
 
 					// j'ai cliqué sur « Suivant »
 					$dbcon = connexionBDD();
+					echo '<br><center><div id="compte_a_rebours"></div></center>';
+					$compte_a_rebours = '<script type="text/javascript">
+					function compte_a_rebours()
+					{
+						var compte_a_rebours = document.getElementById("compte_a_rebours");
+		
+						var date_actuelle = new Date();
+						var date_evenement = ' . $_SESSION['fin'] * 1000 . '
+						var total_secondes = (date_evenement - date_actuelle) / 1000;
+		
+						var prefixe = "Temps restant <br>";
+						if (total_secondes < 0)
+					{
+							prefixe = "Temps écoulé."; // On modifie le préfixe si la différence est négatif
+		
+							total_secondes = 0; // 
+		
+					}
+		
+						if (total_secondes > 0)
+						{
+							var jours = Math.floor(total_secondes / (60 * 60 * 24));
+							var heures = Math.floor((total_secondes - (jours * 60 * 60 * 24)) / (60 * 60));
+							minutes = Math.floor((total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60))) / 60);
+							secondes = Math.floor(total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60 + minutes * 60)));
+		
+							var et = "et";
+							var mot_jour = "jours<br>";
+							var mot_heure = "heures<br>";
+							var mot_minute = "minutes<br>";
+							var mot_seconde = "secondes";
+		
+							if (jours == 0)
+							{
+								jours = "";
+								mot_jour = "";
+							}
+								else if (jours == 1)
+							{
+								mot_jour = "jour<br>";
+							}
+		
+							if (heures == 0)
+							{
+								heures = "";
+								mot_heure = "";
+							}
+							else if (heures == 1)
+							{
+								mot_heure = "heure<br>";
+							}
+		
+							if (minutes == 0)
+							{
+								minutes = "";
+								mot_minute = "";
+							}
+							else if (minutes == 1)
+							{
+								mot_minute = "minute<br>";
+							}
+					
+							if (secondes == 0)
+							{
+								secondes = "";
+								mot_seconde = "";
+								et = "";
+							}
+							else if (secondes == 1)
+							{
+								mot_seconde = "seconde";
+							}
+					
+							if (minutes == 0 && heures == 0 && jours == 0)
+							{
+								et = "";
+							}
+					
+							compte_a_rebours.innerHTML = prefixe + jours + " " + mot_jour + " " + heures + " " + mot_heure + " " + minutes + " " + mot_minute + " " + et + " " + secondes + " " + mot_seconde;
+						}
+						else
+						{
+							compte_a_rebours.innerHTML = "Temps écoulé.";
+						}
+					
+						var actualisation = setTimeout("compte_a_rebours();", 1000);
+					}
+					compte_a_rebours();
+					</script>';
+					echo($compte_a_rebours);
 
 					if (!$dbcon) {
 						echo "La connexion à la base de donnée a été perdue<br>";
@@ -101,8 +284,7 @@
 						$idQuestion = $array['idquestion'];
 						$tempquestion = $array['tempsquestion'];
 
-						echo '<br><br>
-						<form method="post" action="session.php">
+						echo '<form method="post" action="session.php">
 						<h1 class="question">' . $question . ' ? :</h1>
 						<input type="hidden" name="Question" value="' . $idQuestion . '"/>';
 
@@ -162,6 +344,9 @@
 				$_SESSION['debut'] = time();
 
 				$_SESSION['Curseur'] = 1;
+				
+				echo '<br><center><div id="compte_a_rebours"></div></center>';
+				
 
 				$dbcon = connexionBDD();
 
@@ -172,8 +357,95 @@
 					$array = pg_fetch_array($result) or die("Echec de la requete temp session");
 					$tempSession = $array['tempsquiz'];
 					$_SESSION['fin'] = $_SESSION['debut'] + $tempSession;
-					$tempRestant = $_SESSION['fin'] - time();
-					echo $tempRestant;
+							$compte_a_rebours = '<script type="text/javascript">
+					function compte_a_rebours()
+					{
+						var compte_a_rebours = document.getElementById("compte_a_rebours");
+		
+						var date_actuelle = new Date();
+						var date_evenement = ' . $_SESSION['fin'] * 1000 . '
+						var total_secondes = (date_evenement - date_actuelle) / 1000;
+		
+						var prefixe = "Temps restant <br>";
+						if (total_secondes < 0)
+					{
+							prefixe = "Temps écoulé."; // On modifie le préfixe si la différence est négatif
+		
+							total_secondes = 0; // 
+		
+					}
+		
+						if (total_secondes > 0)
+						{
+							var jours = Math.floor(total_secondes / (60 * 60 * 24));
+							var heures = Math.floor((total_secondes - (jours * 60 * 60 * 24)) / (60 * 60));
+							minutes = Math.floor((total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60))) / 60);
+							secondes = Math.floor(total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60 + minutes * 60)));
+		
+							var et = "et";
+							var mot_jour = "jours<br>";
+							var mot_heure = "heures<br>";
+							var mot_minute = "minutes<br>";
+							var mot_seconde = "secondes";
+		
+							if (jours == 0)
+							{
+								jours = "";
+								mot_jour = "";
+							}
+								else if (jours == 1)
+							{
+								mot_jour = "jour<br>";
+							}
+		
+							if (heures == 0)
+							{
+								heures = "";
+								mot_heure = "";
+							}
+							else if (heures == 1)
+							{
+								mot_heure = "heure<br>";
+							}
+		
+							if (minutes == 0)
+							{
+								minutes = "";
+								mot_minute = "";
+							}
+							else if (minutes == 1)
+							{
+								mot_minute = "minute<br>";
+							}
+					
+							if (secondes == 0)
+							{
+								secondes = "";
+								mot_seconde = "";
+								et = "";
+							}
+							else if (secondes == 1)
+							{
+								mot_seconde = "seconde";
+							}
+					
+							if (minutes == 0 && heures == 0 && jours == 0)
+							{
+								et = "";
+							}
+					
+							compte_a_rebours.innerHTML = prefixe + jours + " " + mot_jour + " " + heures + " " + mot_heure + " " + minutes + " " + mot_minute + " " + et + " " + secondes + " " + mot_seconde;
+						}
+						else
+						{
+							compte_a_rebours.innerHTML = "Temps écoulé.";
+						}
+					
+						var actualisation = setTimeout("compte_a_rebours();", 1000);
+					}
+					compte_a_rebours();
+					</script>';
+					echo($compte_a_rebours);
 					$result = pg_query($dbcon, requete_nb_de_questions_d_une_session($dateSession));
 					$array = pg_fetch_array($result) or die("Echec de la requete7");
 					//var_dump($array);
@@ -187,8 +459,7 @@
 					$question = $array['libellequestion'];
 					$idQuestion = $array['idquestion'];
 
-					echo '<br><br>
-					<form method="post" action="session.php">
+					echo '<form method="post" action="session.php">
 					<h1 class="question">' . $question . ' ? :</h1>
 					<input type="hidden" name="Question" value="' . $idQuestion . '"/>';
 
@@ -223,5 +494,6 @@
 		//var_dump($_SESSION);
 		?>
 	</body>
+
 </html>
 
