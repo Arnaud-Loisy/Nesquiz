@@ -352,7 +352,7 @@ function requete_idadminprof_d_une_matiere($idMatiere)
 				WHERE enseigne.idadminprof = adminprofs.idadminprof 
 				AND  enseigne.idmatiere = matieres.idmatiere
   				AND enseigne.idmatiere=".$idMatiere.";";
-  				
+
 
 	return $requete;
 }
@@ -579,7 +579,7 @@ function requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere)
 	$requete = "DELETE FROM Enseigne
 					WHERE idAdminProf='".$idAdminProf."'
 					AND idMatiere='".$idMatiere."';";
-	
+
 	return $requete;
 }
 
@@ -587,22 +587,41 @@ function requete_associer_prof_a_matiere($idAdminProf, $idMatiere)
 {
 	$requete = "INSERT INTO Enseigne
 				VALUES('".$idMatiere."', '".$idAdminProf."');";
-	
+
 	return $requete;
 }
 
-function requete_toutes_reponses_dans_question($idQuestion) {
-	$requete = "SELECT libelleReponse, valide
+function requete_toutes_reponses_dans_question($idQuestion)
+{
+	$requete = "SELECT libelleReponse, valide, idReponse
 					FROM Reponses, Questions
 					WHERE Reponses.idQuestion = Questions.idQuestion
 					AND Questions.idQuestion = '".$idQuestion."';";
-	
+
 	return $requete;
 }
 
-function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $motsCles, $idMatiere) {
+function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $motsCles, $idMatiere)
+{
 	$requete = "INSERT INTO Questions (libellequestion, tempsquestion, motscles, idmatiere)
 					VALUES('".$libelleQuestion."','".$tempsQuestion."','".$motsCles."','".$idMatiere."');";
+
+	return $requete;
+}
+
+function requete_ajout_reponse_a_question($libelleReponse, $valide, $idQuestion)
+{
+	$requete = "INSERT INTO Reponses (libellereponse, valide, idquestion)
+					VALUES('".$libelleReponse."', '".$valide."', '".$idQuestion."');";
+
+	return $requete;
+}
+
+function requete_modifier_validite_reponse($valide, $idReponse)
+{
+	$requete = "UPDATE Reponses
+					SET valide='".$valide."'
+					WHERE idReponse='".$idReponse."';";
 
 	return $requete;
 }
