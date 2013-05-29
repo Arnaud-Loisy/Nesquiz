@@ -1,18 +1,13 @@
 <?php
-
-include '../admin/secret.php';
 session_start();
-$dbcon = pg_connect("host=$host user=$login password=$password");
-
-if (!$dbcon) {
-    echo "connection BDD failed<br>";
-}
-else
-    echo "connection BDD succes <br>";
+include '../admin/secret.php';
+include '../bdd/requetes.php';
+include '../bdd/connexionBDD.php';
+$dbcon = connexionBDD ();
 
 if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) { //si l'utilisateur est un étudiant.
     $id = $_SESSION["id"];
-    $result_etu = pg_query($dbcon, "SELECT langueEtudiant, mdpetudiant FROM Etudiants WHERE idEtudiant=" . $id);
+    $result_etu = pg_query($dbcon,requete_retour_langue_mdp_etu($id));
     $arr = (pg_fetch_array($result_etu));
     $langue = $arr["langueEtudiant"];
     $mdph = $arr["mdpetudiant"];
@@ -30,7 +25,7 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) { //si l'uti
 // si les mot de passes correspondent a l'ancien et entre eux on fait le changement dans la BDD
         if ($mdph == $mdphold) {
             if ($mdphcnew == $mdphnew) {
-                pg_query($dbcon, "UPDATE Etudiants SET mdpEtudiant = '" . $mdphnew . "' WHERE idEtudiant=" . $id);
+                pg_query($dbcon,requete_maj_mdp_etu($mdphnew, $id));
                 $_SESSION["mdpchok"] = 1;
             } else {
                 $_SESSION["mdpconffail"] = 1;
@@ -59,7 +54,7 @@ if ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "etu")) { //si l'uti
  // meme chose que pour l'étudiant mais cette fois c'est si l'utilisateur est un administrateur.
 if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "prof"))) {
     $id = $_SESSION["id"];
-    $result_adm = pg_query($dbcon, "SELECT langueAdminProf, mdpadminprof FROM AdminProfs WHERE idAdminProf = '". $id."';");
+    $result_adm = pg_query($dbcon,requete_retour_langue_mdp_admin($id));
     $arr = (pg_fetch_array($result_adm));
     $langue = $arr["langueAdminProf"];
     $mdph = $arr["mdpadminprof"];
@@ -78,7 +73,7 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
 // si les mot de passes correspondent a l'ancien et entre eux on fait le changement dans la BDD
         if ($mdph == $mdphold) {
             if ($mdphcnew == $mdphnew) {
-                pg_query($dbcon, "UPDATE AdminProfs SET mdpAdminProf ='" . $mdphnew . "' WHERE idAdminProf= '". $id."';");
+                pg_query($dbcon, requete_maj_mdp_admin($mdphnew, $id));
                 $_SESSION["mdpchok"] = 1;
             } else {
                 $_SESSION["mdpconffail"] = 1;
@@ -91,7 +86,7 @@ if (((isset($_SESSION["statut"])) && ($_SESSION["statut"] == "admin")) || ((isse
                 if  (($_POST["langue"]=="fr")|| ($_POST["langue"]=="en")) {
                          $langue = $_POST["langue"];
            
-                 //pg_query($dbcon, "UPDATE Etudiants SET langueEtudiant = '" . $langue . "' WHERE idEtudiant=" . $id);
+                 //pg_query($dbcon, "UPDATE AdminProfs SET langueAdminprof = '" . $langue . "' WHERE idAdminprof=" . $id);
              
                          $_SESSION["languechok"] =1;
                 }

@@ -2,14 +2,10 @@
 <?php
 session_start();
 include '../admin/secret.php';
-
+include '../bdd/requetes.php';
+include '../bdd/connexionBDD.php';
 $trouver=false;
-$dbcon=pg_connect("host=$host user=$login password=$password");
-
-if(!$dbcon){
- echo "connection BDD failed<br>";
-}else
-	echo "connection BDD succes <br>";
+$dbcon=connexionBDD ();
 
 
 if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
@@ -18,7 +14,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
          * redirige l'utilisateur vers la pag d'accueil connecté et sinon on vérifie la valeur de la variable
          * $trouver si elle n'est pas à "true" on déclenche une erreur.
          */
-	$result_etu= pg_query($dbcon, "SELECT idetudiant, mdpetudiant, nometudiant, prenometudiant FROM etudiants;");
+	$result_etu= pg_query($dbcon,requete_recherche_login_mdp_etudiant());
         
        while($arr = pg_fetch_array($result_etu)){
            $mdphco=md5($_POST["mdp"]);
@@ -31,7 +27,7 @@ if((isset($_POST["login"])) && (isset ($_POST["mdp"]))){
 		header("Location:./accueil.php");
        }
        }
-        $result_adm = pg_query($dbcon, "SELECT idadminprof, mdpadminprof, admin, nomadminprof, prenomadminprof FROM adminprofs;");
+        $result_adm = pg_query($dbcon,requete_recherche_login_mdp_admin());
        
         while($tab = pg_fetch_array($result_adm)){
            

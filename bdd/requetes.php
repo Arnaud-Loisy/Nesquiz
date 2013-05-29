@@ -606,4 +606,50 @@ function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $mot
 	return $requete;
 }
 
+function requete_recherche_login_mdp_etudiant(){
+    $requete="SELECT idetudiant, mdpetudiant, nometudiant, prenometudiant FROM etudiants;";
+    
+            return $requete;
+}
+function requete_recherche_login_mdp_admin(){
+    $requete= "SELECT idadminprof, mdpadminprof, admin, nomadminprof, prenomadminprof FROM adminprofs;";
+
+            return $requete;
+}
+function requete_verif_inscription_num_etu_pas_existant($numero_etu){
+    
+    $requete=" SELECT idEtudiant FROM Etudiants WHERE idEtudiant =".$numero_etu;
+                
+            return $requete;
+}    
+
+function requete_inscription_etudiant($numero_etu, $nom, $prenom, $mdph, $promotion, $langue){
+   $requete="INSERT INTO Etudiants VALUES (".$numero_etu.", '".$nom."', '".$prenom."', '".$mdph."', ".$promotion.", '".$langue."');";
+
+                return $requete;
+
+} 
+
+function requete_retour_langue_mdp_etu($id){
+    $requete="SELECT langueEtudiant, mdpetudiant FROM Etudiants WHERE idEtudiant=" . $id;
+
+        return $requete;
+}
+function requete_maj_mdp_etu($mdphnew, $id){
+    $requete="UPDATE Etudiants SET mdpEtudiant = '" . $mdphnew . "' WHERE idEtudiant=" . $id;
+        
+        return $requete;
+}
+
+function requete_retour_langue_mdp_admin($id){
+     $requete="SELECT langueAdminProf, mdpadminprof FROM AdminProfs WHERE idAdminProf = '". $id."';" ;
+        
+        return $requete;
+}
+function requete_maj_mdp_admin($mdphnew, $id){
+    $requete="UPDATE AdminProfs SET mdpAdminProf ='" . $mdphnew . "' WHERE idAdminProf= '". $id."';";
+        
+        return $requete;           
+}
+
 ?>
