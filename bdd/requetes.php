@@ -32,7 +32,7 @@ function requete_tous_quiz_sans_matiere()
 
 function requete_toutes_questions_dans_matiere($idMatiere)
 {
-	$requete = "SELECT libellequestion, tempsquestion, idquestion
+	$requete = "SELECT libellequestion, tempsquestion, idquestion, motscles
 					FROM questions, matieres
 					WHERE questions.idmatiere = matieres.idmatiere
 					AND matieres.idmatiere = ".$idMatiere.";";
@@ -589,5 +589,21 @@ function requete_associer_prof_a_matiere($idAdminProf, $idMatiere)
 	return $requete;
 }
 
+function requete_toutes_reponses_dans_question($idQuestion) {
+	$requete = "SELECT libelleReponse, valide
+					FROM Reponses, Questions
+					WHERE Reponses.idQuestion = Questions.idQuestion
+					AND Questions.idQuestion = '".$idQuestion."';";
+	
+	return $requete;
+}
+
+function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $motsCles, $idMatiere) {
+	$requete = "INSERT INTO Questions
+					 (libellequestion, tempsquestion, motscles, idmatiere)
+					 ('".libelleQuestion."','".tempsQuestion."','".motsCles."','".idMatiere."');";
+
+	return $requete;
+}
 
 ?>

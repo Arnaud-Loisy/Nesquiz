@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <title>Gestion des Quiz</title>
+        <title>Gestion des Questions</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <script type='text/javascript'>
 
@@ -92,19 +92,19 @@
 																						<tbody></tbody></table>";
 			}
 
-			var idQuizEnCours = -1;
+			var idQuestionEnCours = -1;
 
-			function ChangerQuizEnCours(ligneTableau)
+			function ChangerQuestionEnCours(ligneTableau)
 			{
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
-				idQuizEnCours = ligneTableau.id;
+				idQuestionEnCours = ligneTableau.id;
 				var value = ligneTableau.id;
 				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "xhr_getListeQuestionsParQuiz.php", true);
+				xhr.open("POST", "xhr_getListeReponsesParQuestion.php", true);
 
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && (xhr.status == 200)) {
-						document.getElementById('table_libelles_questions_quiz').innerHTML = xhr.responseText;
+						document.getElementById('table_libelles_reponses_questions').innerHTML = xhr.responseText;
 						//document.getElementById("loader").style.display = "none";
 					} /*else if (xhr.readyState < 4) {
 					 document.getElementById("loader").style.display = "inline";
@@ -112,7 +112,7 @@
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send("IdQuiz=" + value);
+				xhr.send("IdQuestion=" + value);
 			}
 
 			function AjouterQuestionAQuiz()
@@ -163,6 +163,30 @@
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
+			function AjouterQuestionAMatiere()
+			{
+				/**On récupère l'élement html <select>*/
+				var select = document.getElementById('select_questions_matiere');
+				var idQuestion = select.options[select.selectedIndex].id;
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
+
+				xhr.onreadystatechange = function() {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
+						var lignesTableau;
+						var i = -1;
+						do {
+							lignesTableau = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
+							i++;
+						} while (lignesTableau[i].id != idQuizEnCours);
+						ChangerQuizEnCours(lignesTableau[i]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+			}
 
 			function GetSelectedRowID(idTableau)
 			{
@@ -189,8 +213,8 @@
     </head>
     <body>
         <div id='page'>
-        	<?php
-        	session_start();
+			<?php
+			session_start();
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';
@@ -239,42 +263,36 @@
 			}
 			else
 			{
-				$result = pg_query($dbcon, requete_tous_quiz_dans_matiere(1));
+				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere($idMatiere));
 
-				echo "<div name='div_colonne_gauche' style='float:left; width: 48%;'>";
-				echo "<table style='width: 400px;' class = 'TestScrollable' id = 'table_libelles_quiz'>";
-				echo "<thead><th class='thFixed'>Nom du quiz</th><th class='thAuto'>Temps total</th></thead>";
-				echo "<tbody>";
-
-				while ($row = pg_fetch_array($result))
-				{
-					$libelle = $row["libellequiz"];
-					$idQuiz = $row["idquiz"];
-					$tempsquiz = $row["tempsquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td class='tdFixed'>$libelle</td>";
-					echo "<td class='tdAuto'>$tempsquiz</td></tr>";
-				}
-
-				$result = pg_query($dbcon, requete_tous_quiz_sans_matiere(1));
+				echo "<div name='div_questions_centre' style='width: 100%; clear: both'>";
+				echo "<table style='width: 100%;' class = 'TestScrollable' id = 'table_libelles_questions'>";
+				echo "<thead><th style='min-width: 600px; width: 600px'>Question</th><th class='thAuto' style='min-width: 150px; width: 150px'>Mots clés</th><th class='thAuto'>Temps total</th></thead>";
+				echo "<tbody style='width: 100%'>";
 
 				while ($row = pg_fetch_array($result))
 				{
-					$libelle = $row["libellequiz"];
-					$idQuiz = $row["idquiz"];
-					$tempsquiz = $row["tempsquiz"];
-					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuizEnCours(this)' id = '$idQuiz'><td class='tdFixed'><b><i>$libelle</i></b></td>";
-					echo "<td class='tdAuto'>$tempsquiz</td></tr>";
+					$libelle = $row["libellequestion"];
+					$idQuestion = $row["idquestion"];
+					$tempsquestion = $row["tempsquestion"];
+					$motscles = $row["motscles"];
+					echo "<tr onclick = 'InvertColorOfTableLine(this) ; ChangerQuestionEnCours(this)' id = '$idQuestion'><td style='min-width: 600px; width: 600px'>$libelle</td>";
+					echo "<td class='tdAuto' style='width: 150px; min-width: 150px'>$motscles</td>";
+					echo "<td class='tdAuto'>$tempsquestion</td></tr>";
 				}
+				
 				echo "</tbody>";
 				echo "</table>";
 			}
 
-			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
-			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
-			echo "<input style='width: 50%;' type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
-			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
-			echo "<input style='width: 50%;'  type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
-			echo "<input class ='boutonPetit' type='submit' value = 'Nouveau Quiz'>";
+			echo "<form>";
+			echo "<label for='input_text_nouvelle_question'>Nom de la question :</label>";
+			echo "<input id='input_text_nouvelle_question' type='text' value = '' name='nomQuestion'><br>";
+			echo "<label for='input_text_temps_nouvelle_question'>Temps total :</label>";
+			echo "<input id='input_text_temps_nouvelle_question' type='text' value = '' name='tempsQuestion'><br>";
+			echo "<label for='input_text_mots_cles_nouvelle_question'>Mots clés :</label>";
+			echo "<input id='input_text_mots_cles_nouvelle_question' type='text' value = '' name='motsCles'><br>";
+			echo "<input onClick='' class ='boutonPetit' type='submit' value = 'Ajouter question'>";
 			echo "</form>";
 			echo "</div>";
 
@@ -284,12 +302,12 @@
 			}
 			else
 			{
-				$result = pg_query($dbcon, requete_toutes_questions_dans_quiz(1));
-
-				echo "<div name='div_colonne_droite' style='float:right; width: 50%;'>";
-				echo "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>";
-				echo "<thead><th style='width:  400px'>Questions présentes</th></thead>";
-				echo "<tbody>";
+				$result = pg_query($dbcon, requete_toutes_reponses_dans_question(1));
+				
+				echo "<div name='div_reponses_centre' style='clear: both; width: 50%;'>";
+				echo "<table class ='TestScrollable' style='width: 500px;' id = 'table_libelles_reponses_questions'>";
+				echo "<thead><th style='min-width: 400px; width: 400px'>Réponse</th><th class='thAuto'>Correcte?</th></thead>";
+				echo "<tbody style='width: 100%'>";
 				echo "</tbody>";
 				echo "</table>";
 			}
@@ -312,7 +330,7 @@
 				}
 				echo "</select>";
 
-				echo "<form method='POST' action='../questions/gestionquestions.php'>";
+				echo "<form>";
 				echo "<input class='boutonPetit' onClick='AjouterQuestionAQuiz()' type='button' value = 'Ajouter Question'>";
 				echo "<input class='boutonPetit' onClick='SupprimerQuestionAQuiz()' type='button' value = 'Retirer Question'>";
 				echo "<input class='boutonPetit' type='submit' value = 'Gérer Questions'>";
@@ -320,6 +338,7 @@
 				echo "</div>";
 			}
 			?>   
+
         </div>
     </body>
 </html>

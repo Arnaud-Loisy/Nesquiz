@@ -192,6 +192,10 @@ input.bouton:active {
 	height: 2em;
 }
 
+.liste tr:hover {
+	cursor: pointer;
+}
+
 .liste th {
 	background-color: rgb(204, 204, 204);
 	border: 1px solid rgb(102, 102, 102);
@@ -274,9 +278,70 @@ input.boutonPetit:active {
 	background: rgb(149,188,242);
 	color: white;
 }
+
+.TestScrollable {
+	border-collapse: collapse;
+	border: 1px solid rgb(102, 102, 102);
+}
+
+.TestScrollable tbody{
+	text-align: center;
+}
+
+.TestScrollable tbody{
+	display: block;
+    overflow-x: auto;
+	height: 200px;
+	width: 400px;
+}
+
+.TestScrollable thead {
+	display: block;
+}
+
+.TestScrollable .thAuto {
+	width: 100%;
+	border-left: 1px solid rgb(102, 102, 102);
+}
+
+.TestScrollable .thFixed {
+	min-width: 300px;
+	width: 300px;
+}
+
+.TestScrollable th {
+	height: 2em;
+	background-color: rgb(204, 204, 204);
+}
+
+.TestScrollable .tdAuto {
+	width: 100%;
+	border-left: 1px solid rgb(102, 102, 102);
+}
+
+.TestScrollable .tdFixed {
+	min-width: 300px;
+	width: 300px;
+}
+
+.TestScrollable td {
+	height: 2em;
+}
+
+.TestScrollable tr {
+	border-bottom: 1px solid rgb(102, 102, 102);
+}
+
+.TestScrollable tr:hover {
+	cursor: pointer;
+}
+
+.TestScrollable tbody {
+    display: block;
+}
+
 #compte_a_rebours{
 	border: 1px solid;
     width: 18%;
     color: gray;
-
 }
