@@ -94,53 +94,40 @@
 				xhr.send("IdQuestion=" + value);
 			}
 
-			function AjouterQuestionAQuiz()
+			function SupprimerQuestionAMatiere()
 			{
-				/**On récupère l'élement html <select>*/
-				var select = document.getElementById('select_questions_matiere');
-				var idQuestion = select.options[select.selectedIndex].id;
+				var idQuestion = GetSelectedRowID('table_libelles_questions');
+				var matieres = document.getElementsByName('radios_matieres');
+				var idMatiere;
+
+				for (var i = 0; i < matieres.length; i++)
+				{
+					if (matieres[i].checked)
+						idMatiere = matieres[i].value;
+				}
+
 				var xhr = new XMLHttpRequest();
 
-				xhr.open("POST", "xhr_ajoutQuestionAQuiz.php", true);
+				xhr.open("POST", "xhr_supprimerQuestionDansMatiere.php", true);
 
 				xhr.onreadystatechange = function() {
 					if ((xhr.readyState == 4) && (xhr.status == 200)) {
-						var lignesTableau;
-						var i = -1;
-						do {
-							lignesTableau = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
-							i++;
-						} while (lignesTableau[i].id != idQuizEnCours);
-						ChangerQuizEnCours(lignesTableau[i]);
+						var radios = document.getElementsByName('radios_matieres');
+						var i;
+						var idRow = -1;
+
+						for (i = 0; i < radios.length; i++)
+						{
+							if (radios[i].checked)
+								idRow = i;
+						}
+
+						ChangerMatiereEnCours(radios[idRow]);
 					}
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
-			}
-
-			function SupprimerQuestionAQuiz()
-			{
-				var idQuestion = GetSelectedRowID('table_libelles_questions_quiz');
-
-				var xhr = new XMLHttpRequest();
-
-				xhr.open("POST", "xhr_supprimerQuestionDansQuiz.php", true);
-
-				xhr.onreadystatechange = function() {
-					if ((xhr.readyState == 4) && (xhr.status == 200)) {
-						var lignesTableauQuiz;
-						var i2 = -1;
-						do {
-							lignesTableauQuiz = document.getElementById('table_libelles_quiz').getElementsByTagName('tr');
-							i2++;
-						} while (lignesTableauQuiz[i2].id != idQuizEnCours);
-						ChangerQuizEnCours(lignesTableauQuiz[i2]);
-					}
-				};
-
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
+				xhr.send("IdQuestion=" + idQuestion + "&IdMatiere=" + idMatiere);
 			}
 
 			function AjouterQuestionAMatiere()
@@ -215,7 +202,36 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("LibelleReponse=" + libelleReponse + "&Valide=" + valide + "&IdQuestion=" + idQuestion);
+			}
 
+			function RetirerReponseAQuestion()
+			{
+				var idQuestion = GetSelectedRowID('table_libelles_questions');
+				var idReponse = GetSelectedRowID('table_libelles_reponses_questions');
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open("POST", "xhr_retirerReponseAQuestion.php", true);
+
+				xhr.onreadystatechange = function() {
+					if ((xhr.readyState == 4) && (xhr.status == 200)) {
+						var tableau = document.getElementById('table_libelles_questions');
+						var lignesTableau = tableau.getElementsByTagName('tr');
+						var i;
+						var idRow = -1;
+
+						for (i = 0; i < lignesTableau.length; i++)
+						{
+							if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
+								idRow = i;
+						}
+
+						ChangerQuestionEnCours(lignesTableau[idRow]);
+					}
+				};
+
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("IdQuestion=" + idQuestion + "&IdReponse=" + idReponse);
 			}
 
 			function GetSelectedRowID(idTableau)
@@ -232,11 +248,6 @@
 				}
 
 				return idRow;
-			}
-
-			function TEST()
-			{
-				var id = GetSelectedRowID('table_libelles_quiz');
 			}
 
 			function ModifierValiditeReponse(checkbox)
@@ -272,6 +283,12 @@
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("Valide=" + valide + "&IdReponse=" + idReponse);
+			}
+
+			function Test()
+			{
+				var div = document.getElementsByName('div_nouvelle_question');
+				div[0].style.hidden = true;
 			}
 
         </script>
@@ -350,6 +367,9 @@
 				echo "</table>";
 			}
 			echo "</div>";
+			
+			//echo "<form>";
+			//echo "</form>";
 
 			if (!$dbcon)
 			{
@@ -369,6 +389,9 @@
 			echo "</div>";
 			
 			echo "<div name='div_nouvelle_question' style='height: 235px; margin-top: 10px; margin-bottom: 10px; border: 1px dotted; width: 36%; text-align: center; float: right' >";
+			
+			echo "<input style='margin-top: 10px;' onClick='AjouterQuestionAMatiere()' class ='boutonPetit' type='button' value = 'Ajouter question'>";
+			echo "<input style='margin-top: 10px;' onClick='SupprimerQuestionAMatiere()' class ='boutonPetit' type='button' value = 'Supprimer question'>";
 			echo "<form style='margin-top: 10px; margin-bottom: 10px'>";
 			echo "<label style='display: inline-block; width: 150px' for='input_text_nouvelle_question'>Nom de la question :</label>";
 			echo "<input id='input_text_nouvelle_question' type='text' value = '' name='nomQuestion'><br>";
@@ -376,16 +399,16 @@
 			echo "<input style='display: inline-block' id='input_text_temps_nouvelle_question' type='text' value = '' name='tempsQuestion'><br>";
 			echo "<label style='display: inline-block; width: 150px'  for='input_text_mots_cles_nouvelle_question'>Mots clés :</label>";
 			echo "<input id='input_text_mots_cles_nouvelle_question' type='text' value = '' name='motsCles'><br>";
-			echo "<input style='margin-top: 10px;' onClick='AjouterQuestionAMatiere()' class ='boutonPetit' type='button' value = 'Ajouter question'>";
 			echo "</form>";
 			echo "</div>";
 			
-			echo "<div name='div_nouvelle_reponse' style='border: 1px dotted; clear: both; width: 60%; text-align: center' >";
+			echo "<div name='div_nouvelle_reponse' style='border: 1px dotted; clear: both; width: 60%' >";
 			echo "<form>";
-			echo "<label for='input_text_nouvelle_reponse'>Nom de la reponse</label>";
-			echo "<input type='text' id='input_text_nouvelle_reponse' value = '' name='nomReponse'>";
-			echo "<input id='checkbox_reponse_correcte' type='checkbox' name='validite2' value = 'Retirer Question'>Correcte ?</input>";
-			echo "<input onClick='AjouterReponseAQuestion()' class='boutonPetit' type='button' value = 'Ajouter Reponse'>";
+			echo "<input style='width: 150px' onClick='AjouterReponseAQuestion()' class='boutonPetit' type='button' value = 'Ajouter Reponse'>";
+			echo "<label for='input_text_nouvelle_reponse'>Nom de la reponse : </label>";
+			echo "<input type='text' id='input_text_nouvelle_reponse' value = '' name='nomReponse'><br>";
+			echo "<input style='width: 150px'  onClick='RetirerReponseAQuestion()' class='boutonPetit' type='button' value = 'Supprimer Reponse'>";
+			echo "<span>Correcte ? </span><input id='checkbox_reponse_correcte' type='checkbox' name='validite2' value = 'Retirer Question'>";
 			echo "</form>";
 			echo "</div>";
 			
