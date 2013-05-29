@@ -36,8 +36,8 @@
 
             // Afficher la liste des sessions
             echo "<form method='POST' action='trait_historique.php'>";
-            echo "<table style='margin: auto'>";
-            echo "<tr><td> Quiz </td><td> Date </td><td> Heure </td><td> Supprimer </td></tr>";
+            echo "<br><table class='liste'  style='margin: auto' width=60%><thead>";
+            echo "<tr><th> Quiz </th><th> Date </th><th> Heure </th><th> Supprimer </th></tr></thead><tbody>";
 
             while ($arr = pg_fetch_array($result_sessions)) {
                 $dateSession = $arr["datesession"];
@@ -47,7 +47,7 @@
                 echo "<td><input type='checkbox' name='session[]' value='" . $dateSession . "'></td></tr>";
             }
 
-            echo "</table>";
+            echo "</tbody></table>";
             echo "<input class='boutonCenter' type='Submit' value='Valider les changements'>";
             echo "</form>";
             ?>

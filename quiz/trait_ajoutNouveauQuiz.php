@@ -23,8 +23,8 @@
             $dbcon = connexionBDD();
 
             // Récup des variables
-            $nomQuiz = $_POST["nomQuiz"];
-            $tempsQuiz = $_POST["tempsQuiz"];
+            $nomQuiz = pg_escape_string($_POST["nomQuiz"]);
+            $tempsQuiz = pg_escape_string($_POST["tempsQuiz"]);
 			
 			if (($nomQuiz == "Ex:\"IPV6\"") || ($tempsQuiz == "Ex:\"200(secondes)\""))
 				header('Location: gestionquiz.php');

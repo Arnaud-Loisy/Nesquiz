@@ -1,12 +1,10 @@
 <?php
 session_start();
 include '../admin/secret.php';
-$dbcon=pg_connect("host=$host user=$login password=$password");
+include '../bdd/requetes.php';
+include '../bdd/connexionBDD.php';
+$dbcon=connexionBDD ();
 
-if(!$dbcon){
- echo "connection BDD failed<br>";
-}else
-	echo "connection BDD succes <br>";
 // on verifie qu tout les variables sont SET.
 if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["numero_etu"])) &&  (isset ($_POST["promotion"])) &&  (isset ($_POST["mdp"])) &&  (isset ($_POST["cmdp"])) && (isset ($_POST["langue"]))){
 // on vérifie que toutes les variable sont remplie.
@@ -29,11 +27,11 @@ if((isset($_POST["nom"])) && (isset ($_POST["prenom"])) &&  (isset ($_POST["nume
          if ($test_promotion==true){
       
     
-    $result_etu= pg_query($dbcon," SELECT idEtudiant FROM Etudiants WHERE idEtudiant =".$numero_etu);
+    $result_etu= pg_query($dbcon,requete_verif_inscription_num_etu_pas_existant($numero_etu));
         $arr = pg_fetch_array($result_etu);
  if ($arr==false){
      if($mdp==$cmdp){
-          pg_query($dbcon,"INSERT INTO Etudiants VALUES (".$numero_etu.", '".$nom."', '".$prenom."', '".$mdph."', ".$promotion.", '".$langue."');");
+          pg_query($dbcon,requete_inscription_etudiant($numero_etu, $nom, $prenom, $mdph, $promotion, $langue));
              $_SESSION["nom"]=$_POST["nom"];
              $_SESSION["prenom"]=$_POST["prenom"];
              $_SESSION["statut"]="etu";
