@@ -12,7 +12,8 @@ function requete_tous_quiz_dans_matiere($idMatiere)
 					WHERE Quiz.idQuiz = Inclu.idQuiz
 					AND Questions.idQuestion = Inclu.idQuestion
 					AND Questions.idMatiere = Matieres.idMatiere
-					AND Matieres.idMatiere = ".$idMatiere.";";
+					AND Matieres.idMatiere = ".$idMatiere."
+					ORDER BY idQuiz;";
 
 	return $requete;
 }
@@ -25,7 +26,8 @@ function requete_tous_quiz_sans_matiere()
 				NOT IN (
 					SELECT DISTINCT Quiz.idQuiz
 					FROM Quiz, Inclu, Matieres	
-					WHERE Quiz.idQuiz = Inclu.idQuiz);";
+					WHERE Quiz.idQuiz = Inclu.idQuiz)
+					ORDER BY idQuiz;";
 
 	return $requete;
 }
@@ -35,7 +37,8 @@ function requete_toutes_questions_dans_matiere($idMatiere)
 	$requete = "SELECT libellequestion, tempsquestion, idquestion, motscles
 					FROM questions, matieres
 					WHERE questions.idmatiere = matieres.idmatiere
-					AND matieres.idmatiere = ".$idMatiere.";";
+					AND matieres.idmatiere = '".$idMatiere."'
+					ORDER BY idQuestion;";
 
 	return $requete;
 }
@@ -46,7 +49,8 @@ function requete_toutes_questions_dans_quiz($idQuiz)
                     FROM Questions, Inclu, Quiz
                     WHERE Quiz.idQuiz = Inclu.idQuiz
                     AND Questions.idQuestion = Inclu.idQuestion
-                    AND Quiz.idQuiz = ".$idQuiz.";";
+                    AND Quiz.idQuiz = ".$idQuiz."
+					ORDER BY idQuestion;";
 
 	return $requete;
 }
@@ -596,7 +600,8 @@ function requete_toutes_reponses_dans_question($idQuestion)
 	$requete = "SELECT libelleReponse, valide, idReponse
 					FROM Reponses, Questions
 					WHERE Reponses.idQuestion = Questions.idQuestion
-					AND Questions.idQuestion = '".$idQuestion."';";
+					AND Questions.idQuestion = '".$idQuestion."'
+					ORDER BY idReponse;";
 
 	return $requete;
 }
@@ -670,6 +675,35 @@ function requete_maj_mdp_admin($mdphnew, $id){
     $requete="UPDATE AdminProfs SET mdpAdminProf ='" . $mdphnew . "' WHERE idAdminProf= '". $id."';";
         
         return $requete;           
+}
+
+function requete_supprimer_reponse_dans_question($idReponse, $idQuestion)
+{
+	$requete = "DELETE FROM Reponses
+					WHERE idReponse='".$idReponse."'
+					AND idQuestion='".$idQuestion."';";
+
+	return $requete;
+}
+
+function requete_supprimer_question_dans_matiere($idQuestion)
+{
+	$requete = "DELETE FROM Reponses
+                        WHERE idQuestion='".$idQuestion."';
+                        DELETE FROM Questions
+                        WHERE idQuestion='".$idQuestion."';";
+	
+	return $requete;
+}
+
+function requete_supprimer_quiz($idQuiz)
+{
+	$requete = "DELETE FROM Inclu
+                        WHERE idQuiz='".$idQuiz."';
+                        DELETE FROM Quiz
+                        WHERE idQuiz='".$idQuiz."';";
+	
+	return $requete;
 }
 
 function requete_supprimer_etudiant($idetudiant)
