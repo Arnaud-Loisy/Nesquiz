@@ -270,10 +270,10 @@
 			}
 
 			echo "<form action='trait_ajoutNouveauQuiz.php' method='POST'>";
-			echo "<label style='width: 40%;' for='input_text_nouveau_quiz'>Nom du quiz</label>";
-			echo "<input style='width: 50%;' type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
-			echo "<label style='width: 40%;'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
-			echo "<input style='width: 50%;'  type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
+			echo "<label style='width: 90px; display: inline-block' for='input_text_nouveau_quiz'>Nom du quiz</label>";
+			echo "<input type='text' value = 'Ex:\"IPV6\"' name='nomQuiz'><br>";
+			echo "<label style='width: 90px; display: inline-block'  for='input_text_temps_nouveau_quiz'>Temps total</label>";
+			echo "<input type='text' value = 'Ex:\"200(secondes)\"' name='tempsQuiz'><br>";
 			echo "<input class ='boutonPetit' type='submit' value = 'Nouveau Quiz'>";
 			echo "</form>";
 			echo "</div>";
