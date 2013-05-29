@@ -573,6 +573,7 @@ function requete_supprimer_question_dans_quiz($idQuiz, $idQuestion)
 
 	return $requete;
 }
+
 function requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere)
 {
 	$requete = "DELETE FROM Enseigne
@@ -581,6 +582,7 @@ function requete_dissocier_prof_a_matiere($idAdminProf, $idMatiere)
 	
 	return $requete;
 }
+
 function requete_associer_prof_a_matiere($idAdminProf, $idMatiere)
 {
 	$requete = "INSERT INTO Enseigne
@@ -599,9 +601,8 @@ function requete_toutes_reponses_dans_question($idQuestion) {
 }
 
 function requete_ajout_question_a_matiere($libelleQuestion, $tempsQuestion, $motsCles, $idMatiere) {
-	$requete = "INSERT INTO Questions
-					 (libellequestion, tempsquestion, motscles, idmatiere)
-					 ('".libelleQuestion."','".tempsQuestion."','".motsCles."','".idMatiere."');";
+	$requete = "INSERT INTO Questions (libellequestion, tempsquestion, motscles, idmatiere)
+					VALUES('".$libelleQuestion."','".$tempsQuestion."','".$motsCles."','".$idMatiere."');";
 
 	return $requete;
 }
