@@ -690,6 +690,8 @@ function requete_supprimer_question_dans_matiere($idQuestion)
 {
 	$requete = "DELETE FROM Reponses
                         WHERE idQuestion='".$idQuestion."';
+						DELETE FROM INCLU
+						WHERE idQuestion='".$idQuestion."';
                         DELETE FROM Questions
                         WHERE idQuestion='".$idQuestion."';";
 	
