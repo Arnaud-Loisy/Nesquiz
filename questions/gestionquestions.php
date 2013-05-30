@@ -271,18 +271,7 @@
 
 				xhr.onreadystatechange = function() {
 					if ((xhr.readyState == 4) && (xhr.status == 200)) {
-						/*var tableau = document.getElementById('table_libelles_questions');
-						var lignesTableau = tableau.getElementsByTagName('tr');
-						var i;
-						var idRow = -1;
-
-						for (i = 0; i < lignesTableau.length; i++)
-						{
-							if (lignesTableau[i].style.backgroundColor == "rgb(149, 188, 242)")
-								idRow = i;
-						}
-
-						ChangerQuestionEnCours(lignesTableau[idRow]);*/
+						//on ne fait rien si tout est OK
 					}
 				};
 
