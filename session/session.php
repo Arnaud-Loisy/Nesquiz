@@ -3,6 +3,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=830">
 		<title>Session</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
 	</head>
