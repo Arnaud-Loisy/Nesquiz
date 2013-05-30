@@ -215,7 +215,7 @@ input.bouton:active {
     min-height: 60px;
     height:160px;
     min-width: 60px;
-    width: 470px;
+    width: 505px;
     overflow: auto;
 }
 
@@ -225,24 +225,24 @@ input.bouton:active {
 }
 
 .identifiant{
-    width: 150px;
+    width: 130px;
     text-align: center;
 }
 
 .nom{
-    width: 70px;  
+    width: 90px;  
 }
 
 .prenom{
-    width: 70px;
+    width: 90px;
 }
 
 .admin{
-    width: 70px;
+    width: 80px;
 }
 
 .supprimer{
-    width: 70px;
+    width: 80px;
 }
 
 input.boutonMAJ {
@@ -292,7 +292,7 @@ input.boutonPetit:active {
 	display: block;
     overflow-x: auto;
 	height: 200px;
-	width: 400px;
+	width: 100%;
 }
 
 .TestScrollable thead {

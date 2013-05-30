@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=720">
-		<title>Notes</title>
+		<title>Statistiques</title>
 		<link rel="stylesheet" href="../styles/theme.css" />
 		<script type="text/javascript" src="../scripts/scripts.js"></script>
 	</head>

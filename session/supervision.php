@@ -46,7 +46,7 @@
                 echo "<br><table class='liste'  style='margin: auto' width=50%>";
                 // si session en attente
                 if ($etatsession == 1) {
-                    echo "<tr><thead><th> Nom </th> <th> Prénom </th> </thead></td> <tbody>";
+                    echo "<thead><tr><th> Nom </th> <th> Prénom </th> </tr> </thead><tbody>";
 
                     // Récupération des étudiants participants
                     $result = pg_query($dbcon, requete_etudiants_participants($dateSession)) or die("Echec de la requête");
@@ -66,7 +66,7 @@
                     $result = pg_query($dbcon, requete_etudiants_participants($dateSession)) or die("Echec de la requête");
                     $nbQuest=  pg_fetch_array(pg_query($dbcon,  requete_nb_questions_d_un_quiz($idQuiz)));
                     // affichage des étudiants participants et nb questions auxquelles ils ont répondus
-                    echo "<table class='liste' style='margin: auto' width=50%><thead> <tr> <th> Nom </th> <th> Prénom </th> <th> Questions répondues /".$nbQuest[0]." </th> </tr><thead><tbody> ";
+                    echo "<table class='liste' style='margin: auto' width=50%><thead> <tr> <th> Nom </th> <th> Prénom </th> <th> Questions répondues /".$nbQuest[0]." </th> </tr></thead><tbody> ";
                     while ($arr = pg_fetch_array($result)) {
                         $nomEtu = $arr["nometudiant"];
                         $prenomEtu = $arr["prenometudiant"];
