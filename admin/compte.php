@@ -165,7 +165,7 @@
         </tr>
         <tr>
             <td>Mot de passe</td> <td> 
-                <input name="mdp" type="text" > </td> 
+                <input name="mdp" type="password" > </td> 
         </tr>
         <tr>
             <td>Langue de l'interface :</td> <td> <select name="langue"> 
