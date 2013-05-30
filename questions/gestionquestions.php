@@ -307,7 +307,7 @@
 				$libelleMatiere = $row["libellematiere"];
 				$idMatiere = $row["idmatiere"];
 
-				echo "<div name='div_entete' style='width: 100%;'>";
+				echo "<div name='div_entete' style='width: 100%; clear: both;'>";
 				echo "<div style='display: inline-block; float: left;'>";
 				echo "<h2 style='display: inline-table; vertical-align: middle;' >Mes Matières :</h2>";
 				echo "</div>";
@@ -337,7 +337,7 @@
 			{
 				$result = pg_query($dbcon, requete_toutes_questions_dans_matiere($idMatiere));
 
-				echo "<div name='div_questions_centre' style='width: 100%; clear: both'>";
+				echo "<div name='div_questions_centre' style='width: 100%; clear: both;'>";
 				echo "<table style='width: 100%;' class = 'TestScrollable' id = 'table_libelles_questions'>";
 				echo "<thead><th style='min-width: 600px; width: 600px'>Question</th><th class='thAuto' style='min-width: 150px; width: 150px'>Mots clés</th><th class='thAuto'>Temps total</th></thead>";
 				echo "<tbody style='width: 100%'>";
