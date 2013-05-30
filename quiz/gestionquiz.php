@@ -5,12 +5,17 @@
         <title>Gestion des Quiz</title>
         <link rel="stylesheet" href="../styles/theme.css" />
         <script type='text/javascript'>
-			
+
+			/** Fonction qui permet d'inverser la couleur d'une ligne d'un tableau
+			 * 
+			 * @param Ligne d'un tableau tableRow
+			 * @returns Rien
+			 */
 			function InvertColorOfTableLine(tableRow)
 			{
 				var tableau = tableRow.parentNode.parentNode.id;
 				var lignesTableau = tableRow.parentNode.parentNode.getElementsByTagName('tr');
-				
+
 				var i = -1;
 				for (i = 0; i < lignesTableau.length; i++)
 				{
@@ -19,57 +24,63 @@
 				tableRow.style.backgroundColor = "rgb(149, 188, 242)";
 			}
 
+			/** Fonction qui permet de changer la matiere en cours sur la page
+			 * 
+			 * @param Bouton Radio radioButton
+			 * @returns Rien
+			 */
 			function ChangerMatiereEnCours(radioButton)
 			{
-				//**
-				//Modification de la liste des questions dans cette matiere
-				//**
-				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
-				var value = radioButton.value;
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "xhr_getListeQuestions.php", true);
+				var value = radioButton.value; // On recupere l'id de la matiere
 
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4 && (xhr.status == 200)) {
+				//
+				// Modification de la liste des questions de la matiere
+				//
+				var xhr = new XMLHttpRequest(); // Creation d'une variable de requete HttpRequest
+				xhr.open("POST", "xhr_getListeQuestions.php", true); // Page qui sera appelée sur le serveur
+
+				xhr.onreadystatechange = function() { // Quand le statut de xhr change
+					if (xhr.readyState == 4 && (xhr.status == 200)) { // Lorsque la requête est bien passée
 						document.getElementById('select_questions_matiere').innerHTML = xhr.responseText;
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
+						// On modifie le contenu de 'select_questions_matiere' avec le retour de la requete
+					}
 				};
+
+				// En-tete http
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				// Variable IdMatiere envoyee en POST à la page + Envoi de la requete
 				xhr.send("IdMatiere=" + value);
 
-				//**
-				//Modification de la liste des quiz dans cette matiere
-				//**
-				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+				//
+				//Modification de la liste des quiz de cette matiere
+				//
 				var xhr2 = new XMLHttpRequest();
 				xhr2.open("POST", "xhr_getListeQuizParMatiere.php", true);
 
 				xhr2.onreadystatechange = function() {
 					if (xhr2.readyState == 4 && (xhr2.status == 200)) {
 						document.getElementById('table_libelles_quiz').innerHTML = xhr2.responseText;
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
+					}
 				};
 				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr2.send("IdMatiere=" + value);
 
-				//**
+				//
 				//Modification de la liste des questions dans un quiz donne
-				//**
+				//
 				document.getElementById('table_libelles_questions_quiz').innerHTML = "<table class ='TestScrollable' style='width: 400px;' id = 'table_libelles_questions_quiz'>\
 																						<thead><th style='width:  400px'>Questions présentes</th></thead><tbody></tbody></table>";
 			}
 
 			var idQuizEnCours = -1;
 
+			/** Fonction permettant de changer le quiz selectionne sur la page
+			 * 
+			 * @param Ligne d'un tableau ligneTableau
+			 * @returns Rien
+			 */
 			function ChangerQuizEnCours(ligneTableau)
 			{
-				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
 				idQuizEnCours = ligneTableau.id;
 				var value = ligneTableau.id;
 				var xhr = new XMLHttpRequest();
@@ -78,19 +89,19 @@
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && (xhr.status == 200)) {
 						document.getElementById('table_libelles_questions_quiz').innerHTML = xhr.responseText;
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
+					}
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuiz=" + value);
 			}
 
+			/** Fonction permettant d'ajouter une question à un quiz
+			 * 
+			 * @returns Rien
+			 */
 			function AjouterQuestionAQuiz()
 			{
-				/**On récupère l'élement html <select>*/
 				var select = document.getElementById('select_questions_matiere');
 				var idQuestion = select.options[select.selectedIndex].id;
 				var xhr = new XMLHttpRequest();
@@ -113,6 +124,10 @@
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
 
+			/** Fonction permettant de supprimer une question à un quiz
+			 * 
+			 * @returns Rien
+			 */
 			function SupprimerQuestionAQuiz()
 			{
 				var idQuestion = GetSelectedRowID('table_libelles_questions_quiz');
@@ -137,6 +152,11 @@
 				xhr.send("IdQuestion=" + idQuestion + "&IdQuiz=" + idQuizEnCours);
 			}
 
+			/** Fonction retournant l'ID de la ligne selectionne dans un tableau cliquable
+			 * 
+			 * @param ID du tableau idTableau
+			 * @returns ID
+			 */
 			function GetSelectedRowID(idTableau)
 			{
 				var tableau = document.getElementById(idTableau);
@@ -152,15 +172,15 @@
 
 				return idRow;
 			}
+		</script>
 
-        </script>
     </head>
     <body>
         <div id='page'>
 			<?php
 			session_start();
-            if (!isset($_SESSION["id"]) || ($_SESSION["statut"] == "etu"))
-                header ('Location:../index.php');
+			if (!isset($_SESSION["id"]) || ($_SESSION["statut"] == "etu"))
+				header('Location:../index.php');
 			include '../accueil/menu.php';
 			include '../bdd/connexionBDD.php';
 			include '../bdd/requetes.php';

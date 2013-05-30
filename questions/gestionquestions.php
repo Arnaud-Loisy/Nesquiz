@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="../styles/theme.css" />
         <script type='text/javascript'>
 
+			/** Fonction permettant d'inverser la couleur de la ligne d'un tableau
+			 * 
+			 * @param Ligne d'un tableau tableRow
+			 * @returns Rien
+			 */
 			function InvertColorOfTableLine(tableRow)
 			{
 				var tableau = tableRow.parentNode.parentNode.id;
@@ -19,12 +24,13 @@
 				tableRow.style.backgroundColor = "rgb(149, 188, 242)";
 			}
 
+			/** Fonction permettant de changer la matiere en cours
+			 * 
+			 * @param Radio Button radioButton
+			 * @returns Rien
+			 */
 			function ChangerMatiereEnCours(radioButton)
-			{
-				//**
-				//Modification de la liste des questions dans cette matiere
-				//**
-				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
+			{	
 				var value = radioButton.value;
 				var xhr = new XMLHttpRequest();
 				xhr.open("POST", "xhr_getListeQuestionsParMatiere.php", true);
@@ -32,10 +38,7 @@
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && (xhr.status == 200)) {
 						document.getElementById('table_libelles_questions').innerHTML = xhr.responseText;
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
+					}
 				};
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdMatiere=" + value);
@@ -47,6 +50,11 @@
 
 			var idQuestionEnCours = -1;
 
+			/** Fonction permettant de changer la question selectionnee dans la page
+			 * 
+			 * @param Ligne d'un tableau ligneTableau
+			 * @returns Rien
+			 */
 			function ChangerQuestionEnCours(ligneTableau)
 			{
 				//var value = oSelect.options[oSelect.selectedIndex].value;	²	
@@ -58,16 +66,17 @@
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && (xhr.status == 200)) {
 						document.getElementById('table_libelles_reponses_questions').innerHTML = xhr.responseText;
-						//document.getElementById("loader").style.display = "none";
-					} /*else if (xhr.readyState < 4) {
-					 document.getElementById("loader").style.display = "inline";
-					 }*/
+					}
 				};
 
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("IdQuestion=" + value);
 			}
 
+			/** Fonction de suppression d'une question dans une matiere
+			 * 
+			 * @returns Rien
+			 */
 			function SupprimerQuestionAMatiere()
 			{
 				var idQuestion = GetSelectedRowID('table_libelles_questions');
@@ -104,6 +113,10 @@
 				xhr.send("IdQuestion=" + idQuestion + "&IdMatiere=" + idMatiere);
 			}
 
+			/** Fonction qui permet d'ajouter une question a une matiere
+			 * 
+			 * @returns Rien
+			 */
 			function AjouterQuestionAMatiere()
 			{
 				var libelleQuestion = document.getElementById('input_text_nouvelle_question').value;
@@ -142,6 +155,10 @@
 				xhr.send("LibelleQuestion=" + libelleQuestion + "&MotsCles=" + motsCles + "&TempsTotal=" + tempsTotal + "&IdMatiere=" + idMatiere);
 			}
 
+			/** Fonction permettant d'ajouter une reponse à une question
+			 * 
+			 * @returns Rien
+			 */
 			function AjouterReponseAQuestion()
 			{
 				var libelleReponse = document.getElementById('input_text_nouvelle_reponse').value;
@@ -178,6 +195,10 @@
 				xhr.send("LibelleReponse=" + libelleReponse + "&Valide=" + valide + "&IdQuestion=" + idQuestion);
 			}
 
+			/** Fonction peremttant de retirer une reponse a une question
+			 * 
+			 * @returns Rien
+			 */
 			function RetirerReponseAQuestion()
 			{
 				var idQuestion = GetSelectedRowID('table_libelles_questions');
@@ -208,6 +229,11 @@
 				xhr.send("IdQuestion=" + idQuestion + "&IdReponse=" + idReponse);
 			}
 
+			/** Fonction permettant de retourner l'ID de la ligne selectionnee dans un tableau
+			 * 
+			 * @param Ligne de tableau idTableau
+			 * @returns ID
+			 */
 			function GetSelectedRowID(idTableau)
 			{
 				var tableau = document.getElementById(idTableau);
@@ -223,7 +249,12 @@
 
 				return idRow;
 			}
-
+			
+			/** Fonction permettant de modifier la validite d'une reponse
+			 * 
+			 * @param La  checkbox qui a étée cliquée checkbox
+			 * @returns Rien
+			 */
 			function ModifierValiditeReponse(checkbox)
 			{
 				var idReponse = checkbox.id;
